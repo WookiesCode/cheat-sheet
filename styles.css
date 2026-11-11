@@ -7986,12 +7986,16 @@ body.hub-folded #sections-container, body.hub-folded #empty-state { display: non
 .hub-wall button > span { color: var(--accent-primary); }
 .hub-wall small { font-weight: 500; color: var(--text-muted); font-size: 0.76rem; }
 @media print { .hub-landing, .hub-wall { display: none; } body.hub-folded #sections-container { display: block !important; } }
+/* A recipe row's own source, when it differs from its card's. */
+.cmd-source.is-sub { margin: -0.15rem 0 0.35rem 0.6rem; font-size: 0.68rem; }
 /* Merged group pages (cli-tools.html#grep): the picked part, and a way back to all of them. */
 body.sheet-filtered #quick-widgets,
 body.sheet-filtered #hub-landing { display: none; }
 .sheet-filter-bar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem; margin: 0 0 1rem; padding: 0.65rem 1rem; background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: 10px; font: 0.86rem var(--font-sans); color: var(--text-secondary); }
-.sheet-filter-bar b { color: var(--text-primary); font: 700 0.95rem var(--font-mono); }
-.sheet-filter-bar .sfb-about { color: var(--text-secondary); }
+.sheet-filter-bar .sfb-main { flex: 1 1 auto; min-width: 0; }
+.sheet-filter-bar b { color: var(--text-primary); font: 700 0.95rem var(--font-sans); }
+.sheet-filter-bar .sfb-pill { display: inline-block; margin-left: 0.35rem; padding: 0.05rem 0.45rem; border: 1px solid var(--border-strong); border-radius: 999px; font: 600 0.7rem var(--font-mono); color: var(--accent-primary); white-space: nowrap; }
+.sheet-filter-bar .sfb-about { margin: 0.2rem 0 0; color: var(--text-secondary); font-size: 0.8rem; }
 .sheet-filter-bar .sfb-all { margin-left: auto; font-weight: 600; color: var(--accent-primary); text-decoration: none; white-space: nowrap; }
 .sheet-filter-bar .sfb-all:hover, .sheet-filter-bar .sfb-all:focus-visible { text-decoration: underline; }
 @media print { .sheet-filter-bar .sfb-all { display: none; } }

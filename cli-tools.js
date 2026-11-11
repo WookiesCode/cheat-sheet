@@ -1910,7 +1910,244 @@ const state = {
 
 // The tool the hash picks (#grep, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(CLI_TOOLS_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: CLI_TOOLS_DATA, label: "CLI tools" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: CLI_TOOLS_DATA, label: "CLI tools", parts: {
+   "arp-scan": {
+    "title": "ndisc6 / ip -6 neigh — IPv6 Neighbor & Router Discovery",
+    "subtitle": "Discovering Layer-2 MAC addresses, EUI-64 link-local nodes, and switch Router Advertisements (rdisc6 / ndisc6 / ip -6 neigh)",
+    "pill": "NDP / CLI Utility"
+   },
+   "awk": {
+    "title": "awk — Column Processing, Math & Associative Arrays",
+    "subtitle": "Field splitting (-F), built-in variables (NR/NF/FNR), conditional filtering, math summaries & array grouping",
+    "pill": "AWK / CLI Utility"
+   },
+   "base64": {
+    "title": "base64 — Offline Serial / SOL Console File Paste",
+    "subtitle": "Encoding scripts, configs, or small binaries into single-line ASCII (-w0) to paste over a serial console when NICs are dead",
+    "pill": "B64 / CLI Utility"
+   },
+   "cloud-init": {
+    "title": "cloud-init — Ubuntu Automated Provisioning Triage",
+    "subtitle": "Inspecting MaaS / Subiquity / NoCloud first-boot status, module timing blame & user-data script logs",
+    "pill": "CLD / CLI Utility"
+   },
+   "column": {
+    "title": "column — Aligned Terminal Table Formatter",
+    "subtitle": "Auto-sizing column widths (-t), custom input delimiters (-s), column headers (-N) & JSON output (-J)",
+    "pill": "COL / CLI Utility"
+   },
+   "comm": {
+    "title": "comm — Sorted File & Inventory Set Comparison",
+    "subtitle": "Comparing two sorted server/serial lists to find missing nodes (-23), extra nodes (-13), or common nodes (-12)",
+    "pill": "COM / CLI Utility"
+   },
+   "curl": {
+    "title": "curl — IPv6 HTTP Transfers, Globoff (-g), Resume & Timing",
+    "subtitle": "Bracketed IPv6 URLs (-g -6), resuming ISO/firmware downloads (-C -), failing on 4xx/5xx (-f) & DNS override (--resolve)",
+    "pill": "CRL / CLI Utility"
+   },
+   "cut": {
+    "title": "cut — Delimited Field & Character Slicing",
+    "subtitle": "Extracting columns by delimiter (-d -f), field ranges (-f2-), complement extraction (--complement) & output delimiters",
+    "pill": "CUT / CLI Utility"
+   },
+   "dd": {
+    "title": "dd — Raw Block Cloning, Direct I/O & Benchmarks",
+    "subtitle": "Direct I/O storage tests (iflag=direct), live USR1 progress stats, sparse disk cloning & MBR/GPT header backups",
+    "pill": "DD / CLI Utility"
+   },
+   "dmesg": {
+    "title": "dmesg — Kernel Ring Buffer & Hardware Event Log",
+    "subtitle": "Human-readable timestamps (-T), live hardware event following (-w), severity filtering (--level) & OOM/MCE/AER triage",
+    "pill": "DMG / CLI Utility"
+   },
+   "efibootmgr": {
+    "title": "efibootmgr — UEFI Boot Order & PXE NextBoot",
+    "subtitle": "Inspecting UEFI NVRAM boot entries (-v), setting one-time PXE NextBoot (-n), changing BootOrder (-o) & BIOS reboot",
+    "pill": "EFI / CLI Utility"
+   },
+   "file": {
+    "title": "file — Binary, Filesystem & Magic Header Identifier",
+    "subtitle": "Inspecting ELF binaries, core dumps, raw disk partition headers (-s), and compressed archives via magic bytes",
+    "pill": "FIL / CLI Utility"
+   },
+   "find": {
+    "title": "find — Filesystem Search & Inode Predicates",
+    "subtitle": "mtime/mmin/size/perm/inode predicates, mount boundaries (-xdev), directory pruning (-prune) & batch -exec +",
+    "pill": "FND / CLI Utility"
+   },
+   "fuser": {
+    "title": "fuser — Mountpoint, Device & Lock File Owners",
+    "subtitle": "Resolving 'umount: target is busy' (-vm), identifying APT/dpkg lock holders & signaling blocking PIDs (-k)",
+    "pill": "FSR / CLI Utility"
+   },
+   "grep": {
+    "title": "grep — Pattern, Regex & Log Search",
+    "subtitle": "Extended & Perl regex (-E / -P), context lines (-A/-B/-C), comment stripping, zgrep & sysfs multi-file reads",
+    "pill": "GRP / CLI Utility"
+   },
+   "http-server": {
+    "title": "http.server — Instant IPv6 HTTP File Staging",
+    "subtitle": "Serving BIOS/BMC firmware .bin files and ISOs over IPv6 HTTP (--bind ::) on an isolated rack VLAN with python3",
+    "pill": "WEB / CLI Utility"
+   },
+   "ip": {
+    "title": "ip — IPv6 Interfaces, Routing, NDP & Namespaces",
+    "subtitle": "iproute2 link/addr state (-6 -br -c), packet drop counters (-s -s), route policy lookup (ip -6 route get) & NDP cache (ip -6 neigh)",
+    "pill": "IP6 / CLI Utility"
+   },
+   "jq": {
+    "title": "jq — JSON Querying for Hardware, Network & BMC APIs",
+    "subtitle": "Parsing ip -j, lsblk -J, lshw -json, nvme -o json & Redfish responses with select(), -r raw output & @tsv",
+    "pill": "JQ / CLI Utility"
+   },
+   "ls": {
+    "title": "ls — Directory, Inode & Sparse Block Listing",
+    "subtitle": "Sorting by mtime/size/version (-t/-S/-v), inode numbers (-i), allocated vs sparse disk blocks (-s) & full-iso time",
+    "pill": "LS / CLI Utility"
+   },
+   "lsof": {
+    "title": "lsof — Open Files, Deleted Space & Network Sockets",
+    "subtitle": "Finding unlinked open files eating disk space (+L1), listening TCP/UDP socket owners (-i) & per-PID descriptors",
+    "pill": "LSF / CLI Utility"
+   },
+   "namei": {
+    "title": "namei — Path & Symlink Permission Chain Resolver",
+    "subtitle": "Walking every parent directory and symlink from '/' down to a target path to spot broken permissions or loops",
+    "pill": "NMI / CLI Utility"
+   },
+   "nmap": {
+    "title": "nmap — IPv6 Rack Discovery, Multicast & BMC Port Scans",
+    "subtitle": "Discovering IPv6 hosts via ICMPv6 all-nodes multicast (ff02::1) and scanning SSH/Redfish/IPMI ports with nmap -6",
+    "pill": "NMP / CLI Utility"
+   },
+   "openssl": {
+    "title": "openssl — IPv6 TLS Certificate, Cipher & Hash Inspection",
+    "subtitle": "Live IPv6 HTTPS/BMC certificate inspection (s_client -6), decoding PEM/X.509 expiration dates & SANs, and generating secrets",
+    "pill": "SSL / CLI Utility"
+   },
+   "ps": {
+    "title": "ps — Process, Thread & State Inspection",
+    "subtitle": "Custom -eo columns, STAT state triage, hung D-state kernel wchan, CPU core affinity (psr) & thread views",
+    "pill": "PS / CLI Utility"
+   },
+   "rsync": {
+    "title": "rsync — Delta File Sync, Mirroring & Throttling",
+    "subtitle": "Archive mode (-a), partial resume & progress (-P), dry-run mirror verification (-n --delete) & bandwidth limits",
+    "pill": "RSY / CLI Utility"
+   },
+   "scp": {
+    "title": "scp — IPv6 SSH File Transfers & 3-Way Remote Copy",
+    "subtitle": "Bracketed IPv6 syntax (-6 user@[ipv6]:/path), custom SSH port (-P), ProxyJump bastion (-J) & 3-way server copy (-3)",
+    "pill": "SCP / CLI Utility"
+   },
+   "sed": {
+    "title": "sed — Stream Editing, Config Patching & Log Slicing",
+    "subtitle": "In-place edits with backup (-i.bak), custom regex delimiters, timestamp range extraction & capture groups",
+    "pill": "SED / CLI Utility"
+   },
+   "sftp": {
+    "title": "sftp — Interactive IPv6 SSH File Transfer & Resume",
+    "subtitle": "Interactive remote browsing over IPv6, resuming interrupted transfers (reget/reput), batch scripts (-b) & recursive put/get",
+    "pill": "SFT / CLI Utility"
+   },
+   "sort": {
+    "title": "sort — Multi-Key, Human Size & Version Sorting",
+    "subtitle": "Human suffixes (-h: 2G > 500M), natural version/IPv4 sort (-V), column key specs (-t -k) & unique sort (-u)",
+    "pill": "SRT / CLI Utility"
+   },
+   "ss": {
+    "title": "ss — IPv6 Socket Statistics, Port Owners & TCP Internals",
+    "subtitle": "Listening IPv6/dual-stack ports (-tulpn), socket state filtering, TCP congestion/retransmits (-6 -ti) & summaries (-s)",
+    "pill": "SS / CLI Utility"
+   },
+   "stat": {
+    "title": "stat — Inode & Filesystem Metadata",
+    "subtitle": "Octal & symbolic permissions, birth/access/modify/change timestamps, device IDs & filesystem block/inode status",
+    "pill": "STT / CLI Utility"
+   },
+   "strace": {
+    "title": "strace — System Call, Signal & Latency Tracer",
+    "subtitle": "Live PID attachment (-p), thread following (-f), syscall duration (-T), missing file triage & summary profiling (-c)",
+    "pill": "STC / CLI Utility"
+   },
+   "strings": {
+    "title": "strings — Firmware & Core Dump String Extraction",
+    "subtitle": "Extracting embedded ASCII/UTF version strings, board IDs, and build dates from .bin/.rom firmware blobs and core dumps",
+    "pill": "STR / CLI Utility"
+   },
+   "sudo": {
+    "title": "sudo & root — Why Root Is Dangerous and How to Use sudo",
+    "subtitle": "What root is, what can go wrong as root, why sudo is safer than a root login, and the sudo options you use on the job",
+    "pill": "SUDO / CLI Utility"
+   },
+   "sysctl": {
+    "title": "sysctl — Runtime Linux Kernel Parameters",
+    "subtitle": "Inspecting and tuning /proc/sys network buffers, VM swappiness/hugepages, file-max & kernel panic timeouts",
+    "pill": "SCT / CLI Utility"
+   },
+   "tar": {
+    "title": "tar — Archiving, Sparse Backups & SSH Streams",
+    "subtitle": "Creating/extracting archives (-c/-x/-t), sparse VM disk handling (-S), --numeric-owner & zero-disk SSH streaming",
+    "pill": "TAR / CLI Utility"
+   },
+   "tcpdump": {
+    "title": "tcpdump — IPv6 Packet Capture, ICMPv6/NDP & BPF Filters",
+    "subtitle": "Capturing 802.1Q VLAN tags, DHCPv6 (546/547)/PXEv6/TFTP, ICMPv6 RA/NDP (133–136), LLDP frames & TCP SYN/RST flags",
+    "pill": "TCP / CLI Utility"
+   },
+   "tee": {
+    "title": "tee — Privileged File Writing & Stream Splitting",
+    "subtitle": "Writing to root-owned /sys and /proc files with sudo tee, appending (-a) & logging while viewing live stdout",
+    "pill": "TEE / CLI Utility"
+   },
+   "tio": {
+    "title": "tio — Serial Console Crash-Cart Client",
+    "subtitle": "Connecting USB-to-Serial cables (/dev/ttyUSB0 at 115200 8N1) with automatic hotplug reconnect & session logging",
+    "pill": "TIO / CLI Utility"
+   },
+   "tmux": {
+    "title": "tmux — Persistent Sessions & Synchronized Panes",
+    "subtitle": "Keeping firmware flashes/burn-ins alive across SSH drops, broadcasting keystrokes across servers & pane log export",
+    "pill": "TMX / CLI Utility"
+   },
+   "tr": {
+    "title": "tr — Character Translation, Squeezing & Deletion",
+    "subtitle": "Squeezing repeated whitespace (-s), deleting unwanted characters (-d), case conversion & delimiter swapping",
+    "pill": "TR / CLI Utility"
+   },
+   "udevadm": {
+    "title": "udevadm — Live Hotplug Monitor & Device Rules",
+    "subtitle": "Watching kernel/udev hotplug events (monitor), querying /dev/disk/by-id attributes (info) & reloading udev rules",
+    "pill": "UDV / CLI Utility"
+   },
+   "uniq": {
+    "title": "uniq — Frequency Counting & Duplicate Filtering",
+    "subtitle": "Occurrence histograms (uniq -c), isolating duplicate lines (-d), printing unique-only lines (-u) & case folding (-i)",
+    "pill": "UNQ / CLI Utility"
+   },
+   "watch": {
+    "title": "watch — Periodic Execution & Live Counter Diffs",
+    "subtitle": "Highlighting changing counters (-d), sub-second intervals (-n), color preservation (-c) & exit-on-change (-g)",
+    "pill": "WTC / CLI Utility"
+   },
+   "xargs": {
+    "title": "xargs — Parallel & Batch Command Execution",
+    "subtitle": "Null-delimited safe pipelines (-0), multi-core parallel worker pools (-P), batching (-n) & empty-input guard (-r)",
+    "pill": "XRG / CLI Utility"
+   },
+   "xxd": {
+    "title": "xxd — Hex + ASCII Dump & Binary Patching",
+    "subtitle": "Inspecting MBR/GPT disk headers, SFP/FRU EEPROM dumps, verifying .bin firmware headers & hex-to-binary reversal (-r)",
+    "pill": "XXD / CLI Utility"
+   },
+   "zstd": {
+    "title": "zstd — Multithreaded High-Speed Compression",
+    "subtitle": "All-core compression (-T0), decompression (-d), adaptive compression (--adapt) & tar filter integration",
+    "pill": "ZST / CLI Utility"
+   }
+  } };
 
 // DOM References
 const searchInput = document.getElementById("search-input");

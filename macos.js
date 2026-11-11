@@ -1247,7 +1247,49 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(MACOS_CHEAT_SHEET_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: MACOS_CHEAT_SHEET_DATA, label: "macOS sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: MACOS_CHEAT_SHEET_DATA, label: "macOS sheets", parts: {
+   "macos-darwin-cli": {
+    "title": "macOS Clipboard, Open & Spotlight CLI",
+    "subtitle": "pbcopy, pbpaste, open, mdfind, mdls, qlmanage & terminal-to-GUI bridges",
+    "pill": "CLI / macOS 26 & 27"
+   },
+   "macos-finder-keys": {
+    "title": "Finder, Quick Look & File Dialogs",
+    "subtitle": "Path navigation, cut/move files, hidden dotfiles, Quick Look & Open/Save dialogs",
+    "pill": "FNDR / macOS 26 & 27"
+   },
+   "macos-homebrew": {
+    "title": "Homebrew & Package Management",
+    "subtitle": "CLI formulae, GUI casks, cleanup, dependency trees, Brewfiles & background services",
+    "pill": "BREW / macOS 26 & 27"
+   },
+   "macos-net-disk-sec": {
+    "title": "Networking, Disks, Gatekeeper & Keychain",
+    "subtitle": "DNS flush, networkQuality, lsof ports, diskutil APFS, xattr quarantine & security",
+    "pill": "NET / macOS 26 & 27"
+   },
+   "macos-system-admin": {
+    "title": "System Defaults, Launchd, Power & Hardware",
+    "subtitle": "defaults, plutil, launchctl, caffeinate, pmset, sysctl & softwareupdate",
+    "pill": "SYS / macOS 26 & 27"
+   },
+   "macos-system-keys": {
+    "title": "System, Window & Screenshot Shortcuts",
+    "subtitle": "Spotlight, screen capture, window tiling, app switching & lock/force-quit",
+    "pill": "KEYS / macOS 26 & 27"
+   },
+   "macos-text-editing": {
+    "title": "Text Editing, Cursor & Selection Shortcuts",
+    "subtitle": "Word/line jumps, forward delete, unformatted paste & special characters",
+    "pill": "TXT / macOS 26 & 27"
+   },
+   "macos-trackpad": {
+    "title": "Multi-Touch Trackpad & Mouse Gestures",
+    "subtitle": "Spaces, Mission Control, Quick Look, Zoom & hidden trackpad tricks",
+    "pill": "PAD / macOS 26 & 27"
+   }
+  } };
 
 
 // DOM Elements

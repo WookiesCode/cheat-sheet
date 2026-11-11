@@ -15,14 +15,14 @@ const DAY = 86400000;
   {
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
-    await p.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     await p.waitForTimeout(500);
     let u = await usage(p);
-    check(u.sheets && u.sheets['nv-smi.html'] && u.sheets['nv-smi.html'].n === 1 && u.since > 0, `opening nv-smi counts one sheet view and starts the meter (${JSON.stringify(u.sheets)})`);
+    check(u.sheets && u.sheets['nvidia.html#nv-smi'] && u.sheets['nvidia.html#nv-smi'].n === 1 && u.since > 0, `opening nv-smi counts one sheet view and starts the meter (${JSON.stringify(u.sheets)})`);
     await p.reload({ waitUntil: 'load' });
     await p.waitForTimeout(500);
     u = await usage(p);
-    check(u.sheets['nv-smi.html'].n === 2, `a second visit counts again (${u.sheets['nv-smi.html'].n})`);
+    check(u.sheets['nvidia.html#nv-smi'].n === 2, `a second visit counts again (${u.sheets['nvidia.html#nv-smi'].n})`);
 
     await p.keyboard.press('e');
     await p.waitForTimeout(300);
@@ -55,7 +55,7 @@ const DAY = 86400000;
     await ctx.addInitScript((a) => localStorage.setItem('dc_usage', JSON.stringify(a)), {
       since: now - 40 * DAY,
       tools: { explain: { n: 9, t: now - DAY }, rack: { n: 2, t: now - 35 * DAY } },
-      sheets: { 'nv-smi.html': { n: 4, t: now - DAY }, 'nv-mig.html': { n: 1, t: now - 31 * DAY }, 'notes.html': { n: 3, t: now - DAY } }
+      sheets: { 'nvidia.html#nv-smi': { n: 4, t: now - DAY }, 'nvidia.html#nv-mig': { n: 1, t: now - 31 * DAY }, 'notes.html': { n: 3, t: now - DAY } }
     });
     const p = await ctx.newPage();
     await p.goto(BASE + 'tools.html', { waitUntil: 'load' });
@@ -77,7 +77,7 @@ const DAY = 86400000;
     check(f && f.tools.includes('rack') && !f.tools.includes('explain') && !f.tools.includes('notes') && f.tools.length === f.total - 2,
       `tools: Rack (35 days) is listed; Explain and Field notes (a page, counted as a sheet view) aren't; everything never opened is (${f && f.tools.length} of ${f && f.total})`);
     check(f && f.hubLabel === 'NVIDIA DC hub', `a suite's hub page reads as "<suite> hub" (${f && f.hubLabel})`);
-    check(f && f.sheets.includes('nv-mig.html') && !f.sheets.includes('nv-smi.html'), 'sheets: nv-mig (31 days) is listed, nv-smi (yesterday) is not');
+    check(f && f.sheets.includes('nvidia.html#nv-mig') && !f.sheets.includes('nvidia.html#nv-smi'), 'sheets: nv-mig (31 days) is listed, nv-smi (yesterday) is not');
     check(f && /Most opened: Explain a command 9/.test(f.note) && !/not opened since then/.test(f.note), `the note names the most-opened tool and no "young meter" caveat (${f && f.note.slice(0, 120)})`);
     // A listed tool opens straight from the fold.
     await p.click('.wb-unused-tools [data-wb-open="rack"]');

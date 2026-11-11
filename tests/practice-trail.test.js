@@ -13,10 +13,10 @@ const check = (ok, what) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`); if
   const pick = async () => {
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
-    await p.goto(BASE + 'k8s-nodes.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'containers.html#k8s-nodes', { waitUntil: 'load' });
     await p.waitForTimeout(400);
     const r = await p.evaluate(() => {
-      const ok = i => i.file === 'k8s-nodes.html' && !i.noCopy && !/\n/.test(i.cmd) && i.cmd.length < 160 && i.desc.length > 6 && i.desc !== i.cmd;
+      const ok = i => (i.sheet || i.file) === 'containers.html#k8s-nodes' && !i.noCopy && !/\n/.test(i.cmd) && i.cmd.length < 160 && i.desc.length > 6 && i.desc !== i.cmd;
       const items = window.GLOBAL_SEARCH_INDEX.filter(ok);
       const slot = items.find(i => /<[a-z][^<>]*>/.test(i.cmd));
       const plain = items.find(i => !/[<$]/.test(i.cmd) && i.desc !== (slot && slot.desc));
@@ -54,7 +54,7 @@ const check = (ok, what) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`); if
     const nodes = { active: 'gpu-node-07', nodes: { 'gpu-node-07': { t }, 'gpu-node-12': { t, data: { dc_case_trail: JSON.stringify([{ id: 'e', t, cmd: plain.cmd, sheet: 'k8s-nodes', note: '' }]) } } } };
     await ctx.addInitScript(seed, { trail, nodes });
     const p = await ctx.newPage();
-    await p.goto(BASE + 'k8s-nodes.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'containers.html#k8s-nodes', { waitUntil: 'load' });
     await p.waitForTimeout(500);
     const chips = await openPractice(p);
     const mine = chips.find(c => c.spec === 'trail');
@@ -82,7 +82,7 @@ const check = (ok, what) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`); if
   {
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
-    await p.goto(BASE + 'k8s-nodes.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'containers.html#k8s-nodes', { waitUntil: 'load' });
     await p.waitForTimeout(500);
     const chips = await openPractice(p);
     check(!chips.some(c => c.spec === 'trail'), 'with an empty trail there is no "From my trail" chip');

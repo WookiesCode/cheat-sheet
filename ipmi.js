@@ -621,6 +621,54 @@ const IPMI_CHEAT_SHEET_DATA = [
         src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}, {"url": "https://docs.kernel.org/driver-api/ipmi.html", "title": "Linux kernel IPMI driver"}], "note": "The kernel doc does not name /dev/ipmi0 itself."}
       }
     ]
+  },
+  {
+    "id": "fru-mc-watchdog-pro-tips",
+    "badge": "tip",
+    "title": "FRU, BMC Reset & Watchdog: Pro Tips & Best Practices",
+    "subtitle": "Hardware Inventory Audit & BMC Health Maintenance",
+    "commands": [
+      {
+        "id": "fru-mc-watchdog-tips-card",
+        "desc": "Hardware Inventory Audit & BMC Health Maintenance",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E fru print",
+        "details": "FRU (Field Replaceable Unit) EEPROMs store board, chassis and PSU part numbers, serials and asset tags. If the BMC stops serving its web UI or Redfish, \"mc reset cold\" restarts the BMC; on most servers the host keeps running, but fans may ramp while it boots.",
+        "flags": [
+          [
+            "fru print",
+            "Dump board manufacturer, product name, serial number, and part number EEPROM data"
+          ],
+          [
+            "mc info",
+            "Display BMC firmware revision, IPMI version compliance (v2.0), and device ID"
+          ],
+          [
+            "mc reset cold",
+            "Restart the BMC (the host normally stays up)"
+          ]
+        ],
+        "tip": "Check \"mc watchdog get\" to verify hardware watchdog timer parameters; disable watchdog during prolonged debug sessions.",
+        "tags": [
+          "fru-mc-watchdog",
+          "tips",
+          "pro",
+          "ipmitool",
+          "bmc",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool(1) man page"
+            }
+          ],
+          "note": "\"The host stays up\" and fan ramp during a BMC reset are typical server behaviour, not stated in the ipmitool man page."
+        }
+      }
+    ],
+    "part": "ipmi-fru-mc"
   }
 ];
 
@@ -731,7 +779,44 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(IPMI_CHEAT_SHEET_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: IPMI_CHEAT_SHEET_DATA, label: "ipmitool sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: IPMI_CHEAT_SHEET_DATA, label: "ipmitool sheets", parts: {
+   "ipmi-bmc-lan-users": {
+    "title": "BMC Network & Users",
+    "subtitle": "In-band BMC IPv6/IPv4 discovery (lan6 print), SLAAC/DHCPv6/Static config, VLAN tagging & user password resets",
+    "pill": "LAN / IPMI 2.0 & RMCP+"
+   },
+   "ipmi-boot-override": {
+    "title": "Boot Device Override",
+    "subtitle": "One-time UEFI PXE network boot, BIOS Setup entry, Virtual CD ISO & clearing 60s timeout",
+    "pill": "BOOT / IPMI 2.0 & RMCP+"
+   },
+   "ipmi-chassis-power": {
+    "title": "Chassis Power & UID",
+    "subtitle": "Power status/on/off/cycle/reset/soft/diag, last power fault reason & UID LED",
+    "pill": "PWR / IPMI 2.0 & RMCP+"
+   },
+   "ipmi-fru-mc": {
+    "title": "FRU, BMC Reset & Watchdog",
+    "subtitle": "Motherboard/chassis/PSU serials, cold resetting hung BMC & hardware watchdog timer",
+    "pill": "FRU / IPMI 2.0 & RMCP+"
+   },
+   "ipmi-sel-logs": {
+    "title": "SEL Logs & Faults",
+    "subtitle": "Decoded SEL event listing, ECC/PCIe/PSU assertion triage, BMC clock sync & clearing logs",
+    "pill": "SEL / IPMI 2.0 & RMCP+"
+   },
+   "ipmi-sensors-sdr": {
+    "title": "Sensors & DCMI Power",
+    "subtitle": "Extended SDR readings, temperature/fan/PSU filtering, thresholds & DCMI power draw",
+    "pill": "SDR / IPMI 2.0 & RMCP+"
+   },
+   "ipmi-sol-console": {
+    "title": "SOL Serial Console",
+    "subtitle": "Interactive BIOS/GRUB/kernel serial console over UDP/623, kicking hung sessions & baud rates",
+    "pill": "SOL / IPMI 2.0 & RMCP+"
+   }
+  } };
 
 
 // DOM Elements
@@ -932,6 +1017,23 @@ function renderSections() {
               </div>`
             : "";
 
+        // Recipes (they had cards of their own on the old per-topic pages).
+        const subcommandsHtml =
+          item.subcommands && item.subcommands.length
+            ? `<div class="subcmd-list">
+                <span class="subcmd-header">Subcommands &amp; Recipes (click any to copy)</span>
+                ${item.subcommands
+                  .map(
+                    ([subcmd, explanation]) =>
+                      `<div class="subcmd-row" data-copy="${escapeHtml(subcmd)}" title="Click to copy subcommand">
+                        <code>${escapeHtml(subcmd)}</code>
+                        <span>${escapeHtml(explanation)}</span>
+                      </div>`
+                  )
+                  .join("")}
+              </div>`
+            : "";
+
         const copyTarget = item.cmd.includes("   |   ")
           ? item.cmd.split("   |   ")[0].trim()
           : item.cmd.trim();
@@ -963,6 +1065,7 @@ function renderSections() {
             </div>
 
             ${flagsHtml}
+            ${subcommandsHtml}
           </div>
         `;
       })
@@ -1127,7 +1230,7 @@ function initEvents() {
   });
 
   sectionsContainer.addEventListener("click", (e) => {
-    const copyBox = e.target.closest(".cmd-code-box");
+    const copyBox = e.target.closest(".cmd-code-box, .subcmd-row");
     if (copyBox) {
       copyToClipboard(copyBox.dataset.copy);
       return;

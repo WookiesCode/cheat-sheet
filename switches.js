@@ -1196,6 +1196,62 @@ const SWITCH_DATA = [
         }
       }
     ]
+  },
+  {
+    "id": "cumulus-bgp-roce-pro-tips",
+    "badge": "tip",
+    "title": "Cumulus: BGP, EVPN & RoCEv2: Pro Tips & Best Practices",
+    "subtitle": "BGP Unnumbered & RoCEv2 Lossless Buffer Configuration",
+    "commands": [
+      {
+        "id": "cumulus-bgp-roce-tips-card",
+        "desc": "BGP Unnumbered & RoCEv2 Lossless Buffer Configuration",
+        "cmd": "nv show vrf default router bgp neighbor && nv show qos roce",
+        "details": "Leaf-spine fabrics often use BGP unnumbered (IPv6 link-local peering). Cumulus RoCE lossless mode maps switch priority 3 to the RoCE traffic class with PFC and ECN, and priority 6 to CNP; nv set qos roce turns it on.",
+        "flags": [
+          [
+            "nv show vrf default router bgp neighbor",
+            "BGP neighbours and state"
+          ],
+          [
+            "nv show qos roce",
+            "Current RoCE mode and settings"
+          ],
+          [
+            "nv set qos roce",
+            "Enable RoCE lossless mode (default mode; changes state, then nv config apply)"
+          ]
+        ],
+        "tip": "The NIC must tag RoCE traffic with the same priority the switch treats as lossless (3 by default), or the traffic is not protected by PFC.",
+        "tags": [
+          "cumulus-bgp-roce",
+          "tips",
+          "pro",
+          "switches",
+          "fabric",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-3/Border-Gateway-Protocol-BGP/Troubleshooting-BGP/",
+              "title": "Cumulus Linux 5.18: troubleshooting BGP"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Quality-of-Service/RDMA-over-Converged-Ethernet-RoCE/",
+              "title": "Cumulus Linux 5.18: RoCE"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/QoS/",
+              "title": "NVUE reference: QoS"
+            }
+          ],
+          "note": "Corrected 2026-11-10: replaced an unverified nv set qos pfc syntax with NVIDIA's nv set qos roce."
+        }
+      }
+    ],
+    "part": "sw-cumulus-bgp"
   }
 ];
 
@@ -1283,7 +1339,84 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(SWITCH_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: SWITCH_DATA, label: "Switches sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: SWITCH_DATA, label: "Switches sheets", parts: {
+   "sw-arista-bgp": {
+    "title": "Arista EOS: BGP & Health",
+    "subtitle": "Checking BGP summary, PSU/fan/cooling status (show environment), syslog events & session config diffs",
+    "pill": "ENV / DC NOS & Fabric"
+   },
+   "sw-arista-mlag": {
+    "title": "Arista EOS: LLDP & MLAG",
+    "subtitle": "Mapping connected servers (show lldp neighbors), inspecting Port-Channels, MLAG dual-ToR state & MAC/ARP tables",
+    "pill": "MLG / DC NOS & Fabric"
+   },
+   "sw-arista-ports": {
+    "title": "Arista EOS: Ports & DOM",
+    "subtitle": "Checking Ethernet* link states, optical transceiver light levels (dBm), CRC/symbol errors & port bouncing",
+    "pill": "EOS / DC NOS & Fabric"
+   },
+   "sw-cumulus-bgp": {
+    "title": "Cumulus: BGP, EVPN & RoCEv2",
+    "subtitle": "Checking BGP Unnumbered spine/leaf peers, routing tables, and RoCEv2 Priority Flow Control (PFC) / ECN counters",
+    "pill": "BGP / DC NOS & Fabric"
+   },
+   "sw-cumulus-bonds": {
+    "title": "Cumulus: MLAG Bonds & VLAN",
+    "subtitle": "Inspecting 802.3ad LACP port-channels, MLAG dual-ToR peer health, and access/trunk VLAN assignments",
+    "pill": "LCP / DC NOS & Fabric"
+   },
+   "sw-cumulus-hw": {
+    "title": "Cumulus: PSU, Fans & Config",
+    "subtitle": "Checking switch power supplies, fan trays, ASIC temperatures & managing NVUE configuration revisions/rollbacks",
+    "pill": "PSU / DC NOS & Fabric"
+   },
+   "sw-cumulus-lldp": {
+    "title": "Cumulus: LLDP, MAC & ARP",
+    "subtitle": "Mapping switch ports (swp*) to connected server hostnames/NICs via LLDP and inspecting bridge MAC & ARP entries",
+    "pill": "LLD / DC NOS & Fabric"
+   },
+   "sw-cumulus-optics": {
+    "title": "Cumulus: Optics DOM & FEC",
+    "subtitle": "Reading SFP/QSFP/OSFP laser Tx/Rx dBm power, module temperature, part/serial numbers & FEC on Spectrum switches",
+    "pill": "DOM / DC NOS & Fabric"
+   },
+   "sw-cumulus-ports": {
+    "title": "Cumulus: Port Status",
+    "subtitle": "Inspecting swp* link state, speed, MTU, physical error counters & bouncing ports on NVIDIA Spectrum switches",
+    "pill": "NVU / DC NOS & Fabric"
+   },
+   "sw-nxos-ports": {
+    "title": "Cisco NX-OS: Ports & DOM",
+    "subtitle": "Inspecting Ethernet1/* status, transceiver DOM details, error counters, and hardware inventory on Nexus 9000 switches",
+    "pill": "NXO / DC NOS & Fabric"
+   },
+   "sw-nxos-vpc": {
+    "title": "Cisco NX-OS: LLDP & vPC",
+    "subtitle": "Discovering neighbor servers/switches (lldp/cdp), checking LACP port-channel flags (P/I/D) & vPC dual-homing consistency",
+    "pill": "VPC / DC NOS & Fabric"
+   },
+   "sw-quantum-hw-sm": {
+    "title": "Quantum: SM, UFM & HW",
+    "subtitle": "Inspecting PSUs, fans, temperatures, Subnet Manager (SM), UFM state, firmware & saving config on managed Quantum switches",
+    "pill": "QSM / DC NOS & Fabric"
+   },
+   "sw-quantum-inband": {
+    "title": "Quantum: In-Band MFT",
+    "subtitle": "Querying externally managed Quantum switches (QM8790 / QM9790) over the IB fabric from any GPU host or UFM node using LID",
+    "pill": "QIB / DC NOS & Fabric"
+   },
+   "sw-quantum-ports": {
+    "title": "Quantum: Ports & Optics",
+    "subtitle": "Managed QM8700 / QM9700 InfiniBand switch CLI: IB 1/1..1/64 port status, OSFP/QSFP DOM light levels, symbol errors & split ports",
+    "pill": "QTM / DC NOS & Fabric"
+   },
+   "sw-sonic": {
+    "title": "SONiC: Cloud NOS CLI",
+    "subtitle": "Inspecting Ethernet* port status, sfputil optical DOM, lldpctl neighbors, PortChannel bonds & platform sensors",
+    "pill": "SNC / DC NOS & Fabric"
+   }
+  } };
 
 
 // DOM References

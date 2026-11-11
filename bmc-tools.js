@@ -4302,7 +4302,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
-    "part": "freeipmi",
+    "part": "serial-console",
     "id": "serial-pro-tips",
     "badge": "tip",
     "title": "Serial consoles: Pro Tip",
@@ -4371,7 +4371,39 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(BMC_HUB_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: BMC_HUB_DATA, label: "BMC vendor tools sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: BMC_HUB_DATA, label: "BMC vendor tools sheets", parts: {
+   "freeipmi": {
+    "title": "GNU FreeIPMI",
+    "subtitle": "The vendor-neutral IPMI toolkit: password prompt instead of -p, host ranges for whole racks, and readable SEL output",
+    "pill": "FreeIPMI 1.6.20"
+   },
+   "ilorest": {
+    "title": "HPE iLOrest",
+    "subtitle": "Log in, server info and state, IML/IEL/AHS logs, storage, BIOS settings, power and firmware on HPE ProLiant",
+    "pill": "iLOrest 7.4.0.0"
+   },
+   "onecli": {
+    "title": "Lenovo OneCLI",
+    "subtitle": "Health, inventory, event logs, settings, firmware compare and service data on Lenovo ThinkSystem",
+    "pill": "OneCLI 5.7.0"
+   },
+   "racadm": {
+    "title": "Dell racadm",
+    "subtitle": "System info, SEL and Lifecycle log, inventory, storage, power, BIOS jobs and SupportAssist collections on Dell PowerEdge",
+    "pill": "iDRAC9 7.x RACADM"
+   },
+   "serial-console": {
+    "title": "Serial consoles",
+    "subtitle": "Talk to a switch or server console over USB serial, share it on the network with ser2net, and log every console with conserver",
+    "pill": "ser2net 4.6.8 · conserver 8.3.0"
+   },
+   "supermicro-saa": {
+    "title": "Supermicro SAA",
+    "subtitle": "Supermicro's all-in-one CLI (formerly SUM): system, BIOS, BMC, event log, sensors, PSUs, GPUs and firmware",
+    "pill": "SAA · X12/H12 and newer"
+   }
+  } };
 
 
 // DOM Elements

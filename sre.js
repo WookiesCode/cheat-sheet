@@ -3039,7 +3039,39 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(SRE_HUB_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: SRE_HUB_DATA, label: "SRE toolkit sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: SRE_HUB_DATA, label: "SRE toolkit sheets", parts: {
+   "ansible": {
+    "title": "Ansible",
+    "subtitle": "Run a read-only check across a fleet, dry-run a playbook with a diff, and keep BMC passwords encrypted with ansible-vault",
+    "pill": "ansible-core 2.22"
+   },
+   "argocd": {
+    "title": "Argo CD",
+    "subtitle": "Log in, see what is out of sync and why, sync safely, wait for health, and roll back",
+    "pill": "Argo CD 3.6"
+   },
+   "helm": {
+    "title": "Helm",
+    "subtitle": "Render before you install, upgrade with automatic rollback, read release history, and the Helm 4 flag renames",
+    "pill": "Helm 4.3"
+   },
+   "incident-response": {
+    "title": "Incident response",
+    "subtitle": "Declare early, assign roles, keep a timeline, mitigate before root-causing, and write a blameless postmortem",
+    "pill": "Google SRE practice"
+   },
+   "prometheus": {
+    "title": "Prometheus",
+    "subtitle": "Validate config and rules, query from the shell, write alerting and recording rules, and silence alerts with amtool",
+    "pill": "Prometheus 3.16 · Alertmanager 0.35"
+   },
+   "terraform": {
+    "title": "Terraform / OpenTofu",
+    "subtitle": "The safe plan → review → apply loop, state commands, moved and import blocks, and the licence difference",
+    "pill": "Terraform 1.17 · OpenTofu 1.13"
+   }
+  } };
 
 
 // DOM Elements

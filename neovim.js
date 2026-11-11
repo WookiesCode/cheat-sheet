@@ -1344,7 +1344,54 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(NEOVIM_CHEAT_SHEET_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: NEOVIM_CHEAT_SHEET_DATA, label: "Neovim sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: NEOVIM_CHEAT_SHEET_DATA, label: "Neovim sheets", parts: {
+   "nvim-ex-shell": {
+    "title": "Ex Commands, Shell Filter & Quickfix",
+    "subtitle": "Save/quit shortcuts, piping lines through Unix tools, built-in terminal & quickfix",
+    "pill": "EX / Neovim 0.11+"
+   },
+   "nvim-lazyvim": {
+    "title": "LazyVim, Picker, Neo-tree & Git",
+    "subtitle": "Fuzzy file/grep pickers, Neo-tree sidebar, LazyGit & UI toggles (<leader> = Space)",
+    "pill": "LAZY / Neovim 0.11+"
+   },
+   "nvim-lsp": {
+    "title": "Built-in LSP, Diagnostics & Treesitter",
+    "subtitle": "Code navigation, symbol rename, code actions, hover docs & syntax nodes",
+    "pill": "LSP / Neovim 0.11+"
+   },
+   "nvim-macros": {
+    "title": "Macros, Registers & Undo Tree",
+    "subtitle": "Record & replay keystrokes, system clipboard, black-hole & time travel",
+    "pill": "MAC / Neovim 0.11+"
+   },
+   "nvim-motions": {
+    "title": "Motions, Jumps & Screen Navigation",
+    "subtitle": "Word movement, character find, line boundaries, viewport & jump list",
+    "pill": "MOV / Neovim 0.11+"
+   },
+   "nvim-operators": {
+    "title": "Operators, Text Objects & Editing",
+    "subtitle": "Composable operator grammar, inner/around objects, dot repeat & case",
+    "pill": "EDIT / Neovim 0.11+"
+   },
+   "nvim-search": {
+    "title": "Search, Substitute & Global (:g)",
+    "subtitle": "Regex patterns, word under cursor, project-wide replace & :global power",
+    "pill": "SRCH / Neovim 0.11+"
+   },
+   "nvim-visual": {
+    "title": "Visual Mode & Multi-Line Block Editing",
+    "subtitle": "Char/Line/Block selection, column editing, sequence numbering & sorting",
+    "pill": "VIS / Neovim 0.11+"
+   },
+   "nvim-windows": {
+    "title": "Windows, Splits, Buffers & Tabs",
+    "subtitle": "Viewport tiling, buffer switching, window resizing & tab pages",
+    "pill": "WIN / Neovim 0.11+"
+   }
+  } };
 
 
 // DOM Elements

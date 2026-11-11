@@ -30,4 +30,10 @@ async function newContext(browser, opts = {}) {
   return ctx;
 }
 
-module.exports = { ROOT, BASE, OUT, CHROME, chromium, launch, newContext };
+// The old per-topic pages are parts of group pages now (nv-smi.html → nvidia.html#nv-smi).
+// page('nv-smi.html') gives the new address; sheetOf(item) is an index entry's sheet in that form.
+const MERGED = require('./merged-pages.json');
+const page = file => MERGED[file] || file;
+const sheetOf = item => item.sheet || item.file;
+
+module.exports = { ROOT, BASE, OUT, CHROME, chromium, launch, newContext, MERGED, page, sheetOf };

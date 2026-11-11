@@ -1313,7 +1313,84 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(CHEAT_SHEET_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: CHEAT_SHEET_DATA, label: "Linux sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: CHEAT_SHEET_DATA, label: "Linux sheets", parts: {
+   "archives": {
+    "title": "Archives, Compression & Checksums",
+    "subtitle": "tar, gzip, zstd multithreaded compression, streaming SSH backups & SHA-256 verification",
+    "pill": "TAR / Linux Admin"
+   },
+   "dmi-hw": {
+    "title": "DMI / SMBIOS, FRU & Motherboard Inventory",
+    "subtitle": "dmidecode SMBIOS tables, chassis serial/SKU, BIOS revision, DIMM slot mapping & PSU FRUs",
+    "pill": "DMI / Linux Admin"
+   },
+   "ecc-edac": {
+    "title": "ECC Memory, EDAC, MCE & Thermal Triage",
+    "subtitle": "edac-util DIMM fault isolation, rasdaemon MCE logs, ipmi/lm-sensors thermals & turbostat power",
+    "pill": "ECC / Linux Admin"
+   },
+   "files": {
+    "title": "Files & Directories",
+    "subtitle": "Navigation, listing, finding, linking & safe manipulation",
+    "pill": "FS / Linux Admin"
+   },
+   "kernel-boot": {
+    "title": "Kernel Modules, GRUB, Serial Console & Burn-in",
+    "subtitle": "modprobe/lsmod/dkms drivers, initramfs, GRUB serial console (ttyS0), kdump & hardware burn-in testing",
+    "pill": "KRN / Linux Admin"
+   },
+   "network": {
+    "title": "Networking, Sockets, DNS, UFW & SSH",
+    "subtitle": "ss socket inspection, iproute2, DNS dig/resolvectl, curl timing, SSH tunnels, tcpdump & UFW",
+    "pill": "NET / Linux Admin"
+   },
+   "nvme-smart": {
+    "title": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
+    "subtitle": "nvme-cli health/wear/format, smartctl SAS/SATA triage, mdadm RAID rebuilds & ledctl drive locator",
+    "pill": "NVM / Linux Admin"
+   },
+   "packages": {
+    "title": "Ubuntu APT, dpkg, Snap & Release Management",
+    "subtitle": "APT upgrades & repo policy, dpkg file ownership & repair, needrestart, Snap & Ubuntu LTS tools",
+    "pill": "PKG / Linux Admin"
+   },
+   "pcie-numa": {
+    "title": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
+    "subtitle": "lspci link training verification (Gen3/4/5 GT/s & x16/x8), AER errors, CPU & NUMA affinity",
+    "pill": "PCI / Linux Admin"
+   },
+   "permissions": {
+    "title": "Permissions, Ownership & ACLs",
+    "subtitle": "chmod, chown, POSIX ACLs, setgid shared directories & ext4/xfs immutable attributes",
+    "pill": "PERM / Linux Admin"
+   },
+   "processes": {
+    "title": "Processes, Signals, Open Files & Performance",
+    "subtitle": "ps, pgrep/pkill, lsof deleted files, free/vmstat/iostat/pidstat, strace & OOM triage",
+    "pill": "PROC / Linux Admin"
+   },
+   "storage": {
+    "title": "Filesystems, Partitions, LVM & Mounts",
+    "subtitle": "df space/inodes, du directory sizes, lsblk/blkid UUIDs, LVM lvextend, fstab verification & dd",
+    "pill": "DSK / Linux Admin"
+   },
+   "systemd": {
+    "title": "Systemd Services, Journald & Boot Analysis",
+    "subtitle": "systemctl unit control, journalctl boot/priority filtering, systemd-analyze & timers",
+    "pill": "SYS / Linux Admin"
+   },
+   "text": {
+    "title": "Text Processing, Log Triage & Streams",
+    "subtitle": "grep, awk, sed, jq, sort, uniq, cut, column & live log pipelines",
+    "pill": "TXT / Linux Admin"
+   },
+   "users": {
+    "title": "Users, Groups, SSH Keys & Sudoers",
+    "subtitle": "Ubuntu user/group administration, Ed25519 SSH keys, active session auditing & visudo",
+    "pill": "USR / Linux Admin"
+   }
+  } };
 
 
 // DOM References

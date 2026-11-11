@@ -40,6 +40,7 @@ Run the tests after `node build-all.js`. The tests read the built pages and the 
 | `reboot-reference.test.js` | The 10 host reboot/shutdown entries and the NMI (kernel panic) commands are reference-only on every page and the portable copy (real clicks, Ctrl+K, My kit); BMC power and read-only neighbours still copy |
 | `explain-help.test.js` | Explain reads a flag's description from its `--help` text without cutting at "e.g." (nvidia-smi `-d`) |
 | `sources.test.js` (2m, 2zc) | The merged CLI page: all 47 tools on cli-tools.html with sources; grep.html redirects to `#grep` showing only grep; rail click, Back, the All link and an old card link; stars carried over; the menu links to `#tool` |
+| `lib.js` `page()` / `merged-pages.json` | Old page → its address on the group page (`nv-smi.html` → `nvidia.html#nv-smi`), for tests written against the old pages |
 | `whats-new.test.js` | A returning user's "What's new" invite and tour walk only the 3 newest additions (sources everywhere, sources in Ctrl+K, IBM Storage Scale) and mark version 12 seen |
 | `jk-smooth-scroll.test.js` | `j` pressed while the page is still smooth-scrolling leaves the focused command visible (runs the race inside the page: driven step by step, headless Chrome finishes the animation between calls) |
 | `redfish-builder.test.js` | The Redfish request builder's vendor presets: DGX uses Systems/DGX, Managers/BMC, LogServices/SEL; no HGX-baseboard preset; Standard and Dell unchanged |

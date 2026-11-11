@@ -8,20 +8,20 @@ const check = (ok, what) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`); if
 
 const REBOOTS = [
   ['linux.html', 'systemctl reboot --firmware-setup'],
-  ['systemd.html', 'systemctl reboot --firmware-setup'],
+  ['linux.html#systemd', 'systemctl reboot --firmware-setup'],
   ['cli-tools.html', 'efibootmgr -n 0004 && reboot'],
-  ['efibootmgr.html', 'efibootmgr -n 0004 && reboot'],
+  ['cli-tools.html#efibootmgr', 'efibootmgr -n 0004 && reboot'],
   ['bmc-tools.html', 'ilorest reboot PushPowerButton'],
   ['bmc-tools.html', 'ilorest reboot ForceOff'],
-  ['ilorest.html', 'ilorest reboot PushPowerButton'],
-  ['ilorest.html', 'ilorest reboot ForceOff'],
+  ['bmc-tools.html#ilorest', 'ilorest reboot PushPowerButton'],
+  ['bmc-tools.html#ilorest', 'ilorest reboot ForceOff'],
   ['windows.html', 'shutdown /r /fw /t 0'],
-  ['win-sysadmin.html', 'shutdown /r /fw /t 0'],
+  ['windows.html#win-sysadmin', 'shutdown /r /fw /t 0'],
 ];
 // NMI injection through the BMC (deliberately panics the host kernel), reference only too.
 const NMIS = [
-  ['ipmi-chassis-power.html', 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis power diag'],
-  ['rf-power-boot.html', 'curl -g -6 -sk -K ~/.bmc-curlrc -X POST "https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset" -H "Content-Type: application/json" -d \'{"ResetType": "Nmi"}\''],
+  ['ipmi.html#ipmi-chassis-power', 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis power diag'],
+  ['redfish.html#rf-power-boot', 'curl -g -6 -sk -K ~/.bmc-curlrc -X POST "https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset" -H "Content-Type: application/json" -d \'{"ResetType": "Nmi"}\''],
 ];
 
 async function context(browser) {
@@ -86,7 +86,7 @@ async function realClick(p, handle) {
   }
 
   // 2. Neighbours still copy: an out-of-band BMC power command and a read-only systemctl command.
-  for (const [file, cmd] of [['ipmi-chassis-power.html', 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis power status'], ['ipmi-chassis-power.html', 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis identify force'], ['linux.html', 'systemctl status']]) {
+  for (const [file, cmd] of [['ipmi.html#ipmi-chassis-power', 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis power status'], ['ipmi.html#ipmi-chassis-power', 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis identify force'], ['linux.html', 'systemctl status']]) {
     await p.goto(BASE + file, { waitUntil: 'load' });
     await p.waitForTimeout(500);
     const h = await boxFor(p, cmd);
@@ -96,7 +96,7 @@ async function realClick(p, handle) {
   }
 
   // 3. Ctrl+K: the result opens its sheet, Enter copies nothing.
-  await p.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+  await p.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
   await p.waitForTimeout(400);
   await p.keyboard.press('Control+k');
   await p.waitForTimeout(250);
@@ -115,7 +115,7 @@ async function realClick(p, handle) {
 
   // 4. My kit: starred anyway, it has no Copy button. (On ilorest.html the reboot is the card's
   // main command; on linux.html it is a sub-row, and a star bookmarks the card's main command.)
-  await p.goto(BASE + 'ilorest.html', { waitUntil: 'load' });
+  await p.goto(BASE + 'bmc-tools.html#ilorest', { waitUntil: 'load' });
   await p.waitForTimeout(500);
   // Each command's star carries its id (data-cmd-id).
   const star = await p.evaluateHandle(() => document.querySelector('.bookmark-btn[data-cmd-id="ilorest-reboot"]'));

@@ -549,6 +549,19 @@ The 47 CLI tool pages are now one page, `cli-tools.html`. The rail, the CLI menu
 | Portable | menu items become `#sheet-cli-tools--grep` and open the sheet filtered |
 | Counts | 246 → 199 pages (redirects not counted); 2,174 → 2,098 commands (the filler cards) |
 
+## #12 One page per group, for every group (2026-11-10, `merge-all-groups`)
+
+The CLI pilot's pattern, applied to the other 21 groups: 172 more pages became parts of their group page (219 in all; 27 pages remain).
+
+| Piece | Change |
+|---|---|
+| Data | Each group page's `.js` is now its source: sections tagged `part`, plus the cards only the old pages had (≈100 Pro Tip cards; Scripting's 14 language sheets, 385 commands). The 17 InfiniBand tip cards only repeated each tool's first card and were dropped. |
+| Old headers | Each part keeps its old page's title, subtitle and version label (shown in the **Showing …** bar) |
+| `common.js` | parts spanning several sections; old page name for page-keyed features (`nv-smi.html`); a part change reloads; per-recipe source lines where a recipe's source differs from its card; visited/recents/usage accept `page#part`; navi export groups by part; trail practice matches by part; migration writes only when something moves |
+| Renderers | Windows and ipmitool cards now draw their recipes (`subcommands`), which only the old pages showed |
+| Build | No generators run: menus edited in `nav/nav-source.html`; `build-nav-groups.js` reads the current menus |
+| Checked | every old page's commands are in its part (index comparison, 172/172); each old address opens filtered with the rail and pager following (browser, 172/172); 25/25 tests |
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

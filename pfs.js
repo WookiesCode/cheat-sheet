@@ -3354,7 +3354,34 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(PFS_HUB_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: PFS_HUB_DATA, label: "Parallel filesystems sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: PFS_HUB_DATA, label: "Parallel filesystems sheets", parts: {
+   "pfs-beegfs": {
+    "title": "BeeGFS",
+    "subtitle": "BeeGFS 8 uses one beegfs command; each card also gives the BeeGFS 7.4 command for older clusters",
+    "pill": "BeeGFS 8.4 · 7.4 recipes"
+   },
+   "pfs-ceph": {
+    "title": "Ceph",
+    "subtitle": "Cluster health, which OSD is down and on which disk, PG states, crash reports, and setting noout for maintenance",
+    "pill": "Ceph 21.2 Umbrella · 20.2 · 19.2"
+   },
+   "pfs-lustre": {
+    "title": "Lustre",
+    "subtitle": "From a client: are the MDS and OSS reachable, which OST is full or missing, is LNet up, and how a file is striped",
+    "pill": "Lustre 2.17 · 2.15 LTS"
+   },
+   "pfs-scale": {
+    "title": "IBM Storage Scale",
+    "subtitle": "Is GPFS active on every node, what mmhealth flags, which disk is down, which device is behind an NSD, and the commands that change state",
+    "pill": "Storage Scale 5.2 · 6.0 (GPFS)"
+   },
+   "pfs-weka": {
+    "title": "WEKA",
+    "subtitle": "Cluster health and rebuild, active alerts, which container or drive is down, local status, and the client mount",
+    "pill": "WEKA 6.0 CLI"
+   }
+  } };
 
 
 // DOM Elements

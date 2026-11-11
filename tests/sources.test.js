@@ -2,17 +2,39 @@
 // right and flagged; old dates turn amber; the line survives a re-render; nothing in src can inject.
 const fs = require('fs');
 const path = require('path');
-const { ROOT, BASE, launch, newContext } = require('./lib');
+const { ROOT, BASE, launch, newContext, page } = require('./lib');
 
 const failures = [];
 const check = (ok, what) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`); if (!ok) failures.push(what); };
-const NV = ['nv-smi.html', 'nv-admin.html', 'nv-dcgm.html', 'nv-nvlink.html', 'nv-mig.html', 'nv-gpudirect.html', 'nv-pcie.html', 'nv-ops.html'];
-const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].map(it => {
+const NV = ['nvidia.html#nv-smi', 'nvidia.html#nv-admin', 'nvidia.html#nv-dcgm', 'nvidia.html#nv-nvlink', 'nvidia.html#nv-mig', 'nvidia.html#nv-gpudirect', 'nvidia.html#nv-pcie', 'nvidia.html#nv-ops'];
+const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].map(it => {
   const s = it.querySelector('.cmd-source');
-  return { id: it.dataset.cmdId, cmd: (it.querySelector('.cmd-code-box') || {}).dataset ? it.querySelector('.cmd-code-box').innerText : '', text: s ? s.innerText : null,
+  return { id: (it.dataset.cmdId || it.dataset.id), cmd: (it.querySelector('.cmd-code-box') || {}).dataset ? it.querySelector('.cmd-code-box').innerText : '', text: s ? s.innerText : null,
     cls: s ? s.className : '', links: s ? [...s.querySelectorAll('a')].map(a => ({ href: a.href, rel: a.rel, target: a.target })) : [],
     danger: !!it.querySelector('.cmd-code-box.anat-danger') };
 }));
+
+// Every command on the page, cards and their recipe rows alike: on the merged group pages a
+// recipe is a row inside its card, with its own source line only where it differs.
+const rows = (p) => p.evaluate(() => {
+  const out = [];
+  for (const it of document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')) {
+    if (!it.offsetParent) continue;
+    const id = it.dataset.cmdId || it.dataset.id;
+    const own = [...it.children].find(n => n.classList && n.classList.contains('cmd-source') && !n.classList.contains('is-sub'));
+    const box = it.querySelector('.cmd-code-box');
+    const cmdOf = b => b ? String(b.dataset.cmd || b.dataset.copy || b.dataset.subcmd || b.innerText || '').trim() : '';
+    out.push({ id, sub: false, cmd: cmdOf(box), full: box ? box.innerText : '', text: own ? own.innerText : null, cls: own ? own.className : '',
+      danger: !!(box && (/Changes state/.test(box.getAttribute('aria-label') || '') || box.classList.contains('anat-danger'))), ref: !!(box && box.classList.contains('is-reference')) });
+    it.querySelectorAll('.subcmd-row').forEach(r => {
+      const next = r.nextElementSibling;
+      const s = next && next.classList.contains('is-sub') ? next : own;
+      out.push({ id: id + '::sub', sub: true, cmd: cmdOf(r), text: s ? s.innerText : null, cls: s ? s.className : '',
+        danger: /Changes state/.test(r.getAttribute('aria-label') || ''), ref: r.classList.contains('is-reference') || !!r.querySelector('.is-reference') });
+    });
+  }
+  return out;
+});
 
 (async () => {
   const browser = await launch();
@@ -24,7 +46,7 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     let total = 0, sourced = 0, unverified = 0, badLinks = 0;
     const all = {};
     for (const f of NV) {
-      await p.goto(BASE + f, { waitUntil: 'load' });
+      await p.goto(BASE + page(f), { waitUntil: 'load' });
       await p.waitForTimeout(500);
       for (const l of await lines(p)) {
         if (/-tips-card$/.test(l.id)) continue;  // pro-tip cards are advice, not commands
@@ -53,36 +75,32 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
-  // 2b. InfiniBand: the 17 tool sheets (main command + recipes) and their corrections.
+  // 2b. InfiniBand: one page (17 tools as parts, recipes inside their cards) and the corrections.
   {
-    const IB = ['ib-ibstat', 'ib-ibv-devinfo', 'ib-rdma', 'ib-iblinkinfo', 'ib-ibswitches', 'ib-sminfo', 'ib-perfquery', 'ib-ibqueryerrors', 'ib-ibdiagnet', 'ib-ibping', 'ib-mst', 'ib-mlxconfig', 'ib-mlxlink', 'ib-mlxfwmanager', 'ib-perftest', 'ib-mlxcables', 'ib-bluefield'];
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
-    let total = 0, sourced = 0;
-    const all = {};
-    for (const f of IB) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
-      await p.waitForTimeout(400);
-      for (const l of await lines(p)) {
-        if (/-(tips|flags)-card$/.test(l.id)) continue;  // advice and "-h" cards, not checked commands
-        total++;
-        all[l.id] = l;
-        if (l.text) sourced++;
-      }
-    }
-    check(total === 51 && sourced === 51, `all 51 InfiniBand commands and recipes show a source line (${sourced}/${total})`);
-    const unverified = Object.values(all).filter(l => /is-unverified/.test(l.cls)).map(l => l.id).sort();
-    check(unverified.join(' ') === 'ibdiagnet-sub-2 ibswitches-sub-1 ibv-devinfo-sub-1 sminfo-sub-1', `the 4 unconfirmed recipes say "Not verified" (${unverified.join(', ')})`);
-    const pt = all['perftest-cmd'];
-    check(/--ipv6-addr 2001:db8:dc::1/.test(pt.cmd) && (pt.cmd.match(/--ipv6-addr/g) || []).length === 2 && !/--ipv6\s/.test(pt.cmd), 'perftest passes --ipv6-addr on both server and client (not --ipv6)');
-    check(/--test_mode EN/.test(all['mlxlink-sub-2'].cmd) && all['mlxlink-sub-2'].danger, 'PRBS test has --test_mode EN and is flagged');
-    check(/--oprcvcounters/.test(all['perfquery-sub-2'].cmd), 'perfquery uses --oprcvcounters');
-    check(/--get_phy_info/.test(all['ibdiagnet-cmd'].cmd) && !/--ber_test/.test(all['ibdiagnet-cmd'].cmd), 'ibdiagnet uses --get_phy_info (--ber_test is for old devices)');
-    check(!/INTERNAL_CPU_MODEL/.test(all['bluefield-dpu-cmd'].cmd), 'BlueField query no longer asks for INTERNAL_CPU_MODEL');
-    check(all['bluefield-dpu-sub-1'].danger && /bfb-install -r rshim0 -b/.test(all['bluefield-dpu-sub-2'].cmd) && all['bluefield-dpu-sub-2'].danger, 'BlueField mode switch and bfb-install are flagged; bfb-install uses -r / -b');
-    check(all['mlxconfig-sub-3'].danger && !all['mlxconfig-cmd'].danger, 'mlxconfig reset is flagged; mlxconfig query is not');
+    await p.goto(BASE + 'infiniband.html', { waitUntil: 'load' });
+    await p.waitForTimeout(600);
+    const all = await rows(p);
+    const find = re => all.find(r => re.test(r.cmd) || re.test(r.full || ''));
+    check(all.length >= 51 && all.every(r => r.text), `every InfiniBand command and recipe shows a source line (${all.filter(r => r.text).length}/${all.length})`);
+    const unverified = all.filter(r => /is-unverified/.test(r.cls));
+    check(unverified.length === 4 && unverified.every(r => r.sub), `the 4 unconfirmed recipes say "Not verified" on their own row (${unverified.map(r => r.cmd.slice(0, 30)).join(' | ')})`);
+    const pt = find(/ib_write_bw/);
+    check(pt && /--ipv6-addr 2001:db8:dc::1/.test(pt.cmd) && (pt.cmd.match(/--ipv6-addr/g) || []).length === 2 && !/--ipv6\s/.test(pt.cmd), 'perftest passes --ipv6-addr on both server and client (not --ipv6)');
+    const prbs = find(/--test_mode EN/);
+    check(prbs && prbs.danger, 'PRBS test has --test_mode EN and is flagged');
+    check(!!find(/--oprcvcounters/), 'perfquery uses --oprcvcounters');
+    const diag = find(/^ibdiagnet /);
+    check(diag && /--get_phy_info/.test(diag.cmd) && !all.some(r => /--ber_test/.test(r.cmd)), 'ibdiagnet uses --get_phy_info (--ber_test is for old devices)');
+    check(!all.some(r => /INTERNAL_CPU_MODEL/.test(r.cmd)), 'BlueField query no longer asks for INTERNAL_CPU_MODEL');
+    const bfb = find(/bfb-install -r rshim0 -b/);
+    const mode = find(/mlxconfig .*INTERNAL_CPU_OFFLOAD_ENGINE=/);
+    check(bfb && bfb.danger && mode && mode.danger, 'BlueField mode switch and bfb-install are flagged; bfb-install uses -r / -b');
+    const reset = find(/mlxconfig .* reset/), query = find(/^mlxconfig .* q\b/);
+    check(reset && reset.danger && query && !query.danger, 'mlxconfig reset is flagged; mlxconfig query is not');
     // The NVIDIA card had the same perftest mistake.
-    await p.goto(BASE + 'nv-gpudirect.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'nvidia.html#nv-gpudirect', { waitUntil: 'load' });
     await p.waitForTimeout(400);
     const nv = (await lines(p)).find(l => l.id === 'ib-write-bw-cuda');
     check(nv && (nv.cmd.match(/--ipv6-addr/g) || []).length === 2 && /Corrected 2026-11-09: --ipv6-addr/.test(nv.text), 'NVIDIA ib_write_bw card fixed too, with a corrected note');
@@ -91,106 +109,73 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
 
   // 2c. Redfish and IPMI: every command and recipe sourced, and the corrections.
   {
-    const PAGES = ['rf-discovery', 'rf-power-boot', 'rf-inventory', 'rf-thermals-power', 'rf-logs-sel', 'rf-bios-bmc', 'rf-firmware', 'rf-hgx-dlc',
-      'ipmi-chassis-power', 'ipmi-boot-override', 'ipmi-sensors-sdr', 'ipmi-sel-logs', 'ipmi-sol-console', 'ipmi-bmc-lan-users', 'ipmi-fru-mc'];
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
-    let total = 0, sourced = 0;
-    const all = {};
-    for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
-      await p.waitForTimeout(400);
-      for (const l of await lines(p)) {
-        if (/-(tips|flags)-card$/.test(l.id)) continue;
-        total++;
-        all[l.id] = l;
-        if (l.text) sourced++;
-      }
+    const all = [];
+    for (const f of ['redfish.html', 'ipmi.html']) {
+      await p.goto(BASE + f, { waitUntil: 'load' });
+      await p.waitForTimeout(500);
+      all.push(...(await rows(p)).filter(r => !/-(tips|flags)-card/.test(r.id)));
     }
-    check(total === 45 && sourced === 45, `all 45 Redfish and IPMI commands and recipes show a source line (${sourced}/${total})`);
-    const unverified = Object.values(all).filter(l => /is-unverified/.test(l.cls)).map(l => l.id);
-    check(unverified.join(' ') === 'ipmi-bootparam-no-timeout', `only the bootparam no-timeout command says "Not verified" (${unverified.join(', ')})`);
-    check(/enables ipv6/.test(all['ipmi-lan-set-static-dhcp'].cmd) && !/enabler/.test(all['ipmi-lan-set-static-dhcp'].cmd), 'ipmitool lan6 uses "enables ipv6" (not "enabler ipv6_only")');
-    check(/<new-password>/.test(all['ipmi-user-password-admin'].cmd) && !/NewStrongPass/.test(all['ipmi-user-password-admin'].cmd), 'no literal sample password in the ipmitool user command');
-    check(/Systems\/HGX_Baseboard_0\/Processors\/GPU_SXM_1/.test(all['rf-hgx-chassis-gpus'].cmd), 'HGX GPU path is the one NVIDIA documents');
-    check(!/power diag/.test(all['ipmi-chassis-identify-nmi'].cmd) && !all['ipmi-chassis-identify-nmi'].danger, 'the identify box no longer carries the NMI and stays a plain command');
+    const find = re => all.find(r => re.test(r.cmd) || re.test(r.full || ''));
+    check(all.length >= 45 && all.every(r => r.text), `every Redfish and IPMI command and recipe shows a source line (${all.filter(r => r.text).length}/${all.length})`);
+    const unverified = all.filter(r => /is-unverified/.test(r.cls)).map(r => r.cmd);
+    check(unverified.length === 1 && /options=no-timeout/.test(unverified[0]), `only the bootparam no-timeout command says "Not verified" (${unverified.join(' | ').slice(0, 120)})`);
+    check(!!find(/lan6 set 1 enables ipv6/) && !all.some(r => /enabler/.test(r.cmd)), 'ipmitool lan6 uses "enables ipv6" (not "enabler ipv6_only")');
+    check(!!find(/user set password 2 '<new-password>'/) && !all.some(r => /NewStrongPass/.test(r.cmd)), 'no literal sample password in the ipmitool user command');
+    check(!!find(/Systems\/HGX_Baseboard_0\/Processors\/GPU_SXM_1/), 'HGX GPU path is the one NVIDIA documents');
+    const ident = all.find(r => !r.sub && /chassis identify force/.test(r.cmd));
+    check(ident && !/power diag/.test(ident.cmd) && !ident.danger, 'the identify box no longer carries the NMI and stays a plain command');
     await ctx.close();
   }
 
   // 2d. BMC vendor tools (racadm, iLOrest, SAA, OneCLI, FreeIPMI, serial consoles).
   {
-    const PAGES = ['racadm', 'ilorest', 'supermicro-saa', 'onecli', 'freeipmi', 'serial-console'];
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
-    let total = 0, sourced = 0;
-    const all = {};
-    for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
-      await p.waitForTimeout(400);
-      for (const l of await lines(p)) {
-        if (/-(tips|flags)-card$/.test(l.id)) continue;
-        total++;
-        all[l.id] = l;
-        if (l.text) sourced++;
-      }
-    }
-    check(total === 107 && sourced === 107, `all 107 BMC-tool commands and recipes show a source line (${sourced}/${total})`);
-    const unverified = Object.values(all).filter(l => /is-unverified/.test(l.cls)).map(l => l.id).sort();
-    check(unverified.join(' ') === 'saa-multi serial-picocom-sub-1 serial-picocom-sub-2 serial-picocom-sub-3 serial-ser2net-sub-1',
-      `the 5 unconfirmed entries say "Not verified" (${unverified.join(', ')})`);
-    check(/racadm-getsysinfo/.test(Object.keys(all).join(' ')) && /Dell RACADM 7\.xx/.test(all['racadm-getsysinfo'].text), 'racadm cites the Dell RACADM 7.xx guide');
-    check(/HPE iLOrest 7\.4/.test(all['ilorest-reboot'].text), 'iLOrest cites the HPE iLOrest 7.4 guide (even on the reference-only reboot card)');
+    await p.goto(BASE + 'bmc-tools.html', { waitUntil: 'load' });
+    await p.waitForTimeout(600);
+    const all = (await rows(p)).filter(r => !/-(tips|flags)-card/.test(r.id));
+    check(all.length >= 107 && all.every(r => r.text), `every BMC-tool command and recipe shows a source line (${all.filter(r => r.text).length}/${all.length})`);
+    const unv = all.filter(r => /is-unverified/.test(r.cls)).map(r => r.cmd);
+    check(unv.length === 5 && unv.some(c => /\.\/saa -l /.test(c)) && unv.some(c => /ser2net/.test(c)) && unv.some(c => /\/dev\/serial\/by-id/.test(c)),
+      `the 5 unconfirmed entries say "Not verified" (${unv.map(c => c.slice(0, 40)).join(' | ')})`);
+    const ln = await lines(p);
+    check(/Dell RACADM 7\.xx/.test((ln.find(l => l.id === 'racadm-getsysinfo') || {}).text || ''), 'racadm cites the Dell RACADM 7.xx guide');
+    check(/HPE iLOrest 7\.4/.test((ln.find(l => l.id === 'ilorest-reboot') || {}).text || ''), 'iLOrest cites the HPE iLOrest 7.4 guide (even on the reference-only reboot card)');
     await ctx.close();
   }
 
   // 2e. Switch NOS sheets and Ethernet/Linux sheets, their corrections, and the hub builder.
   {
-    const SW = ['sw-quantum-ports', 'sw-quantum-hw-sm', 'sw-quantum-inband', 'sw-cumulus-ports', 'sw-cumulus-optics', 'sw-cumulus-lldp', 'sw-cumulus-bonds',
-      'sw-cumulus-bgp', 'sw-cumulus-hw', 'sw-arista-ports', 'sw-arista-mlag', 'sw-arista-bgp', 'sw-nxos-ports', 'sw-nxos-vpc', 'sw-sonic'];
-    const ETH = ['eth-rj45-tdr', 'eth-ethtool-tuning', 'eth-netplan-systemd', 'eth-iproute2-ip6', 'eth-bonding-vlans', 'eth-lldp-perf'];
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
-    const collect = async (pages) => {
-      const all = {};
-      for (const f of pages) {
-        await p.goto(BASE + f + '.html', { waitUntil: 'load' });
-        await p.waitForTimeout(400);
-        for (const l of await lines(p)) if (!/-(tips|flags)-card$/.test(l.id)) all[l.id] = l;
-      }
-      return all;
-    };
-    let swText = '';  // flag tables render client-side; keep each page's visible text for the flag-row checks
-    const collectSw = async () => {
-      const all = {};
-      for (const f of SW) {
-        await p.goto(BASE + f + '.html', { waitUntil: 'load' });
-        await p.waitForTimeout(400);
-        // Source notes name the old command on purpose ("Corrected: …"), so leave them out.
-        swText += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; }) + '\n';
-        for (const l of await lines(p)) if (!/-(tips|flags)-card$/.test(l.id)) all[l.id] = l;
-      }
-      return all;
-    };
-    const sw = await collectSw();
-    const swList = Object.values(sw);
-    check(swList.length === 67 && swList.every(l => l.text), `all 67 switch commands and recipes show a source line (${swList.filter(l => l.text).length}/${swList.length})`);
-    const swUnv = swList.filter(l => /is-unverified/.test(l.cls)).map(l => l.id).sort();
-    check(swUnv.length === 11, `the 11 unconfirmed switch recipes say "Not verified" (${swUnv.join(', ')})`);
+    await p.goto(BASE + 'switches.html', { waitUntil: 'load' });
+    await p.waitForTimeout(600);
+    // Source notes name the old command on purpose ("Corrected: …"), so leave them out.
+    const swText = await p.evaluate(() => { const c = document.querySelector('#sections-container').cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+    const swList = (await rows(p)).filter(r => !/-(tips|flags)-card/.test(r.id));
+    check(swList.length >= 67 && swList.every(l => l.text), `every switch command and recipe shows a source line (${swList.filter(l => l.text).length}/${swList.length})`);
+    const swUnv = swList.filter(l => /is-unverified/.test(l.cls));
+    check(swUnv.length === 11, `the 11 unconfirmed switch commands say "Not verified" (${swUnv.length})`);
     const swCmds = swList.map(l => l.cmd).join('\n');
     check(/module-type qsfp-split-2/.test(swText) && !/interface ib 1\/1 split/.test(swText), 'MLNX-OS split uses module-type qsfp-split-2');
     check(/ib smnode <sm-node> enable/.test(swCmds) && !/show ib smgoing/.test(swCmds), 'MLNX-OS SM uses ib smnode … enable; no invented show ib smgoing');
     check(!/nv config apply -y/.test(swCmds) && /nv config apply --assume-yes/.test(swCmds), 'Cumulus uses --assume-yes (not -y)');
     check(!/nv config rollback|nv config show -o commands/.test(swCmds) && /nv config translate revision/.test(swCmds), 'no invented nv config rollback / -o commands');
     check(!/errors nz/.test(swText) && !/show logging last 50/.test(swText) && /show logging 50/.test(swText), 'Arista: no nz filter; show logging 50 for a count');
-    check(!/sfputil show eeprom|nv config apply -y|nv config rollback|show ib smgoing/.test(swText), 'no corrected command survives anywhere on the switch pages');
+    check(!/sfputil show eeprom|nv config apply -y|nv config rollback|show ib smgoing/.test(swText), 'no corrected command survives anywhere on the switch page');
     check(!/sfputil show eeprom/.test(swCmds) && /show interfaces transceiver eeprom --dom/.test(swCmds), 'SONiC DOM uses show interfaces transceiver eeprom --dom');
-    check(sw['nvue-platform-config-sub-2'].danger, 'nv config apply is still flagged as changing state');
-    const eth = await collect(ETH);
-    const ethList = Object.values(eth);
-    check(ethList.length === 21 && ethList.every(l => l.text), `all 21 Ethernet commands show a source line (${ethList.filter(l => l.text).length}/${ethList.length})`);
-    const ethUnv = ethList.filter(l => /is-unverified/.test(l.cls)).map(l => l.id);
+    const apply = swList.filter(r => /^nv config apply <revision_id>|^nv set .*&& nv config apply/.test(r.cmd));
+    check(apply.length > 0 && apply.every(r => r.danger), 'nv config apply is still flagged as changing state');
+    await p.goto(BASE + 'ethernet.html', { waitUntil: 'load' });
+    await p.waitForTimeout(600);
+    const ethList = (await rows(p)).filter(r => !/-(tips|flags)-card/.test(r.id));
+    check(ethList.length >= 21 && ethList.every(l => l.text), `every Ethernet command shows a source line (${ethList.filter(l => l.text).length}/${ethList.length})`);
+    const ethUnv = (await lines(p)).filter(l => /is-unverified/.test(l.cls)).map(l => l.id);
     check(ethUnv.join(' ') === 'rj45-t568b-t568a-chart', `only the RJ45 wiring chart says "Not verified" (${ethUnv.join(', ')})`);
-    check(/man7\.org/.test(JSON.stringify(eth['ip-route-get-lookup'].links)), 'iproute2 commands link the man7.org man pages');
+    const route = (await lines(p)).find(l => l.id === 'ip-route-get-lookup');
+    check(route && /man7\.org/.test(JSON.stringify(route.links)), 'iproute2 commands link the man7.org man pages');
     // The hub builder produces the corrected commands too.
     await p.goto(BASE + 'switches.html', { waitUntil: 'load' });
     await p.waitForTimeout(500);
@@ -216,7 +201,7 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     let text = '';
     const rows = [];
     for (const f of ['nvme-smart', 'storage']) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       for (const l of await lines(p)) got[l.id] = l;
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source, .cmd-details').forEach(n => n.remove()); return c.textContent; }) + '\n';
@@ -253,7 +238,7 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     let text = '';
     const rows = [];
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       for (const l of await lines(p)) got[l.id] = l;
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source, .cmd-details').forEach(n => n.remove()); return c.textContent; }) + '\n';
@@ -285,13 +270,13 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     let text = '';
     const boxes = [];
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       for (const l of await lines(p)) if (!/-flags-card$/.test(l.id)) got[l.id] = l;
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; }) + '\n';
-      boxes.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].map(it => {
+      boxes.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].map(it => {
         const b = it.querySelector('.cmd-code-box');
-        return { id: it.dataset.cmdId, code: b ? (b.dataset.cmd || b.dataset.copy || b.innerText) : '', root: !!it.querySelector('.priv-tag.priv-root') };
+        return { id: (it.dataset.cmdId || it.dataset.id), code: b ? (b.dataset.cmd || b.dataset.copy || b.innerText) : '', root: !!it.querySelector('.priv-tag.priv-root') };
       })));
     }
     const list = Object.values(got);
@@ -321,13 +306,13 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     let text = '';
     const boxes = [];
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(500);
       for (const l of await lines(p)) if (!/-flags-card$/.test(l.id)) got[l.id] = l;
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; }) + '\n';
-      boxes.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].map(it => {
+      boxes.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].map(it => {
         const b = it.querySelector('.cmd-code-box');
-        return { id: it.dataset.cmdId, code: b ? (b.dataset.cmd || b.dataset.copy || b.innerText) : '', root: !!it.querySelector('.priv-tag.priv-root'), danger: !!(b && /Changes state/.test(b.getAttribute('aria-label') || '')) };
+        return { id: (it.dataset.cmdId || it.dataset.id), code: b ? (b.dataset.cmd || b.dataset.copy || b.innerText) : '', root: !!it.querySelector('.priv-tag.priv-root'), danger: !!(b && /Changes state/.test(b.getAttribute('aria-label') || '')) };
       })));
     }
     const list = Object.values(got);
@@ -353,11 +338,11 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const p = await ctx.newPage();
     const all = [];
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(500);
-      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => {
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test((it.dataset.cmdId || it.dataset.id))).map(it => {
         const b = it.querySelector('.cmd-code-box');
-        return { id: it.dataset.cmdId, code: b ? (b.dataset.cmd || b.dataset.copy || '') : '', src: !!it.querySelector('.cmd-source:not(.is-unverified)'),
+        return { id: (it.dataset.cmdId || it.dataset.id), code: b ? (b.dataset.cmd || b.dataset.copy || '') : '', src: !!it.querySelector('.cmd-source:not(.is-unverified)'),
           danger: !!(b && /Changes state/.test(b.getAttribute('aria-label') || '')), admin: !!it.querySelector('.priv-tag.priv-admin') };
       })));
     }
@@ -381,11 +366,11 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const p = await ctx.newPage();
     const all = [];
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(500);
-      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => {
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test((it.dataset.cmdId || it.dataset.id))).map(it => {
         const b = it.querySelector('.cmd-code-box');
-        return { id: it.dataset.cmdId, code: b ? (b.dataset.cmd || b.dataset.copy || '') : '', src: !!it.querySelector('.cmd-source'),
+        return { id: (it.dataset.cmdId || it.dataset.id), code: b ? (b.dataset.cmd || b.dataset.copy || '') : '', src: !!it.querySelector('.cmd-source'),
           verified: !!it.querySelector('.cmd-source:not(.is-unverified)'), danger: !!(b && /Changes state/.test(b.getAttribute('aria-label') || '')), root: !!it.querySelector('.priv-tag.priv-root') };
       })));
     }
@@ -410,10 +395,10 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const all = [];
     let text = '';
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
-      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => ({ id: it.dataset.cmdId, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test((it.dataset.cmdId || it.dataset.id))).map(it => ({ id: (it.dataset.cmdId || it.dataset.id), src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
     }
     check(all.length >= 25 && all.every(x => x.src), `every remaining Linux command shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
     await p.goto(BASE + 'linux.html', { waitUntil: 'load' });
@@ -424,7 +409,7 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     // DANGER_RE is private to common.js: read the flag the page draws on a code box instead.
     const danger = {};
     for (const [f, re] of [['systemd', /^systemctl --failed && systemctl enable --now/], ['packages', /^apt update && apt full-upgrade/], ['network', /ufw allow from/], ['permissions', /^chown -R/], ['systemd', /journalctl --disk-usage && journalctl --vacuum-size/], ['text', /^column -t -s ':' \/etc\/passwd/]]) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       danger[re.source] = await p.evaluate((src) => { const rx = new RegExp(src); const b = [...document.querySelectorAll('.cmd-code-box, .subcmd-row')].find(x => rx.test((x.dataset.cmd || x.dataset.copy || x.dataset.subcmd || x.textContent).trim())); return b ? /Changes state/.test(b.getAttribute('aria-label') || '') : null; }, re.source);
     }
@@ -476,10 +461,10 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const all = [];
     let text = '';
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
-      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => ({ id: it.dataset.cmdId, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test((it.dataset.cmdId || it.dataset.id))).map(it => ({ id: (it.dataset.cmdId || it.dataset.id), src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
     }
     check(all.length >= 60 && all.every(x => x.src), `every card on the four Docker sheets shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
     check(/anonymous volumes \(named volumes are kept\)/.test(text) && /add -a for unused named volumes/.test(text), 'prune --volumes / volume prune: anonymous only unless -a');
@@ -496,10 +481,10 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const all = [];
     let text = '';
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
-      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => ({ id: it.dataset.cmdId, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test((it.dataset.cmdId || it.dataset.id))).map(it => ({ id: (it.dataset.cmdId || it.dataset.id), src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
     }
     check(all.length >= 70 && all.every(x => x.src), `every card on the six SRE sheets shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
     check(!/security fixes end on November 11/.test(text) && /security patches through February 2027/.test(text), 'Helm 3: security patches through February 2027');
@@ -516,10 +501,10 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const all = [];
     let text = '';
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
-      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => ({ id: it.dataset.cmdId, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test((it.dataset.cmdId || it.dataset.id))).map(it => ({ id: (it.dataset.cmdId || it.dataset.id), src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
     }
     check(all.length >= 80 && all.every(x => x.src), `every card on the Grafana sheets and hub shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
     check(/grafana\/grafana:13\.3\.0/.test(text) && !/13\.2\.4/.test(text), 'compose lab pins Grafana 13.3.0');
@@ -539,10 +524,10 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const all = [];
     let text = '';
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
-      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => ({ id: it.dataset.cmdId, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test((it.dataset.cmdId || it.dataset.id))).map(it => ({ id: (it.dataset.cmdId || it.dataset.id), src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
     }
     check(all.length >= 80 && all.every(x => x.src), `every card on the editor sheets and hub shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
     check(/GNU nano 9\.3/.test(text) && /Ctrl\+F since nano 8\.0/.test(text), 'nano: 9.3 label and the Ctrl+F / Ctrl+B search keys');
@@ -561,7 +546,7 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const all = [];
     let text = '';
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
       all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test(it.dataset.cmdId || '')).map(it => ({ id: it.dataset.cmdId || it.dataset.id, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
@@ -583,7 +568,7 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const all = [];
     let text = '';
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
       all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test(it.dataset.cmdId || '')).map(it => ({ id: it.dataset.cmdId || it.dataset.id, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
@@ -605,7 +590,7 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const all = [];
     let text = '';
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
       all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test(it.dataset.cmdId || '')).map(it => ({ id: it.dataset.cmdId || it.dataset.id, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
@@ -627,7 +612,7 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const all = [];
     let text = '';
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
       all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test(it.dataset.cmdId || '')).map(it => ({ id: it.dataset.cmdId || it.dataset.id, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
@@ -650,7 +635,7 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const all = [];
     let text = '';
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
       all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test(it.dataset.cmdId || '')).map(it => ({ id: it.dataset.cmdId || it.dataset.id, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
@@ -670,7 +655,7 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const all = [];
     let text = '';
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
       all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test(it.dataset.cmdId || '')).map(it => ({ id: it.dataset.cmdId || it.dataset.id, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
@@ -693,7 +678,7 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const all = [];
     let text = '';
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(400);
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
       all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test(it.dataset.cmdId || '')).map(it => ({ id: it.dataset.cmdId || it.dataset.id, line: !!it.querySelector('.cmd-source'), unv: !!it.querySelector('.cmd-source.is-unverified') }))));
@@ -736,11 +721,10 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
   }
 
   // 2za. Pro Tip cards on the older suites (NVIDIA, InfiniBand, IPMI, Ethernet, Redfish, switches,
-  // BMC tools): each shows a source line; the main corrections stay fixed.
+  // BMC tools): each shows a source line; the main corrections stay fixed. (The 17 InfiniBand
+  // tips only repeated each tool's first card, so they were dropped when the pages merged.)
   {
     const PAGES = ['nv-smi', 'nv-admin', 'nv-dcgm', 'nv-nvlink', 'nv-mig', 'nv-gpudirect', 'nv-pcie', 'nv-ops',
-      'ib-ibstat', 'ib-ibv-devinfo', 'ib-rdma', 'ib-iblinkinfo', 'ib-ibswitches', 'ib-sminfo', 'ib-perfquery', 'ib-ibqueryerrors', 'ib-ibdiagnet',
-      'ib-ibping', 'ib-mst', 'ib-mlxconfig', 'ib-mlxlink', 'ib-mlxfwmanager', 'ib-perftest', 'ib-mlxcables', 'ib-bluefield',
       'ipmi-chassis-power', 'ipmi-boot-override', 'ipmi-sensors-sdr', 'ipmi-sel-logs', 'ipmi-sol-console', 'ipmi-bmc-lan-users', 'ipmi-fru-mc',
       'eth-rj45-tdr', 'eth-ethtool-tuning', 'eth-netplan-systemd', 'eth-iproute2-ip6', 'eth-bonding-vlans', 'eth-lldp-perf',
       'rf-discovery', 'rf-power-boot', 'rf-inventory', 'rf-thermals-power', 'rf-logs-sel', 'rf-bios-bmc', 'rf-firmware', 'rf-hgx-dlc',
@@ -752,10 +736,10 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const tips = {};
     let text = '';
     for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.goto(BASE + page(f + '.html'), { waitUntil: 'load' });
       await p.waitForTimeout(300);
       for (const l of await lines(p)) if (/-tips-card$/.test(l.id)) tips[f] = l;
-      text += await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id$="-tips-card"]')].map(it => { const c = it.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; }).join('\n')) + '\n';
+      text += await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id$="-tips-card"], [data-id$="-tips-card"])')].map(it => { const c = it.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; }).join('\n')) + '\n';
     }
     const got = Object.values(tips);
     check(got.length === PAGES.length && got.every(l => l.text && !/is-unverified/.test(l.cls)), `all ${PAGES.length} Pro Tip cards show a verified source (${got.filter(l => l.text).length}/${got.length})`);
@@ -801,7 +785,7 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
       bar: ((document.getElementById('sheet-filter-bar') || {}).textContent || '').replace(/\s+/g, ' '),
       rail: ((document.querySelector('.rail-sheet.is-current code') || {}).textContent || ''),
       widgets: !!(document.getElementById('quick-widgets') || {}).offsetParent }));
-    await p.goto(BASE + 'grep.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'cli-tools.html#grep', { waitUntil: 'load' });
     await p.waitForTimeout(700);
     let v = await view();
     check(v.url === 'cli-tools.html#grep' && v.cards === 1 && /Showing grep/.test(v.bar) && v.rail === 'grep' && !v.widgets, `grep.html opens cli-tools.html#grep with only grep's card (${JSON.stringify(v)})`);
@@ -835,7 +819,7 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
       .replace('"url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html"', '"url": "javascript:window.__xss=2"');
     await ctx.route(/global-search-index\.js/, r => r.fulfill({ body: index, contentType: 'application/javascript' }));
     const p = await ctx.newPage();
-    await p.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     await p.waitForTimeout(600);
     const l = await lines(p);
     check(l.every(x => /is-stale/.test(x.cls) || /-tips-card$/.test(x.id) || !x.text), 'a date over a year old turns every line amber');
@@ -849,7 +833,7 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
   {
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
-    await p.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     await p.waitForTimeout(500);
     await p.locator('.bookmark-btn').first().click({ delay: 120 });
     await p.waitForTimeout(500);
@@ -863,7 +847,7 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
   {
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
-    await p.goto('file://' + path.join(ROOT, 'datacenter-cheatsheet-portable.html') + '#sheet-nv-admin', { waitUntil: 'load' });
+    await p.goto('file://' + path.join(ROOT, 'datacenter-cheatsheet-portable.html') + '#sheet-nvidia--nv-admin', { waitUntil: 'load' });
     await p.waitForTimeout(900);
     const n = await p.evaluate(() => document.querySelectorAll('.cmd-source').length);
     check(n >= 5, `portable file: nv-admin shows its source lines (${n})`);

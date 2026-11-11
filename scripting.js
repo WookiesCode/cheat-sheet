@@ -9471,7 +9471,79 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(SCRIPTING_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: SCRIPTING_DATA, label: "Scripting sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: SCRIPTING_DATA, label: "Scripting sheets", parts: {
+   "awk-sed": {
+    "title": "AWK & Sed Stream Processing",
+    "subtitle": "Field extraction, column math, BEGIN/END blocks, pattern filtering, and in-place stream editing",
+    "pill": "POSIX AWK / GNU Sed"
+   },
+   "bash": {
+    "title": "Bash & POSIX Shell Scripting",
+    "subtitle": "Variables, loops, conditionals, functions, arrays, parameter expansion & error handling",
+    "pill": "Bash 5 / POSIX sh"
+   },
+   "git": {
+    "title": "Git Version Control Reference",
+    "subtitle": "Setup, commits, branches, remotes, history search, undo & recovery, and offline transfer",
+    "pill": "Git 2.x"
+   },
+   "javascript": {
+    "title": "JavaScript (ES2024 / Node.js) Reference",
+    "subtitle": "Variables, data types, operators, loops, functions, array methods, async/await & JSON",
+    "pill": "ES2024+ / Node.js 22+"
+   },
+   "json": {
+    "title": "JSON Syntax & jq Query Reference",
+    "subtitle": "JSON data types, quoting rules, validation, jq filters, slicing, formatting & transformations",
+    "pill": "RFC 8259 / jq 1.8"
+   },
+   "lua": {
+    "title": "Lua Scripting & Config Reference",
+    "subtitle": "Variables, tables, loops, functions, patterns, error handling & Hyprland / Neovim config files",
+    "pill": "Lua 5.5 / LuaJIT"
+   },
+   "markdown": {
+    "title": "Markdown & GitHub Flavored Markdown",
+    "subtitle": "Headings, lists, links, code blocks, tables, GitHub alerts & ticket templates",
+    "pill": "CommonMark / GFM"
+   },
+   "powershell": {
+    "title": "PowerShell 7 / Windows & Linux Scripting",
+    "subtitle": "Variables, typed objects, pipelines, conditionals, loops, functions, PSCustomObject & error handling",
+    "pill": "PowerShell 7.x / pwsh"
+   },
+   "python": {
+    "title": "Python 3.10+ Reference & Scripting",
+    "subtitle": "Variables, data types, collections, comprehensions, loops, pattern matching & file I/O",
+    "pill": "Python 3.10+ / Standard Lib"
+   },
+   "regex": {
+    "title": "Regular Expressions (PCRE / Modern RegExp)",
+    "subtitle": "Tokens, character classes, quantifiers, lookahead/lookbehind, capture groups & datacenter recipes",
+    "pill": "PCRE2 / ECMAScript"
+   },
+   "sql": {
+    "title": "SQL & SQLite CLI Reference",
+    "subtitle": "SELECT queries, filtering, joins, GROUP BY, aggregations, DDL, transactions & SQLite CLI",
+    "pill": "ANSI SQL / SQLite 3.54"
+   },
+   "toml": {
+    "title": "TOML Reference (v1.0.0)",
+    "subtitle": "Tables [table], sub-tables, array of tables [[items]], key-value pairs, dates & Python parsing",
+    "pill": "TOML 1.1 / tomllib"
+   },
+   "typescript": {
+    "title": "TypeScript 5+ Reference & Types",
+    "subtitle": "Primitives, interfaces, union types, type guards, generics, utility types & tsconfig",
+    "pill": "TypeScript 6 & 7 / Strict"
+   },
+   "yaml": {
+    "title": "YAML 1.2 Syntax & yq CLI Reference",
+    "subtitle": "Indentation, scalars, multi-line blocks (| vs >), anchors, aliases, and yq query/mutations",
+    "pill": "YAML 1.2 / yq v4"
+   }
+  } };
 
 
 // DOM References

@@ -675,6 +675,58 @@ const MOTHERBOARD_CHEAT_SHEET_DATA = [
         ]
       }
     ]
+  },
+  {
+    "id": "gigabyte-server-board-pro-tips",
+    "badge": "tip",
+    "title": "GIGABYTE Server Boards: Pro Tips & Best Practices",
+    "subtitle": "GIGABYTE Dual-BIOS Switching & Remote Port 0x80 Snooping",
+    "commands": [
+      {
+        "id": "gigabyte-server-board-tips-card",
+        "desc": "GIGABYTE Dual-BIOS Switching & Remote Port 0x80 Snooping",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
+        "details": "GIGABYTE server motherboards (MZ, MD, MS, R-series) utilize an ASPEED AST2500/AST2600 BMC with hardware port 0x80 LPC snooping. If the primary SPI flash chip becomes corrupted, toggle the Dual-BIOS switch (BIOS_SEL) to boot from the redundant secondary SPI ROM.",
+        "flags": [
+          [
+            "BIOS_SEL Switch",
+            "Hardware slide switch to manually select Primary vs Secondary SPI BIOS ROM"
+          ],
+          [
+            "BMC_RDY LED",
+            "Blinks green at 1Hz when ASPEED BMC firmware has successfully completed Linux boot"
+          ],
+          [
+            "CPU_ERR LED",
+            "Amber illumination indicates CPU socket VRM failure, missing VDD, or thermal shutdown"
+          ]
+        ],
+        "tip": "If BMC_RDY LED is solid amber or off, BMC power rail or SPI flash is unpowered; verify standby 3.3V rail.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool",
+              "title": "ipmitool"
+            },
+            {
+              "url": "https://www.gigabyte.com/Support/Security/1762",
+              "title": "GIGABYTE: BMC unique pre-programmed password"
+            }
+          ],
+          "note": "Corrected 2026-11-10: replaced an unsourced raw IPMI command with the standard SEL listing. LED and switch names are board-specific."
+        },
+        "tags": [
+          "gigabyte-server-board",
+          "tips",
+          "pro",
+          "motherboard",
+          "post",
+          "best-practice"
+        ]
+      }
+    ],
+    "part": "mb-gigabyte-servers"
   }
 ];
 
@@ -992,7 +1044,44 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(MOTHERBOARD_CHEAT_SHEET_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: MOTHERBOARD_CHEAT_SHEET_DATA, label: "Motherboards sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: MOTHERBOARD_CHEAT_SHEET_DATA, label: "Motherboards sheets", parts: {
+   "mb-asus-servers": {
+    "title": "ASUS Server Boards",
+    "subtitle": "ASUS K14 / KRPA / KNPA / Z12 / Z13 / Pro WS / ESC8000 / RS720 Q-Codes, onboard LEDs & remote BMC POST queries",
+    "pill": "ASUS / ASUS & GIGABYTE Server Architecture"
+   },
+   "mb-epyc-agesa": {
+    "title": "AMD EPYC AGESA & PSP",
+    "subtitle": "GIGABYTE (MZ32/MZ33/MZ73/G-Series) & ASUS (K14/KRPA/KNPA) SP3/SP5 EPYC CPU 2-stage POST & ABL fault codes",
+    "pill": "EPYC / ASUS & GIGABYTE Server Architecture"
+   },
+   "mb-gigabyte-servers": {
+    "title": "GIGABYTE Server Boards",
+    "subtitle": "GIGABYTE MZ32 / MZ33 / MZ72 / MZ73 / MD72 / MS73 / G292 / G492 / G593 POST snooping, LEDs & DIP switches",
+    "pill": "GIGA / ASUS & GIGABYTE Server Architecture"
+   },
+   "mb-linux-audit": {
+    "title": "In-Band DMI & ACPI Audit",
+    "subtitle": "Inspecting ASUS/GIGABYTE board model, PCB revision, BIOS date, slot mapping & previous-boot hardware crash tables",
+    "pill": "DMI / ASUS & GIGABYTE Server Architecture"
+   },
+   "mb-memory-post": {
+    "title": "Memory MRC Codes",
+    "subtitle": "DDR4/DDR5 RDIMM detection, SPD read, rank training, channel population rules & fault isolation",
+    "pill": "MRC / ASUS & GIGABYTE Server Architecture"
+   },
+   "mb-pcie-dxe-post": {
+    "title": "PCIe & DXE Codes",
+    "subtitle": "DXE phase chipset init, PCIe bus enumeration (92/94/96), Above 4G BAR exhaustion & VGA/Console faults (d6/d7)",
+    "pill": "PCI / ASUS & GIGABYTE Server Architecture"
+   },
+   "mb-storage-bds-post": {
+    "title": "Storage & Boot BDS",
+    "subtitle": "SATA/NVMe detection (A0/A2), USB initialization (99/B4), BIOS Setup prompt (A9/AB) & OS boot handoff (AD/AA/00)",
+    "pill": "BDS / ASUS & GIGABYTE Server Architecture"
+   }
+  } };
 
 
 // DOM Elements

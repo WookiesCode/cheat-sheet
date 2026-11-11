@@ -1201,7 +1201,49 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(WINDOWS_CHEAT_SHEET_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: WINDOWS_CHEAT_SHEET_DATA, label: "Windows sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: WINDOWS_CHEAT_SHEET_DATA, label: "Windows sheets", parts: {
+   "win-network": {
+    "title": "Networking, Ports, DNS & Firewall",
+    "subtitle": "Listening ports + PIDs, Test-NetConnection, DNS resolution, REST APIs & Firewall",
+    "pill": "NET / Windows 11 & Server"
+   },
+   "win-packages": {
+    "title": "Winget, Packages & PS Modules",
+    "subtitle": "Windows Package Manager (winget), batch upgrades, exports & ExecutionPolicy",
+    "pill": "PKG / Windows 11 & Server"
+   },
+   "win-processes": {
+    "title": "Processes, Services, Events & Hardware",
+    "subtitle": "Process management, Windows Services, Event Viewer queries & WMI/CIM inspection",
+    "pill": "PROC / Windows 11 & Server"
+   },
+   "win-registry": {
+    "title": "Environment, Profile, Registry & Admin",
+    "subtitle": "PATH management, $PROFILE customization, Registry PSDrives & RunAs elevation",
+    "pill": "REG / Windows 11 & Server"
+   },
+   "win-shortcuts": {
+    "title": "Windows 11, Snap & Explorer Shortcuts",
+    "subtitle": "Power user menu, window tiling, virtual desktops, File Explorer & terminal tricks",
+    "pill": "KEYS / Windows 11 & Server"
+   },
+   "win-storage": {
+    "title": "Disks, Volumes & BitLocker Encryption",
+    "subtitle": "Get-Disk, partitions, volume formatting, BitLocker status & manage-bde",
+    "pill": "DSK / Windows 11 & Server"
+   },
+   "win-sysadmin": {
+    "title": "System Repair, Robocopy, Power & UEFI",
+    "subtitle": "DISM & SFC repair, multi-threaded Robocopy, battery reports & direct BIOS reboot",
+    "pill": "ADM / Windows 11 & Server"
+   },
+   "win-wsl": {
+    "title": "WSL 2 (Subsystem for Linux) & Interop",
+    "subtitle": "Distro lifecycle, snapshots/exports, VM shutdown & seamless Windows-Linux piping",
+    "pill": "WSL / Windows 11 & Server"
+   }
+  } };
 
 
 // DOM Elements
@@ -1417,6 +1459,23 @@ function renderSections() {
               </div>`
             : "";
 
+        // Recipes (they had cards of their own on the old per-topic pages).
+        const subcommandsHtml =
+          item.subcommands && item.subcommands.length
+            ? `<div class="subcmd-list">
+                <span class="subcmd-header">Subcommands &amp; Recipes (click any to copy)</span>
+                ${item.subcommands
+                  .map(
+                    ([subcmd, explanation]) =>
+                      `<div class="subcmd-row" data-copy="${escapeHtml(subcmd)}" title="Click to copy subcommand">
+                        <code>${escapeHtml(subcmd)}</code>
+                        <span>${escapeHtml(explanation)}</span>
+                      </div>`
+                  )
+                  .join("")}
+              </div>`
+            : "";
+
         const copyTarget = item.cmd.includes("   |   ")
           ? item.cmd.split("   |   ")[0].trim()
           : item.cmd.trim();
@@ -1449,6 +1508,7 @@ function renderSections() {
             </div>
 
             ${flagsHtml}
+            ${subcommandsHtml}
           </div>
         `;
       })
@@ -1607,7 +1667,7 @@ function initEvents() {
   });
 
   sectionsContainer.addEventListener("click", (e) => {
-    const copyBox = e.target.closest(".cmd-code-box");
+    const copyBox = e.target.closest(".cmd-code-box, .subcmd-row");
     if (copyBox) {
       copyToClipboard(copyBox.dataset.copy);
       return;

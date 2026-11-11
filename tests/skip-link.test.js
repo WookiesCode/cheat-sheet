@@ -7,11 +7,11 @@ const failures = [];
 const check = (ok, what) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`); if (!ok) failures.push(what); };
 
 const PAGES = [
-  ['sheet', BASE + 'nv-smi.html', 'Skip to commands'],
+  ['sheet', BASE + 'nvidia.html#nv-smi', 'Skip to commands'],
   ['home', BASE + 'index.html', 'Skip to content'],
   ['notes', BASE + 'notes.html', 'Skip to content'],
   ['workbench', BASE + 'tools.html', 'Skip to content'],
-  ['portable', 'file://' + path.join(ROOT, 'datacenter-cheatsheet-portable.html') + '#sheet-nv-smi', 'Skip to commands'],
+  ['portable', 'file://' + path.join(ROOT, 'datacenter-cheatsheet-portable.html') + '#sheet-nvidia--nv-smi', 'Skip to commands'],
 ];
 
 (async () => {
@@ -54,7 +54,7 @@ const PAGES = [
   {
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
-    await p.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     await p.waitForTimeout(600);
     await p.keyboard.press('Tab');
     await p.waitForTimeout(250);

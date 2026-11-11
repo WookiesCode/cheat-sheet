@@ -2293,7 +2293,29 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(EDITORS_CHEAT_SHEET_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: EDITORS_CHEAT_SHEET_DATA, label: "Editors sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: EDITORS_CHEAT_SHEET_DATA, label: "Editors sheets", parts: {
+   "cursor": {
+    "title": "Cursor",
+    "subtitle": "Cursor's AI keys and its terminal agent. Cursor is built on VS Code, so the VS Code sheet's keys work here too",
+    "pill": "Cursor · Nov 2026"
+   },
+   "nano": {
+    "title": "GNU nano",
+    "subtitle": "The editor that is on every server: open at a line, save, search and replace, cut and paste lines, and a nanorc that makes it pleasant",
+    "pill": "GNU nano 9.3"
+   },
+   "vscode": {
+    "title": "VS Code",
+    "subtitle": "Default Linux keys for the moves you use daily, the code command line, and editing on a server over SSH",
+    "pill": "VS Code 1.145 · Linux keys"
+   },
+   "zed": {
+    "title": "Zed",
+    "subtitle": "Zed's default Linux keymap (VS Code-like), where its settings and keymap live, the agent panel and inline assist",
+    "pill": "Zed 1.27 · Linux keys"
+   }
+  } };
 
 
 // DOM Elements

@@ -533,7 +533,29 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(FIBER_CHEAT_SHEET_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: FIBER_CHEAT_SHEET_DATA, label: "Fiber sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: FIBER_CHEAT_SHEET_DATA, label: "Fiber sheets", parts: {
+   "fo-cleaning-testing": {
+    "title": "Cleaning & Testing Triage",
+    "subtitle": "Inspect-before-you-connect, attenuator protection, FEC bin analysis & fault isolation",
+    "pill": "PHY / Optical Transceiver & Physical Layer"
+   },
+   "fo-dom-cli": {
+    "title": "DOM / DDM Telemetry",
+    "subtitle": "Linux ethtool -m, NVIDIA mlxlink, SONiC sfputil, Arista EOS & Cisco NX-OS transceiver telemetry",
+    "pill": "DOM / Optical Transceiver & Physical Layer"
+   },
+   "fo-form-factors": {
+    "title": "Form Factors & Breakouts",
+    "subtitle": "OSFP (Finned vs Flat-top RHS), QSFP-DD, QSFP112, DR8/2xDR4/FR4 & breakout topologies",
+    "pill": "XCVR / Optical Transceiver & Physical Layer"
+   },
+   "fo-mpo-polarity": {
+    "title": "MPO Pinning & Polarity",
+    "subtitle": "Male vs Female guide pins, Type A/B/C polarity, MPO-12 vs MPO-16 & UPC vs APC ferrules",
+    "pill": "CONN / Optical Transceiver & Physical Layer"
+   }
+  } };
 
 
 // DOM Elements

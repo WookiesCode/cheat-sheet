@@ -1,5 +1,5 @@
 // Auto-generated Global Search Index across all 196 cheat sheets
-// Total indexed items: 2127
+// Total indexed items: 2130
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "linux",
@@ -8736,7 +8736,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Pick the console path by situation",
     "tip": "Log every console session to the case folder",
     "tags": "bmc remote-management serial tips best-practice",
-    "sheet": "bmc-tools.html#freeipmi",
+    "sheet": "bmc-tools.html#serial-console",
     "src": {
       "verified": "2026-11-10",
       "refs": [
@@ -26836,6 +26836,28 @@ window.GLOBAL_SEARCH_INDEX = [
     }
   },
   {
+    "sName": "ipmi",
+    "file": "ipmi.html",
+    "badge": "tip",
+    "id": "fru-mc-watchdog-tips-card",
+    "sec": "FRU, BMC Reset & Watchdog: Pro Tips & Best Practices",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E fru print",
+    "desc": "Hardware Inventory Audit & BMC Health Maintenance",
+    "tip": "Check \"mc watchdog get\" to verify hardware watchdog timer parameters; disable watchdog during prolonged debug sessions.",
+    "tags": "fru-mc-watchdog tips pro ipmitool bmc best-practice",
+    "sheet": "ipmi.html#ipmi-fru-mc",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool(1) man page"
+        }
+      ],
+      "note": "\"The host stays up\" and fan ramp during a BMC reset are typical server behaviour, not stated in the ipmitool man page."
+    }
+  },
+  {
     "sName": "jira",
     "file": "jira.html",
     "badge": "hw",
@@ -30352,6 +30374,32 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Linux dmi-id.c (serial files are 0400)"
         }
       ]
+    }
+  },
+  {
+    "sName": "motherboards",
+    "file": "motherboards.html",
+    "badge": "tip",
+    "id": "gigabyte-server-board-tips-card",
+    "sec": "GIGABYTE Server Boards: Pro Tips & Best Practices",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
+    "desc": "GIGABYTE Dual-BIOS Switching & Remote Port 0x80 Snooping",
+    "tip": "If BMC_RDY LED is solid amber or off, BMC power rail or SPI flash is unpowered; verify standby 3.3V rail.",
+    "tags": "gigabyte-server-board tips pro motherboard post best-practice",
+    "sheet": "motherboards.html#mb-gigabyte-servers",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool",
+          "title": "ipmitool"
+        },
+        {
+          "url": "https://www.gigabyte.com/Support/Security/1762",
+          "title": "GIGABYTE: BMC unique pre-programmed password"
+        }
+      ],
+      "note": "Corrected 2026-11-10: replaced an unsourced raw IPMI command with the standard SEL listing. LED and switch names are board-specific."
     }
   },
   {
@@ -50534,7 +50582,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "GPU node drained by Slurm itself",
     "tip": "Slurm drains a node that lost a GPU",
     "tags": "slurm hpc scheduler slurm-gpus tips best-practice",
-    "sheet": "slurm.html#slurm-nodes",
+    "sheet": "slurm.html#slurm-gpus",
     "src": {
       "verified": "2026-11-09",
       "refs": [
@@ -54462,6 +54510,36 @@ window.GLOBAL_SEARCH_INDEX = [
         }
       ],
       "note": "Corrected 2026-11-10: orchagent is a process in the swss container, not a container."
+    }
+  },
+  {
+    "sName": "switches",
+    "file": "switches.html",
+    "badge": "tip",
+    "id": "cumulus-bgp-roce-tips-card",
+    "sec": "Cumulus: BGP, EVPN & RoCEv2: Pro Tips & Best Practices",
+    "cmd": "nv show vrf default router bgp neighbor && nv show qos roce",
+    "desc": "BGP Unnumbered & RoCEv2 Lossless Buffer Configuration",
+    "tip": "The NIC must tag RoCE traffic with the same priority the switch treats as lossless (3 by default), or the traffic is not protected by PFC.",
+    "tags": "cumulus-bgp-roce tips pro switches fabric best-practice",
+    "sheet": "switches.html#sw-cumulus-bgp",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-3/Border-Gateway-Protocol-BGP/Troubleshooting-BGP/",
+          "title": "Cumulus Linux 5.18: troubleshooting BGP"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Quality-of-Service/RDMA-over-Converged-Ethernet-RoCE/",
+          "title": "Cumulus Linux 5.18: RoCE"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/QoS/",
+          "title": "NVUE reference: QoS"
+        }
+      ],
+      "note": "Corrected 2026-11-10: replaced an unverified nv set qos pfc syntax with NVIDIA's nv set qos roce."
     }
   },
   {

@@ -4705,7 +4705,39 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(GRAFANA_CHEAT_SHEET_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: GRAFANA_CHEAT_SHEET_DATA, label: "Grafana sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: GRAFANA_CHEAT_SHEET_DATA, label: "Grafana sheets", parts: {
+   "grafana-as-code": {
+    "title": "Dashboards as Code",
+    "subtitle": "Export dashboards to JSON, keep them in git, and load them with provisioning files, the HTTP API, gcx or Git Sync",
+    "pill": "Grafana 13.x / Prometheus"
+   },
+   "grafana-gpu-dashboard": {
+    "title": "GPU Fleet Dashboard",
+    "subtitle": "A worked example: the panels, queries and layout for a datacenter GPU dashboard built on dcgm-exporter and node_exporter",
+    "pill": "Grafana 13.x / Prometheus"
+   },
+   "grafana-panels": {
+    "title": "Grafana Panels",
+    "subtitle": "The click-path for a first dashboard, which visualization fits which question, and the field settings that make panels readable",
+    "pill": "Grafana 13.x / Prometheus"
+   },
+   "grafana-promql": {
+    "title": "PromQL for Dashboards",
+    "subtitle": "The PromQL patterns behind most panels: counters with rate(), aggregation by label, top-N, comparisons and label joins",
+    "pill": "Grafana 13.x / Prometheus"
+   },
+   "grafana-setup": {
+    "title": "Grafana Lab Setup",
+    "subtitle": "Stand up a local Grafana + Prometheus lab, point Prometheus at your exporters, and connect the data source",
+    "pill": "Grafana 13.x / Prometheus"
+   },
+   "grafana-variables": {
+    "title": "Grafana Variables",
+    "subtitle": "One dashboard for every node and GPU: query variables, chained filters, multi-value formatting and repeated panels",
+    "pill": "Grafana 13.x / Prometheus"
+   }
+  } };
 
 
 // DOM Elements

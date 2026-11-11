@@ -514,7 +514,94 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(IB_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: IB_DATA, label: "InfiniBand sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: IB_DATA, label: "InfiniBand sheets", parts: {
+   "ib-bluefield": {
+    "title": "BlueField-3",
+    "subtitle": "Switching BlueField-3 between DPU (Embedded ARM) and NIC (SuperNIC) modes, rshim console & BFB OS installation",
+    "pill": "DPU / NDR & HDR Fabric"
+   },
+   "ib-ibdiagnet": {
+    "title": "ibdiagnet",
+    "subtitle": "Running deep NVIDIA fabric diagnostics: post-FEC/raw Bit Error Rate (BER), duplicate GUIDs, credit loops & cable temps",
+    "pill": "DGN / NDR & HDR Fabric"
+   },
+   "ib-iblinkinfo": {
+    "title": "iblinkinfo",
+    "subtitle": "Mapping every switch-to-HCA and switch-to-switch link across the InfiniBand fabric & spotting degraded link widths",
+    "pill": "LNK / NDR & HDR Fabric"
+   },
+   "ib-ibping": {
+    "title": "ibping",
+    "subtitle": "Testing InfiniBand MAD reachability between LIDs/GUIDs and tracing exact switch hop-by-hop forwarding paths",
+    "pill": "PNG / NDR & HDR Fabric"
+   },
+   "ib-ibqueryerrors": {
+    "title": "ibqueryerrors",
+    "subtitle": "Scanning all switches and HCAs in the subnet for non-zero symbol errors, link flaps, CRC errors & cable details",
+    "pill": "ERR / NDR & HDR Fabric"
+   },
+   "ib-ibstat": {
+    "title": "ibstat",
+    "subtitle": "Inspecting InfiniBand / RoCEv2 HCA port state (Active vs Init vs Down), physical link state, NDR/HDR rate & LIDs",
+    "pill": "IBS / NDR & HDR Fabric"
+   },
+   "ib-ibswitches": {
+    "title": "ibswitches",
+    "subtitle": "Listing all InfiniBand switches (Quantum/Quantum-2) and compute node HCAs discovered in the fabric with LIDs & GUIDs",
+    "pill": "SW / NDR & HDR Fabric"
+   },
+   "ib-ibv-devinfo": {
+    "title": "ibv_devinfo",
+    "subtitle": "Checking RDMA verbs readiness (PORT_ACTIVE), active_mtu (4096), GID index tables & show_gids for RoCEv2",
+    "pill": "IBV / NDR & HDR Fabric"
+   },
+   "ib-mlxcables": {
+    "title": "mlxcables",
+    "subtitle": "Discovering MFT cable devices (mst cable add), reading OSFP/QSFP vendor serials, FW versions & DDM optical power",
+    "pill": "CBL / NDR & HDR Fabric"
+   },
+   "ib-mlxconfig": {
+    "title": "mlxconfig",
+    "subtitle": "Switching VPI ports between InfiniBand (1) and Ethernet/RoCE (2), enabling SR-IOV, PCIe settings & factory reset",
+    "pill": "CFG / NDR & HDR Fabric"
+   },
+   "ib-mlxfwmanager": {
+    "title": "mlxfwmanager",
+    "subtitle": "Checking installed vs available NIC firmware versions, matching PSID board IDs, online updates (-u) & mlxfwreset",
+    "pill": "FWM / NDR & HDR Fabric"
+   },
+   "ib-mlxlink": {
+    "title": "mlxlink",
+    "subtitle": "Inspecting OSFP/QSFP optical laser power (-m), Raw vs Effective BER (-c), PAM4/NRZ SerDes eye opening (-e) & loopback",
+    "pill": "MLX / NDR & HDR Fabric"
+   },
+   "ib-mst": {
+    "title": "mst",
+    "subtitle": "Starting the MFT driver (mst start) and mapping /dev/mst/* device nodes to PCIe BDFs, mlx5_* RDMA names & netdevs",
+    "pill": "MST / NDR & HDR Fabric"
+   },
+   "ib-perfquery": {
+    "title": "perfquery",
+    "subtitle": "Reading & resetting (-R) PortCounters for SymbolErrors, LinkDowned, PortRcvErrors, PortXmitDiscards & PortXmitWait",
+    "pill": "PRF / NDR & HDR Fabric"
+   },
+   "ib-perftest": {
+    "title": "perftest",
+    "subtitle": "Benchmarking line-rate 200G/400G RDMA throughput (GB/s), sub-2us latency & GPUDirect RDMA (--use_cuda)",
+    "pill": "BCH / NDR & HDR Fabric"
+   },
+   "ib-rdma": {
+    "title": "rdma",
+    "subtitle": "Mapping mlx5_* RDMA devices to Linux network interfaces (ib0 / eth0), checking adaptive routing & resource counters",
+    "pill": "RDM / NDR & HDR Fabric"
+   },
+   "ib-sminfo": {
+    "title": "sminfo",
+    "subtitle": "Identifying the active Master Subnet Manager (OpenSM / UFM) LID, GUID, priority & activity count",
+    "pill": "SM / NDR & HDR Fabric"
+   }
+  } };
 
 
 // DOM References

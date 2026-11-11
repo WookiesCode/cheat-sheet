@@ -2837,7 +2837,7 @@
 
   function readVisited() { try { const v = JSON.parse(localStorage.getItem(VISITED_KEY) || '[]'); return new Set(Array.isArray(v) ? v : []); } catch (e) { return new Set(); } }
   function markVisited(file) {
-    if (!file || !/\.html$/.test(file) || /portable/.test(file)) return;
+    if (!file || !/\.html(#[\w-]+)?$/.test(file) || /portable/.test(file)) return;
     const v = readVisited();
     if (v.has(file)) return;
     v.add(file);
@@ -7566,7 +7566,7 @@ ${rmaTrailSection()}#### Action Requested:
       safeInit('initHealthAtlas', () => initHealthAtlas());
       safeInit('initSheetLayout', () => initSheetLayout());
       safeInit('initTourInvite', () => initTourInvite());
-      safeInit('recordVisit', () => recordVisit(anatSheetFile || window.location.pathname.split('/').pop() || 'index.html'));
+      safeInit('recordVisit', () => recordVisit(currentSheetFile()));
     }
     if (window.location.hash) {
       setTimeout(() => scrollToCard(window.location.hash), 150);
@@ -7665,7 +7665,9 @@ ${rmaTrailSection()}#### Action Requested:
   // pracKey → how many times you copied it, across every node.
   function pracTrailCounts() {
     const byFile = new Map();
-    pracPool().forEach(i => { if (!byFile.has(i.file)) byFile.set(i.file, []); byFile.get(i.file).push(i); });
+    const add = (f, i) => { if (!byFile.has(f)) byFile.set(f, []); byFile.get(f).push(i); };
+    // A trail entry names its sheet; on a merged page that is the part (k8s-nodes), so file it there too.
+    pracPool().forEach(i => { add(i.file, i); if (i.sheet) add(`${i.sheet.split('#')[1]}.html`, i); });
     const res = pracTrailCounts.res || (pracTrailCounts.res = new Map());
     const counts = new Map();
     pracTrailEntries().forEach(e => {
@@ -9117,30 +9119,37 @@ ${rmaTrailSection()}#### Action Requested:
     try { if (localStorage.getItem(flag)) return; } catch (e) { return; }
     try {
       const parts = [...new Set(sections.map(partOf))];
-      const into = new Set(JSON.parse(localStorage.getItem(hubKey) || '[]'));
-      parts.forEach(part => {
-        const key = oldKeys[part] || `${part}_bookmarks`;
-        if (key === hubKey) return;
-        const raw = localStorage.getItem(key);
-        if (raw === null) return;
-        try { JSON.parse(raw).forEach(id => into.add(id)); } catch (e) {}
-        localStorage.removeItem(key);
-      });
-      localStorage.setItem(hubKey, JSON.stringify([...into]));
+      // Read everything first and write only what changes: a full or read-only storage then
+      // costs nothing (no "could not save" warning for a migration with nothing to move).
+      const oldStars = parts.map(part => [part, oldKeys[part] || `${part}_bookmarks`]).filter(([, k]) => k !== hubKey && localStorage.getItem(k) !== null);
       const v = readVisited();
-      parts.forEach(part => { if (v.has(`${part}.html`)) v.add(`${hubFile}#${part}`); });
-      localStorage.setItem(VISITED_KEY, JSON.stringify([...v]));
-      // Practice progress is keyed by sheet file + command text.
+      const visits = parts.filter(part => v.has(`${part}.html`) && !v.has(`${hubFile}#${part}`));
       const d = pracLoad();
-      let moved = 0;
+      const pracMoves = [];
       sections.forEach(sec => (sec.commands || []).forEach(c => {
         const cmds = [c.cmd, ...(Array.isArray(c.subcommands) ? c.subcommands.map(x => Array.isArray(x) ? x[0] : '') : [])].filter(Boolean);
         cmds.forEach(cmd => {
           const oldK = pracKey({ file: `${partOf(sec)}.html`, cmd }), newK = pracKey({ file: hubFile, cmd });
-          if (d.cards[oldK] && !d.cards[newK]) { d.cards[newK] = d.cards[oldK]; delete d.cards[oldK]; moved++; }
+          if (d.cards[oldK] && !d.cards[newK]) pracMoves.push([oldK, newK]);
         });
       }));
-      if (moved) pracSave(d);
+      let u = null;
+      try { u = JSON.parse(localStorage.getItem(USAGE_KEY) || 'null'); } catch (e) { u = null; }
+      const useMoves = u && u.sheets ? parts.filter(part => u.sheets[`${part}.html`] && !u.sheets[`${hubFile}#${part}`]) : [];
+      if (!oldStars.length && !visits.length && !pracMoves.length && !useMoves.length) return;
+
+      if (oldStars.length) {
+        const into = new Set(JSON.parse(localStorage.getItem(hubKey) || '[]'));
+        oldStars.forEach(([, key]) => { try { JSON.parse(localStorage.getItem(key)).forEach(id => into.add(id)); } catch (e) {} });
+        localStorage.setItem(hubKey, JSON.stringify([...into]));
+        oldStars.forEach(([, key]) => localStorage.removeItem(key));
+      }
+      if (visits.length) { visits.forEach(part => v.add(`${hubFile}#${part}`)); localStorage.setItem(VISITED_KEY, JSON.stringify([...v])); }
+      if (pracMoves.length) { pracMoves.forEach(([o, n]) => { d.cards[n] = d.cards[o]; delete d.cards[o]; }); pracSave(d); }
+      if (useMoves.length) {
+        useMoves.forEach(part => { u.sheets[`${hubFile}#${part}`] = u.sheets[`${part}.html`]; delete u.sheets[`${part}.html`]; });
+        localStorage.setItem(USAGE_KEY, JSON.stringify(u));
+      }
       localStorage.setItem(flag, '1');
     } catch (e) { /* storage blocked: nothing to move */ }
   };
@@ -9166,17 +9175,19 @@ ${rmaTrailSection()}#### Action Requested:
   // "Showing nvidia-smi · All 8 NVIDIA DC sheets →" above the cards while a part is picked.
   function renderSheetFilterBar() {
     const f = window.SHEET_FILTER;
-    const host = document.getElementById('sections-container');
+    const host = document.getElementById('sections-container') || document.getElementById('sections-grid');
     if (!f || !sheetFilterId || !host) return;
     const suite = suiteFor(currentSheetFile());
     const me = suite && suite.sheets.find(s => s.file === currentSheetFile());
+    const head = (f.parts && f.parts[sheetFilterId]) || {};
     const sec = f.sections.find(s => partOf(s) === sheetFilterId);
-    const [name, about] = me ? [me.code || me.desc, me.code ? me.desc : ''] : String((sec && sec.title) || sheetFilterId).split(/\s+[—–-]\s+/);
+    const name = head.title || (me ? me.desc : String((sec && sec.title) || sheetFilterId));
     const n = suite ? suite.sheets.filter(s => s.file.startsWith(`${pageFile()}#`)).length : new Set(f.sections.map(partOf)).size;
     const bar = document.createElement('div');
     bar.id = 'sheet-filter-bar';
     bar.className = 'sheet-filter-bar';
-    bar.innerHTML = `<span class="sfb-label">Showing</span> <b>${escapeHtml(name)}</b>${about ? ` <span class="sfb-about">${escapeHtml(about)}</span>` : ''}
+    bar.innerHTML = `<div class="sfb-main"><span class="sfb-label">Showing</span> <b>${escapeHtml(name)}</b>${head.pill ? ` <span class="sfb-pill">${escapeHtml(head.pill)}</span>` : ''}
+      ${head.subtitle ? `<p class="sfb-about">${escapeHtml(head.subtitle)}</p>` : ''}</div>
       <a class="sfb-all" href="#">All ${n} ${escapeHtml(f.label || (suite ? suite.name : 'sections'))} →</a>`;
     host.parentNode.insertBefore(bar, host);
   }
@@ -9295,7 +9306,8 @@ ${rmaTrailSection()}#### Action Requested:
       const cmd = firstCommand(e.item.cmd);
       if (/\n/.test(cmd)) { skipped.multi++; return; }
       if (/^[%#;$@]/.test(cmd)) { skipped.marker++; return; }   // navi would read it as one of its own lines
-      const sheet = e.item.sName || e.item.file.replace(/\.html$/, '');
+      // A merged page's part (k8s-nodes) is the sheet, as it was before the pages merged.
+      const sheet = e.item.sheet ? e.item.sheet.split('#')[1] : (e.item.sName || e.item.file.replace(/\.html$/, ''));
       if (!groups.has(sheet)) groups.set(sheet, []);
       const desc = String(e.item.desc).replace(/\s+/g, ' ').trim();
       groups.get(sheet).push({ desc: DANGER_RE.test(cmd) ? `${desc} [changes state: drain and get approval first]` : desc, cmd: cmd.replace(/<[^<>\s][^<>]*>/g, kitNaviVar) });
@@ -13136,7 +13148,14 @@ ${rmaTrailSection()}#### Action Requested:
 
   function initSources() {
     const byId = new Map();
-    for (const it of (window.GLOBAL_SEARCH_INDEX || [])) if (it.src && it.id && !byId.has(it.id)) byId.set(it.id, it.src);
+    // id → command text → src, for the recipe rows inside a card.
+    const srcBySub = new Map();
+    for (const it of (window.GLOBAL_SEARCH_INDEX || [])) {
+      if (!it.src || !it.id) continue;
+      if (!byId.has(it.id)) { byId.set(it.id, it.src); continue; }
+      if (!srcBySub.has(it.id)) srcBySub.set(it.id, new Map());
+      srcBySub.get(it.id).set(String(it.cmd).replace(/\s+/g, ' ').trim(), it.src);
+    }
     if (!byId.size) return;
     // Sheets re-render their cards (a star, a filter), so watch for new ones like the anatomy does.
     const run = () => {
@@ -13144,8 +13163,16 @@ ${rmaTrailSection()}#### Action Requested:
       // Sheets mark a command data-cmd-id; the portable build's renderer marks it data-id.
       document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id]):not([data-src-done])').forEach(item => {
         item.dataset.srcDone = '1';
-        const src = byId.get(item.dataset.cmdId || item.dataset.id);
+        const id = item.dataset.cmdId || item.dataset.id;
+        const src = byId.get(id);
         if (!src) return;
+        // A recipe row checked against other docs (or not confirmed) says so on its own row;
+        // on the old per-topic pages each recipe was a card with its own source line.
+        const own = srcBySub.get(id);
+        if (own) item.querySelectorAll('.subcmd-row').forEach(row => {
+          const sub = own.get(String(row.dataset.copy || row.dataset.subcmd || '').replace(/\s+/g, ' ').trim());
+          if (sub && JSON.stringify(sub) !== JSON.stringify(src)) row.insertAdjacentHTML('afterend', srcLineHtml(sub).replace('class="cmd-source', 'class="cmd-source is-sub'));
+        });
         item.insertAdjacentHTML('beforeend', srcLineHtml(src));
         added++;
       });
@@ -14827,10 +14854,11 @@ ${rmaTrailSection()}#### Action Requested:
   const IN_WIDGET_FRAME = window.location.href === 'about:srcdoc';
 
   function recordVisit(file) {
-    if (!file || IN_WIDGET_FRAME || !/\.html$/.test(file) || /portable/.test(file)) return;
+    if (!file || IN_WIDGET_FRAME || !/\.html(#[\w-]+)?$/.test(file) || /portable/.test(file)) return;
     usageNote('sheet', file);
     const h1 = document.querySelector('.top-bar h1');
-    const name = (h1 ? h1.textContent.trim() : file).replace(/\s+/g, ' ');
+    const bar = document.querySelector('#sheet-filter-bar b');   // a part of a merged page: name the part too
+    const name = ((h1 ? h1.textContent.trim() : file) + (bar ? ` · ${bar.textContent.trim()}` : '')).replace(/\s+/g, ' ');
     let list = [];
     try { list = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); } catch (e) {}
     if (!Array.isArray(list)) list = [];

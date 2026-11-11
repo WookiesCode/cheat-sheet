@@ -15,7 +15,7 @@ const check = (ok, what) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`); if
   const browser = await launch();
   const ctx = await newContext(browser, { acceptDownloads: true });
   const p = await ctx.newPage();
-  await p.goto(BASE + 'k8s-nodes.html', { waitUntil: 'load' });
+  await p.goto(BASE + 'containers.html#k8s-nodes', { waitUntil: 'load' });
   await p.waitForTimeout(500);
 
   // Star four kinds of command: a placeholder with a dash, a state-changing one, a plain one,
@@ -26,9 +26,9 @@ const check = (ok, what) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`); if
     idx.forEach(i => { const k = `${i.file}#${i.id}`; if (!first.has(k)) first.set(k, i); });
     const main = [...first.values()];
     const dash = main.find(i => /<[a-z]+-[a-z-]+>/.test(i.cmd) && !/\n/.test(i.cmd) && !/^[%#;$@]/.test(i.cmd));
-    const drain = main.find(i => i.file === 'k8s-nodes.html' && i.id === 'kubectl-cordon-drain');
-    const plain = main.find(i => i.file === 'k8s-nodes.html' && i.id === 'kubectl-nodes-wide');
-    const multi = main.find(i => i.file === 'k8s-workloads.html' && /\n/.test(i.cmd));
+    const drain = main.find(i => (i.sheet || i.file) === 'containers.html#k8s-nodes' && i.id === 'kubectl-cordon-drain');
+    const plain = main.find(i => (i.sheet || i.file) === 'containers.html#k8s-nodes' && i.id === 'kubectl-nodes-wide');
+    const multi = main.find(i => (i.sheet || i.file) === 'containers.html#k8s-workloads' && /\n/.test(i.cmd));
     return { dash, drain, plain, multi };
   });
   check(Object.values(picks).every(Boolean), `found test commands (${Object.values(picks).map(x => x && `${x.file}#${x.id}`).join(', ')})`);

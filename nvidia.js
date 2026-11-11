@@ -1135,7 +1135,49 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(NVIDIA_CHEAT_SHEET_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: NVIDIA_CHEAT_SHEET_DATA, label: "NVIDIA DC sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: NVIDIA_CHEAT_SHEET_DATA, label: "NVIDIA DC sheets", parts: {
+   "nv-admin": {
+    "title": "GPU Admin, Reset, ECC, Row Remap & Clocks",
+    "subtitle": "HBM row remapper RMA checks, persistence daemon, GPU reset, power caps & clock locking",
+    "pill": "ADM / NVIDIA Datacenter"
+   },
+   "nv-dcgm": {
+    "title": "DCGM (dcgmi) Diagnostics, Health & Profiling",
+    "subtitle": "Hardware burn-in qualification (Level 1–4), passive health watches & Tensor/FP pipe telemetry",
+    "pill": "DCGM / NVIDIA Datacenter"
+   },
+   "nv-gpudirect": {
+    "title": "GPUDirect RDMA, Perftest & NCCL Validation",
+    "subtitle": "nvidia-peermem, ib_write_bw CUDA DMA tests & multi-GPU/multi-node nccl-tests",
+    "pill": "RDMA / NVIDIA Datacenter"
+   },
+   "nv-mig": {
+    "title": "MIG (Multi-Instance GPU) Partitioning",
+    "subtitle": "Hardware isolation into up to 7 GPU Instances (GI) and Compute Instances (CI)",
+    "pill": "MIG / NVIDIA Datacenter"
+   },
+   "nv-nvlink": {
+    "title": "NVLink, NVSwitch & Fabric Manager",
+    "subtitle": "NVLink per-lane status, CRC/Replay errors, SXM Fabric Manager & nvbandwidth tests",
+    "pill": "NVL / NVIDIA Datacenter"
+   },
+   "nv-ops": {
+    "title": "Slurm Drain, NVSM, Cooling & Container Triage",
+    "subtitle": "Draining Slurm GPU nodes before maintenance, NVSM health dumps, HBM3/DLC thermal delta & /dev/nvidia* checks",
+    "pill": "OPS / NVIDIA Datacenter"
+   },
+   "nv-pcie": {
+    "title": "PCIe AER, ACS, Xid Triage & Bug Reports",
+    "subtitle": "dmesg Xid/SXid decoding, lspci link/AER audits, ACS P2P disable & nvidia-bug-report.sh",
+    "pill": "PCIE / NVIDIA Datacenter"
+   },
+   "nv-smi": {
+    "title": "nvidia-smi Telemetry, Queries & Topology",
+    "subtitle": "CSV fleet queries, dmon/pmon live streams, NUMA/NVLink matrix & clock throttle reasons",
+    "pill": "SMI / NVIDIA Datacenter"
+   }
+  } };
 
 
 // DOM Elements

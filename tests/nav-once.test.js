@@ -34,8 +34,8 @@ const NAV = /<nav class="sheet-switcher" aria-label="Switch cheat sheet">([\s\S]
   });
 
   // 2. Over http and file://: full menus at DOMContentLoaded, same links as the source.
-  for (const [name, url] of [['http index', BASE + 'index.html'], ['http nv-smi', BASE + 'nv-smi.html'], ['http k8s-gpu', BASE + 'k8s-gpu.html'],
-                             ['http linux hub', BASE + 'linux.html'], ['file:// nv-smi', 'file://' + path.join(ROOT, 'nv-smi.html')]]) {
+  for (const [name, url] of [['http index', BASE + 'index.html'], ['http nv-smi', BASE + 'nvidia.html#nv-smi'], ['http k8s-gpu', BASE + 'containers.html#k8s-gpu'],
+                             ['http linux hub', BASE + 'linux.html'], ['file:// nv-smi', 'file://' + path.join(ROOT, 'nvidia.html#nv-smi')]]) {
     const ctx = await newContext(browser);
     await ctx.addInitScript(atDcl);
     const p = await ctx.newPage();
@@ -60,7 +60,7 @@ const NAV = /<nav class="sheet-switcher" aria-label="Switch cheat sheet">([\s\S]
   {
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
-    await p.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     await p.waitForTimeout(400);
     await p.hover('#navgroup-hw > .dropdown-toggle');
     await p.waitForTimeout(300);
@@ -73,7 +73,7 @@ const NAV = /<nav class="sheet-switcher" aria-label="Switch cheat sheet">([\s\S]
   {
     const ctx = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 1280, height: 800 } });
     const p = await ctx.newPage();
-    await p.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     const links = await p.evaluate(() => [...document.querySelectorAll('nav.sheet-switcher > a, nav.sheet-switcher > .nav-dropdown > a')].map(a => a.getAttribute('href')));
     const want = ['index.html', 'tools.html', 'linux.html', 'editors.html', 'infiniband.html', 'redfish.html', 'motherboards.html', 'containers.html', 'jira.html'];
     check(want.every(h => links.includes(h)), `without JavaScript the fallback links Home, Workbench and each tab hub (${links.length} links)`);

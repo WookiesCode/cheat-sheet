@@ -52,7 +52,7 @@ const bars = (p) => p.locator('.storage-warn').count();
   // 1. Normal storage: loading pages and starring a command raise nothing.
   {
     const p = await page(browser, 'ok');
-    for (const f of ['index.html', 'notes.html', 'nv-smi.html']) { await p.goto(BASE + f, { waitUntil: 'load' }); await p.waitForTimeout(400); }
+    for (const f of ['index.html', 'notes.html', 'nvidia.html#nv-smi']) { await p.goto(BASE + f, { waitUntil: 'load' }); await p.waitForTimeout(400); }
     await star(p);
     check(await bars(p) === 0, 'normal storage: no warning on load or on a save');
   }
@@ -60,7 +60,7 @@ const bars = (p) => p.locator('.storage-warn').count();
   // 2. Storage full: the first failed save raises one bar; the next one does not stack.
   {
     const p = await page(browser, 'full');
-    await p.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     await p.waitForTimeout(400);
     check(await bars(p) === 0, 'full storage: no warning until something is actually lost');
     await star(p);
@@ -82,7 +82,7 @@ const bars = (p) => p.locator('.storage-warn').count();
   // 3. Storage full, pin from Explain: the "Pinned" toast must not hide the failure.
   {
     const p = await page(browser, 'full');
-    await p.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     await p.waitForTimeout(400);
     await p.keyboard.press('e');
     await p.waitForTimeout(300);
@@ -96,7 +96,7 @@ const bars = (p) => p.locator('.storage-warn').count();
   // 4. Storage blocked: the site still works, and says nothing will be kept.
   {
     const p = await page(browser, 'blocked');
-    await p.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     await p.waitForTimeout(400);
     await star(p);
     check(await bars(p) === 1 && /blocking storage/.test(await p.locator('.storage-warn').innerText()), 'blocked storage: the warning says nothing is kept after leaving');
@@ -105,7 +105,7 @@ const bars = (p) => p.locator('.storage-warn').count();
   // 5. A refused tab-only (sessionStorage) write stays quiet: nothing a person saved is lost.
   {
     const p = await page(browser, 'session-full');
-    await p.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     await p.waitForTimeout(400);
     await p.evaluate(() => sessionStorage.setItem('dc_probe', 'x'));
     await star(p);

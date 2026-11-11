@@ -789,7 +789,39 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(ETHERNET_CHEAT_SHEET_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: ETHERNET_CHEAT_SHEET_DATA, label: "Ethernet sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: ETHERNET_CHEAT_SHEET_DATA, label: "Ethernet sheets", parts: {
+   "eth-bonding-vlans": {
+    "title": "LACP Bonds & VLANs",
+    "subtitle": "/proc/net/bonding LACP health, 802.1Q tagged sub-interfaces & KVM/container bridges",
+    "pill": "BOND / Linux Networking & Datacenter Ethernet"
+   },
+   "eth-ethtool-tuning": {
+    "title": "ethtool & Ring Buffers",
+    "subtitle": "Negotiated speed/duplex, forcing link modes, CRC error counters, ring buffers & RSS queues",
+    "pill": "ETH / Linux Networking & Datacenter Ethernet"
+   },
+   "eth-iproute2-ip6": {
+    "title": "iproute2 & IPv6 NDP",
+    "subtitle": "Brief color IPv6 tables (-6 -br -c), Jumbo Frame MTU 9000, IPv6 policy route lookups & NDP neighbor discovery",
+    "pill": "IP6 / Linux Networking & Datacenter Ethernet"
+   },
+   "eth-lldp-perf": {
+    "title": "LLDP & Line-Rate Tests",
+    "subtitle": "Finding upstream switch/port without leaving the server, DF MTU ping, iperf3 & resolvectl",
+    "pill": "DIAG / Linux Networking & Datacenter Ethernet"
+   },
+   "eth-netplan-systemd": {
+    "title": "Netplan & networkctl",
+    "subtitle": "/etc/netplan YAML workflow, rollback-safe netplan try, systemd-networkd & NetworkManager",
+    "pill": "NETP / Linux Networking & Datacenter Ethernet"
+   },
+   "eth-rj45-tdr": {
+    "title": "RJ45 Pinouts & TDR",
+    "subtitle": "8P8C wire color sequences, 100Mbps fallback diagnosis, PHY TDR cable test & port LED blink",
+    "pill": "RJ45 / Linux Networking & Datacenter Ethernet"
+   }
+  } };
 
 
 // DOM Elements

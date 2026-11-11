@@ -1382,7 +1382,7 @@ const SLURM_HUB_DATA = [
     ]
   },
   {
-    "part": "slurm-nodes",
+    "part": "slurm-gpus",
     "id": "slurm-gpus-pro-tips",
     "badge": "tip",
     "title": "GPUs & daemons: Pro Tip",
@@ -1440,7 +1440,24 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(SLURM_HUB_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: SLURM_HUB_DATA, label: "Slurm sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: SLURM_HUB_DATA, label: "Slurm sheets", parts: {
+   "slurm-gpus": {
+    "title": "GPUs & daemons",
+    "subtitle": "GPU counts per node, what the node really has, a GPU test job, and the daemons behind it all",
+    "pill": "Slurm 26.05 · GRES · slurmd"
+   },
+   "slurm-jobs": {
+    "title": "Jobs & accounting",
+    "subtitle": "Jobs on a node, pending reasons, job details, accounting history and cancelling",
+    "pill": "Slurm 26.05 · squeue · sacct"
+   },
+   "slurm-nodes": {
+    "title": "Nodes & drain",
+    "subtitle": "Read a node's state and reason, drain it before hardware work, and hand it back afterwards",
+    "pill": "Slurm 26.05 · sinfo · scontrol"
+   }
+  } };
 
 
 // DOM Elements

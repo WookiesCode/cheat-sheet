@@ -37,9 +37,9 @@ const ls = (page, k) => page.evaluate(key => localStorage.getItem(key), k);
   // ---- 1. Export from the localhost site -----------------------------------------
   const src = await ctx.newPage();
   src.on('pageerror', e => check(false, 'page error (site): ' + e.message));
-  await src.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+  await src.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
   await src.evaluate(() => {
-    localStorage.setItem('nv-smi_bookmarks', JSON.stringify(['smi-topo']));
+    localStorage.setItem('nv_cs_bookmarks', JSON.stringify(['smi-topo']));
     localStorage.setItem('cs_racks_v1', JSON.stringify({ rows: 'gpu-node-07,R13,11,4' }));
     localStorage.setItem('cs_practice_v1', JSON.stringify({ boxes: { a: 2 } }));
     localStorage.setItem('dc_terminal_prefs', JSON.stringify({ port: 8767, token: 'SECRET-TOKEN-123', h: 40 }));
@@ -60,7 +60,7 @@ const ls = (page, k) => page.evaluate(key => localStorage.getItem(key), k);
   const data = JSON.parse(raw);
   check(/^dc-cheatsheet-backup-\d{4}-\d{2}-\d{2}-\d{4}\.json$/.test(download.suggestedFilename()), `file name ${download.suggestedFilename()}`);
   check(data.app === 'dc-cheatsheet' && data.version === 1, 'file says what it is and its format version');
-  check(!!data.items['nv-smi_bookmarks'] && !!data.items.cs_racks_v1 && !!data.items.cs_practice_v1, 'kit stars, rack inventory and practice are in the file');
+  check(!!data.items['nv_cs_bookmarks'] && !!data.items.cs_racks_v1 && !!data.items.cs_practice_v1, 'kit stars, rack inventory and practice are in the file');
   check(!('other_app_data' in data.items), 'a key from another page on the same origin is not exported');
   check(!('dc_case_file' in data.items), 'the item holding a credential is not exported');
   check(!raw.includes('SECRET-TOKEN-123') && !raw.includes('hunter2'), 'no token or password anywhere in the file');
@@ -78,7 +78,7 @@ const ls = (page, k) => page.evaluate(key => localStorage.getItem(key), k);
   });
   await dst.reload({ waitUntil: 'load' });
   await dst.waitForTimeout(500);
-  check(await ls(dst, 'nv-smi_bookmarks') === null, 'portable copy starts without the localhost stars (separate storage)');
+  check(await ls(dst, 'nv_cs_bookmarks') === null, 'portable copy starts without the localhost stars (separate storage)');
 
   // 2a. A file that is not a backup is refused.
   await openBackupDialog(dst);
@@ -93,13 +93,13 @@ const ls = (page, k) => page.evaluate(key => localStorage.getItem(key), k);
   await dst.waitForSelector('.bk-list');
   const states = await dst.evaluate(() => Object.fromEntries([...document.querySelectorAll('.bk-row')].map(r => [r.querySelector('[data-bk-key]').dataset.bkKey, r.className.replace('bk-row ', '')])));
   check(states.cs_racks_v1 === 'is-differs', 'rack inventory shows "replaces what is here"');
-  check(states['nv-smi_bookmarks'] === 'is-new', 'kit stars show "not here yet"');
+  check(states['nv_cs_bookmarks'] === 'is-new', 'kit stars show "not here yet"');
   await dst.uncheck('[data-bk-key="cs_practice_v1"]');
   const label = await dst.locator('[data-bk="restore"]').innerText();
   check(/^Restore \d+ items?$/.test(label), `restore button counts the ticked items ("${label}")`);
   await Promise.all([dst.waitForEvent('load'), click(dst, '[data-bk="restore"]')]);
   await dst.waitForTimeout(700);
-  check(await ls(dst, 'nv-smi_bookmarks') === data.items['nv-smi_bookmarks'], 'kit stars restored');
+  check(await ls(dst, 'nv_cs_bookmarks') === data.items['nv_cs_bookmarks'], 'kit stars restored');
   check(await ls(dst, 'cs_racks_v1') === data.items.cs_racks_v1, 'rack inventory replaced');
   check(await ls(dst, 'cs_practice_v1') === null, 'unticked item (practice) not restored');
   const prefs = JSON.parse(await ls(dst, 'dc_terminal_prefs'));
@@ -111,7 +111,7 @@ const ls = (page, k) => page.evaluate(key => localStorage.getItem(key), k);
   await Promise.all([dst.waitForEvent('load'), click(dst, '[data-bk="undo"]')]);
   await dst.waitForTimeout(700);
   check(await ls(dst, 'cs_racks_v1') === JSON.stringify({ rows: 'OLD-INVENTORY' }), 'undo brings the old rack inventory back');
-  check(await ls(dst, 'nv-smi_bookmarks') === null, 'undo removes what the restore added');
+  check(await ls(dst, 'nv_cs_bookmarks') === null, 'undo removes what the restore added');
   check(JSON.parse(await ls(dst, 'dc_terminal_prefs')).port === 9000, 'undo restores the old terminal settings');
 
   // ---- 4. A refused write rolls the whole restore back ------------------------------
@@ -126,7 +126,7 @@ const ls = (page, k) => page.evaluate(key => localStorage.getItem(key), k);
   await click(dst, '[data-bk="restore"]');
   await dst.waitForTimeout(500);
   check(/Nothing was restored/.test(await dst.locator('.bk-preview').innerText()), 'a refused write shows "Nothing was restored"');
-  check(await ls(dst, 'nv-smi_bookmarks') === null, 'the keys written before the failure were rolled back');
+  check(await ls(dst, 'nv_cs_bookmarks') === null, 'the keys written before the failure were rolled back');
 
   await browser.close();
   console.log(failures.length ? `${failures.length} check(s) failed` : 'all checks passed');

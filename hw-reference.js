@@ -2258,7 +2258,39 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(HWREF_HUB_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: HWREF_HUB_DATA, label: "Rack & hardware reference sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: HWREF_HUB_DATA, label: "Rack & hardware reference sheets", parts: {
+   "hw-cooling": {
+    "title": "Cooling",
+    "subtitle": "ASHRAE ranges, reading inlet and GPU temperatures, fan failures, and the W classes for liquid-cooled racks",
+    "pill": "ASHRAE TC 9.9 · 5th ed."
+   },
+   "hw-drives": {
+    "title": "Drive form factors",
+    "subtitle": "What fits which bay, tri-mode gotchas, and identifying the drive and its link from Linux",
+    "pill": "SNIA EDSFF · SFF-TA-1001"
+   },
+   "hw-gpu-forms": {
+    "title": "GPU form factors",
+    "subtitle": "What each form factor means for power, NVLink and service, and how to tell them apart on a live node",
+    "pill": "HGX · DGX · NVL72"
+   },
+   "hw-memory": {
+    "title": "Memory population",
+    "subtitle": "Read the DIMM layout, check speeds and balance, and know the channel counts of current server CPUs",
+    "pill": "EPYC 9005 · Xeon 6"
+   },
+   "hw-power": {
+    "title": "Power & PDUs",
+    "subtitle": "C13/C19 ratings, the 80% rule, three-phase math, and reading real power draw from the BMC and GPUs",
+    "pill": "IEC 60320 · NEC 210.20"
+   },
+   "hw-rack": {
+    "title": "Racks & labelling",
+    "subtitle": "Rack units, 19-inch vs 21-inch Open Rack, a labelling scheme, and finding a server's identity from the CLI",
+    "pill": "EIA-310 · ORv3 · TIA-606-D"
+   }
+  } };
 
 
 // DOM Elements

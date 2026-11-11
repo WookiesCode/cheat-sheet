@@ -978,7 +978,49 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(REDFISH_CHEAT_SHEET_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: REDFISH_CHEAT_SHEET_DATA, label: "Redfish sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: REDFISH_CHEAT_SHEET_DATA, label: "Redfish sheets", parts: {
+   "rf-bios-bmc": {
+    "title": "BIOS & BMC Control",
+    "subtitle": "Reading/patching BIOS attributes, mounting HTTP ISOs & rebooting the BMC",
+    "pill": "BMC / DMTF Redfish REST API"
+   },
+   "rf-discovery": {
+    "title": "Discovery & Auth",
+    "subtitle": "ServiceRoot inspection, dynamic member URI discovery, X-Auth-Token & $expand",
+    "pill": "AUTH / DMTF Redfish REST API"
+   },
+   "rf-firmware": {
+    "title": "Firmware & Tasks",
+    "subtitle": "Auditing BMC/BIOS/CPLD/NIC firmware versions, Multipart HTTP push & Task polling",
+    "pill": "FW / DMTF Redfish REST API"
+   },
+   "rf-hgx-dlc": {
+    "title": "HGX Baseboard & DLC",
+    "subtitle": "Out-of-band HGX H100/H200/B200 SXM GPU telemetry, NVSwitch health & Direct Liquid Cooling (DLC) leak detection",
+    "pill": "HGX / DMTF Redfish REST API"
+   },
+   "rf-inventory": {
+    "title": "Hardware Inventory",
+    "subtitle": "DIMM health & serial numbers, CPU/GPU processors, NVMe drives & NIC MAC addresses",
+    "pill": "INV / DMTF Redfish REST API"
+   },
+   "rf-logs-sel": {
+    "title": "Logs & SEL Triage",
+    "subtitle": "Querying BMC hardware event logs, filtering Critical/Warning events & clearing SEL",
+    "pill": "LOG / DMTF Redfish REST API"
+   },
+   "rf-power-boot": {
+    "title": "Power & Boot",
+    "subtitle": "ComputerSystem.Reset actions, one-time UEFI PXE boot, BIOS Setup boot & NMI crash dump",
+    "pill": "PWR / DMTF Redfish REST API"
+   },
+   "rf-thermals-power": {
+    "title": "Thermals & Sensors",
+    "subtitle": "Inlet/exhaust temperatures, fan RPMs, PSU input/output wattage & Chassis indicator LED",
+    "pill": "SNS / DMTF Redfish REST API"
+   }
+  } };
 
 
 // DOM Elements

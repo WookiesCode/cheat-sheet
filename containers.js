@@ -6136,7 +6136,59 @@ const state = {
 };
 // The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(CONTAINERS_CHEAT_SHEET_DATA) : "";
-if (typeof window !== "undefined") window.SHEET_FILTER = { sections: CONTAINERS_CHEAT_SHEET_DATA, label: "Containers sheets" };
+if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
+  window.SHEET_FILTER = { sections: CONTAINERS_CHEAT_SHEET_DATA, label: "Containers sheets", parts: {
+   "docker-compose": {
+    "title": "Docker Compose",
+    "subtitle": "Define several containers in one compose.yaml and start, inspect and stop them together with docker compose",
+    "pill": "Docker Engine 29 / Compose plugin"
+   },
+   "docker-containers": {
+    "title": "Docker Containers",
+    "subtitle": "Start containers, see what is running, read logs, get a shell, and find out why a container exited",
+    "pill": "Docker Engine 29 / Compose plugin"
+   },
+   "docker-gpu-daemon": {
+    "title": "Docker GPUs & Daemon",
+    "subtitle": "Give containers access to NVIDIA GPUs, and check the Docker daemon's config, runtimes and logs",
+    "pill": "Docker Engine 29 / Compose plugin"
+   },
+   "docker-images": {
+    "title": "Docker Images",
+    "subtitle": "Build images with BuildKit, move them between registries and air-gapped hosts, and reclaim disk space",
+    "pill": "Docker Engine 29 / Compose plugin"
+   },
+   "docker-network-storage": {
+    "title": "Docker Networking & Storage",
+    "subtitle": "How containers reach each other and the host, and where their data lives",
+    "pill": "Docker Engine 29 / Compose plugin"
+   },
+   "k8s-gpu": {
+    "title": "Kubernetes GPUs",
+    "subtitle": "Check that each node advertises its GPUs, inspect the NVIDIA GPU Operator, and prove a pod can use a GPU",
+    "pill": "Kubernetes 1.37 / kubectl"
+   },
+   "k8s-kubectl": {
+    "title": "kubectl Basics & Contexts",
+    "subtitle": "Make sure you're pointed at the right cluster, then list and read any resource in the format you need",
+    "pill": "Kubernetes 1.37 / kubectl"
+   },
+   "k8s-nodes": {
+    "title": "Kubernetes Nodes & Maintenance",
+    "subtitle": "Check a node's health, take it out of service safely for hardware work, and debug it from the server itself",
+    "pill": "Kubernetes 1.37 / kubectl"
+   },
+   "k8s-troubleshoot": {
+    "title": "Kubernetes Troubleshooting",
+    "subtitle": "Work out why a pod is Pending, crash-looping or failing to pull its image",
+    "pill": "Kubernetes 1.37 / kubectl"
+   },
+   "k8s-workloads": {
+    "title": "Kubernetes Workloads",
+    "subtitle": "Declare what should run with YAML, roll changes out safely, roll them back, and run batch jobs",
+    "pill": "Kubernetes 1.37 / kubectl"
+   }
+  } };
 
 
 // DOM Elements
