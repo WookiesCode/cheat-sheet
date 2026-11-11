@@ -1071,3 +1071,144 @@ Considered and dropped: a shift handoff export (it already exists: "Shift board 
 - [Lenovo XClarity Essentials OneCLI](https://pubs.lenovo.com/lxce-onecli/)
 - [FreeIPMI man pages (Debian trixie)](https://manpages.debian.org/trixie/freeipmi-tools/index.html)
 - [picocom(1)](https://github.com/npat-efault/picocom/blob/master/picocom.1.md) · [ser2net README](https://github.com/cminyard/ser2net/blob/master/README.rst) · [conserver console(1)](https://www.conserver.com/docs/console.man.html) · [conserver.cf(5)](https://www.conserver.com/docs/conserver.cf.man.html)
+
+---
+
+# Review round 2 (2026-11-11): ranked proposals
+
+The first review's list (#1–#14 above) is fully built: items 8–12 have no ✅ mark, but each one shipped with its own test. This round starts from fresh observations. **Nothing below is built yet. Pick the items to build.**
+
+## 1. The product today
+
+**User (inferred; the Context block was left blank):** the repo owner, a datacenter technician on a Linux laptop or jumpbox (1280×720 to 1366×768), sometimes offline, triaging H200/B200 HGX nodes, InfiniBand/RoCE fabrics, storage and BMCs on a mixed fleet (ASUS/GIGABYTE/Supermicro boards; Quantum, Cumulus, Arista, NX-OS, SONiC switches).
+
+**What I ran:** the site at `127.0.0.1:8765` in headless Chrome. I pasted 22 real-world log lines into the home page's "What's broken?" box, ran 30 everyday Ctrl+K searches, measured eight pages, and screenshotted the home page and an NVIDIA sheet at 1280×800.
+
+| Measurement | Result |
+|---|---|
+| Load time (home, NVIDIA, IB, Linux, CLI tools, switches, Workbench, notes) | 377–549 ms; heap 8–10 MB; no errors |
+| Transfer per page | ~3.6 MB, of which the search index is 1.8 MB, `common.js` 1.1 MB, `styles.css` 404 KB |
+| Decoder: 22 pasted lines | 14 decoded correctly, 1 misdecoded (SXid 12028), 7 dead ends ("0 commands"), plus 1 not matched (`Port 1/1/3 Symbol Errors`) |
+| Ctrl+K: 30 searches | 23 good; 7 return nothing or the wrong thing (see #1) |
+| Commands with a `<placeholder>` | 214 of 1,974 |
+| Fixed chrome at the bottom of a sheet | pager 60 px + tip bar 34 px = 12–13% of a 720–800 px screen |
+
+### Core jobs
+
+| # | Job | How well it is served today |
+|---|---|---|
+| J1 | **Find the right command fast** (Ctrl+K, menus) | **Strong for tool and topic words** (`drain node`, `clear sel`, `row remap`, `lldp`, `pxe`). **Weak for plain English and near-miss words:** `which gpu is which slot` → 0, `port flapping` → 0, `gpu fell off bus` → a Grafana PromQL card. Search requires every word to match, so one stray word ("which", "is", "fell") empties the result. |
+| J2 | **Diagnose a pasted error** (the decoder) | **Strong on the classic GPU, memory, PCIe, NVMe and SEL lines.** Gaps: every SXid becomes "fabric not ready"; 17 of NVIDIA's 172 Xid codes are known; kernel, filesystem, mlx5 firmware, Slurm and Kubernetes lines dead-end. An unknown line falls through to a whole-line search that cannot match, and the empty state then suggests "paste a whole log line". |
+| J3 | **Copy commands safely** | **Strong:** state-changing flags, root handling, target fill, host reboots reference-only. **Gap:** a command with an unfilled `<NODE>` or `<PORT>` copies silently, and bash reads `<word` as an input redirection. The built-in terminal already refuses to send these (`common.js` line ~15896); Explain flags them; copy does not. |
+| J4 | **Read switch and fabric state** | Good command coverage on all five switch OSes and the fabric map (`iblinkinfo`). Pasted switch counter output (`show interfaces counters errors`, `show interfaces ib`) is not analysed, and cards say "run it twice a minute apart" with no help comparing the two. |
+| J5 | **Trust the material** | **Strong:** every card has a source and a verified date; the links were checked this week (#38, #39). |
+
+## 2. Research notes
+
+- **NVIDIA Xid catalog** (Ampere and newer; read 2026-11-11): Table 1 runs from Xid 1 to 172. Codes the decoder lacks that matter on H200/B200 include 136 (link training failed), 137 and 144–150 (NVLink errors), 140 (unrecovered ECC error escape), 143 (GPU init error), 155–158 (NVLink software error, resource retirement event/failure, GPU fatal timeout), 162–165 (power smoothing), 167 (PCIe fatal timeout) and 171–172 (DRAM/SRAM detail for Xid 48). [Xid catalog](https://docs.nvidia.com/deploy/xid-errors/latest/analyzing-xid-catalog.html)
+- **SXids** (Fabric Manager guide 2.6): the Error Handling chapter splits NVSwitch SXids into non-fatal, fatal and always-fatal tables, each with its own recovery. Example: 12028 (egress non-posted PRIV error) is non-fatal; 20034 (LTSSM fault up) is fatal. The guide says NVSwitch SXids no longer apply to HGX B200/B300, where NVSwitch errors come through NVSDM/DCGM instead. *The tables were read through a summary, not verbatim: re-check every code against the page before building #3.* [Fabric Manager user guide](https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html) · [NVIDIA GPU debug guidelines](https://docs.nvidia.com/deploy/gpu-debug-guidelines/) · [example SXid 20034 line (Red Hat)](https://access.redhat.com/node/6619941)
+- **Comparable tools:** [navi](https://github.com/denisidoro/navi) hands search to a fuzzy finder (fzf or skim), so a query with an extra or misspelled word still ranks the closest match instead of returning nothing. That is the behaviour #1 adds. tldr and cheat.sh show examples only and have no state-change or placeholder checks (#2 is ahead of them already for root and danger).
+- **Accessibility and performance:** the first review's WCAG 2.2 items (dialog focus, focus not obscured, skip link) are built and tested. Pages load in under 0.6 s from disk, so the 3.6 MB per page is not a user problem today; no item proposes a performance refactor.
+
+## 3. Ranked list
+
+Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). Ranked by user impact relative to effort. No new dependencies, no schema or storage-key changes unless an item says so.
+
+### Quick wins
+
+**R1. When every word doesn't match, show the closest matches instead of nothing**
+- **What:** if the all-words search finds nothing, rerun it without filler words ("which", "is", "the", "my"), rank by how many words each command matches, add a small synonym list (fell/fallen, flap/flapping, slot/bdf), and label the results "Closest matches".
+- **Why:** J1 and J2. It's the difference between an answer and a dead end, mid-incident.
+- **Evidence:** `which gpu is which slot` → 0; `port flapping` → 0; `gpu fell off bus` → Grafana PromQL; 7 of 22 pasted lines → "0 commands". `rankIndex` requires every token (`wordRes.every(...)`).
+- Impact **H** · Effort **S** · Risk **L** (only runs when the strict search is empty, so today's good results don't change).
+- **Files:** `common.js` (`renderGlobalSearchResults`, `rankIndex`), `tests/search.test.js`.
+
+**R2. Warn when a copied command still has an unfilled `<placeholder>`**
+- **What:** the copy toast names the unfilled slots ("Still has `<NODE>`, `<PORT>`: fill them before running") and points to Ctrl+K → Fill; the copy still happens.
+- **Why:** J3. A pasted `<node>` fails as a shell redirection, or quietly reads the wrong file.
+- **Evidence:** 214 of 1,974 commands contain a placeholder. The copy hook (`navigator.clipboard.writeText` override, `common.js` ~line 500) checks root, fleet and targets but not placeholders, while the terminal refuses to send them and Explain flags them.
+- Impact **H** · Effort **S** · Risk **L**.
+- **Files:** `common.js` (copy hook), a new `tests/placeholder-copy.test.js`.
+
+**R3. Decode SXids by code: non-fatal, fatal or always-fatal, with the guide's action**
+- **What:** read the SXid number and look it up in a table built from the Fabric Manager guide; say whether it is non-fatal (often no action), fatal (limited to the affected partition) or always fatal; note that SXids don't apply to B200. Unknown codes keep today's generic card.
+- **Why:** J2. A non-fatal SXid currently reads as "fabric not ready", which can send a technician to restart Fabric Manager for nothing.
+- **Evidence:** `SXid … 12028, Non-fatal` decoded as "NVSwitch fabric not ready". The decoder's test is `/…\bsxid\b|nvswitch/i` with no code lookup (`common.js` ~line 1320).
+- Impact **H** · Effort **S–M** · Risk **L** (every code re-checked verbatim against the guide first).
+- **Files:** `common.js` (decoder), `tests/sources.test.js` or a decoder test.
+
+**R4. A decoder test corpus**
+- **What:** `tests/decoder.test.js` with the 22 real lines from this review (and each line a later item adds), asserting the expected title or "no decode".
+- **Why:** J2. Coverage becomes visible and can't silently regress when patterns change.
+- **Evidence:** no test pastes log lines into the decoder today (the search tests use queries).
+- Impact **M** · Effort **S** · Risk **L**.
+- **Files:** `tests/decoder.test.js`, `tests/README.md`.
+
+**R5. Show unset rack targets as placeholders, not values**
+- **What:** draw the built-in examples (`2001:db8:dc::50`, `ADMIN`, `eno1`, `mlx5_0`, `/dev/nvme0n1`) dimmed and labelled "example" until you set them.
+- **Why:** J3. On a fresh browser the bar looks like it already points at a BMC.
+- **Evidence:** screenshot at 1280×800 shows `$BMC 2001:db8:dc::50` styled like a real value; the code already treats those defaults as unset (`v !== DEFAULT_TARGET_VARS[key]`, `common.js` ~line 206), so copies are safe. Only the display misleads.
+- Impact **M** · Effort **S** · Risk **L**.
+- **Files:** `common.js` (target bar render), `styles.css`.
+
+**R6. Give the commands back the bottom 94 px**
+- **What:** let the "Back to hub / Next" pager scroll with the page (it sits at the end of the sheet) instead of staying fixed; keep the tip bar.
+- **Why:** J1. On a 1280×720 screen the fixed pager and tip bar take 12–13% of the height on every sheet, and the left rail already lists every part.
+- **Evidence:** `.suite-rail-pager` is fixed at 60 px; footer 34 px; measured 87–88% usable height at 1280×720, 1366×768 and 1280×800.
+- Impact **M** · Effort **S** · Risk **L**.
+- **Files:** `styles.css`, possibly `tests/focus-visible.test.js` (it checks the fixed bars).
+
+**R7. Stop cutting off sheet titles in the header**
+- **What:** let the title shrink before the buttons do (shorter tool labels at ≤1280 px, the title's full text in its tooltip).
+- **Why:** J1. "NVIDIA Datacenter G…" at 1280 px; the header's nine buttons win the space.
+- **Evidence:** screenshot `nvidia.html#nv-smi` at 1280×800.
+- Impact **L** · Effort **S** · Risk **L**.
+- **Files:** `styles.css`.
+
+### Bigger bets
+
+**R8. Fill in the Xid codes that matter on H200 and B200**
+- **What:** add NVIDIA's catalog entries 136, 137, 140, 143, 144–150, 155–158, 162–165, 167, 171 and 172 to the decoder, each with severity, layer, NVIDIA's resolution and read-only next commands, and a source line pointing at the catalog.
+- **Why:** J2. B200 nodes report these newer codes; today they get "no decode".
+- **Evidence:** the decoder knows 17 codes (13 … 154); the catalog runs to 172.
+- Impact **H** · Effort **M** · Risk **L** (each entry copied from the catalog's own resolution text, not written from memory).
+- **Files:** `common.js` (`XID_TABLE`), `docs/playbooks/gpu-nvlink.md`, the decoder test (R4).
+
+**R9. Decode the common non-GPU lines that dead-end today**
+- **What:** decoder entries for kernel soft lockup / hung task, XFS and ext4 corruption, mlx5 firmware health and crdump, `slurmd` "configuration differs from hardware", kubelet "failed to allocate device plugin resource", perftest "Couldn't connect", and PCIe link-training failures, each with sourced next commands.
+- **Why:** J2. These are the lines a technician pastes when the problem isn't a GPU.
+- **Evidence:** 7 of the 22 test lines went to "0 commands found"; Ctrl+K has no card for `xfs_repair`, `soft lockup` or `crdump`.
+- Impact **H** · Effort **M** · Risk **L**.
+- **Files:** `common.js` (decoder), sheet data where a missing command needs a card (`app.js`, `infiniband.js`, `slurm.js`, `containers.js`), the decoder test.
+
+**R10. Analyse pasted switch counter output**
+- **What:** extend "Analyze command output" (it reads mlxlink, `nvme smart-log` and `nvidia-smi topo` today) to switch error counters: Arista/Cumulus/NX-OS `show interfaces counters errors` and MLNX-OS `show interfaces ib` output, with one table of ports that have errors, worst first.
+- **Why:** J4. Spotting the one bad port among 64 by eye is slow.
+- **Evidence:** pasting `Port 1/1/3 Symbol Errors: 1534` matched nothing; the analyser has no switch parsers.
+- Impact **H** · Effort **M** · Risk **L** (read-only parsing of pasted text).
+- **Files:** `common.js` (analyser), `tests/`.
+
+### Innovative ideas
+
+**R11. Before/after counter diff**
+- **What:** paste the same counter output twice (a minute apart) and see only what grew, per port. It builds on R10's parsers.
+- **Why:** J4. The cards already say "a counter that grows is the live problem" (Arista DOM card tip); this does the subtraction.
+- Impact **M** · Effort **S** after R10 · Risk **L**.
+- **Files:** `common.js`.
+
+**R12. Teach the decoder your own lines**
+- **What:** when a pasted line isn't decoded, offer "Save as my pattern": a title, next commands and a note, saved locally, included in Backup & restore, and shown the next time the line appears.
+- **Why:** J2. Fleet-specific messages (your BMC firmware's wording, your scheduler's prolog errors) get a remembered answer.
+- **Evidence:** the dead-end lines above; there is no user-extensible decoder.
+- Impact **M** · Effort **M** · Risk **L**. **Flag:** adds one new localStorage key (`dc_my_decoders`), which goes into the backup file.
+- **Files:** `common.js`, `tests/backup.test.js`.
+
+**R13. Monthly source-link check**
+- **What:** a scheduled run of `scripts/check-source-links.js` that reports only dead or moved links.
+- **Why:** J5. 47 of 1,024 links moved within a few months.
+- Impact **M** · Effort **S** · Risk **L**. Creates a scheduled job, so it needs your OK for the time and where it reports.
+
+### Considered and not proposed
+
+- **Lazy-load the 1.8 MB search index:** pages already load in under 0.6 s from disk; the change would add a loading state to Ctrl+K for no felt gain.
+- **Mobile layout:** laptop-only by choice.
