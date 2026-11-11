@@ -40,7 +40,7 @@ dmesg -T | grep -E -i "NVRM: Xid|nvidia-nvswitch[0-9]*: SXid|AER|pcieport|fallen
 
 ## 2. Xid & SXid Error Decoding Matrix
 
-In `dmesg -T`, look for `NVRM: Xid (PCI:0000:xx:00): <Code>, ...`:
+In `dmesg -T`, look for `NVRM: Xid (PCI:0000:xx:00): <Code>, ...`. Codes 136–172 follow [NVIDIA's Xid catalog](https://docs.nvidia.com/deploy/xid-errors/latest/analyzing-xid-catalog.html) (read 2026-11-11); paste the line into the site's home box for the card.
 
 | Xid Code | Meaning | Typical Root Cause & Technician Action |
 | :--- | :--- | :--- |
@@ -57,7 +57,16 @@ In `dmesg -T`, look for `NVRM: Xid (PCI:0000:xx:00): <Code>, ...`:
 | **Xid 94** | **Contained ECC Error** | Uncorrectable ECC isolated to a single process. Check `ROW_REMAPPER`; reset GPU after draining. |
 | **Xid 95** | **Uncontained ECC Error** | **Severe Hardware Fault.** Uncorrectable ECC in shared state or SRAM parity error. Requires immediate GPU reset; if SRAM uncorrectable > 0 or repeats, **RMA**. |
 | **Xid 119 / 120** | **GSP RPC Timeout / GSP Error** | GPU System Processor (GSP) hung on H200/B200/RTX. Check for preceding Xid 48/74/79 or thermal throttling. Requires GPU reset or cold AC cycle. |
-| **Xid 140** | Unrecoverable ECC Error | Blackwell / Hopper unrecoverable memory error. Check `nvidia-smi -q -d ECC,ROW_REMAPPER`. |
+| **Xid 140** | Unrecoverable ECC Error | The driver could not mark the pages for offlining or row remapping. Check `nvidia-smi -q -d ECC,ROW_REMAPPER`. Catalog: reset the GPU (drain, ask first); if it persists, contact support. |
+| **Xid 136** | NVLink link training failed | H100-class only in the catalog. Reset the GPU (drain, ask first), then investigate the link. |
+| **Xid 137** | NVLink privilege error | Remote MMU fault such as an illegal NVLink peer-to-peer access: usually an application bug. No action; hand to the job owner. |
+| **Xid 143 / 158** | GPU init error / GPU fatal timeout | `nvidia-bug-report.sh`, then reset the GPU (drain, ask first); contact support if it returns. |
+| **Xid 144–150** | NVLink5 SAW / RLW / TLW / TREX / NVLPW_CTRL / NETIR / MSE | **B200 / GB200.** The line says fatal or nonfatal; the action comes from decoding its `intrInfo` and `errorStatus` with the catalog's "Xid 144-150 Decode" table. Keep the whole line. |
+| **Xid 155** | NVLink software-defined error | B200 / GB200: an intentional link down (including SLEEP). Investigate only if nobody meant it. |
+| **Xid 156 / 157** | Resource retirement event / failure | 156: reset the GPU so the retirement takes effect. 157: no spares left; workloads run but it can recur: contact support (RMA path). |
+| **Xid 162–165** | Power smoothing (PSHC) re-engaged / disengaged / low lifetime / exhausted | **B200 / GB200.** 163: no reset needed; fix thermal events, or reload the driver if a timeout disabled it. 164–165: power swings will occur; replace GPUs only if the swings are not acceptable. |
+| **Xid 167** | PCIe fatal timeout | No catalog action. Treat like Xid 79: bug report, PCIe link (LnkSta/AER), SEL power/thermal. |
+| **Xid 171 / 172** | Uncorrectable DRAM / SRAM error | Detail logged with an Xid 48: says whether the fault is in HBM (DRAM) or on-chip SRAM. Follow the Xid 48. |
 | **SXid (NVSwitch)** | `nvidia-nvswitch0: SXid (PCI:0000:xx:00.0): <Code>, Non-fatal\|Fatal, Link <n> <text>` | The code's class comes from the [Fabric Manager guide](https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html)'s tables, not from a number range: **non-fatal** (Table 22; single-bit ECC is corrected, 22013 can be ignored, 12028 stalls the port's NVLink traffic), **fatal** (Table 23; reaches the GPU as Xid 74 when applicable, limited to the GPUs behind an access port), **always fatal** (Table 24; the whole fabric: host restart or SBR of NVSwitches and GPUs). The home decoder classifies a pasted line. Correlate the NVSwitch BDF and link number with the connected GPU to isolate SXM module vs. HGX baseboard. Not reported on HGX B200/B300 (NVSwitch errors come through DCGM there). |
 
 ---

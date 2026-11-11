@@ -27,6 +27,18 @@ const CASES = [
   ['NVRM: Xid (PCI:0000:8a:00): 79, pid=1234, name=python, GPU has fallen off the bus.', /^Xid 79 — GPU has fallen off the bus/, 'crit', { steps: /lspci -vvv -s 0000:8a:00/ }],
   ['NVRM: GPU 0000:8a:00.0: GPU has fallen off the bus.', /^Xid 79/, 'crit'],
   ['NVRM: Xid (PCI:0000:8a:00): 48, pid=1234, name=python, An uncorrectable double bit error (DBE) has been detected on GPU in the framebuffer', /^Xid 48 — Double-bit ECC/, 'crit'],
+  // Codes from NVIDIA's Xid catalog for H200 / B200 (with a catalog source line).
+  ['NVRM: Xid (PCI:0000:8a:00): 140, pid=1234, name=python, ECC unrecovered error', /^Xid 140 — ECC unrecovered error/, 'crit', { src: /Xid catalog/, steps: /nvidia-bug-report\.sh/ }],
+  ['NVRM: Xid (PCI:0000:8a:00): 137, pid=1234, name=python, NVLink privilege error', /^Xid 137 — NVLink privilege error/, 'warn', { meaning: /application-level bug/ }],
+  ['NVRM: Xid (PCI:0000:8a:00): 165, Power Smoothing HW Circuitry lifetime exhausted', /^Xid 165 — Power smoothing lifetime exhausted/, 'warn'],
+  ['NVRM: Xid (PCI:0000:8a:00): 171, uncorrectable DRAM error', /^Xid 171 — Uncorrectable DRAM error/, 'crit'],
+  ['NVRM: Xid (PCI:0000:8a:00): 167, PCIE_FATAL_TIMEOUT', /^Xid 167 — PCIe fatal timeout/, 'crit', { steps: /LnkSta/ }],
+  // NVLink5 (144-150): the line's own fatal / nonfatal word sets the severity. The shape follows the
+  // catalog's message format; the field values are placeholders.
+  ['NVRM: Xid (PCI:0000:8a:00): 145, RLW Fatal XC0 i0 Link 12 (0x00000000 0x00000000 0x0 0x0 0x0 0x0 0x0)', /^Xid 145 — NVLink RLW error/, 'crit', { meaning: /intrInfo/, steps: /nvlink -e/ }],
+  ['NVRM: Xid (PCI:0000:8a:00): 145, RLW Nonfatal XC0 i0 Link 12 (0x00000000 0x00000000 0x0 0x0 0x0 0x0 0x0)', /^Xid 145 — NVLink RLW error/, 'warn'],
+  // A code still missing from the table says so instead of guessing.
+  ['NVRM: Xid (PCI:0000:8a:00): 199, pid=1234, name=python', /^Xid 199 — Not in the local decoder table/, 'warn'],
   // Memory, CPU, PCIe
   ['EDAC MC0: 1 CE memory read error on CPU_SrcID#0_MC#0_Chan#1_DIMM#0', /^Correctable DRAM error/, 'warn'],
   ['mce: [Hardware Error]: Machine check events logged', /machine check/i, 'crit'],
@@ -97,6 +109,9 @@ for (const f of ['nvidia.js', 'common.js', 'docs/playbooks/gpu-nvlink.md']) {
       check(false, `"${short}" decodes (no card)`);
     } else {
       check(title.test(card.title) && card.sev === sev, `"${short}" → ${card.title} [${card.sev}]`);
+      // Steps are read-only: a reset, reboot or module unload is only ever described in "Then".
+      const intrusive = card.steps.match(/nvidia-smi[^;]*\s(-r|--gpu-reset)\b|\breboot\b|\brmmod\b|modprobe -r|chassis power/);
+      if (intrusive) check(false, `…offers an intrusive step: ${intrusive[0]}`);
       if (extra.src) check(extra.src.test(card.src), `…cites ${card.src}`);
       if (extra.not) check(!extra.not.test(card.title), '…is not the generic fabric card');
       if (extra.steps) check(extra.steps.test(card.steps), `…offers ${extra.steps}`);

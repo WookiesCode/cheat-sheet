@@ -1295,6 +1295,10 @@
   // -------------------------------------------------------------
   const SEV = { crit: 'Critical', warn: 'Warning', info: 'Info' };
 
+  const XID_CATALOG = { url: 'https://docs.nvidia.com/deploy/xid-errors/latest/analyzing-xid-catalog.html', title: 'NVIDIA Xid catalog (Table 1 and resolution buckets)' };
+  // Xid 144-150 (NVLink5, B100/GB200): the action depends on fields inside the message.
+  const NVLINK5_MEANING = unit => `NVLink5 ${unit} error. B100/GB200 only in the catalog. The line itself says fatal or nonfatal; the resolution depends on its intrInfo and errorStatus fields, decoded with the catalog's "Xid 144-150 Decode" table.`;
+  const NVLINK5_NEXT = 'Save the whole line in the case file: the catalog decodes intrInfo and errorStatus (the values in brackets) into the action. Check the link\'s error counters; any GPU reset means a drain and your OK.';
   const XID_TABLE = {
     13: { sev: 'warn', layer: 'Software / application', title: 'Graphics engine exception', meaning: 'Usually an application fault such as an out-of-range memory access. If it repeats across different jobs on the same GPU, treat it as a hardware suspect.', next: 'Check whether other jobs on this GPU hit it too. If it follows the GPU rather than the job, drain the node and run dcgmi diag -r 3.' },
     31: { sev: 'warn', layer: 'Software / application', title: 'GPU memory page fault (MMU fault)', meaning: 'An application touched memory it does not own. Almost always a user code or framework bug, rarely the driver.', next: 'Hand back to the job owner with the PID and timestamp. Only escalate if it repeats with known-good workloads.' },
@@ -1312,7 +1316,31 @@
     95: { sev: 'crit', layer: 'Hard silicon (HBM)', title: 'Uncontained ECC error', meaning: 'Uncorrectable memory error the GPU could not isolate. All work on the GPU is affected.', next: 'Drain the node and reset the GPU (ask first). Check row remap. Recurring → RMA.' },
     119: { sev: 'crit', layer: 'Firmware / driver (GSP)', title: 'GSP RPC timeout', meaning: 'The driver timed out talking to the GPU System Processor. The GPU is hung.', next: 'Capture nvidia-bug-report.sh, drain and reset/reboot (ask first). Fleet-wide → driver version issue, not hardware.' },
     120: { sev: 'crit', layer: 'Firmware / driver (GSP)', title: 'GSP error', meaning: 'The GPU System Processor reported an error. Usually needs a GPU reset.', next: 'Capture nvidia-bug-report.sh, drain and reset (ask first). Compare driver/VBIOS with healthy nodes.' },
-    154: { sev: 'crit', layer: 'Recovery action', title: 'GPU recovery action changed', meaning: 'The driver is telling you what it needs to recover: the text after "to" (GPU Reset Required, Node Reboot Required, Drain and Reset…) is the instruction.', next: 'Do exactly the action named in the message, after draining (ask first).' }
+    154: { sev: 'crit', layer: 'Recovery action', title: 'GPU recovery action changed', meaning: 'The driver is telling you what it needs to recover: the text after "to" (GPU Reset Required, Node Reboot Required, Drain and Reset…) is the instruction.', next: 'Do exactly the action named in the message, after draining (ask first).' },
+    // From NVIDIA's Xid catalog (Table 1 and the resolution buckets in Table 3, read 2026-11-11), for the
+    // codes H200 and B200 nodes report. "Reset the GPU" in the catalog is written here as drain + your OK.
+    136: { src: true, sev: 'crit', layer: 'NVLink / Layer-1', title: 'NVLink link training failed (ALI_TRAINING_FAIL)', meaning: 'An NVLink link failed to train. The catalog lists it for H100-class GPUs, not B100/GB200.', next: 'Catalog: reset the GPU (drain first; needs your OK), then investigate the link. Repeats on one link → GPU seating or baseboard.' },
+    137: { src: true, sev: 'warn', layer: 'Software / application', title: 'NVLink privilege error (NVLINK_PRIV_ERR)', meaning: 'Logged when the remote MMU reports a fault, such as an illegal NVLink peer-to-peer access. The catalog: typically an application-level bug.', next: 'Catalog: no immediate action. Hand back to the job owner: run the application in cuda-gdb or cuda-memcheck, as the catalog suggests.' },
+    140: { src: true, sev: 'crit', layer: 'Hard silicon (HBM)', title: 'ECC unrecovered error (UNRECOVERABLE_ECC_ERROR_ESCAPE)', meaning: 'The driver saw uncorrectable GPU memory errors in a way that stopped it marking the pages for dynamic page offlining or row remapping.', next: 'Catalog: reset the GPU (drain first; needs your OK); if the problem persists, contact support. Capture nvidia-bug-report.sh before the reset.' },
+    143: { src: true, sev: 'crit', layer: 'Firmware / driver', title: 'GPU initialization error (GPU_INIT_ERROR)', meaning: 'The GPU failed to initialize.', next: 'Catalog: reset the GPU (drain first; needs your OK), then contact support if it returns. Capture nvidia-bug-report.sh first.' },
+    144: { src: true, nvlink5: 'SAW', sev: 'warn', layer: 'NVLink (NVLink5)', title: 'NVLink SAW error (NVLINK_SAW_ERROR)' },
+    145: { src: true, nvlink5: 'RLW', sev: 'warn', layer: 'NVLink (NVLink5)', title: 'NVLink RLW error (NVLINK_RLW_ERROR)' },
+    146: { src: true, nvlink5: 'TLW', sev: 'warn', layer: 'NVLink (NVLink5)', title: 'NVLink TLW error (NVLINK_TLW_ERROR)' },
+    147: { src: true, nvlink5: 'TREX', sev: 'warn', layer: 'NVLink (NVLink5)', title: 'NVLink TREX error (NVLINK_TREX_ERROR)' },
+    148: { src: true, nvlink5: 'NVLPW_CTRL', sev: 'warn', layer: 'NVLink (NVLink5)', title: 'NVLink power control error (NVLINK_NVLPW_CTRL_ERROR)' },
+    149: { src: true, nvlink5: 'NETIR', sev: 'warn', layer: 'NVLink (NVLink5)', title: 'NVLink NETIR error (NVLINK_NETIR_ERROR)' },
+    150: { src: true, nvlink5: 'MSE', sev: 'warn', layer: 'NVLink (NVLink5)', title: 'NVLink MSE error (NVLINK_MSE_ERROR)' },
+    155: { src: true, sev: 'info', layer: 'NVLink (NVLink5)', title: 'NVLink software-defined error (NVLINK_SW_DEFINED_ERROR)', meaning: 'Triggered by link-down events flagged as intentional, including transitions to SLEEP. B100/GB200 only in the catalog.', next: 'Catalog: reset the GPU (drain first; needs your OK), and investigate whether software or a user initiated it if it was unexpected.' },
+    156: { src: true, sev: 'warn', layer: 'Hard silicon (HBM)', title: 'Resource retirement event (RESOURCE_RETIREMENT_EVENT)', meaning: 'The GPU retired a resource (such as a memory row) to repair a fault.', next: 'Catalog: reset the GPU so the retirement takes effect (drain first; needs your OK). No further investigation needed.' },
+    157: { src: true, sev: 'warn', layer: 'Hard silicon (HBM)', title: 'Resource retirement failure (RESOURCE_RETIREMENT_FAILURE)', meaning: 'No repair is possible because there are no spare resources left. Workloads still run, but the same Xid may come back.', next: 'Catalog: no immediate action; contact support. Note the GPU serial for an RMA if it repeats.' },
+    158: { src: true, sev: 'crit', layer: 'Firmware / driver', title: 'GPU fatal timeout (GPU_FATAL_TIMEOUT)', meaning: 'The GPU hit a fatal timeout.', next: 'Catalog: reset the GPU (drain first; needs your OK), then contact support if it returns. Capture nvidia-bug-report.sh first.' },
+    162: { src: true, sev: 'info', layer: 'Power smoothing', title: 'Power smoothing re-engaged (PSHC_REENGAGED)', meaning: 'The power smoothing hardware circuitry is working again. B100/GB200 only in the catalog.', next: 'No action.' },
+    163: { src: true, sev: 'warn', layer: 'Power smoothing', title: 'Power smoothing disengaged (PSHC_DISENGAGED)', meaning: 'The power smoothing hardware circuitry turned itself off. B100/GB200 only in the catalog.', next: 'Catalog: no GPU reset required. If you want power smoothing, resolve the thermal events; if it was disabled by a timeout, reload the driver or reset the GPU (drain first; needs your OK).' },
+    164: { src: true, sev: 'warn', layer: 'Power smoothing', title: 'Power smoothing low lifetime (PSHC_LOW_LIFETIME)', meaning: 'The power smoothing circuitry is close to the end of its life and will be disabled soon.', next: 'Catalog: monitor power swings and expect to replace GPUs if power smoothing is wanted; investigate whether the swings are acceptable.' },
+    165: { src: true, sev: 'warn', layer: 'Power smoothing', title: 'Power smoothing lifetime exhausted (PSHC_ZERO_LIFETIME)', meaning: 'The driver disables power smoothing, so power swings will occur.', next: 'Catalog: replace the GPUs if the swings are not acceptable and power smoothing is wanted; check that the datacenter power infrastructure can absorb the swings.' },
+    167: { src: true, sev: 'crit', layer: 'PCIe / Layer-1', title: 'PCIe fatal timeout (PCIE_FATAL_TIMEOUT)', meaning: 'A fatal PCIe timeout on this GPU. The catalog lists no resolution for it.', next: 'Capture nvidia-bug-report.sh, then check the PCIe link (LnkSta, AER) and the SEL for power or thermal events at the same time, as for Xid 79.' },
+    171: { src: true, sev: 'crit', layer: 'Hard silicon (HBM)', title: 'Uncorrectable DRAM error (detail for Xid 48)', meaning: 'Logged with an Xid 48 to say the uncorrectable error is in DRAM (the HBM), not SRAM.', next: 'Follow the Xid 48 it came with.' },
+    172: { src: true, sev: 'crit', layer: 'Hard silicon (SRAM)', title: 'Uncorrectable SRAM error (detail for Xid 48)', meaning: 'Logged with an Xid 48 to say the uncorrectable error is in on-chip SRAM, not DRAM.', next: 'Follow the Xid 48 it came with.' },
   };
 
   const DECODER_RULES = [
@@ -1328,11 +1356,15 @@
           ['All Xids on this node, in order', 'dmesg -T | grep -i "NVRM: Xid"'],
           ['ECC + row remap state', `nvidia-smi -q -d ECC,ROW_REMAPPER -i ${gpu}`]
         ];
-        if (n === 74) steps.push(['NVLink link state & errors', `nvidia-smi nvlink -s -i ${gpu} && nvidia-smi nvlink -e -i ${gpu}`]);
+        if (n === 74 || n === 136 || n === 155 || x.nvlink5) steps.push(['NVLink link state & errors', `nvidia-smi nvlink -s -i ${gpu} && nvidia-smi nvlink -e -i ${gpu}`]);
+        if (n === 167) steps.push(['PCIe link state', `lspci -vvv -s ${ent.bdf || '<bdf>'} | grep -E "LnkSta:|UESta:|CESta:"`]);
         if (n === 79) steps.push(['Is it still on the bus?', `lspci -vvv -s ${ent.bdf || '<bdf>'} | grep -E "LnkSta:|UESta:|CESta:"`], ['Power / thermal events at the same time', 'ipmitool sel elist | tail -n 40']);
         // Evidence first: a reset or reboot wipes the state the bug report captures.
-        if ([119, 120, 61, 62, 79].includes(n)) steps.splice(1, 0, ['Bug report before any reset or reboot', 'nvidia-bug-report.sh']);
-        return { sev: x.sev, layer: x.layer, title: `Xid ${n} — ${x.title}`, meaning: x.meaning, next: x.next, steps: steps.slice(0, 6), sheet: n === 74 ? 'nv-nvlink.html' : n === 79 ? 'nv-pcie.html' : 'nv-ops.html', q: `xid ${n}`, boost: ['nv-pcie.html', 'nv-ops.html', 'nv-smi.html', 'nv-nvlink.html', 'nvidia.html', 'nv-dcgm.html'] };
+        if ([119, 120, 61, 62, 79, 140, 143, 158, 167].includes(n)) steps.splice(1, 0, ['Bug report before any reset or reboot', 'nvidia-bug-report.sh']);
+        // NVLink5 lines carry their own fatal / nonfatal word.
+        const sev = x.nvlink5 ? (/\bnon-?fatal\b/i.test(q) ? 'warn' : /\bfatal\b/i.test(q) ? 'crit' : 'warn') : x.sev;
+        const nvl = n === 74 || n === 136 || n === 155 || !!x.nvlink5;
+        return { sev, layer: x.layer, title: `Xid ${n} — ${x.title}`, meaning: x.nvlink5 ? NVLINK5_MEANING(x.nvlink5) : x.meaning, next: x.nvlink5 ? NVLINK5_NEXT : x.next, src: x.src ? XID_CATALOG : undefined, steps: steps.slice(0, 6), sheet: nvl ? 'nv-nvlink.html' : n === 79 ? 'nv-pcie.html' : 'nv-ops.html', q: `xid ${n}`, boost: ['nv-pcie.html', 'nv-ops.html', 'nv-smi.html', 'nv-nvlink.html', 'nvidia.html', 'nv-dcgm.html'] };
       }
     },
     {

@@ -1167,7 +1167,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). Ranked by user impact relative
 
 ### Bigger bets
 
-**R8. Fill in the Xid codes that matter on H200 and B200**
+**R8. ✅ Fill in the Xid codes that matter on H200 and B200** (built: `improve/xid-catalog`; read verbatim from the catalog in a browser, last updated 2026-11-04. 136 is H100-only; 144–150, 155 and 162–165 are B100/GB200-only; 162, 167, 171 and 172 have no catalog action, and the cards say so)
 - **What:** add NVIDIA's catalog entries 136, 137, 140, 143, 144–150, 155–158, 162–165, 167, 171 and 172 to the decoder, each with severity, layer, NVIDIA's resolution and read-only next commands, and a source line pointing at the catalog.
 - **Why:** J2. B200 nodes report these newer codes; today they get "no decode".
 - **Evidence:** the decoder knows 17 codes (13 … 154); the catalog runs to 172.
