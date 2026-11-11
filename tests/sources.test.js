@@ -147,8 +147,11 @@ const rows = (p) => p.evaluate(() => {
     const all = (await rows(p)).filter(r => !/-(tips|flags)-card/.test(r.id));
     check(all.length >= 107 && all.every(r => r.text), `every BMC-tool command and recipe shows a source line (${all.filter(r => r.text).length}/${all.length})`);
     const unv = all.filter(r => /is-unverified/.test(r.cls)).map(r => r.cmd);
-    check(unv.length === 5 && unv.some(c => /\.\/saa -l /.test(c)) && unv.some(c => /ser2net/.test(c)) && unv.some(c => /\/dev\/serial\/by-id/.test(c)),
-      `the 5 unconfirmed entries say "Not verified" (${unv.map(c => c.slice(0, 40)).join(' | ')})`);
+    check(unv.length === 0, `no BMC-tool entry says "Not verified" (${unv.map(c => c.slice(0, 40)).join(' | ')})`);
+    const ln0 = await lines(p);
+    const srcOf = id => ((ln0.find(l => l.id === id) || {}).text || '');
+    check(/FAQ 42925/.test(srcOf('saa-multi')) && /60-serial\.rules/.test(srcOf('serial-picocom-sub-1')) && /dialout/.test(srcOf('serial-picocom-sub-3')),
+      'SAA multi-host cites Supermicro FAQ 42925; serial recipes cite udev and the distro group docs');
     const ln = await lines(p);
     check(/Dell RACADM 7\.xx/.test((ln.find(l => l.id === 'racadm-getsysinfo') || {}).text || ''), 'racadm cites the Dell RACADM 7.xx guide');
     check(/HPE iLOrest 7\.4/.test((ln.find(l => l.id === 'ilorest-reboot') || {}).text || ''), 'iLOrest cites the HPE iLOrest 7.4 guide (even on the reference-only reboot card)');

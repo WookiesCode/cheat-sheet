@@ -7653,9 +7653,14 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "bmc remote-management saa multi fleet bmccfg export",
     "sheet": "bmc-tools.html#supermicro-saa",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "GetBmcCfg and the -l host-list form are not in the SAA UEFI guide; the full OS guide was not found. Check ./saa -h."
+      "verified": "2026-11-11",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/support/faqs/faq.cfm?faq=42925",
+          "title": "Supermicro FAQ 42925: collect BMC configuration from multiple systems with SAA"
+        }
+      ],
+      "note": "Command form from Supermicro FAQ 42925 (2025-05-09): SList.txt holds one BMC IP per line. The FAQ does not explain --overwrite; check ./saa -h on your SAA version."
     }
   },
   {
@@ -8539,9 +8544,14 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "bmc remote-management serial recipe serial picocom console",
     "sheet": "bmc-tools.html#serial-console",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "A standard Linux path, not checked against a document."
+      "verified": "2026-11-11",
+      "refs": [
+        {
+          "url": "https://github.com/systemd/systemd/blob/main/rules.d/60-serial.rules",
+          "title": "systemd udev rules: 60-serial.rules (/dev/serial/by-id, by-path)"
+        }
+      ],
+      "note": "systemd's 60-serial.rules creates /dev/serial/by-id/<bus>-<serial>-if<n> (and by-path) links for USB serial devices."
     }
   },
   {
@@ -8556,9 +8566,14 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "bmc remote-management serial recipe serial picocom console",
     "sheet": "bmc-tools.html#serial-console",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "Standard Linux commands, not checked against a document."
+      "verified": "2026-11-11",
+      "refs": [
+        {
+          "url": "https://github.com/torvalds/linux/blob/master/drivers/usb/serial/bus.c",
+          "title": "Linux usb-serial bus.c (\"converter now attached to ttyUSB%d\")"
+        }
+      ],
+      "note": "The usb-serial core logs \"<driver> converter now attached to ttyUSB<n>\" when an adapter binds; CDC-ACM adapters show up as ttyACM instead."
     }
   },
   {
@@ -8573,9 +8588,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "bmc remote-management serial recipe serial picocom console",
     "sheet": "bmc-tools.html#serial-console",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "Standard command; the group name (dialout or uucp) depends on the distribution."
+      "verified": "2026-11-11",
+      "refs": [
+        {
+          "url": "https://salsa.debian.org/debian/base-passwd/-/blob/master/doc/users-and-groups.sgml",
+          "title": "Debian base-passwd: users and groups (dialout)"
+        },
+        {
+          "url": "https://wiki.archlinux.org/title/Users_and_groups",
+          "title": "ArchWiki: Users and groups (uucp)"
+        }
+      ],
+      "note": "Debian (and Ubuntu): dialout = \"full and direct access to serial ports\". Arch: uucp owns ttyS, ttyUSB and ttyACM. Log out and back in after adding the group."
     }
   },
   {
@@ -8595,9 +8619,13 @@ window.GLOBAL_SEARCH_INDEX = [
         {
           "url": "https://github.com/cminyard/ser2net/blob/master/README.rst",
           "title": "ser2net README"
+        },
+        {
+          "url": "https://github.com/cminyard/ser2net/blob/master/ser2net.yaml.5",
+          "title": "ser2net.yaml(5)"
         }
       ],
-      "note": "kickolduser, max-connections and the *{file} include are in ser2net.yaml(5), which could not be read."
+      "note": "kickolduser (default false), max-connections (default 1) and the *{filename} include (YAML version 1) checked in ser2net.yaml(5)."
     }
   },
   {
@@ -8612,9 +8640,14 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "bmc remote-management serial recipe ser2net serial network",
     "sheet": "bmc-tools.html#serial-console",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "The service name depends on your ser2net package."
+      "verified": "2026-11-11",
+      "refs": [
+        {
+          "url": "https://github.com/cminyard/ser2net/blob/master/ser2net.service.in",
+          "title": "ser2net: ser2net.service.in (upstream unit)"
+        }
+      ],
+      "note": "Upstream ships ser2net.service (runs as user ser2net, group dialout); a distro package may rename it."
     }
   },
   {

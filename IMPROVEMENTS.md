@@ -756,6 +756,18 @@ Checked against the **ASUS K14PG-D24** (ESC8000A-E12P user guide, ASUS PDF) and 
 
 Motherboards: no "Not verified" entries left.
 
+## #31 The last five BMC-tool entries sourced (2026-11-11, `bmc-five`)
+
+| Entry | Was | Now |
+|---|---|---|
+| `./saa -l SList.txt … -c GetBmcCfg --file BmcCfg.xml --overwrite` | "Not in the SAA UEFI guide" | **Supermicro FAQ 42925** (2025-05-09) gives exactly this form; SList.txt is one BMC IP per line. The FAQ does not explain `--overwrite`, so the flag says to check `./saa -h` |
+| `ls -l /dev/serial/by-id/` | "Standard Linux path" | systemd's `60-serial.rules` creates the by-id and by-path links |
+| `dmesg -T \| grep -i tty` | "Standard Linux commands" | The usb-serial core logs "converter now attached to ttyUSB<n>"; CDC-ACM adapters appear as ttyACM |
+| `id -nG` (dialout or uucp) | "Depends on the distribution" | Debian base-passwd: dialout = full and direct access to serial ports; ArchWiki: uucp owns ttyS/ttyUSB/ttyACM |
+| `systemctl status ser2net` | "Depends on your package" | Upstream ships `ser2net.service` (user ser2net, group dialout) |
+
+Also: the ser2net card's kickolduser (default false), max-connections (default 1) and `*{filename}` include are now checked in ser2net.yaml(5). BMC tools: no "Not verified" entries left.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |
