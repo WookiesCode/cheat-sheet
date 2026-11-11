@@ -1788,6 +1788,15 @@ code, kbd, pre {
   font-weight: 700;
 }
 
+/* A copy that still has an unfilled <placeholder>: amber, wider, stays longer. */
+.toast.toast-warn {
+  border-color: var(--accent-amber);
+  max-width: min(36rem, calc(100vw - 2.8rem));
+}
+.toast.toast-warn .toast-check {
+  color: var(--accent-amber);
+}
+
 /* Responsive Adjustments */
 @media (max-width: 960px) {
   .quick-widgets {

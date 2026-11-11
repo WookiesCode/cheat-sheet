@@ -1425,6 +1425,8 @@ const toastTextEl = document.getElementById("toast-text");
 let toastTimer = null;
 
 function showToast(msg) {
+  // One toast for the whole site: common.js keeps a placeholder warning from being replaced.
+  if (window.showGlobalToast) return window.showGlobalToast(msg);
   toastTextEl.textContent = msg;
   toastEl.classList.add("visible");
   clearTimeout(toastTimer);

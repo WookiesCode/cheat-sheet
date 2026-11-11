@@ -2362,6 +2362,8 @@ function escapeHtml(str) {
 }
 
 function showToast(msg) {
+  // One toast for the whole site: common.js keeps a placeholder warning from being replaced.
+  if (window.showGlobalToast) return window.showGlobalToast(msg);
   if (!toastEl) return;
   toastTextEl.textContent = msg;
   toastEl.classList.add("visible");

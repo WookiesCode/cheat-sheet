@@ -1123,7 +1123,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). Ranked by user impact relative
 - Impact **H** · Effort **S** · Risk **L** (only runs when the strict search is empty, so today's good results don't change).
 - **Files:** `common.js` (`renderGlobalSearchResults`, `rankIndex`), `tests/search.test.js`.
 
-**R2. Warn when a copied command still has an unfilled `<placeholder>`**
+**R2. ✅ Warn when a copied command still has an unfilled `<placeholder>`** (built: `improve/placeholder-copy`; the 22 sheets' own `showToast()` now hand off to `showGlobalToast`, so one function owns the toast)
 - **What:** the copy toast names the unfilled slots ("Still has `<NODE>`, `<PORT>`: fill them before running") and points to Ctrl+K → Fill; the copy still happens.
 - **Why:** J3. A pasted `<node>` fails as a shell redirection, or quietly reads the wrong file.
 - **Evidence:** 214 of 1,974 commands contain a placeholder. The copy hook (`navigator.clipboard.writeText` override, `common.js` ~line 500) checks root, fleet and targets but not placeholders, while the terminal refuses to send them and Explain flags them.

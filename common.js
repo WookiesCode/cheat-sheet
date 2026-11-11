@@ -214,6 +214,21 @@
     return null;
   }
 
+  // <NODE>, <PORT>… still in a command after filling. Pasted into a shell, <word is read as
+  // "take input from the file word". Tags and key names (SLOT_SKIP) and code generics such as
+  // Promise<void> (a word character right before the <) are not placeholders.
+  function unfilledPlaceholders(text) {
+    const names = [];
+    for (const m of String(text).matchAll(/(?<![\w<])<([A-Za-z][\w.-]{0,24})>/g)) {
+      if (!SLOT_SKIP.test(m[1]) && !names.includes(m[1])) names.push(m[1]);
+    }
+    return names;
+  }
+  function holeWarning(names) {
+    const shown = names.slice(0, 3).map(n => `<${n.toUpperCase()}>`).join(', ') + (names.length > 3 ? ` and ${names.length - 3} more` : '');
+    return `Copied, but it still has ${shown}: fill ${names.length === 1 ? 'it' : 'them'} before running (click the dashed chip in the command, or Ctrl+K → "${names[0].replace(/_/g, ' ')} …").`;
+  }
+
   function fillSlots(text) {
     return String(text).replace(SLOT_RE, (match, varName, placeholder, ifaceOrHca, disk) => {
       const r = resolveSlot(match, varName, placeholder, ifaceOrHca, disk);
@@ -507,13 +522,18 @@
       }
       const fleet = step('fleet', () => fleetWrap(text), null);
       if (fleet) {
-        setTimeout(() => showGlobalToast(fleet.note), 160);
+        const holes = step('holes', () => unfilledPlaceholders(fleet.text), []);
+        if (holes.length) showGlobalToast(holeWarning(holes), { warn: true });
+        else setTimeout(() => showGlobalToast(fleet.note), 160);
         step('trail', () => recordTrail(text));
         return writeOut(fleet.text);
       }
       const sub = step('targets', () => substituteVariables(text), { text, substituted: false, hasSecret: false });
       const newText = sub.text;
-      if (sub.hasSecret) {
+      const holes = step('holes', () => unfilledPlaceholders(newText), []);
+      if (holes.length) {
+        showGlobalToast(holeWarning(holes), { warn: true });
+      } else if (sub.hasSecret) {
         showGlobalToast('Substituted target variables, including the password. Clear your clipboard after use.');
       } else if (sub.substituted) {
         showGlobalToast(`Substituted target variables! Copied: ${newText.length > 50 ? newText.slice(0, 50) + '…' : newText}`);
@@ -4311,7 +4331,14 @@ ${rmaTrailSection()}#### Action Requested:
   // 5. TOAST & UTILITIES
   // -------------------------------------------------------------
   let globalToastTimer = null;
-  function showGlobalToast(message) {
+  // opts.warn: amber, stays 6 s, and plain toasts fired right after it (a sheet's own "Copied")
+  // don't replace it, so the warning is what you read.
+  let toastWarnUntil = 0;
+  // The sheets' own showToast() calls this, so every toast goes through one place.
+  window.showGlobalToast = (message, opts) => showGlobalToast(message, opts);
+  function showGlobalToast(message, opts) {
+    const warn = !!(opts && opts.warn);
+    if (!warn && Date.now() < toastWarnUntil) return;
     let toast = document.getElementById('toast');
     let toastText = document.getElementById('toast-text');
     if (!toast) {
@@ -4325,11 +4352,15 @@ ${rmaTrailSection()}#### Action Requested:
       if (toastText) toastText.textContent = message;
     }
 
+    toast.classList.toggle('toast-warn', warn);
+    const mark = toast.querySelector('.toast-check');
+    if (mark) mark.textContent = warn ? '!' : '\u2713';
+    toastWarnUntil = warn ? Date.now() + 6000 : 0;
     toast.classList.add('visible');
     clearTimeout(globalToastTimer);
     globalToastTimer = setTimeout(() => {
       toast.classList.remove('visible');
-    }, 2200);
+    }, warn ? 6000 : 2200);
   }
 
   function scrollToCard(cardId) {

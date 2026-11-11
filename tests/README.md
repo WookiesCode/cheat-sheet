@@ -30,6 +30,7 @@ Run the tests after `node build-all.js`. The tests read the built pages and the 
 | `load.test.js` | The key pages and the portable file over `file://`: errors, console errors, failed requests (screenshots go to `output/`) |
 | `search.test.js` | Ctrl+K finds commands once the stamped search index loads; a query no command fully matches shows Closest matches (a question, a near-miss word, an unknown pasted line with its numbers ignored) and a word on no card still shows the empty state; "gpu fell off bus" decodes as Xid 79 |
 | `xss.test.js` | Every paste or input tool renders HTML payloads as text, never runs them (it includes a control payload that must fire) |
+| `placeholder-copy.test.js` | Copying a command with an unfilled `<PID>` (real click and Ctrl+K Enter) copies it and shows the amber warning for 6 s, which the sheet's own "Copied" toast doesn't replace; a filled slot copies its value with no warning; a plain command and TypeScript `Result<T>` get none |
 | `search-danger.test.js` | Ctrl+K flags state-changing results; the first Enter asks, the second copies; a click opens without copying |
 | `dialog-focus.test.js` | Tab and Shift+Tab stay inside open tools, Esc returns focus to the opener, side-docked tools don't trap |
 | `backup.test.js` | Backup from localhost, restore into the portable file: no secrets, own keys only, unticked items skipped, undo, rollback |
