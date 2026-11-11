@@ -13739,7 +13739,7 @@ ${rmaTrailSection()}#### Action Requested:
   // when it takes focus, so Shift+Tab could land on a command hidden under one of them (WCAG
   // 2.2 SC 2.4.11). After keyboard focus moves, scroll just enough to bring it clear.
   // -------------------------------------------------------------
-  const FNH_LAYERS = '#command-bar, .storage-warn, .suite-rail-pager, .footer, .con-drawer, .tour-invite, .rma-case-cta';
+  const FNH_LAYERS = '#command-bar, .storage-warn, .footer, .con-drawer, .tour-invite, .rma-case-cta';
   const FNH_GAP = 8;
 
   function fnhInFixedLayer(el) {
@@ -16574,9 +16574,10 @@ ${rmaTrailSection()}#### Action Requested:
     function syncChip() {
       const v = targetState.vars || {};
       const bits = [];
-      if (v.bmc) bits.push(v.bmc);
-      if (v.gpu && v.gpu !== DEFAULT_TARGET_VARS.gpu) bits.push(`GPU ${v.gpu}`);
-      if (v.hca && v.hca !== DEFAULT_TARGET_VARS.hca) bits.push(v.hca);
+      // Only targets you set (R5): the built-in examples are not shown as if they were real.
+      if (targetIsSet('bmc')) bits.push(v.bmc);
+      if (targetIsSet('gpu')) bits.push(`GPU ${v.gpu}`);
+      if (targetIsSet('hca')) bits.push(v.hca);
       const node = readNodes().active;
       if (node) bits.unshift(node);
       chip.querySelector('.cbar-target-text').textContent = targetState.active ? (bits.join(' · ') || 'Targets') : 'Targets off';

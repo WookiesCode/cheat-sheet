@@ -1155,7 +1155,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). Ranked by user impact relative
 - Impact **M** · Effort **S** · Risk **L**.
 - **Files:** `common.js` (target bar render), `styles.css`.
 
-**R6. Give the commands back the bottom 94 px**
+**R6. ✅ Give the commands back the bottom 94 px** (built: `improve/pager-in-flow`: the pager sits at the end of the sheet; usable height went from 87–88% to 95–96% at 1280×720, 1366×768 and 1280×800. `--pager-h` stays at 0, so padding, toasts and the rail follow; the pager left the focus keeper's layer list; the nav-menu z-order check now uses the pinned footer. Also an R5 follow-up: the compact command bar's target pill still showed the example BMC, now `targetIsSet` too)
 - **What:** let the "Back to hub / Next" pager scroll with the page (it sits at the end of the sheet) instead of staying fixed; keep the tip bar.
 - **Why:** J1. On a 1280×720 screen the fixed pager and tip bar take 12–13% of the height on every sheet, and the left rail already lists every part.
 - **Evidence:** `.suite-rail-pager` is fixed at 60 px; footer 34 px; measured 87–88% usable height at 1280×720, 1366×768 and 1280×800.

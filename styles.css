@@ -5890,17 +5890,16 @@ header.top-bar:has(.nav-dropdown:hover, .nav-dropdown:focus-within, .nav-dropdow
   .suite-rail-pager .suite-pg.hub small, .suite-rail-pager .suite-pg.prev small, .suite-rail-pager .suite-pg.next small { display: none; }
   .suite-rail-pager .suite-pg { min-width: 0; }
 }
-/* BOTTOM BARS. Two bars are pinned to the bottom of the window on every page, however
-   long the page is: the page footer (tips and keyboard shortcuts) is the last bar, and
-   the prev / hub / next pager stacks directly on top of it. The terminal drawer, when
-   open, docks under both. --foot-h and --pager-h are 0 when a page has no such bar, so
-   everything that has to clear them (body padding, toasts, the sidebar) adds both. */
+/* BOTTOM BARS. The page footer (tips and keyboard shortcuts) is pinned to the bottom of the
+   window on every page. The prev / hub / next pager is not (2026-11-11, R6): it sits at the end
+   of the sheet, so the commands get the 60 px back; the rail lists every part anyway. --pager-h
+   stays as a variable at 0, so everything that clears the bottom bars (body padding, toasts,
+   the sidebar) still adds it. The terminal drawer, when open, docks under the footer. */
 @media all {
   body { --foot-h: 0px; --pager-h: 0px; padding-bottom: calc(var(--pager-h) + var(--foot-h)); }
   /* While the tour invite shows, the page end can scroll clear of it (common.js sets --invite-h). */
   body:has(.tour-invite.show):not(.con-open) { padding-bottom: calc(var(--pager-h) + var(--foot-h) + var(--invite-h, 0px) + 0.9rem); }
   body:has(> footer.footer, > footer.page-footer, > footer.site-footer) { --foot-h: 34px; }
-  body.has-suite-pager { --pager-h: 60px; }
   body > footer.footer, body > footer.page-footer, body > footer.site-footer {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 881;
     height: var(--foot-h); box-sizing: border-box; padding: 0;
@@ -5923,16 +5922,8 @@ header.top-bar:has(.nav-dropdown:hover, .nav-dropdown:focus-within, .nav-dropdow
 }
 @media print { .page-footer { display: none !important; } }
 @media all {
-  .suite-rail-pager {
-    position: fixed; left: 0; right: 0; bottom: var(--foot-h); z-index: 880;
-    height: var(--pager-h); box-sizing: border-box; padding: 0.45rem 1.5rem;
-    background: color-mix(in srgb, var(--bg-base) 88%, transparent);
-    backdrop-filter: blur(8px);
-    border-top: 1px solid var(--border-subtle);
-    box-shadow: 0 -10px 24px -18px rgba(0, 0, 0, 0.6);
-  }
-  /* The terminal drawer also docks at the bottom: sit on top of it, not under it. */
-  body.con-open .suite-rail-pager { bottom: calc(var(--con-pad, 38vh) + var(--foot-h)); }
+  /* In the flow, after the last card: a compact row, no longer a bar over the commands. */
+  .suite-rail-pager { margin-top: 1.25rem; }
   .suite-rail-pager .suite-pg { gap: 0.05rem; padding: 0.3rem 0.8rem; border-radius: 9px; }
   .suite-rail-pager .suite-pg.hub { grid-auto-flow: column; align-items: center; column-gap: 0.45rem; padding: 0.3rem 1rem; }
   .suite-rail-pager .suite-pg b { font-size: 0.84rem; }

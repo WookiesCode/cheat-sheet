@@ -1,6 +1,6 @@
 // WCAG 2.2 SC 2.4.11 Focus Not Obscured: keyboard focus never ends up fully hidden under the bars
-// that stay on screen (command bar, pager, footer, tour invite), by Tab, Shift+Tab or j/k.
-// Also: open nav menus draw above the pager, and a mouse click never scrolls the page.
+// that stay on screen (command bar, footer, tour invite), by Tab, Shift+Tab or j/k.
+// Also: open nav menus draw above the pinned footer, and a mouse click never scrolls the page.
 const { BASE, launch, newContext } = require('./lib');
 
 const failures = [];
@@ -57,14 +57,16 @@ async function sweep(p, keys) {
     }
   }
 
-  // Open nav menus draw above the pager and the invite (the header was capped at z-index 40).
+  // Open nav menus draw above the bars pinned to the bottom (the header was capped at z-index 40).
+  // Since R6 (2026-11-11) the pager scrolls with the page, so the pinned bar is the footer; a short
+  // window makes a long menu reach it.
   {
-    const ctx = await newContext(browser, { viewport: { width: 800, height: 700 } });
+    const ctx = await newContext(browser, { viewport: { width: 800, height: 500 } });
     const p = await ctx.newPage();
     await p.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     await p.waitForTimeout(1200);
     const r = await p.evaluate(() => {
-      const pager = document.querySelector('.suite-rail-pager').getBoundingClientRect();
+      const pager = document.querySelector('body > footer').getBoundingClientRect();
       for (const dd of document.querySelectorAll('.nav-dropdown')) {
         dd.classList.add('open');
         const item = [...dd.querySelectorAll('.dropdown-item')].find(a => { const b = a.getBoundingClientRect(); return b.height && b.top < pager.bottom && b.bottom > pager.top; });
@@ -78,7 +80,7 @@ async function sweep(p, keys) {
       }
       return { found: false };
     });
-    check(r.found && r.onTop, 'an open nav menu item over the pager is drawn above it');
+    check(r.found && r.onTop, 'an open nav menu item over the pinned footer is drawn above it');
     await ctx.close();
   }
 

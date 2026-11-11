@@ -54,6 +54,13 @@ const chips = p => p.evaluate(() => Object.fromEntries([...document.querySelecto
   check(!/2001:db8|ADMIN/.test(copied), 'unset: no example address or user reaches the clipboard');
   let c = await chips(p);
   check(c.bmc.example && /e\.g\. 2001:db8:dc::50/.test(c.bmc.text) && c.user.example && /e\.g\. ADMIN/.test(c.user.text), `unset: the bar shows the examples as "e.g." (${c.bmc.text} · ${c.user.text})`);
+  // The compact command bar (shown once the header scrolls away) doesn't show the example BMC either.
+  await p.evaluate(() => window.scrollTo(0, 1500));
+  await p.waitForTimeout(500);
+  const pill = await p.evaluate(() => (document.querySelector('.cbar-target-text') || {}).textContent || '(no command bar)');
+  check(!/2001:db8/.test(pill), `unset: the command bar's target pill doesn't show the example address (${pill})`);
+  await p.evaluate(() => window.scrollTo(0, 0));
+  await p.waitForTimeout(300);
 
   // 2. Type a BMC into the form: copies use it; the user stays a $VAR.
   await p.evaluate(() => { const b = document.querySelector('#target-collapse-btn'); if (b && /Expand/.test(b.textContent)) b.click(); });
