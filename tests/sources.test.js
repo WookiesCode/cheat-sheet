@@ -58,7 +58,9 @@ const rows = (p) => p.evaluate(() => {
       }
     }
     check(total === 31 && sourced === 31, `all 31 NVIDIA commands show a source line (${sourced}/${total})`);
-    check(unverified === 1 && /Not verified/.test(all['lspci-link-aer-audit'].text), 'the one unchecked command (lspci) says "Not verified"');
+    // 2026-11-10: lspci checked against pciutils (man page and source): -D keeps the header grep working on multi-domain servers.
+    check(unverified === 0 && !/Not verified/.test(all['lspci-link-aer-audit'].text), 'no NVIDIA command says "Not verified" (lspci now checked against pciutils)');
+    check(/lspci -D -vvv -d 10de: \| grep -E '\^\[0-9a-f\]\{4\}:/.test(fs.readFileSync(path.join(ROOT, 'nvidia.js'), 'utf8')), 'the lspci audit prints the PCI domain (-D) and its grep matches the domain-prefixed device lines');
     check(badLinks === 0, 'every source link is https, opens a new tab, rel=noopener');
     check(/verified Nov 2026/.test(all['smi-topo-matrix'].text), 'the date reads "verified Nov 2026"');
 
@@ -182,7 +184,7 @@ const rows = (p) => p.evaluate(() => {
     const ethList = (await rows(p)).filter(r => !/-(tips|flags)-card/.test(r.id));
     check(ethList.length >= 21 && ethList.every(l => l.text), `every Ethernet command shows a source line (${ethList.filter(l => l.text).length}/${ethList.length})`);
     const ethUnv = (await lines(p)).filter(l => /is-unverified/.test(l.cls)).map(l => l.id);
-    check(ethUnv.join(' ') === 'rj45-t568b-t568a-chart', `only the RJ45 wiring chart says "Not verified" (${ethUnv.join(', ')})`);
+    check(!ethUnv.length, `no Ethernet entry says "Not verified": the RJ45 chart is checked against trueCABLE/Fluke, ICC and the FOA (${ethUnv.join(', ') || 'none'})`);
     const route = (await lines(p)).find(l => l.id === 'ip-route-get-lookup');
     check(route && /man7\.org/.test(JSON.stringify(route.links)), 'iproute2 commands link the man7.org man pages');
     // The hub builder produces the corrected commands too.

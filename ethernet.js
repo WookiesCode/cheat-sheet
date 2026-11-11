@@ -11,17 +11,18 @@ const ETHERNET_CHEAT_SHEET_DATA = [
         diagram: "rj45-pinout",
         mode: "RJ45 PINOUT",
         modeClass: "mode-v",
-        desc: "Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
-        cmd: "T568B (Standard): 1:W/Org  2:Org  3:W/Grn  4:Blu  5:W/Blu  6:Grn  7:W/Brn  8:Brn\nT568A (Gov/Res):  1:W/Grn  2:Grn  3:W/Org  4:Blu  5:W/Blu  6:Org  7:W/Brn  8:Brn",
+        desc: "Complete T568B vs T568A RJ45 (8P8C) wire order (plug: clip pointed away from you, gold contacts toward you, pin 1 on the left)",
+        cmd: "T568B: 1:W/Org  2:Org  3:W/Grn  4:Blu  5:W/Blu  6:Grn  7:W/Brn  8:Brn\nT568A: 1:W/Grn  2:Grn  3:W/Org  4:Blu  5:W/Blu  6:Org  7:W/Brn  8:Brn",
         flags: [
           ["Pair 2 (Orange) & Pair 3 (Green)", "Pins 1–2 and Pins 3–6 carry TX/RX in 10/100BASE-TX (swapping Orange & Green converts T568B ↔ T568A)"],
           ["Pair 1 (Blue: Pins 4–5)", "Center pair (Pins 4 & 5) is ALWAYS Blue / White-Blue in both T568B and T568A"],
           ["Pair 4 (Brown: Pins 7–8)", "Rightmost pair (Pins 7 & 8) is ALWAYS White-Brown / Brown in both T568B and T568A"],
-          ["1G / 2.5G / 5G / 10GBASE-T", "Uses ALL 4 pairs (Pins 1–8) simultaneously in full-duplex PAM5 / PAM16"]
+          ["1G and faster (1000BASE-T and up)", "Use all four pairs (pins 1–8); pins 4, 5, 7 and 8 also carry PoE"],
+          ["Which one?", "Either works if both ends match. T568B is the most common in North America; T568A was the older TIA recommendation and some US government contracts still call for it"]
         ],
         tip: "Only Orange & Green swap between B and A",
         tags: ["rj45", "pinout", "t568b", "t568a", "568b", "568a", "wires", "colors", "8p8c"],
-        src: {"verified": "2026-11-09", "refs": [], "note": "Wiring reference: the TIA-568 standard is not freely available, so the pinout was not checked against it."}
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://www.truecable.com/blogs/cable-academy/t568a-vs-t568b", "title": "trueCABLE: T568A vs T568B (by a Fluke Networks technical marketing specialist): pin-by-pin colors, which to use"}, {"url": "https://icc.com/help/position-1-located-rj-45-modular-plug-jack/", "title": "ICC: where position 1 is on an RJ-45 plug and jack"}, {"url": "https://www.thefoa.org/Ted/term.html", "title": "Fiber Optic Association: UTP termination (A vs B swaps pairs 2 and 3)"}], "note": "The TIA-568 standard itself is paywalled: checked against cabling vendors and the FOA instead. Corrected 2026-11-10: T568A was labelled \"Gov/Res\"; ANSI/TIA 568.0-E no longer mandates either, and the PAM5/PAM16 detail had no source."}
       },
       {
         id: "ethtool-cable-test-tdr",

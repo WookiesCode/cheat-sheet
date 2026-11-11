@@ -707,6 +707,14 @@ Cisco's FX3 data sheet uses a drawing whose chassis prints **N9K-C93180YC-FX**, 
 
 InfiniBand page: no "Not verified" rows left.
 
+## #26 lspci AER audit and the RJ45 chart checked (2026-11-10, `lspci-rj45-check`)
+
+| Entry | Found | Now |
+|---|---|---|
+| `lspci -vvv -d 10de: \| grep -E '^([0-9a-f]{2}:\|…'` | **The header pattern breaks on multi-domain servers**: lspci only drops the PCI domain on machines that have just domain 0, so on a multi-domain GPU server every device line starts `0000:8a:…` and the grep kept none of them (tested here: 0 of 60 kept) | `lspci -D -vvv -d 10de: \| grep -E '^[0-9a-f]{4}:\|LnkCap:\|…'`: always prints the domain, keeps all 60. Labels (LnkCap, LnkSta, NUMA node, UESta, CESta) confirmed in pciutils source |
+| Its UESta / CESta flag | Listed BadTLP, BadDLLP, replay timeout for both | Split: UESta = DLP, SDES, poisoned TLP, CmpltTO, MalfTLP, UnsupReq…; CESta = RxErr, BadTLP, BadDLLP, Rollover, Timeout; `+` means set |
+| RJ45 T568A / T568B chart | Pinout unchecked (TIA paywalled); T568A labelled "Gov/Res"; "PAM5 / PAM16" unsourced | Pin colors confirmed (trueCABLE article by a Fluke Networks specialist), pin 1 orientation (ICC), A vs B swaps pairs 2 and 3 (FOA). Label now "older TIA default; some US government contracts" (ANSI/TIA 568.0-E mandates neither); the modulation detail is gone. The diagram labels match |
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

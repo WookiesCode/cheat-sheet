@@ -19396,15 +19396,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "rj45",
     "id": "rj45-t568b-t568a-chart",
     "sec": "RJ45 Pinouts (T568B/A) & TDR Cable Testing",
-    "cmd": "T568B (Standard): 1:W/Org  2:Org  3:W/Grn  4:Blu  5:W/Blu  6:Grn  7:W/Brn  8:Brn\nT568A (Gov/Res):  1:W/Grn  2:Grn  3:W/Org  4:Blu  5:W/Blu  6:Org  7:W/Brn  8:Brn",
-    "desc": "Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
+    "cmd": "T568B: 1:W/Org  2:Org  3:W/Grn  4:Blu  5:W/Blu  6:Grn  7:W/Brn  8:Brn\nT568A: 1:W/Grn  2:Grn  3:W/Org  4:Blu  5:W/Blu  6:Org  7:W/Brn  8:Brn",
+    "desc": "Complete T568B vs T568A RJ45 (8P8C) wire order (plug: clip pointed away from you, gold contacts toward you, pin 1 on the left)",
     "tip": "Only Orange & Green swap between B and A",
     "tags": "rj45 pinout t568b t568a 568b 568a wires colors 8p8c",
     "sheet": "ethernet.html#eth-rj45-tdr",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "Wiring reference: the TIA-568 standard is not freely available, so the pinout was not checked against it."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.truecable.com/blogs/cable-academy/t568a-vs-t568b",
+          "title": "trueCABLE: T568A vs T568B (by a Fluke Networks technical marketing specialist): pin-by-pin colors, which to use"
+        },
+        {
+          "url": "https://icc.com/help/position-1-located-rj-45-modular-plug-jack/",
+          "title": "ICC: where position 1 is on an RJ-45 plug and jack"
+        },
+        {
+          "url": "https://www.thefoa.org/Ted/term.html",
+          "title": "Fiber Optic Association: UTP termination (A vs B swaps pairs 2 and 3)"
+        }
+      ],
+      "note": "The TIA-568 standard itself is paywalled: checked against cabling vendors and the FOA instead. Corrected 2026-11-10: T568A was labelled \"Gov/Res\"; ANSI/TIA 568.0-E no longer mandates either, and the PAM5/PAM16 detail had no source."
     },
     "noCopy": true
   },
@@ -33102,15 +33115,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pcie",
     "id": "lspci-link-aer-audit",
     "sec": "PCIe AER, ACS, Xid Triage, GSP & Bug Reports",
-    "cmd": "lspci -vvv -d 10de: | grep -E '^([0-9a-f]{2}:|.*LnkCap:|.*LnkSta:|.*NUMA|.*UESta:|.*CESta:)'",
+    "cmd": "lspci -D -vvv -d 10de: | grep -E '^[0-9a-f]{4}:|LnkCap:|LnkSta:|NUMA node|UESta:|CESta:'",
     "desc": "Inspect PCIe Link Capabilities vs Link Status (Speed/Width), NUMA node, and AER error registers",
     "tip": "",
     "tags": "lspci aer pcie lnksta lnkcap gen5 gen4 numa",
     "sheet": "nvidia.html#nv-pcie",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "Not checked against vendor docs yet (pciutils lspci)."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/pciutils/pciutils/blob/master/lspci.man",
+          "title": "lspci man page (pciutils): -D, -vvv, -d vendor filter, root for config space"
+        },
+        {
+          "url": "https://github.com/pciutils/pciutils/blob/master/ls-ecaps.c",
+          "title": "pciutils ls-ecaps.c: the UESta / CESta AER lines"
+        },
+        {
+          "url": "https://github.com/pciutils/pciutils/blob/master/ls-caps.c",
+          "title": "pciutils ls-caps.c: the LnkCap / LnkSta lines"
+        }
+      ],
+      "note": "Corrected 2026-11-10: added -D and matched the domain-prefixed header (the old ^[0-9a-f]{2}: pattern dropped every device line on multi-domain servers); the old flag listed correctable bits under both registers. Needs root: the capabilities show <access denied> otherwise."
     }
   },
   {

@@ -4474,9 +4474,9 @@ ${rmaTrailSection()}#### Action Requested:
   // Wire colors are the real cable colors, so they stay the same in every theme.
   const WIRE_COLORS = { orange: '#e8791f', green: '#2f9e44', blue: '#2f6fd6', brown: '#9c6b3c' };
   const RJ45_STANDARDS = [
-    { name: 'T568B', note: 'Standard for most installs',
+    { name: 'T568B', note: 'Most common in North America',
       wires: ['white-orange', 'orange', 'white-green', 'blue', 'white-blue', 'green', 'white-brown', 'brown'] },
-    { name: 'T568A', note: 'Government and residential',
+    { name: 'T568A', note: 'Older TIA default; some US government contracts',
       wires: ['white-green', 'green', 'white-orange', 'blue', 'white-blue', 'orange', 'white-brown', 'brown'] }
   ];
 

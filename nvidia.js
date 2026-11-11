@@ -772,13 +772,15 @@ const NVIDIA_CHEAT_SHEET_DATA = [
         mode: "PCIE BUS",
         modeClass: "mode-t",
         desc: "Inspect PCIe Link Capabilities vs Link Status (Speed/Width), NUMA node, and AER error registers",
-        cmd: "lspci -vvv -d 10de: | grep -E '^([0-9a-f]{2}:|.*LnkCap:|.*LnkSta:|.*NUMA|.*UESta:|.*CESta:)'",
+        cmd: "lspci -D -vvv -d 10de: | grep -E '^[0-9a-f]{4}:|LnkCap:|LnkSta:|NUMA node|UESta:|CESta:'",
         flags: [
           ["LnkCap vs LnkSta", "Verify Speed (16GT/s=Gen4, 32GT/s=Gen5) and Width (x16) match capability"],
-          ["UESta / CESta", "Uncorrectable / Correctable PCIe AER error status flags (BadTLP, BadDLLP, Replay Timer Timeout)"]
+          ["UESta", "Uncorrectable AER errors: DLP, SDES, TLP (poisoned), CmpltTO, MalfTLP, UnsupReq… a '+' after a name means it is set"],
+          ["CESta", "Correctable AER errors: RxErr, BadTLP, BadDLLP, Rollover, Timeout (replay timer)… '+' means set"],
+          ["-D", "Always print the PCI domain (0000:8a:00.0): without it lspci drops the domain only on single-domain machines, and a header grep breaks on multi-domain servers"]
         ],
         tags: ["lspci", "aer", "pcie", "lnksta", "lnkcap", "gen5", "gen4", "numa"],
-        src: {"verified": "2026-11-09", "refs": [], "note": "Not checked against vendor docs yet (pciutils lspci)."}
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://github.com/pciutils/pciutils/blob/master/lspci.man", "title": "lspci man page (pciutils): -D, -vvv, -d vendor filter, root for config space"}, {"url": "https://github.com/pciutils/pciutils/blob/master/ls-ecaps.c", "title": "pciutils ls-ecaps.c: the UESta / CESta AER lines"}, {"url": "https://github.com/pciutils/pciutils/blob/master/ls-caps.c", "title": "pciutils ls-caps.c: the LnkCap / LnkSta lines"}], "note": "Corrected 2026-11-10: added -D and matched the domain-prefixed header (the old ^[0-9a-f]{2}: pattern dropped every device line on multi-domain servers); the old flag listed correctable bits under both registers. Needs root: the capabilities show <access denied> otherwise."}
       },
       {
         id: "disable-pcie-acs",
