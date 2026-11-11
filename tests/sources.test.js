@@ -85,7 +85,12 @@ const rows = (p) => p.evaluate(() => {
     const find = re => all.find(r => re.test(r.cmd) || re.test(r.full || ''));
     check(all.length >= 51 && all.every(r => r.text), `every InfiniBand command and recipe shows a source line (${all.filter(r => r.text).length}/${all.length})`);
     const unverified = all.filter(r => /is-unverified/.test(r.cls));
-    check(unverified.length === 4 && unverified.every(r => r.sub), `the 4 unconfirmed recipes say "Not verified" on their own row (${unverified.map(r => r.cmd.slice(0, 30)).join(' | ')})`);
+    // 2026-11-10: the last four checked (ibhosts man page, NVIDIA ibdiagnet docs, NCCL guide, distro and DOCA OpenSM packaging).
+    check(unverified.length === 0, `no InfiniBand recipe says "Not verified" (${unverified.map(r => r.cmd.slice(0, 30)).join(' | ') || 'none'})`);
+    const sm = find(/systemctl status opensm/);
+    check(sm && /opensm opensmd/.test(sm.cmd), 'OpenSM status covers both unit names: opensm (distros) and opensmd (NVIDIA DOCA)');
+    const ibd = find(/\^-E-\|\^-W-/);
+    check(ibd && /\/tmp\/ibdiagnet2\/ibdiagnet2\.log/.test(ibd.cmd) && /var\/tmp\/ibdiagnet2/.test(ibd.text || ''), 'the ibdiagnet grep matches the card\u2019s -o path and its note names NVIDIA\u2019s default /var/tmp/ibdiagnet2/');
     const pt = find(/ib_write_bw/);
     check(pt && /--ipv6-addr 2001:db8:dc::1/.test(pt.cmd) && (pt.cmd.match(/--ipv6-addr/g) || []).length === 2 && !/--ipv6\s/.test(pt.cmd), 'perftest passes --ipv6-addr on both server and client (not --ipv6)');
     const prbs = find(/--test_mode EN/);

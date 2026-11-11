@@ -25583,14 +25583,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "ibv-devinfo-gids",
     "sec": "ibv_devinfo — RDMA Verbs, MTU & RoCEv2 GID Table",
     "cmd": "show_gids",
-    "desc": "Display full Global Identifier (GID) table across all mlx5 ports with IPv4/IPv6 addresses and RoCE v1/v2 version",
+    "desc": "Display the GID table across all mlx5 ports with IPv4/IPv6 addresses and RoCE v1/v2 type: the RoCE v2 index is what older NCCL needed",
     "tip": "",
     "tags": "ibv_devinfo ibv_devices show_gids rdma verbs gid rocev2 mtu",
     "sheet": "infiniband.html#ib-ibv-devinfo",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "show_gids is not described in the MLNX_OFED docs read; the sysfs GID table below is."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting/networking_troubleshooting.html",
+          "title": "NVIDIA NCCL user guide: networking troubleshooting (show_gids, NCCL_IB_GID_INDEX)"
+        }
+      ],
+      "note": "NVIDIA NCCL guide: before NCCL 2.21 run show_gids and set NCCL_IB_GID_INDEX to the RoCE v2 GID; from 2.21 the index is picked automatically and the variable should not be set. Current DOCA / MLNX_OFED RoCE pages no longer mention the script: the sysfs GID table below works everywhere."
     }
   },
   {
@@ -25815,14 +25820,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "ibswitches-ibhosts-list",
     "sec": "ibswitches & ibhosts — Fabric Node Inventory",
     "cmd": "ibhosts -C mlx5_0 -P 1 | wc -l",
-    "desc": "Count total compute HCA ports visible on Rail 0 (mlx5_0) to verify all servers are online",
+    "desc": "Count the CA nodes (HCAs) the fabric shows through mlx5_0 port 1: on a rail-optimized fabric that is rail 0 only",
     "tip": "",
     "tags": "ibswitches ibhosts ibnodes inventory quantum lid guid",
     "sheet": "infiniband.html#ib-ibswitches",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "ibhosts does not document -C/-P (they are shared infiniband-diags options): check ibhosts -h."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibhosts.8.in.rst",
+          "title": "ibhosts man page (rdma-core), with the common -C / -P options"
+        }
+      ],
+      "note": "ibhosts walks the subnet and lists CA nodes, one line each (so this counts HCAs, not ports). -C, --Ca <ca_name> and -P, --Port <ca_port> are common infiniband-diags options included in its man page. Corrected 2026-11-10: the old note said they were not documented."
     }
   },
   {
@@ -25857,15 +25867,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sm",
     "id": "sminfo-master-check",
     "sec": "sminfo & saquery — Subnet Manager & SA Verification",
-    "cmd": "systemctl status opensm.service",
-    "desc": "Check if the local OpenSM Subnet Manager daemon is running on this host",
+    "cmd": "systemctl status opensm opensmd",
+    "desc": "Check whether a local OpenSM Subnet Manager is running: distro packages name the unit opensm, NVIDIA DOCA / MLNX_OFED name it opensmd (one of the two will say \"could not be found\")",
     "tip": "",
     "tags": "sminfo saquery opensm ufm subnet-manager master lid",
     "sheet": "infiniband.html#ib-sminfo",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "The OpenSM service name is not documented in the OpenSM repo read; it depends on your distro/package."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/doca/sdk/nvidia-sm",
+          "title": "NVIDIA DOCA: NVIDIA SM / OpenSM (service opensmd start)"
+        },
+        {
+          "url": "https://packages.debian.org/sid/amd64/opensm/filelist",
+          "title": "Debian opensm package files (opensm.service, opensm@.service)"
+        },
+        {
+          "url": "https://src.fedoraproject.org/rpms/opensm/blob/rawhide/f/opensm.spec",
+          "title": "Fedora opensm package spec (opensm.service)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Debian, Ubuntu and Fedora ship opensm.service (Debian/Ubuntu also opensm@.service); NVIDIA DOCA starts it with service opensmd start. systemctl adds .service to a bare unit name."
     }
   },
   {
@@ -26078,14 +26101,31 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "ibdiagnet-ber-cables",
     "sec": "ibdiagnet — Comprehensive Fabric Health, BER & Cable Audit",
     "cmd": "grep -E '^-E-|^-W-' /tmp/ibdiagnet2/ibdiagnet2.log",
-    "desc": "Extract all Error (-E-) and Warning (-W-) summary lines from an ibdiagnet report",
+    "desc": "Extract the Error (-E-) and Warning (-W-) lines from the last ibdiagnet run (the log keeps every error but only up to 5 warnings; all of them are in the CSV file)",
     "tip": "",
     "tags": "ibdiagnet ber cables optics routing diagnostics",
     "sheet": "infiniband.html#ib-ibdiagnet",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "The -E- / -W- line prefixes are not described in the ibdiagnet docs read."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking/display/ibdiagnetutilityv2250/IBDIAGNET-Output-Control",
+          "title": "NVIDIA IBUtils2 2.25: ibdiagnet output control (default /var/tmp/ibdiagnet2/)"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking/display/ibdiagnetutilityv2250/IBDIAGNET-Dump-Files",
+          "title": "NVIDIA IBUtils2 2.25: ibdiagnet dump files (ibdiagnet2.log)"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking/display/ibdiagnetutilityv2240/warnings-and-errors-printing-policy",
+          "title": "NVIDIA IBUtils2 2.24: warnings and errors printing policy"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.26.0/useful-options",
+          "title": "NVIDIA IBUtils2 2.26: useful options (example -E- / -W- output)"
+        }
+      ],
+      "note": "The path matches this card's -o /tmp/ibdiagnet2; a run without -o writes to NVIDIA's default /var/tmp/ibdiagnet2/. ibdiagnet2.log is the log file; NVIDIA example output prints -E- and -W- lines; the log and screen carry up to 5 warnings, the CSV file all warnings and errors."
     }
   },
   {

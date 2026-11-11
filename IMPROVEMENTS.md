@@ -696,6 +696,17 @@ Confirmed as written: GbE, SFP+, LC, MTP (US Conec brand of MPO), OS2, SR4, SR8,
 
 Cisco's FX3 data sheet uses a drawing whose chassis prints **N9K-C93180YC-FX**, captioned as the N93180YC-FX3. The photo note said "the guide uses it for the FX3", which read as if the guide had picked the wrong picture. Now: the chassis reads FX, Cisco uses it as its FX3 figure, and the port layout matches the FX3 install guide (48 SFP28, 6 QSFP28 at 49–54). The hardware card's source note says the same.
 
+## #25 The last four InfiniBand recipes checked (2026-11-10, `ib-four-check`)
+
+| Row | Found | Now |
+|---|---|---|
+| `ibhosts -C mlx5_0 -P 1 \| wc -l` | Note said -C/-P are undocumented | They are (common options included in the ibhosts man page). The description now says it counts CA nodes (HCAs), not ports |
+| `grep -E '^-E-\|^-W-' /tmp/ibdiagnet2/ibdiagnet2.log` | Prefixes "not described" | NVIDIA example output prints -E- / -W- lines; ibdiagnet2.log is the log. The path matches the card's `-o /tmp/ibdiagnet2`; the note names the default `/var/tmp/ibdiagnet2/` and that the log keeps only 5 warnings (all are in the CSV) |
+| `show_gids` | "Not described" | NVIDIA's NCCL guide documents it, and that NCCL 2.21+ picks the GID itself (do not set NCCL_IB_GID_INDEX); current DOCA/MLNX_OFED pages dropped the script, the sysfs table works everywhere |
+| `systemctl status opensm.service` | Only the distro unit name | **Now `systemctl status opensm opensmd`**: Debian/Ubuntu/Fedora ship `opensm.service`, NVIDIA DOCA starts `opensmd` |
+
+InfiniBand page: no "Not verified" rows left.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |
