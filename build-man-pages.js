@@ -32,7 +32,7 @@ const VENDOR_TOOLS = [
 
 // Fleet tools the sheets may not name in first position.
 const EXTRA_TOOLS = [
-  'apt', 'apt-cache', 'apt-file', 'apt-mark', 'arp-scan', 'awk', 'ceph', 'cloud-init', 'cpupower',
+  'apt', 'apt-cache', 'apt-file', 'apt-mark', 'arp-scan', 'awk', 'cloud-init', 'cpupower',
   'debsums', 'dig', 'dmidecode', 'dpkg', 'dpkg-deb', 'edac-util', 'ethtool', 'fio', 'ibhosts',
   'iblinkinfo', 'ibnetdiscover', 'ibping', 'ibqueryerrors', 'ibstat', 'ibstatus', 'ibswitches',
   'ibtracert', 'ibv_devices', 'ibv_devinfo', 'iostat', 'iperf3', 'ipmitool', 'kdump-config',

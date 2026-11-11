@@ -89,7 +89,7 @@ Use these standardized templates when generating `cases/<ticket-or-hostname>/sum
 **1. Location & Chassis**
 - **Hostname / JBOD Shelf**: `<Hostname>` | Rack: `<Rack>` | U: `<U>`
 - **Chassis Model & Serial**: `<Model>` | SN: `<Chassis_SN>`
-- **RAID / ZFS / Filesystem Status**: `<e.g., ZFS DEGRADED / MDADM Clean / WEKA Drive Down / N/A>`
+- **RAID / ZFS / Filesystem Status**: `<e.g., ZFS DEGRADED / MDADM Clean / N/A>`
 
 **2. Faulty Part Identification**
 - **Component Type**: `<DDR5 RDIMM / U.2 NVMe / E3.S NVMe / 3.5" SAS HDD>`

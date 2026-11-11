@@ -812,6 +812,12 @@ The fleet has no HPE or Lenovo servers. ASUS, GIGABYTE and Supermicro build the 
 
 Kept: the Juniper docs URL on networkingdocs.hpe.com (a Juniper source), and "gigabytes" as a unit. Tests: `sources` (25 BMC entries, 32 motherboard cards, no vendor names, the Rosetta checks what is displayed), `reboot-reference` (My kit check now uses the Windows firmware-reboot card), `no-sudo`.
 
+## #35 Parallel filesystems removed (2026-11-11, `no-pfs`)
+
+The fleet runs none of Lustre, WEKA, BeeGFS, IBM Storage Scale or Ceph, so the Parallel filesystems page is gone: `pfs.html` and `pfs.js` (91 entries), the menu group under Hardware (nav source and the `build-nav-groups.js` tab), the two tour steps, the `ceph` man page and its build entry, the old `pfs-*.html` redirects, and the WEKA example in the RMA template. This also clears WEKA and BeeGFS 8 from the sourcing backlog. Test: `sources` 2k now checks that no page or menu group is left.
+
+Agent docs follow the fleet too: `agents/AGENTS.md` (= `CLAUDE.md`) and `AGENTS-portable.md` no longer list parallel filesystems or their health commands, and describe the servers as Linux on ASUS, GIGABYTE and Supermicro boards (was "multi-vendor"). `docs/playbooks/storage-jbod.md` loses its parallel-filesystem section (now NVMe, JBOD, RAID/ZFS).
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |
