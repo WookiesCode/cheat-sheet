@@ -677,6 +677,21 @@ Sources this time were the full manuals as PDFs (downloaded and searched, which 
 
 Switch Rosetta: all 15 cells that said "check on your release" are confirmed (EOS: version, inventory, MAC lookup, BGP summary, bounce, clear counters, copy; MLNX-OS: version, per-port errors, inventory, `show ib sm`, clear counters in interface ib mode; NX-OS: bounce, `clear counters interface ethernet1/1`, copy). Notes added: EOS MACs in dotted hex; `show ib sm` is the SM admin state (`show ib smnodes` for HA); EOS `clear counters ethernet 1` for one port.
 
+## #23 Field-guide glossary terms checked (2026-11-10, `glossary-check`)
+
+The 30 optics and switch terms the guide added, against vendor and standards pages:
+
+| Term | Was | Now |
+|---|---|---|
+| FR4 | "Four-wavelength reach" | **Far Reach**, 4 wavelengths, duplex LC, about 2 km (NVIDIA) |
+| QSFP28 / 56 / 112, SFP28 | "28 / 56 / 112 Gb/s lanes" | The number is the connector's speed rating (NVIDIA); the lanes run 4 × 25G NRZ, 4 × 50G PAM4, 4 × 100G PAM4 |
+| LMIC | "Line Module Interface Card" | Juniper never spells it out: "Juniper MX304 line module", 4 × 400GbE / 16 × 100GbE or a mix |
+| NX-OS | "Nexus Operating System" | "Cisco NX-OS" (no Cisco page confirms the expansion) |
+| OM3 / OM4 / OM5 | One vague line each | TIA-492AAAC 2000 MHz·km; TIA-492AAAD 4700 MHz·km; TIA-492AAAE wideband for SWDM 850–953 nm (Corning) |
+| DR4, VR4, QSA, QSFP-DD, C2P, P2C | Correct but thin | Reach (500 m; 50 m OM4), what QSA does (NVIDIA MAM1Q00A-QSA), QSFP-DD backwards fit, NVIDIA's red/blue airflow marks |
+
+Confirmed as written: GbE, SFP+, LC, MTP (US Conec brand of MPO), OS2, SR4, SR8, SX, LX, EOS, MFT (NVIDIA Firmware Tools: mst, flint, mlxconfig, mlxlink), SKU, Tx, Rx. SFP+, SFP28 and OS2 rest on common usage (no vendor page found); the code comment says so.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

@@ -113,6 +113,12 @@ const FINDS = [
   await p.waitForTimeout(600);
   const team = await p.evaluate(() => ({ parts: [...document.querySelectorAll('.cmd-item[data-id^="team-"]')].length, text: document.querySelector('#sections-container').textContent }));
   check(team.parts >= 14 && /32\.39\.4082/.test(team.text) && /MCX75310AAS-NEA/.test(team.text), `Team Optics: ${team.parts} cards, with the adapter part numbers and firmware`);
+  // Glossary terms from the guide, corrected 2026-11-10 against vendor pages (FR4 is Far Reach; the QSFP
+  // number is the connector's rating; Juniper never spells out LMIC).
+  const gloss = async q => { await p.keyboard.press('Control+k'); await p.waitForTimeout(250); await p.keyboard.type(q, { delay: 10 }); await p.waitForTimeout(400); const t = await p.evaluate(() => (document.querySelector('.palette-results, #palette-results') || document.body).textContent); await p.keyboard.press('Escape'); await p.waitForTimeout(200); return t; };
+  const g = [await gloss('what is FR4'), await gloss('QSFP28'), await gloss('LMIC')];
+  check(/FR4: Far Reach/.test(g[0]) && /25G NRZ: 100G/.test(g[1]) && /LMIC: Juniper MX304 line module/.test(g[2]) && !/Line Module Interface Card|Four-wavelength reach/.test(g.join(' ')),
+    'glossary: FR4 = Far Reach, QSFP28 = 4 × 25G NRZ, LMIC not given an invented expansion');
   await p.goto(BASE + 'switches.html#sw-hardware', { waitUntil: 'load' });
   await p.waitForTimeout(600);
   check((await p.evaluate(() => document.querySelectorAll('.cmd-item[data-id^="hw-"]').length)) === 11, 'Switch hardware: one card for each of the eleven devices');
