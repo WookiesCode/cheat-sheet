@@ -55378,7 +55378,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Cisco N9300-FX3 Series data sheet"
         }
       ],
-      "note": "Cisco: 48 × 1/10/25G SFP28 (ports 1–48, 100M also listed in the install guide) and 6 × 40/100G QSFP28 (ports 49–54); the data sheet covers the N9300-FX3 family and its figure is labelled N93180YC-FX3. Breakout is not described in either. The cage layout was checked against the vendor front view (photo); port order is not described in the vendor text."
+      "note": "Cisco: 48 × 1/10/25G SFP28 (ports 1–48, 100M also listed in the install guide) and 6 × 40/100G QSFP28 (ports 49–54); the data sheet covers the N9300-FX3 family; its figure is captioned N93180YC-FX3, though the drawing itself reads N9K-C93180YC-FX. Breakout is not described in either. The cage layout was checked against the vendor front view (photo); port order is not described in the vendor text."
     },
     "noCopy": true
   },

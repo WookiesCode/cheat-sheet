@@ -692,6 +692,10 @@ The 30 optics and switch terms the guide added, against vendor and standards pag
 
 Confirmed as written: GbE, SFP+, LC, MTP (US Conec brand of MPO), OS2, SR4, SR8, SX, LX, EOS, MFT (NVIDIA Firmware Tools: mst, flint, mlxconfig, mlxlink), SKU, Tx, Rx. SFP+, SFP28 and OS2 rest on common usage (no vendor page found); the code comment says so.
 
+## #24 N9K front photo note made precise (2026-11-10, `n9k-photo-note`)
+
+Cisco's FX3 data sheet uses a drawing whose chassis prints **N9K-C93180YC-FX**, captioned as the N93180YC-FX3. The photo note said "the guide uses it for the FX3", which read as if the guide had picked the wrong picture. Now: the chassis reads FX, Cisco uses it as its FX3 figure, and the port layout matches the FX3 install guide (48 SFP28, 6 QSFP28 at 49–54). The hardware card's source note says the same.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

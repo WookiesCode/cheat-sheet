@@ -10670,7 +10670,7 @@ ${rmaTrailSection()}#### Action Requested:
     'cisco-n9k-c93180yc-fx3': {
       name: 'Cisco Nexus N9K-C93180YC-FX3', vendor: 'cisco', ru: 1, groups: [8, 8, 8, 3], rows: [{ top: range(0, 26).map(i => i < 24 ? i * 2 + 1 : 49 + (i - 24) * 2), bottom: range(0, 26).map(i => i < 24 ? i * 2 + 2 : 50 + (i - 24) * 2) }], cage: 'SFP28 1/10/25G (1–48) · QSFP28 40/100G (49–54)',
       extras: [], src: 'Cisco Nexus 93180YC-FX3 hardware installation guide · layout checked against the vendor front view',
-      photo: 'n9k-front.webp', photoSrc: 'https://www.cisco.com/c/en/us/products/collateral/switches/nexus-9000-series-switches/datasheet-c78-744052.html', photoNote: 'Cisco’s image is labelled N9K-C93180YC-FX; the guide uses it for the FX3',
+      photo: 'n9k-front.webp', photoSrc: 'https://www.cisco.com/c/en/us/products/collateral/switches/nexus-9000-series-switches/datasheet-c78-744052.html', photoNote: 'Cisco’s drawing: the chassis reads N9K-C93180YC-FX, but Cisco’s FX3 data sheet uses it as the FX3 figure. The port layout matches the FX3 (48 SFP28, 6 QSFP28 at 49–54)',
       optics: n => n > 48 ? 'qsfp28' : 'sfp28',
       count: ['SFP28 1–48 in three blocks of eight columns: odd on top, even below ("1▲2" is printed above each column).', 'QSFP28 49–54 at the right: 49 over 50, 51 over 52, 53 over 54.', 'NX-OS names a standalone switch’s ports Ethernet1/14; a breakout child is Ethernet1/49/1.']
     },

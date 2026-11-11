@@ -53,6 +53,9 @@ const FINDS = [
     if (!ok) noPhoto.push(m);
   }
   check(!noPhoto.length, `the vendor photo shows for every guide device (${noPhoto.join(', ') || 'all'})`);
+  // The N9K drawing prints "N9K-C93180YC-FX" on the chassis though Cisco uses it as its FX3 figure: the note says so.
+  await pick('cisco-n9k-c93180yc-fx3');
+  check(/chassis reads N9K-C93180YC-FX, but Cisco.s FX3 data sheet uses it as the FX3 figure/.test(await p.evaluate(() => document.querySelector('.pn-photo').textContent)), 'N9K photo note: the drawing reads FX, Cisco uses it for the FX3, the port layout matches');
 
   // Tiles as in the field guide: QM cages are labelled C01… with their IB ports inside, odd cages
   // 1 | 2 and even cages 4 | 3 (port numbering snakes through the top and bottom cages).
