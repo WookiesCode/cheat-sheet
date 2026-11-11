@@ -49945,7 +49945,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Arista EOS 4.37: Ethernet ports"
         }
       ],
-      "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+      "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is in the session management chapter (its own source line)."
     }
   },
   {
@@ -49967,7 +49967,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Arista EOS 4.37: Ethernet ports"
         }
       ],
-      "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+      "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is in the session management chapter (its own source line)."
     }
   },
   {
@@ -49989,7 +49989,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Arista EOS 4.37: Ethernet ports"
         }
       ],
-      "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+      "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is in the session management chapter (its own source line)."
     }
   },
   {
@@ -50004,14 +50004,14 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "arista eos interfaces transceiver dom errors nz phy",
     "sheet": "switches.html#sw-arista-ports",
     "src": {
-      "verified": "2026-11-09",
+      "verified": "2026-11-11",
       "refs": [
         {
-          "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
-          "title": "Arista EOS 4.37: Ethernet ports"
+          "url": "https://www.arista.com/en/um-eos/eos-session-management-commands",
+          "title": "Arista EOS 4.37: Session management commands (show inventory)"
         }
       ],
-      "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+      "note": "EXEC mode. The example lists the system model and serial, each power supply's model and serial, the fan modules, and every transceiver slot's manufacturer, model, serial and revision."
     }
   },
   {

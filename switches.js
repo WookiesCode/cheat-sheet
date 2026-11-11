@@ -740,11 +740,11 @@ const SWITCH_DATA = [
         subcommands: [
           ["show interfaces counters errors", "Physical error counters (FCS, Align, Symbol, Runts, Giants) for every port"],
           ["show interfaces Ethernet1 phy detail", "Deep physical-layer SerDes, FEC codeword error, and pre/post-FEC BER diagnostics"],
-          ["show inventory", "Display switch chassis serial number, PSU models/serials, and every plugged transceiver's vendor/part/serial"]
+          ["show inventory", "Display switch chassis serial number, PSU models/serials, and every plugged transceiver's vendor/part/serial", {"verified": "2026-11-11", "refs": [{"url": "https://www.arista.com/en/um-eos/eos-session-management-commands", "title": "Arista EOS 4.37: Session management commands (show inventory)"}], "note": "EXEC mode. The example lists the system model and serial, each power supply's model and serial, the fan modules, and every transceiver slot's manufacturer, model, serial and revision."}]
         ],
         tip: "Run show interfaces counters errors twice a minute apart: a counter that grows is the live problem",
         tags: ["arista", "eos", "interfaces", "transceiver", "dom", "errors", "nz", "phy"],
-        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.arista.com/um-eos/eos-ethernet-ports", "title": "Arista EOS 4.37: Ethernet ports"}], "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."}
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.arista.com/um-eos/eos-ethernet-ports", "title": "Arista EOS 4.37: Ethernet ports"}], "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is in the session management chapter (its own source line)."}
       }
     ]
   },

@@ -859,6 +859,19 @@ New `scripts/check-source-links.js` requested all 1,024 source URLs the cards ci
 
 Only the addresses changed; the redirects come from each doc site, so the pages are the same and the verified dates stay. git.kernel.org (the ethtool `cmis.c` source) now serves a bot check at the same address, which a status-code check can't see; ethtool has no official mirror, so it stays.
 
+## #39 Blocked source links checked in a browser (2026-11-11, `blocked-links`)
+
+The 13 links that refuse scripts (#38) were opened in Chrome and the cited commands looked up on each page.
+
+| Page | Result |
+|---|---|
+| Arista EOS 4.37.0F: Ethernet ports, LLDP, port channels/LACP, MLAG, IPv6, BGP, environment, switch administration | All load. Every cited command is there: `show interfaces status`, `transceiver detail`, `counters errors`, `phy detail`, `show lldp neighbors [interface] detail`, `show port-channel (dense\|summary)` (summary is a documented form), `show mlag`, `show ipv6 neighbors`, `show ip/ipv6 bgp summary`, `show system environment all`, `show logging` |
+| Arista `show inventory` | Was "not in the chapters read": it is in **Session management commands** (EXEC; model/serial, PSUs, fans, each transceiver's manufacturer/model/serial). The recipe now cites that page |
+| Arista EOS User Manual PDF | Loads (application/pdf) |
+| Debian opensm file list | Loads; ships `opensm.service` and `opensm@.service` |
+| Debian base-passwd users-and-groups | Loads; dialout = "Full and direct access to serial ports", as the card says |
+| TIA-606-D on GlobalSpec | Cloudflare security check even in a browser; not completed. Open it yourself |
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |
