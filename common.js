@@ -5079,6 +5079,20 @@ ${rmaTrailSection()}#### Action Requested:
     if (typeof window.packMasonry === 'function') window.packMasonry();
   }
 
+  // The label flips between "Compact" and "Detailed", which differ in width, so the button jumped
+  // on every click. Reserve the wider word's width (measured in the real font, again once web
+  // fonts load). A hidden header measures 0: then leave it alone.
+  const DENSITY_WORDS = ['Compact', 'Detailed'];
+  function lockDensityWidth() {
+    const label = document.getElementById('density-label');
+    if (!label) return;
+    const shown = label.textContent;
+    label.style.minWidth = '';
+    const widest = Math.max(...DENSITY_WORDS.map(w => { label.textContent = w; return label.getBoundingClientRect().width; }));
+    label.textContent = shown;
+    if (widest > 0) label.style.minWidth = `${Math.ceil(widest)}px`;
+  }
+
   function applyCompact(compact) {
     document.body.classList.toggle('compact-mode', compact);
     const btn = document.getElementById('density-toggle');
@@ -5088,6 +5102,7 @@ ${rmaTrailSection()}#### Action Requested:
       btn.setAttribute('aria-pressed', String(compact));
     }
     if (label) label.textContent = compact ? 'Detailed' : 'Compact';
+    lockDensityWidth();
     repack();
   }
 
@@ -5116,6 +5131,7 @@ ${rmaTrailSection()}#### Action Requested:
     const part = window.SHEET_FILTER && !window.portableOpenSheet ? sheetFilterTarget(window.SHEET_FILTER.sections).part : '';
     setSheetContext(part ? `${part}.html` : (window.location.pathname.split('/').pop() || 'index.html'));
     applyCompact(readStored(COMPACT_KEY) === '1');
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(lockDensityWidth).catch(() => {});
 
     document.addEventListener('click', (e) => {
       if (!(e.target instanceof Element) || !e.target.closest('#density-toggle')) return;

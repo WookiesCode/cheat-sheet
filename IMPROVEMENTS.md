@@ -872,6 +872,10 @@ The 13 links that refuse scripts (#38) were opened in Chrome and the cited comma
 | Debian base-passwd users-and-groups | Loads; dialout = "Full and direct access to serial ports", as the card says |
 | TIA-606-D on GlobalSpec | Cloudflare security check even in a browser; not completed. Open it yourself |
 
+## #40 Compact / Detailed button keeps its size (2026-11-11, `fix/compact-button-width`)
+
+The header's density button changed width on every click (95.4 px "Compact", 91.1 px "Detailed" at 1280 px), because the two words differ in width. `lockDensityWidth()` in `common.js` measures both words in the label's real font and sets the label's `min-width` to the wider one; it runs on every toggle and again when web fonts finish loading, so a header that was hidden at first is measured once it shows. The label is `inline-block` through a `:where()` rule with zero specificity, so the narrow-header rules that hide it (icon-only below 1280 px) still win. Test: `density-toggle.test.js`.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

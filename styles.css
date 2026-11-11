@@ -1035,6 +1035,13 @@ code, kbd, pre {
   min-width: 0;
 }
 
+/* Compact / Detailed: common.js sets min-width to the wider word so the button keeps its size.
+   :where() keeps this at zero specificity, so the narrow-header rules that hide the label still win. */
+:where(#density-label) {
+  display: inline-block;
+  text-align: left;
+}
+
 .action-btn {
   display: inline-flex;
   align-items: center;
