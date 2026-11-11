@@ -1137,7 +1137,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). Ranked by user impact relative
 - Impact **H** · Effort **S–M** · Risk **L** (every code re-checked verbatim against the guide first).
 - **Files:** `common.js` (decoder), `tests/sources.test.js` or a decoder test.
 
-**R4. A decoder test corpus**
+**R4. ✅ A decoder test corpus** (built: `improve/decoder-corpus`: 22 review lines plus the Xid 79 text without a number; the 8 gaps are marked for R9/R10. Found while building: about ten decoder steps start with `sudo` (`lspci -vvv`, `ras-mc-ctl`, `dmidecode`, `nvme list`, `nvidia-bug-report.sh`); the no-sudo cleanup and `no-sudo.test.js` never covered the decoder. Not fixed here)
 - **What:** `tests/decoder.test.js` with the 22 real lines from this review (and each line a later item adds), asserting the expected title or "no decode".
 - **Why:** J2. Coverage becomes visible and can't silently regress when patterns change.
 - **Evidence:** no test pastes log lines into the decoder today (the search tests use queries).

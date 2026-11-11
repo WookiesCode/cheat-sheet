@@ -1,5 +1,6 @@
 // The symptom decoder on real log lines, pasted into the home page's "What's broken?" box.
-// Each case names the card it must produce (title pattern, severity) or that it must not decode.
+// Each case names the card it must produce (title pattern, severity), or is a known gap that must
+// still show Closest matches. When a gap gets a decoder entry, give its line a title here.
 const fs = require('fs');
 const path = require('path');
 const { ROOT, BASE, launch, newContext } = require('./lib');
@@ -20,6 +21,37 @@ const CASES = [
   ['nvidia-nvswitch1: SXid (PCI:0000:06:00.0): 99999, Fatal, Link 3 something new', /^SXid 99999 \(not in the guide's tables\)/, 'crit'],
   // Fabric Manager without an SXid number keeps the fabric-not-ready card.
   ['nvidia-fabricmanager: request to query NVSwitch device information from NVSwitch driver failed', /fabric not ready/i, 'crit'],
+
+  // The review corpus (IMPROVEMENTS.md, review round 2): lines a technician pastes on a real shift.
+  // GPU
+  ['NVRM: Xid (PCI:0000:8a:00): 79, pid=1234, name=python, GPU has fallen off the bus.', /^Xid 79 — GPU has fallen off the bus/, 'crit', { steps: /lspci -vvv -s 0000:8a:00/ }],
+  ['NVRM: GPU 0000:8a:00.0: GPU has fallen off the bus.', /^Xid 79/, 'crit'],
+  ['NVRM: Xid (PCI:0000:8a:00): 48, pid=1234, name=python, An uncorrectable double bit error (DBE) has been detected on GPU in the framebuffer', /^Xid 48 — Double-bit ECC/, 'crit'],
+  // Memory, CPU, PCIe
+  ['EDAC MC0: 1 CE memory read error on CPU_SrcID#0_MC#0_Chan#1_DIMM#0', /^Correctable DRAM error/, 'warn'],
+  ['mce: [Hardware Error]: Machine check events logged', /machine check/i, 'crit'],
+  ['pcieport 0000:00:01.1: AER: Corrected error message received from 0000:41:00.0', /^PCIe corrected \(AER\)/, 'warn'],
+  // Storage
+  ['nvme nvme0: I/O 123 QID 4 timeout, aborting', /^NVMe drive timeout/, 'crit'],
+  ['blk_update_request: I/O error, dev sda, sector 123456 op 0x0:(READ)', /^Block device I\/O error/, 'crit'],
+  // Network
+  ['mlx5_core 0000:41:00.0 ib0: Link down', /^InfiniBand link down/, 'warn'],
+  // BMC SEL (ipmitool sel elist rows)
+  ['  12 | 11/10/2026 | 14:02:11 | Memory #0x87 | Correctable ECC | Asserted', /^Correctable DRAM error/, 'warn'],
+  ['  13 | 11/10/2026 | 14:05:00 | Power Supply PSU2 | Power Supply AC lost | Asserted', /^Power supply fault/, 'crit'],
+  ['  14 | 11/10/2026 | 14:06:00 | Fan FAN3 | Lower Critical going low | Asserted', /fan fault/i, 'warn'],
+  // Workload
+  ['Out of memory: Killed process 4321 (python) total-vm:123456kB', /OOM killer/, 'info'],
+
+  // Known gaps (R9, R10): no decoder card yet, but search must not dead-end (Closest matches).
+  ['mlx5_core 0000:41:00.0: mlx5_crdump_collect:0:(pid 0): crdump: failed to lock vsc access', null, null, { closest: true }],
+  ['kernel: watchdog: BUG: soft lockup - CPU#12 stuck for 22s!', null, null, { closest: true }],
+  ["ib_write_bw: Couldn't connect to 10.0.0.2:18515", null, null, { closest: true }],
+  ['XFS (nvme0n1p1): Corruption detected. Unmount and run xfs_repair', null, null, { closest: true }],
+  ['slurmd: error: Node configuration differs from hardware: CPUs=128:256(hw)', null, null, { closest: true }],
+  ['kubelet: Failed to allocate device plugin resource for pod: nvidia.com/gpu', null, null, { closest: true }],
+  ['Retimer (PCIe) link training failure', null, null, { closest: true }],
+  ['Port 1/1/3 Symbol Errors: 1534', null, null, { closest: true }],
 ];
 
 // The dmesg greps that collect SXids must match a real line (the switch number sits before the
@@ -56,9 +88,11 @@ for (const f of ['nvidia.js', 'common.js', 'docs/playbooks/gpu-nvlink.md']) {
         steps: [...c.querySelectorAll('.decoder-steps code')].map(e => e.textContent).join(' ;; ')
       };
     });
+    const loose = await p.evaluate(() => ({ closest: !!document.querySelector('.palette-closest'), n: document.querySelectorAll('.palette-item[data-cmd]').length }));
     const short = line.length > 60 ? line.slice(0, 60) + '…' : line;
     if (title === null) {
-      check(!card, `"${short}" is not decoded`);
+      check(!card, `"${short}" is not decoded (known gap)`);
+      if (extra.closest) check(loose.closest && loose.n > 0, `…but shows ${loose.n} closest matches, not a dead end`);
     } else if (!card) {
       check(false, `"${short}" decodes (no card)`);
     } else {
