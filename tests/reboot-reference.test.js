@@ -11,10 +11,6 @@ const REBOOTS = [
   ['linux.html#systemd', 'systemctl reboot --firmware-setup'],
   ['cli-tools.html', 'efibootmgr -n 0004 && reboot'],
   ['cli-tools.html#efibootmgr', 'efibootmgr -n 0004 && reboot'],
-  ['bmc-tools.html', 'ilorest reboot PushPowerButton'],
-  ['bmc-tools.html', 'ilorest reboot ForceOff'],
-  ['bmc-tools.html#ilorest', 'ilorest reboot PushPowerButton'],
-  ['bmc-tools.html#ilorest', 'ilorest reboot ForceOff'],
   ['windows.html', 'shutdown /r /fw /t 0'],
   ['windows.html#win-sysadmin', 'shutdown /r /fw /t 0'],
 ];
@@ -113,22 +109,22 @@ async function realClick(p, handle) {
   await p.waitForTimeout(600);
   check(writes.length === 0, 'Ctrl+K Enter on it copies nothing');
 
-  // 4. My kit: starred anyway, it has no Copy button. (On ilorest.html the reboot is the card's
-  // main command; on linux.html it is a sub-row, and a star bookmarks the card's main command.)
-  await p.goto(BASE + 'bmc-tools.html#ilorest', { waitUntil: 'load' });
+  // 4. My kit: starred anyway, it has no Copy button. (On the Windows sheet the firmware reboot is
+  // the card's main command; on linux.html it is a sub-row, and a star bookmarks the card's main command.)
+  await p.goto(BASE + 'windows.html#win-sysadmin', { waitUntil: 'load' });
   await p.waitForTimeout(500);
-  // Each command's star carries its id (data-cmd-id).
-  const star = await p.evaluateHandle(() => document.querySelector('.bookmark-btn[data-cmd-id="ilorest-reboot"]'));
+  // Each command's star carries its id (data-cmd-id, or data-bookmark-id on the older sheets).
+  const star = await p.evaluateHandle(() => document.querySelector('.bookmark-btn:is([data-cmd-id="shutdown-uefi-bios"], [data-bookmark-id="shutdown-uefi-bios"])'));
   if (await star.evaluate(x => !!x)) {
     await star.evaluate(el => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
     await star.click({ delay: 120 });
     await p.waitForTimeout(300);
     await p.click('.kit-header-btn');
     await p.waitForTimeout(400);
-    const kit = await p.evaluate(() => [...document.querySelectorAll('.kit-entry')].filter(e => /reboot/.test(e.textContent)).map(e => ({ copy: !!e.querySelector('[data-kit-act="copy"]'), ref: !!e.querySelector('.kit-ref') })));
+    const kit = await p.evaluate(() => [...document.querySelectorAll('.kit-entry')].filter(e => /shutdown \/r/.test(e.textContent)).map(e => ({ copy: !!e.querySelector('[data-kit-act="copy"]'), ref: !!e.querySelector('.kit-ref') })));
     check(kit.length > 0 && kit.every(k => !k.copy && k.ref), `My kit lists it without a Copy button (${kit.length} entr${kit.length === 1 ? 'y' : 'ies'})`);
   } else {
-    check(false, 'star for the ilorest reboot card not found');
+    check(false, 'star for the Windows firmware-reboot card not found');
   }
   await ctx.close();
 

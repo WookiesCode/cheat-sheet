@@ -6,6 +6,10 @@ const { ROOT, BASE, launch, newContext, page } = require('./lib');
 
 const failures = [];
 const check = (ok, what) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`); if (!ok) failures.push(what); };
+// BMC tools entries left after the vendor CLIs went (2026-11-11): FreeIPMI and serial consoles.
+const BMC_MIN = 25;
+// Motherboard cards left with BIOS error codes only (2026-11-11).
+const MB_MIN = 32;
 const NV = ['nvidia.html#nv-smi', 'nvidia.html#nv-admin', 'nvidia.html#nv-dcgm', 'nvidia.html#nv-nvlink', 'nvidia.html#nv-mig', 'nvidia.html#nv-gpudirect', 'nvidia.html#nv-pcie', 'nvidia.html#nv-ops'];
 const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].map(it => {
   const s = it.querySelector('.cmd-source');
@@ -138,23 +142,23 @@ const rows = (p) => p.evaluate(() => {
     await ctx.close();
   }
 
-  // 2d. BMC vendor tools (iLOrest, SAA, OneCLI, FreeIPMI, serial consoles; no Dell since 2026-11-11).
+  // 2d. BMC tools (FreeIPMI, serial consoles; no Dell, HPE, Lenovo or Supermicro tools since 2026-11-11).
   {
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
     await p.goto(BASE + 'bmc-tools.html', { waitUntil: 'load' });
     await p.waitForTimeout(600);
     const all = (await rows(p)).filter(r => !/-(tips|flags)-card/.test(r.id));
-    check(all.length >= 78 && all.every(r => r.text), `every BMC-tool command and recipe shows a source line (${all.filter(r => r.text).length}/${all.length})`);
+    check(all.length >= BMC_MIN && all.every(r => r.text), `every BMC-tool command and recipe shows a source line (${all.filter(r => r.text).length}/${all.length})`);
     const unv = all.filter(r => /is-unverified/.test(r.cls)).map(r => r.cmd);
     check(unv.length === 0, `no BMC-tool entry says "Not verified" (${unv.map(c => c.slice(0, 40)).join(' | ')})`);
     const ln0 = await lines(p);
     const srcOf = id => ((ln0.find(l => l.id === id) || {}).text || '');
-    check(/FAQ 42925/.test(srcOf('saa-multi')) && /60-serial\.rules/.test(srcOf('serial-picocom-sub-1')) && /dialout/.test(srcOf('serial-picocom-sub-3')),
-      'SAA multi-host cites Supermicro FAQ 42925; serial recipes cite udev and the distro group docs');
-    const ln = await lines(p);
-    check(!all.some(r => /^racadm\b/.test(r.cmd)), 'no racadm entries left (no Dell hardware)');
-    check(/HPE iLOrest 7\.4/.test((ln.find(l => l.id === 'ilorest-reboot') || {}).text || ''), 'iLOrest cites the HPE iLOrest 7.4 guide (even on the reference-only reboot card)');
+    check(/60-serial\.rules/.test(srcOf('serial-picocom-sub-1')) && /dialout/.test(srcOf('serial-picocom-sub-3')),
+      'serial recipes cite udev and the distro group docs');
+    check(!all.some(r => /^(racadm|ilorest|\.\/saa|saa|\.\/OneCli|OneCli)\b/.test(r.cmd)), 'no racadm, iLOrest, SAA or OneCLI entries left');
+    const parts = await p.evaluate(() => [...new Set(((window.SHEET_FILTER || {}).sections || []).map(s => s.part))].join(' '));
+    check(parts === 'freeipmi serial-console', `BMC tools has only the FreeIPMI and serial-console parts (${parts})`);
     await ctx.close();
   }
 
@@ -695,11 +699,11 @@ const rows = (p) => p.evaluate(() => {
     await ctx.close();
   }
 
-  // 2x. Motherboard POST codes (hub + seven sheets): every card has a source line and none says
-  // "Not verified" (board cards checked against the K14PG-D24 and MZ73-LM0 manuals); AMI/Intel
-  // code meanings, no raw IPMI guesses, no LED/switch names the manuals do not have.
+  // 2x. Motherboard POST codes (hub + five sheets): every card has a source line and none says
+  // "Not verified"; AMI/Intel code meanings; no board vendors, models, slot or LED names
+  // (BIOS error codes only since 2026-11-11), no raw IPMI guesses.
   {
-    const PAGES = ['motherboards', 'mb-memory-post', 'mb-pcie-dxe-post', 'mb-storage-bds-post', 'mb-epyc-agesa', 'mb-asus-servers', 'mb-gigabyte-servers', 'mb-linux-audit'];
+    const PAGES = ['motherboards', 'mb-memory-post', 'mb-pcie-dxe-post', 'mb-storage-bds-post', 'mb-epyc-agesa', 'mb-linux-audit'];
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
     const all = [];
@@ -711,14 +715,14 @@ const rows = (p) => p.evaluate(() => {
       all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test(it.dataset.cmdId || '')).map(it => ({ id: it.dataset.cmdId || it.dataset.id, line: !!it.querySelector('.cmd-source'), unv: !!it.querySelector('.cmd-source.is-unverified') }))));
     }
     const base = id => id.replace(/-sub-\d+$/, '');
-    check(all.length >= 35 && all.every(x => x.line), `every card on the motherboard hub and sheets has a source line (${all.filter(x => x.line).length}/${all.length})`);
+    check(all.length >= MB_MIN && all.every(x => x.line), `every card on the motherboard hub and sheets has a source line (${all.filter(x => x.line).length}/${all.length})`);
     check(!all.some(x => x.unv), `no motherboard card says Not verified (${all.filter(x => x.unv).map(x => base(x.id)).join(', ')})`);
-    check(/BMCLED1/.test(text) && /LED_BMC/.test(text) && /BIOS_RCVR/.test(text) && !/BMC_LED1|BMC_RDY|SW_BIOS|BIOS_SEL|CATERR_LED1|CPU_ERR LED|DIMM_P0_A0/.test(text),
-      'board names from the manuals (BMCLED1, LED_BMC, BIOS_RCVR); no invented LED, switch or slot names');
-    check(/CPU1_DIMM_A1/.test(text) && /A1 G1/.test(text) && !/0xE3 \/ 0xE4|ABL Memory Training Fail/.test(text), 'ASUS fill order from the manual; no unsourced ABL code meanings in the quick table');
+    const vendorHit = text.match(/\b(ASUS|ASUSTeK|GIGABYTE|GigaByte|Supermicro|K14PG|KRPA|MZ73|ASMB1[01]|BMCLED1|LED_BMC|BIOS_RCVR|CPU1_DIMM_\w+|Q-Code|A1\/A0|A0\/A1)\b/);
+    check(!vendorHit, `no board vendor, model, slot or LED names on the motherboard pages (${vendorHit ? vendorHit[0] : 'none'})`);
+    check(!/0xE3 \/ 0xE4|ABL Memory Training Fail/.test(text), 'no unsourced ABL code meanings in the quick table');
     check(/0x51.{0,60}SPD reading has failed/.test(text) && /0x53.{0,60}no usable memory/i.test(text) && /Driver connecting is started/.test(text), 'AMI meanings: 0x51 SPD, 0x53 no usable memory, 0x91 driver connecting');
     check(/Train DDR4 ranks/.test(text) && !/ABL Memory Training Error/.test(text) && !/12\.0–13\.5 in-lbs/.test(text), 'Intel MRC B7; no invented ABL codes or torque');
-    check(!/raw 0x30 0x18/.test(text) && !/raw 0x32 0x8b/.test(text) && !/Oem\/Asus\/PostCode/.test(text) && /last 11 characters of the serial/.test(text), 'no guessed raw IPMI or OEM Redfish paths; GIGABYTE password rule');
+    check(!/raw 0x30 0x18/.test(text) && !/raw 0x32 0x8b/.test(text) && !/Oem\/Asus\/PostCode/.test(text), 'no guessed raw IPMI or OEM Redfish paths');
     await ctx.close();
   }
 
@@ -760,7 +764,7 @@ const rows = (p) => p.evaluate(() => {
       'rf-discovery', 'rf-power-boot', 'rf-inventory', 'rf-thermals-power', 'rf-logs-sel', 'rf-bios-bmc', 'rf-firmware', 'rf-hgx-dlc',
       'sw-quantum-ports', 'sw-quantum-hw-sm', 'sw-quantum-inband', 'sw-cumulus-ports', 'sw-cumulus-optics', 'sw-cumulus-lldp', 'sw-cumulus-bonds',
       'sw-cumulus-bgp', 'sw-cumulus-hw', 'sw-arista-ports', 'sw-arista-mlag', 'sw-arista-bgp', 'sw-nxos-ports', 'sw-nxos-vpc', 'sw-sonic',
-      'ilorest', 'supermicro-saa', 'onecli', 'freeipmi', 'serial-console'];
+      'freeipmi', 'serial-console'];
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
     const tips = {};
@@ -866,11 +870,12 @@ const rows = (p) => p.evaluate(() => {
     await ctx.close();
   }
 
-  // 2ze. BMC Rosetta without Dell (removed 2026-11-11): a "dell" vendor saved before then is
-  // ignored instead of breaking the matrix, all six tools show, and Redfish paths use ID 1.
+  // 2ze. BMC Rosetta without vendor CLIs (removed 2026-11-11): a vendor saved before then ("dell",
+  // "hpe") is ignored instead of breaking the matrix; ipmitool, FreeIPMI and Redfish show, with no
+  // vendor picker, detect box or compare button; Redfish paths use ID 1.
   {
     const ctx = await newContext(browser);
-    await ctx.addInitScript(() => { try { localStorage.setItem('cs_rosetta_v1', JSON.stringify({ last: 'dell' })); } catch (e) {} });
+    await ctx.addInitScript(() => { try { localStorage.setItem('cs_rosetta_v1', JSON.stringify({ last: 'hpe', byNode: { 'gpu-node-01': 'dell' } })); } catch (e) {} });
     const p = await ctx.newPage();
     const errs = [];
     p.on('pageerror', e => errs.push(e.message));
@@ -878,14 +883,13 @@ const rows = (p) => p.evaluate(() => {
     await p.waitForTimeout(600);
     await p.click('#ros-strip .ros-strip-open', { delay: 120 });
     await p.waitForTimeout(400);
-    await p.click('.ros-all', { delay: 120 });
-    await p.waitForTimeout(300);
     const r = await p.evaluate(() => {
       const t = document.querySelector('.ros-table');
-      return { text: t ? t.textContent + [...t.querySelectorAll('[data-ros-copy]')].map(b => b.dataset.rosCopy).join('\n') : '', cols: t ? t.querySelectorAll('thead th').length - 1 : 0, all: (document.querySelector('.ros-all') || {}).textContent || '' };
+      return { text: t ? t.textContent + [...t.querySelectorAll('[data-ros-copy]')].map(b => b.dataset.rosCopy).join('\n') : '', cols: [...(t ? t.querySelectorAll('thead th') : [])].slice(1).map(h => h.textContent.trim()).join(', '),
+        hidden: ['.ros-vendors', '.ros-detect', '.ros-all'].every(s => { const el = document.querySelector(s); return el && getComputedStyle(el).display === 'none'; }) };
     });
-    check(!errs.length && r.cols === 6 && /Show my vendor only/.test(r.all), `BMC Rosetta: a saved "dell" vendor is ignored and all 6 tools show (${r.cols} columns${errs.length ? '; ' + errs[0] : ''})`);
-    check(!/racadm|iDRAC|System\.Embedded/i.test(r.text) && /\/Systems\/1"/.test(r.text) && /\/Managers\/1\//.test(r.text) && !/\/(Systems|Managers|Chassis)\/(SYS|MGR|CH)\b/.test(r.text), 'BMC Rosetta: no racadm or Dell ids; Redfish paths use Systems/1 and Managers/1');
+    check(!errs.length && r.cols === 'ipmitool, FreeIPMI, Redfish' && r.hidden, `BMC Rosetta: a saved vendor is ignored; ipmitool, FreeIPMI and Redfish only, no vendor picker (${r.cols}${errs.length ? '; ' + errs[0] : ''})`);
+    check(!/racadm|iDRAC|System\.Embedded|ilorest|OneCli|saa -c/i.test(r.text) && /\/Systems\/1"/.test(r.text) && /\/Managers\/1\//.test(r.text) && !/\/(Systems|Managers|Chassis)\/(SYS|MGR|CH)\b/.test(r.text), 'BMC Rosetta: no vendor CLI commands or Dell ids; Redfish paths use Systems/1 and Managers/1');
     await ctx.close();
   }
 

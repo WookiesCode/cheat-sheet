@@ -148,14 +148,6 @@ ibstat
 ibtracert
 ibv_devinfo
 id
-ilorest
-ilorest fwintegritycheck -h
-ilorest get -h
-ilorest list -h
-ilorest login -h
-ilorest serverinfo -h
-ilorest serverlogs -h
-ilorest storagecontroller -h
 install
 iostat
 ip
@@ -267,7 +259,6 @@ readlink
 reget
 resolvectl
 rsync
-saa
 saquery
 scp
 scutil

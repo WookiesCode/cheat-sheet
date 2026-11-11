@@ -29,7 +29,6 @@ const IDIOMS = [/^sudo cp -a FILE FILE\.bak\.\$\(date \+%F\) && sudoedit FILE$/,
   const ctx = await newContext(browser);
   const p = await ctx.newPage();
   const want = [
-    ['bmc-tools.html#supermicro-saa', /^\.\/saa -c /, 'root'], ['bmc-tools.html#onecli', /^\.\/OneCli inventory/, 'root'],
     ['bmc-tools.html#freeipmi', /^install -m 600 \/dev\/null \/etc\//, 'root'], ['editors.html#nano', /^(sshd -t|visudo -c|cp -a \/etc\/fstab)/, 'root'],
     ['editors.html#nano', /^findmnt --verify$/, 'maybe'], ['containers.html#docker-images', /^ctr -n k8s\.io/, 'root'], ['bmc-tools.html#serial-console', /^dmesg -T \| grep -i tty$/, 'maybe']
   ];

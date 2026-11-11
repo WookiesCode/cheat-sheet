@@ -1062,7 +1062,7 @@ const HWREF_HUB_DATA = [
               "title": "Granite Rapids (Wikipedia, Xeon 6900P/6700P)"
             }
           ],
-          "note": "Corrected 2026-11-09: Xeon 6 DDR5-6400 is at 1 DPC (5200 at 2 DPC). The AMD EPYC 9005 figures and the 'highest common speed' rule could not be checked (AMD, Kingston and HPE pages refused or timed out); use your server's memory population guide."
+          "note": "Corrected 2026-11-09: Xeon 6 DDR5-6400 is at 1 DPC (5200 at 2 DPC). The AMD EPYC 9005 figures and the 'highest common speed' rule could not be checked (the AMD, Kingston and server-vendor pages refused or timed out); use your server's memory population guide."
         }
       }
     ]

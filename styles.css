@@ -7529,6 +7529,8 @@ body.is-home .sheet-shell { display: block; }
   background: var(--bg-code); border: 1px solid var(--border-strong); border-radius: 8px; padding: 0.25rem 0.3rem 0.25rem 0.6rem;
 }
 .ros-detect:focus-within, .ros-find:focus-within { border-color: var(--accent-primary); }
+/* [hidden] loses to the display rules above: a domain with no vendors (BMC) hides these. */
+.ros-vendors[hidden], .ros-detect[hidden], .ros-all[hidden] { display: none; }
 .ros-detect span, .ros-find span { font: 600 0.64rem var(--font-sans); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
 .ros-detect input, .ros-find input { flex: 1; min-width: 0; background: transparent; border: 0; outline: 0; color: var(--text-primary); font: 0.78rem var(--font-mono); padding: 0.3rem 0; }
 .ros-detect button { font: 600 0.7rem var(--font-sans); color: var(--accent-primary); background: transparent; border: 1px solid var(--border-strong); border-radius: 6px; padding: 0.28rem 0.5rem; cursor: pointer; white-space: nowrap; }

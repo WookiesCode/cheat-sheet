@@ -461,7 +461,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         cmd: 'curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries" | jq -r \'.Members[] | "\\(.Created) [\\(.Severity)] \\(.Message)"\' | tail -n 30',
         flags: [
           ["/Managers/1/LogServices", "Query /LogServices first to see vendor log IDs (e.g. Sel, Lclog, Log1, EventLog, FaultList)"],
-          ["/Systems/1/LogServices", "Some BMCs (HPE iLO IML, OpenBMC HostLogger, NVIDIA HGX) also mount host/FDR logs under /Systems/<id>/LogServices"]
+          ["/Systems/1/LogServices", "Some BMCs (OpenBMC HostLogger, NVIDIA HGX) also mount host/FDR logs under /Systems/<id>/LogServices"]
         ],
         tags: ["sel", "logs", "events", "history", "lclog", "iml"],
         src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/LogService.v1_9_0.json", "title": "Redfish schema: LogService"}, {"url": "https://redfish.dmtf.org/schemas/v1/LogEntry.v1_22_0.json", "title": "Redfish schema: LogEntry"}], "note": "The log service ID (Sel here) is vendor-specific: list /LogServices first."}
@@ -602,7 +602,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         flags: [
           ["GracefulRestart / ForceRestart", "Reboots only the BMC management processor (host OS & workloads keep running)"]
         ],
-        tags: ["bmc", "manager", "reset", "ilo", "reboot"],
+        tags: ["bmc", "manager", "reset", "reboot"],
         src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/Manager.v1_25_0.json", "title": "Redfish schema: Manager"}]}
       }
     ]
@@ -793,7 +793,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
           ["Chassis members", "Names containing HGX vary by vendor and generation: list them first, as the first command does"]
         ],
         tip: "Lets you check GPU serials & health even if the server won't boot into Ubuntu!",
-        tags: ["hgx", "sxm", "nvswitch", "hmc", "gpu", "out-of-band", "asus", "gigabyte"],
+        tags: ["hgx", "sxm", "nvswitch", "hmc", "gpu", "out-of-band"],
         src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/redfish-api-supp.html", "title": "NVIDIA DGX H100/H200 Redfish"}, {"url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/redfish-api-supp.html", "title": "NVIDIA DGX B200 Redfish"}], "note": "Corrected 2026-11-09: GPUs are /Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n> in NVIDIA's DGX docs (NVIDIA documents the HGX baseboard there); other HGX vendors may differ. Reading GPUs with the host off is not documented."}
       },
       {

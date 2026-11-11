@@ -8,8 +8,8 @@ const OMARCHY_FILE = /^omarchy\.js$/;
 const NEOVIM_FILE = /^(neovim|nvim-[a-z-]+)\.js$/;
 
 const REFERENCE_PATTERNS = [
-  // Motherboards: POST codes, boot stages, LEDs, jumpers, BIOS settings
-  /^POST 0x/, /^Stage \d:/, /^1-DIMM /, /^BMC_(LED1|RDY)/, /^Above 4G Decoding/,
+  // Motherboards: POST codes, boot stages, BIOS settings
+  /^POST 0x/, /^Stage \d:/, /^Above 4G Decoding/,
   // Fiber: form factors, polarity, cleaning steps, distance and test tables
   /^Switch Port:/, /^800G Twin-Port/, /^0\.5–2\.5m:/, /^\[Transceiver:/, /^Direct Optic-to-Optic/,
   /^MPO-12 \(4-lane\)/, /^LC Duplex/, /^1\. Inspect/, /^10km LR4/, /^Check DOM RX/, /^Tier 1 /,
@@ -24,15 +24,14 @@ const REFERENCE_PATTERNS = [
 
 // Commands that reboot or shut down the machine you type them on. They stay on the sheets as
 // documentation but cannot be copied or run from the page (decided 2026-11-09). Out-of-band
-// power control through a BMC (ipmitool -H, ilorest --url, Redfish) is not covered.
+// power control through a BMC (ipmitool -H, Redfish) is not covered.
 const HOST_REBOOT = [
   /^(sudo\s+)?(reboot|poweroff|halt)\b/,
   /&&\s*(sudo\s+)?(reboot|poweroff|halt)\b/,
   /^(sudo\s+)?systemctl\s+(reboot|poweroff|halt|kexec|soft-reboot)\b/,
   /^(sudo\s+)?shutdown(\.exe)?\s/i,
   /^(sudo\s+)?(init|telinit)\s+[06]\b/,
-  /^(Restart|Stop)-Computer\b/i,
-  /^ilorest\s+reboot\b(?![^|;&]*--url)/   // in-band ilorest acts on this server
+  /^(Restart|Stop)-Computer\b/i
 ];
 
 // Commands that inject an NMI to crash the host kernel on purpose (panic + kdump of a hung
@@ -40,9 +39,7 @@ const HOST_REBOOT = [
 const KERNEL_PANIC = [
   /"ResetType"\s*:\s*"Nmi"/i,
   /\bchassis\s+power\s+diag\b/,
-  /\btriggernmi\b/i,
-  /--diagnostic-interrupt\b/,
-  /\bilorest\s+reboot\s+Nmi\b/i
+  /--diagnostic-interrupt\b/
 ];
 
 function isKernelPanic(text) {

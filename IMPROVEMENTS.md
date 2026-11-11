@@ -798,6 +798,20 @@ The fleet has no DGX nodes. HGX content stays, and NVIDIA's DGX docs stay as its
 
 Kept: the fiber notes that name DGX H100 Cedar7 (that is the part's documented compatibility) and DGX doc URLs used as sources. Tests: `redfish-builder` (Standard only, no Dell or DGX ids), `sources` NVIDIA count 31 → 30.
 
+## #34 HPE, Lenovo and Supermicro tools gone; Motherboards is BIOS error codes only (2026-11-11, `fleet-vendors`)
+
+The fleet has no HPE or Lenovo servers. ASUS, GIGABYTE and Supermicro build the boards, so the site keeps only their BIOS error codes, nothing about the boards themselves, and no Supermicro SAA.
+
+| Where | Change |
+|---|---|
+| BMC tools | The iLOrest, OneCLI and SAA parts are gone (53 entries); FreeIPMI and serial consoles remain (25). Nav, hub title, pill and subtitle follow |
+| BMC Rosetta | ipmitool, FreeIPMI and Redfish only. With no vendors, the vendor picker, Detect box and Compare button are not shown; a vendor saved in the browser is ignored. CSS fix: `[hidden]` lost to `display: flex` on those elements, so `.ros-*[hidden] { display: none }` |
+| Motherboards | The ASUS and GIGABYTE parts, the DIMM population card and the dual-socket card (board labels and BIOS tools) are gone. POST/MRC/AGESA code text no longer names vendors, models, slots (A1/A0), LEDs or jumpers. Page title: Server BIOS POST Codes. AMI's Aptio V table stays the source even though Supermicro hosts the PDF |
+| Shared rules | iLOrest, SAA and OneCLI in the danger match, root rules, password masking, firmware detection; the in-band `ilorest reboot` and OneCLI `triggernmi` reference-only rules; `ilo`/`xcc` in BMC-hostname detection; glossary iLO, XCC, IML, IEL, AHS, FFDC |
+| Elsewhere | The Supermicro ipmitool fan row; HPE/Supermicro/Lenovo rows in Redfish Vendor IDs; vendor names in subtitles, tags, examples (RMA model placeholder, the checkup sample node, the dmidecode example) and docs/site.md |
+
+Kept: the Juniper docs URL on networkingdocs.hpe.com (a Juniper source), and "gigabytes" as a unit. Tests: `sources` (25 BMC entries, 32 motherboard cards, no vendor names, the Rosetta checks what is displayed), `reboot-reference` (My kit check now uses the Windows firmware-reboot card), `no-sudo`.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # capture-help.sh: save the --help output of the tools on the cheat sheets, so
 # "Explain a command" can describe flags that have no offline man page
-# (nvidia-smi, dcgmi, mlxlink, ilorest, kubectl...).
+# (nvidia-smi, dcgmi, mlxlink, kubectl...).
 #
 # Read-only: it only runs the help commands listed in help-tools.txt, as your
 # own user (it refuses to run as root), with no stdin and a 5-second timeout.

@@ -3,14 +3,14 @@ const MOTHERBOARD_CHEAT_SHEET_DATA = [
     part: "mb-memory-post",
     id: "memory-post",
     badge: "MRC / RAM",
-    title: "Memory (MRC) POST Codes — ASUS & GIGABYTE (50–55, B0–BF)",
+    title: "Memory (MRC) POST Codes (50–55, B0–BF)",
     subtitle: "DDR4/DDR5 RDIMM detection, SPD read, rank training, channel population rules & fault isolation",
     commands: [
       {
         id: "post-50-55-memory-init",
         mode: "PEI / MRC HALT",
         modeClass: "mode-c",
-        desc: "Decode AMI Aptio V memory initialization halt codes (`0x50`–`0x55`) on ASUS & GIGABYTE boards",
+        desc: "Decode AMI Aptio V memory initialization halt codes (`0x50`–`0x55`)",
         cmd: "POST 0x53 (No usable memory)   |   POST 0x55 (Memory not installed)",
         flags: [
           ["0x50","Memory initialization error: invalid memory type or incompatible memory speed"],
@@ -18,10 +18,10 @@ const MOTHERBOARD_CHEAT_SHEET_DATA = [
           ["0x52","Memory initialization error: invalid memory size, or memory modules do not match"],
           ["0x53","Memory initialization error: no usable memory detected (for example after mixing RDIMM and LRDIMM)"],
           ["0x54","Unspecified memory initialization error"],
-          ["0x55","Memory not installed: check the first slot of CPU0 (ASUS boards often call it A1, GIGABYTE A0; the manual has the exact name)"]
+          ["0x55","Memory not installed: check the first DIMM slot of the first CPU"]
         ],
         tip: "0x55 = no DIMM found: reseat the first slot of CPU0",
-        tags: ["50", "51", "52", "53", "54", "55", "memory", "ram", "dimm", "rdimm", "mrc", "asus", "gigabyte"],
+        tags: ["50", "51", "52", "53", "54", "55", "memory", "ram", "dimm", "rdimm", "mrc"],
         src: {"verified":"2026-11-10","refs":[{"url":"https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf","title":"AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"}],"note":"Corrected 2026-11-10: wording follows AMI's Aptio V table."}
       },
       {
@@ -43,23 +43,6 @@ const MOTHERBOARD_CHEAT_SHEET_DATA = [
         tags: ["b0", "b1", "b4", "b7", "b8", "ba", "bf", "2c", "2e", "2f", "mrc", "training", "xeon", "epyc"],
         src: {"verified":"2026-11-10","refs":[{"url":"https://miyconst.github.io/assets/2024-07-27-intel-s2600-tpm20/Intel_S2600ST_TPS.pdf","title":"Intel S2600ST TPS: MRC progress and error codes (copy)"},{"url":"https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf","title":"AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"}],"note":"Corrected 2026-11-10: B0–BF are Intel MRC codes during memory init and AMI BDS codes later; AMD does not use them for training."}
       },
-      {
-        id: "asus-gigabyte-dimm-population",
-        mode: "POPULATION RULES",
-        modeClass: "mode-v",
-        desc: "ASUS vs GIGABYTE dual-socket EPYC boards: DIMM slot names and population order (checked: ASUS K14PG-D24, GIGABYTE MZ73-LM0)",
-        cmd: "1-DIMM boot test:  ASUS K14PG-D24 = CPU1_DIMM_A1   |   GIGABYTE MZ73-LM0 = see the manual's matrix (slots A0–X0)",
-        flags: [
-          ["ASUS K14PG-D24", "One DIMM per channel, 12 per CPU: CPU1_DIMM_A1 … L1, CPU2_DIMM_A1 … L1 (CPUs count from 1)"],
-          ["ASUS fill order (per CPU)", "1: A1 · 2: A1 G1 · 4: + C1 I1 · 6: + B1 H1 · 8: + E1 K1 · 10: + D1 J1 · 12: all"],
-          ["GIGABYTE MZ73-LM0", "One DIMM per channel, 12 channels per CPU; slots labelled A0 … X0 across both CPUs (CPU0, CPU1). The per-count matrix is section 1-4-3"],
-          ["One DIMM type", "ASUS lists RDIMM / 3DS RDIMM only; use the same CAS latency, ideally one vendor, and check the vendor's memory list (AVL/QVL)"],
-          ["No usable memory", "AMI PEI codes 0x50–0x55 are memory errors (0x53 = no usable memory): check type and population first"]
-        ],
-        tip: "Population is board-specific: open the matrix for your exact board before moving DIMMs",
-        tags: ["population", "slots", "a1", "a0", "ddr5", "rdimm", "3ds", "asus", "gigabyte", "k14pg-d24", "mz73-lm0"],
-        src: {"verified": "2026-11-11", "refs": [{"url": "https://dlcdnets.asus.com/pub/ASUS/server/ESC8000A-E12P/Manual/E22383_ESC8000A-E12P_UM_V2_WEB.pdf", "title": "ASUS ESC8000A-E12P user guide (K14PG-D24 board), PDF"}, {"url": "https://www.manualslib.com/manual/3054427/Gigabyte-Mz73-Lm0.html", "title": "GIGABYTE MZ73-LM0 / MZ73-LM1 user manual rev 1.0 (ManualsLib copy)"}, {"url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf", "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"}], "note": "ASUS order from the ESC8000A-E12P guide, section 2.4.2 (recommended single and dual CPU tables). GIGABYTE from the MZ73-LM0 manual rev 1.0, section 1-4-3; the matrix marks did not extract as text, so the GIGABYTE order is not repeated here. Removed: the DIMM_P0_A0 naming and a \"minutes of DDR5 training\" claim with no source."}
-      }
     ]
   },
   {
@@ -341,7 +324,7 @@ const MOTHERBOARD_CHEAT_SHEET_DATA = [
     id: "amd-epyc-agesa",
     badge: "EPYC CPU",
     title: "AMD EPYC CPU (AGESA ABL & PSP) POST Codes (E0–FF, D0–DF)",
-    subtitle: "GIGABYTE (MZ32/MZ33/MZ73/G-Series) & ASUS (K14/KRPA/KNPA) SP3/SP5 EPYC CPU 2-stage POST & ABL fault codes",
+    subtitle: "SP3/SP5 EPYC CPU 2-stage POST & ABL fault codes",
     commands: [
       {
         id: "epyc-2stage-abl-post",
@@ -358,22 +341,6 @@ const MOTHERBOARD_CHEAT_SHEET_DATA = [
         tags: ["epyc", "amd", "agesa", "abl", "psp", "e0", "e1", "e6", "ea", "eb", "ee", "sp3", "sp5", "genoa", "turin"],
         src: {"verified":"2026-11-10","refs":[{"url":"https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf","title":"AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"},{"url":"https://miyconst.github.io/assets/2024-07-27-intel-s2600-tpm20/Intel_S2600ST_TPS.pdf","title":"Intel S2600ST TPS: MRC progress and error codes (copy)"}],"note":"Corrected 2026-11-10: removed specific E0–EF ABL meanings and socket-torque figures that contradicted each other and had no source."}
       },
-      {
-        id: "epyc-xgmi-dual-socket",
-        mode: "DUAL-SOCKET xGMI",
-        modeClass: "mode-c",
-        desc: "Two-socket boards (AMD EPYC xGMI, Intel Xeon UPI): find which socket failed, and update BIOS before a newer CPU",
-        cmd: "BMC SEL: which socket (CPU1/CPU2 or CPU0/CPU1) logged the error   |   New CPU generation: update BIOS first",
-        flags: [
-          ["2-socket hang", "Read the BMC SEL to see whether the failing DIMM or link is on the first or second socket, then reseat or swap on that side"],
-          ["Socket numbering", "ASUS labels CPU1 and CPU2; GIGABYTE labels CPU0 and CPU1: say which convention when you write the ticket"],
-          ["Newer CPU, older BIOS", "The BIOS must support the CPU generation: update it before installing the new CPU"],
-          ["BIOS update tools", "ASUS: EZ Flash (BIOS setup, USB) and CrashFree BIOS 3 (recovery from USB). GIGABYTE MZ73-LM0: BIOS_RCVR jumper + .rom on USB"]
-        ],
-        tip: "Update BIOS before swapping in a newer CPU generation",
-        tags: ["xgmi", "upi", "2p", "dual-socket", "e3", "e4", "mz73", "k14", "krpa"],
-        src: {"verified": "2026-11-11", "refs": [{"url": "https://dlcdnets.asus.com/pub/ASUS/server/ESC8000A-E12P/Manual/E22383_ESC8000A-E12P_UM_V2_WEB.pdf", "title": "ASUS ESC8000A-E12P user guide (K14PG-D24 board), PDF"}, {"url": "https://www.manualslib.com/manual/3054427/Gigabyte-Mz73-Lm0.html", "title": "GIGABYTE MZ73-LM0 / MZ73-LM1 user manual rev 1.0 (ManualsLib copy)"}], "note": "Socket labels and BIOS tools from the two manuals (ASUS sections 2.4 and 4.1; GIGABYTE sections 1-4-3 and 2-10). \"Update BIOS before a newer CPU\" is general practice. Removed: the claim that BMCs can flash the host BIOS with the host off (not in either manual)."}
-      }
     ]
   },
   {
@@ -433,147 +400,11 @@ const MOTHERBOARD_CHEAT_SHEET_DATA = [
     ]
   },
   {
-    part: "mb-asus-servers",
-    id: "asus-server-board",
-    badge: "ASUS SERVER",
-    title: "ASUS Server Boards (ASMB10 / ASMB11 BMC, Q-Code & Jumpers)",
-    subtitle: "ASUS K14 / KRPA / KNPA / Z12 / Z13 / Pro WS / ESC8000 / RS720 Q-Codes, onboard LEDs & remote BMC POST queries",
-    commands: [
-      {
-        id: "asus-asmb-redfish-post",
-        mode: "ASUS BMC (IPv6)",
-        modeClass: "mode-i",
-        desc: "Query live & historical POST codes remotely from an ASUS ASMB10 / ASMB11 (ASPEED AST2600) BMC over IPv6",
-        cmd: "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/Self\" | jq '{PowerState, Status, BootProgress}'",
-        flags: [
-          ["Systems/Self","AMI MegaRAC-based BMCs often name the system Self: list /redfish/v1/Systems to find the ID on yours"],
-          ["BootProgress.LastState","Standard Redfish boot stage (for example PrimaryProcessorInitializationStarted, PCIResourceConfigStarted, OSRunning)"],
-          ["Web UI POST code log","ASMB web GUIs have a POST code log with current and previous boot codes (menu names vary by firmware)"]
-        ],
-        tip: "BootProgress shows the stage; the BMC POST code log shows the exact codes",
-        tags: ["asus", "asmb10", "asmb11", "redfish", "ipv6", "post", "qcode", "megarac"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_22_0.json","title":"DMTF Redfish ComputerSystem schema (BootProgress)"}],"note":"The ASMB web-UI menu path is not confirmed against an ASUS document."}
-      },
-      {
-        id: "asus-onboard-leds-jumpers",
-        mode: "ASUS HARDWARE",
-        modeClass: "mode-n",
-        desc: "ASUS server board LEDs, Q-Code display and jumpers (checked: K14PG-D24 in the ESC8000A-E12P)",
-        cmd: "BMCLED1 (lit = BMC functional)   |   Q-Code LED (rear, port 80)   |   Clear CMOS switch (rear)   |   VGA_SW1 1-2 = VGA on",
-        flags: [
-          ["BMCLED1", "Lights up when the onboard BMC is functional"],
-          ["Q-Code LED", "Rear-panel 2-digit port-80 display. 0x00–0xFF cycling during BDS = \"Wait BMC ready\" (Q-Code table)"],
-          ["Message LED", "On = a hardware monitor event; off = normal"],
-          ["Clear CMOS", "A rear-panel switch on this board (not a CLRTC jumper)"],
-          ["VGA_SW1", "Pins 1-2 enable the onboard VGA controller"],
-          ["DM_IP_SEL1", "Pins 2-3 force the dedicated BMC LAN to static 10.10.10.10 / 255.255.255.0"]
-        ],
-        tip: "A Q-Code that cycles through every value is the BIOS waiting for the BMC, not a fault",
-        tags: ["asus", "bmcled1", "q-code", "message-led", "clear-cmos", "vga_sw1", "dm_ip_sel1", "jumper", "cmos", "k14pg-d24"],
-        src: {"verified": "2026-11-11", "refs": [{"url": "https://dlcdnets.asus.com/pub/ASUS/server/ESC8000A-E12P/Manual/E22383_ESC8000A-E12P_UM_V2_WEB.pdf", "title": "ASUS ESC8000A-E12P user guide (K14PG-D24 board), PDF"}], "note": "Corrected 2026-11-11 from the ESC8000A-E12P guide (sections 1.8, 3.4, 3.6, Q-Code table): the LED is BMCLED1, steady when the BMC works; there is no CATERR_LED1 or CLRTC1 on this board (clear CMOS is a rear switch). Older ASUS boards differ: check yours."}
-      }
-    ]
-  },
-  {
-    "part": "mb-asus-servers",
-    "id": "asus-server-board-pro-tips",
-    "badge": "tip",
-    "title": "ASUS Server Boards: Pro Tips & Best Practices",
-    "subtitle": "ASUS Server ASMB BMC Telemetry & Hardware Recovery Jumpers",
-    "commands": [
-      {
-        "id": "asus-server-board-tips-card",
-        "desc": "ASUS Server ASMB BMC Telemetry & Hardware Recovery Jumpers",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
-        "details": "ASUS server boards (ESC8000, KRPA, Z13, K14 series) have a 2-digit Q-Code display and an ASMB BMC. Use the BMC event log first, then clear CMOS (switch or jumper, per the board manual) for corrupt NVRAM.",
-        "flags": [
-          [
-            "ipmitool … sel elist",
-            "BMC event log with sensor names: DIMM, CPU and PCIe faults"
-          ],
-          [
-            "Clear CMOS",
-            "With AC removed; a rear switch on the K14PG-D24, a jumper on other boards (see the manual)"
-          ],
-          [
-            "BMCLED1",
-            "Lit when the onboard BMC is functional (K14PG-D24)"
-          ]
-        ],
-        "tip": "Read POST codes remotely from the BMC web UI's POST code log, and the boot stage from Redfish BootProgress.",
-        "src": {
-          "verified": "2026-11-10",
-          "refs": [
-            {
-              "url": "https://github.com/ipmitool/ipmitool",
-              "title": "ipmitool"
-            },
-            {
-              "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_22_0.json",
-              "title": "DMTF Redfish ComputerSystem schema (BootProgress)"
-            }
-          ],
-          "note": "Corrected 2026-11-10: replaced an unsourced raw IPMI command and an unverified ASUS Redfish OEM path."
-        },
-        "tags": [
-          "asus-server-board",
-          "tips",
-          "pro",
-          "motherboard",
-          "post",
-          "best-practice"
-        ]
-      }
-    ]
-  },
-  {
-    part: "mb-gigabyte-servers",
-    id: "gigabyte-server-board",
-    badge: "GIGABYTE",
-    title: "GIGABYTE Server Boards (GSM / AST2600 BMC, Dual-BIOS & Jumpers)",
-    subtitle: "GIGABYTE MZ32 / MZ33 / MZ72 / MZ73 / MD72 / MS73 / G292 / G492 / G593 POST snooping, LEDs & DIP switches",
-    commands: [
-      {
-        id: "gigabyte-bmc-post-snooping",
-        mode: "GIGABYTE BMC",
-        modeClass: "mode-i",
-        desc: "Query GIGABYTE Server Management (GSM / MegaRAC) BMC POST Snooping code over IPv6 Redfish or IPMI",
-        cmd: "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/Self\" | jq '{PowerState, BootProgress}'",
-        flags: [
-          ["Web UI POST codes","The BMC web UI keeps the POST codes of the current and previous boot (menu names vary by firmware)"],
-          ["Redfish BootProgress","Standard Redfish field with the current boot stage (see the command above)"],
-          ["Default GIGABYTE BMC Login","Shipped before March 2020: admin / password. Later boards: a unique password, the last 11 characters of the serial number on the board's sticker"]
-        ],
-        tip: "Newer GIGABYTE boards: the default BMC password is on the serial-number sticker",
-        tags: ["gigabyte", "gsm", "bmc", "post", "snooping", "redfish", "ipv6", "mz73", "ms73", "g492"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://www.gigabyte.com/Support/Security/1762","title":"GIGABYTE: BMC unique pre-programmed password"},{"url":"https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_22_0.json","title":"DMTF Redfish ComputerSystem schema (BootProgress)"}],"note":"Corrected 2026-11-10: GIGABYTE says the unique password is the last 11 characters of the serial (was 8); removed an unsourced raw IPMI command."}
-      },
-      {
-        id: "gigabyte-leds-switches-jumpers",
-        mode: "GIGABYTE HW",
-        modeClass: "mode-v",
-        desc: "GIGABYTE server board LEDs, jumpers and BIOS recovery (checked: MZ73-LM0 rev 1.0)",
-        cmd: "LED_BMC (blink = BMC ready)   |   CLR_CMOS (3-pin)   |   J1: BIOS_RCVR, BIOS_PWD   |   ID LED blue",
-        flags: [
-          ["LED_BMC", "On = BMC firmware initializing; blink = BMC ready; off = AC loss"],
-          ["ID LED", "Blue on = identification active"],
-          ["CLR_CMOS", "3-pin jumper: the clear position and procedure are in the manual, section 1-8 (with AC removed)"],
-          ["BIOS_RCVR (J1)", "BIOS recovery mode: copy the .rom to USB, set the jumper, boot, run the flash update (section 2-10)"],
-          ["BIOS_PWD (J1)", "Clears the BIOS supervisor password"],
-          ["No dual BIOS", "The MZ73-LM0 manual shows no backup BIOS chip or switch: recovery is BIOS_RCVR"]
-        ],
-        tip: "Wait for LED_BMC to blink before pressing power",
-        tags: ["gigabyte", "led_bmc", "bios_rcvr", "bios_pwd", "clr_cmos", "jumper", "id-led", "mz73-lm0"],
-        src: {"verified": "2026-11-11", "refs": [{"url": "https://www.manualslib.com/manual/3054427/Gigabyte-Mz73-Lm0.html", "title": "GIGABYTE MZ73-LM0 / MZ73-LM1 user manual rev 1.0 (ManualsLib copy)"}], "note": "Corrected 2026-11-11 from the MZ73-LM0 manual rev 1.0 (pages 19, 26, 34, 151): the BMC LED is LED_BMC (was BMC_RDY), the board has no SW_BIOS dual-BIOS switch, and its status-LED meanings are not in the manual. Other GIGABYTE boards differ: check yours. GIGABYTE's own PDF did not download (403), so this is the ManualsLib copy."}
-      }
-    ]
-  },
-  {
     part: "mb-linux-audit",
     id: "inband-board-audit",
     badge: "LINUX / DMI",
     title: "Ubuntu In-Band Motherboard, BIOS & ACPI BERT Error Audit",
-    subtitle: "Inspecting ASUS/GIGABYTE board model, PCB revision, BIOS date, slot mapping & previous-boot hardware crash tables",
+    subtitle: "BIOS version and date, board identity & previous-boot hardware crash tables",
     commands: [
       {
         id: "sysfs-board-identity",
@@ -582,12 +413,12 @@ const MOTHERBOARD_CHEAT_SHEET_DATA = [
         desc: "Read the motherboard vendor, model, revision and BIOS version from sysfs (board_serial needs root)",
         cmd: "head -n 1 /sys/class/dmi/id/{board_vendor,board_name,board_version,board_serial,bios_vendor,bios_version,bios_date}",
         flags: [
-          ["board_vendor", "Prints 'ASUSTeK COMPUTER INC.' or 'GigaByte Technology Co., Ltd.'"],
-          ["board_name", "Prints exact server motherboard model (e.g. 'K14PA-U12', 'KRPA-U16', 'Z13PE-D16', 'MZ73-LM0-000', 'MS73-HB0-000')"],
+          ["board_vendor", "The board manufacturer string from DMI"],
+          ["board_name", "The board model string from DMI: quote it in the ticket"],
           ["bios_version / bios_date", "Prints active UEFI BIOS version string and release date for checking against vendor QVL/support matrix"]
         ],
         tip: "Everything except board_serial reads as a normal user",
-        tags: ["sysfs", "dmi", "board_name", "bios_version", "asus", "gigabyte", "model"],
+        tags: ["sysfs", "dmi", "board_name", "bios_version", "model"],
         src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/torvalds/linux/blob/master/drivers/firmware/dmi-id.c","title":"Linux dmi-id.c (serial files are 0400)"}],"note":"Corrected 2026-11-10: board_serial is mode 0400 (root only)."}
       },
       {
@@ -597,7 +428,7 @@ const MOTHERBOARD_CHEAT_SHEET_DATA = [
         desc: "Inspect ACPI BERT (Boot Error Record Table) after a fatal motherboard reset & check UEFI capsule status",
         cmd: "dmesg | grep -iE 'BERT|GHES|Hardware Error|APEI|AER'   &&   ls -lh /sys/firmware/acpi/tables/BERT 2>/dev/null",
         flags: [
-          ["ACPI BERT", "Boot Error Record Table: When an ASUS or GIGABYTE board suffers a fatal CPU/PCIe reset, BIOS saves the crash registers in NVRAM and exposes them to Linux on the next boot via BERT!"],
+          ["ACPI BERT", "Boot Error Record Table: after a fatal CPU/PCIe reset, the BIOS saves the crash registers in NVRAM and exposes them to Linux on the next boot via BERT!"],
           ["APEI / GHES", "ACPI Platform Error Interface / Generic Hardware Error Source: decodes physical DIMM rank, PCIe BDF, or CPU APIC ID that caused the crash"],
           ["fwupdmgr get-devices", "Inspect UEFI System Firmware (ESRT) capsule update support and current motherboard/device firmware versions"]
         ],
@@ -609,7 +440,7 @@ const MOTHERBOARD_CHEAT_SHEET_DATA = [
         id: "ai-server-bios-checklist",
         mode: "AI BIOS CHECKLIST",
         modeClass: "mode-c",
-        desc: "Mandatory BIOS settings on ASUS (ESC N8 / ESC8000 / K14 / Z13) & GIGABYTE (G593 / G493 / MZ / MS) 8-GPU AI servers",
+        desc: "BIOS settings to check on 8-GPU AI servers",
         cmd: "Above 4G Decoding = Enabled  |  MMIO High per the vendor GPU guide  |  ACS = Disabled on PCIe switches  |  IOMMU / VT-d = Disabled or passthrough",
         flags: [
           ["Above 4G Decoding & Re-Size BAR","Enable so the BIOS can map large GPU BAR1 apertures (H100/H200/B200) without stopping at 0x94/0x96/0xd4"],
@@ -618,7 +449,7 @@ const MOTHERBOARD_CHEAT_SHEET_DATA = [
           ["CPU Power / C-States","Many GPU-server guides recommend a performance power profile and fewer deep C-states for steadier latency"]
         ],
         tip: "After clearing CMOS or flashing BIOS, re-check Above 4G, MMIO and ACS",
-        tags: ["bios", "above-4g", "mmio", "acs", "iommu", "resize-bar", "hgx", "asus", "gigabyte"],
+        tags: ["bios", "above-4g", "mmio", "acs", "iommu", "resize-bar", "hgx"],
         src: {"verified":"2026-11-10","refs":[{"url":"https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting/gpu_troubleshooting.html","title":"NVIDIA NCCL: GPU troubleshooting (ACS, IOMMU)"}],"note":"Corrected 2026-11-10: removed the fixed 56T / 1024G MMIO values, which vary by vendor."}
       }
     ]
@@ -681,58 +512,6 @@ const MOTHERBOARD_CHEAT_SHEET_DATA = [
         ]
       }
     ]
-  },
-  {
-    "id": "gigabyte-server-board-pro-tips",
-    "badge": "tip",
-    "title": "GIGABYTE Server Boards: Pro Tips & Best Practices",
-    "subtitle": "GIGABYTE Dual-BIOS Switching & Remote Port 0x80 Snooping",
-    "commands": [
-      {
-        "id": "gigabyte-server-board-tips-card",
-        "desc": "GIGABYTE BIOS recovery & remote POST codes",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
-        "details": "The BMC keeps the POST codes of the current and previous boot (web UI). If the BIOS is corrupted, the MZ73-LM0 recovers from USB with the BIOS_RCVR jumper; it has no backup BIOS chip. Other GIGABYTE boards differ: check the manual.",
-        "flags": [
-          [
-            "BIOS_RCVR (J1)",
-            "MZ73-LM0 BIOS recovery: .rom on USB, set the jumper, boot, run the flash update"
-          ],
-          [
-            "LED_BMC",
-            "MZ73-LM0: on = BMC initializing, blink = ready, off = AC loss"
-          ]
-        ],
-        "tip": "LED_BMC still steady on? The BMC has not finished starting: wait before pressing power.",
-        "src": {
-          "verified": "2026-11-10",
-          "refs": [
-            {
-              "url": "https://github.com/ipmitool/ipmitool",
-              "title": "ipmitool"
-            },
-            {
-              "url": "https://www.gigabyte.com/Support/Security/1762",
-              "title": "GIGABYTE: BMC unique pre-programmed password"
-            },
-            {
-              "url": "https://www.manualslib.com/manual/3054427/Gigabyte-Mz73-Lm0.html",
-              "title": "GIGABYTE MZ73-LM0 / MZ73-LM1 user manual rev 1.0 (ManualsLib copy)"
-            }
-          ],
-          "note": "Corrected 2026-11-11 from the MZ73-LM0 manual rev 1.0: removed the BIOS_SEL dual-BIOS switch, the BMC_RDY 1 Hz description and the CPU_ERR LED (none are in the manual). Earlier: replaced an unsourced raw IPMI command with the standard SEL listing."
-        },
-        "tags": [
-          "gigabyte-server-board",
-          "tips",
-          "pro",
-          "motherboard",
-          "post",
-          "best-practice"
-        ]
-      }
-    ],
-    "part": "mb-gigabyte-servers"
   }
 ];
 
@@ -748,13 +527,13 @@ const POST_CODE_DICTIONARY = {
     phase: "PEI CORE / CPU INIT",
     color: "var(--accent-primary)",
     meaning: "0x10 — PEI Core is started: Early CPU microcode & Cache-as-RAM (CAR) initialization.",
-    action: "If hung at 0x10–0x18: CPU microcode or BIOS does not support installed CPU stepping. Flash latest ASUS/GIGABYTE BIOS via BMC."
+    action: "If hung at 0x10–0x18: CPU microcode or BIOS does not support installed CPU stepping. Update to the latest BIOS."
   },
   "15": {
     phase: "PEI NORTHBRIDGE INIT",
     color: "var(--accent-primary)",
     meaning: "0x15 — Pre-memory Northbridge / CPU Root Complex initialization is started.",
-    action: "Check CPU socket seating and verify both CPUs match stepping on dual-socket (2P) ASUS/GIGABYTE boards."
+    action: "Check CPU socket seating and verify both CPUs match stepping on dual-socket (2P) boards."
   },
   "19": {
     phase: "PEI SOUTHBRIDGE / UPI INIT",
@@ -766,7 +545,7 @@ const POST_CODE_DICTIONARY = {
     phase: "PEI MEMORY DETECT",
     color: "var(--accent-warning)",
     meaning: "0x2C — Memory initialization: Detecting presence of DDR4/DDR5 DIMMs via SPD.",
-    action: "Verify DIMMs are populated in the primary channels (ASUS: A1; GIGABYTE: A0) and match board QVL."
+    action: "Verify DIMMs are populated in the primary channels first and are on the vendor's memory list."
   },
   "2E": {
     phase: "PEI MEMORY TIMINGS",
@@ -796,19 +575,19 @@ const POST_CODE_DICTIONARY = {
     phase: "PEI / MRC MEMORY FAULT (HALT)",
     color: "var(--accent-danger)",
     meaning: "0x52 — Memory initialization error: Invalid memory size or mismatched rank symmetry.",
-    action: "Verify all populated channels have identical rank counts and capacities according to the ASUS/GIGABYTE silkscreen table."
+    action: "Verify all populated channels have identical rank counts and capacities according to the board's population table."
   },
   "53": {
     phase: "PEI / MRC MEMORY FAULT (HALT)",
     color: "var(--accent-danger)",
     meaning: "0x53 — Memory initialization error: DIMMs detected, but no usable/compatible memory configured.",
-    action: "Never mix RDIMMs and LRDIMMs/UDIMMs on the same board! Test with a single known-good RDIMM in slot A1 (ASUS) or A0 (GIGABYTE)."
+    action: "Never mix RDIMMs and LRDIMMs/UDIMMs on the same board! Test with a single known-good RDIMM in the first slot of the first CPU."
   },
   "55": {
     phase: "PEI / MRC MEMORY FAULT (HALT)",
     color: "var(--accent-danger)",
     meaning: "0x55 — Memory Not Installed: No DDR4/DDR5 RDIMM detected in primary channels.",
-    action: "Verify DDR4/DDR5 RDIMMs are fully latched in the primary slots first (ASUS: A1/B1; GIGABYTE: A0/B0). If populated, reseat DIMMs and inspect CPU socket LGA pins/heatsink torque."
+    action: "Verify DDR4/DDR5 RDIMMs are fully latched in the primary slots first. If populated, reseat DIMMs and inspect CPU socket LGA pins/heatsink torque."
   },
   "60": {
     phase: "DXE CORE STARTED",
@@ -820,7 +599,7 @@ const POST_CODE_DICTIONARY = {
     phase: "DXE NVRAM INIT",
     color: "var(--accent-warning)",
     meaning: "0x61 — NVRAM Initialization: Reading/verifying UEFI variables in SPI flash.",
-    action: "If hung at 0x61: UEFI NVRAM is corrupted. Remove AC power, clear CMOS the way the board manual says (GIGABYTE MZ73-LM0: CLR_CMOS jumper; ASUS K14PG-D24: rear Clear CMOS switch), then boot."
+    action: "If hung at 0x61: UEFI NVRAM is corrupted. Remove AC power, clear CMOS (jumper or switch), then boot."
   },
   "68": {
     phase: "DXE PCI HOST BRIDGE",
@@ -886,12 +665,12 @@ const POST_CODE_DICTIONARY = {
     phase: "BDS USB DETECT",
     color: "var(--accent-warning)",
     meaning: "0x9C — USB Detect: Probing physical USB ports, crash-cart KVMs, and BMC Virtual Media.",
-    action: "If hung at 0x9C: unplug USB flash drives / KVMs and unmount any stale Virtual Media ISO in the ASUS/GIGABYTE BMC Web UI."
+    action: "If hung at 0x9C: unplug USB flash drives / KVMs and unmount any stale Virtual Media ISO in the BMC web UI."
   },
   "A0": {
     phase: "BDS SATA INIT / OR OS RUNNING",
     color: "var(--accent-primary)",
-    meaning: "0xA0 — During POST: IDE/SATA AHCI initialization. After Boot (on ASUS): ACPI OS Running state.",
+    meaning: "0xA0 — During POST: IDE/SATA AHCI initialization. After boot, some POST displays show A0 for the ACPI OS running state.",
     action: "If the OS is already running, 0xA0 is normal! If stuck during POST before video, disconnect SATA cables."
   },
   "A2": {
@@ -910,7 +689,7 @@ const POST_CODE_DICTIONARY = {
     phase: "ACPI OS RUNNING (NORMAL)",
     color: "var(--accent-primary)",
     meaning: "0xAA — System has transitioned to ACPI Mode (APIC): POST is complete and Ubuntu/OS is running normally!",
-    action: "No action needed — 0xAA is the normal healthy resting code on ASUS Q-Code displays once the OS takes control."
+    action: "No action needed — 0xAA is a normal resting code on POST displays once the OS takes control."
   },
   "AB": {
     phase: "WAITING IN BIOS / F1 PROMPT",
@@ -952,7 +731,7 @@ const POST_CODE_DICTIONARY = {
     phase: "MRC CHANNEL TRAINING FAIL",
     color: "var(--accent-danger)",
     meaning: "0xB7 — DDR4/DDR5 Channel Training Error: A memory channel failed read/write leveling or eye margining.",
-    action: "Open ASUS/GIGABYTE BMC Web UI -> Event Log (SEL): it usually names the failing DIMM slot (ASUS: CPU1_DIMM_C1 style). Swap or reseat that DIMM."
+    action: "Open the BMC event log (SEL): it usually names the failing DIMM slot. Swap or reseat that DIMM."
   },
   "D4": {
     phase: "PCIe OUT OF RESOURCES",
@@ -988,7 +767,7 @@ const POST_CODE_DICTIONARY = {
     phase: "CPU / VRM / FLASH FAULT",
     color: "var(--accent-danger)",
     meaning: "0xFF — Flash/CPU Fault: BIOS SPI flash read error, CPU VRM power fault, or end of ABL table.",
-    action: "If solid 0xFF immediately at power-on: flip GIGABYTE/ASUS Dual-BIOS switch to backup ROM, check EPS12V cables, and inspect CPU socket."
+    action: "If solid 0xFF immediately at power-on: check the EPS12V cables, reseat the CPU, then try BIOS recovery."
   }
 };
 
@@ -1000,7 +779,7 @@ const PHASE_REFERENCE = {
     ["0x2C – 0x2F", "Memory presence detect (2C), timings (2E) & init done (2F)"],
     ["0x50 / 0x53", "HALT: Invalid memory type/speed (50) or incompatible mix (53)"],
     ["0x51 / 0x52", "HALT: SPD EEPROM read fail (51) or invalid DIMM size (52)"],
-    ["0x55", "HALT: Memory Not Installed (check primary slot A1/A0)"],
+    ["0x55", "HALT: Memory Not Installed (check the first DIMM slot)"],
     ["0xB0 – 0xB6", "Xeon/AMI MRC SPD detect (B0) & RCD/buffer init (B4)"],
     ["0xB7 / 0xB8", "HALT: DDR channel training failure (check BMC SEL slot!)"]
   ],
@@ -1026,16 +805,14 @@ const PHASE_REFERENCE = {
   ],
   agesa: [
     ["Stage 1 -> 2", "AMD EPYC runs the PSP / AGESA boot loader first (memory training), then AMI UEFI"],
-    ["Early codes", "AMD PSP/ABL codes are board-vendor specific: decode them with the board manual's Q-Code table"],
-    ["ASUS K14PG-D24", "1 DIMM: CPU1_DIMM_A1; BMCLED1 lit = BMC up; Q-Code cycling = waiting for the BMC"],
-    ["GIGABYTE MZ73-LM0", "LED_BMC blinking = BMC ready; BIOS recovery = BIOS_RCVR jumper"]
+    ["Early codes", "AMD PSP/ABL codes are not in AMI's table: decode them with the board's POST code table"]
   ]
 };
 
 // Application State
 // One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
 // Stars, visited ticks and practice from those pages move here once, before the stars are read.
-if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("motherboards.html", "mb_sheet_saved", MOTHERBOARD_CHEAT_SHEET_DATA, {"mb-memory-post":"mb-memory-post_bookmarks","mb-pcie-dxe-post":"mb-pcie-dxe-post_bookmarks","mb-storage-bds-post":"mb-storage-bds-post_bookmarks","mb-epyc-agesa":"mb-epyc-agesa_bookmarks","mb-asus-servers":"mb-asus-servers_bookmarks","mb-gigabyte-servers":"mb-gigabyte-servers_bookmarks","mb-linux-audit":"mb-linux-audit_bookmarks"});
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("motherboards.html", "mb_sheet_saved", MOTHERBOARD_CHEAT_SHEET_DATA, {"mb-memory-post":"mb-memory-post_bookmarks","mb-pcie-dxe-post":"mb-pcie-dxe-post_bookmarks","mb-storage-bds-post":"mb-storage-bds-post_bookmarks","mb-epyc-agesa":"mb-epyc-agesa_bookmarks","mb-linux-audit":"mb-linux-audit_bookmarks"});
 
 const state = {
   searchQuery: "",
@@ -1048,40 +825,30 @@ const state = {
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(MOTHERBOARD_CHEAT_SHEET_DATA) : "";
 if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
   window.SHEET_FILTER = { sections: MOTHERBOARD_CHEAT_SHEET_DATA, label: "Motherboards sheets", parts: {
-   "mb-asus-servers": {
-    "title": "ASUS Server Boards",
-    "subtitle": "ASUS K14 / KRPA / KNPA / Z12 / Z13 / Pro WS / ESC8000 / RS720 Q-Codes, onboard LEDs & remote BMC POST queries",
-    "pill": "ASUS / ASUS & GIGABYTE Server Architecture"
-   },
    "mb-epyc-agesa": {
     "title": "AMD EPYC AGESA & PSP",
-    "subtitle": "GIGABYTE (MZ32/MZ33/MZ73/G-Series) & ASUS (K14/KRPA/KNPA) SP3/SP5 EPYC CPU 2-stage POST & ABL fault codes",
-    "pill": "EPYC / ASUS & GIGABYTE Server Architecture"
-   },
-   "mb-gigabyte-servers": {
-    "title": "GIGABYTE Server Boards",
-    "subtitle": "GIGABYTE MZ32 / MZ33 / MZ72 / MZ73 / MD72 / MS73 / G292 / G492 / G593 POST snooping, LEDs & DIP switches",
-    "pill": "GIGA / ASUS & GIGABYTE Server Architecture"
+    "subtitle": "SP3/SP5 EPYC CPU 2-stage POST & ABL fault codes",
+    "pill": "EPYC / AMI Aptio V & AMD AGESA"
    },
    "mb-linux-audit": {
     "title": "In-Band DMI & ACPI Audit",
-    "subtitle": "Inspecting ASUS/GIGABYTE board model, PCB revision, BIOS date, slot mapping & previous-boot hardware crash tables",
-    "pill": "DMI / ASUS & GIGABYTE Server Architecture"
+    "subtitle": "BIOS version and date, board identity & previous-boot hardware crash tables",
+    "pill": "DMI / AMI Aptio V & AMD AGESA"
    },
    "mb-memory-post": {
     "title": "Memory MRC Codes",
     "subtitle": "DDR4/DDR5 RDIMM detection, SPD read, rank training, channel population rules & fault isolation",
-    "pill": "MRC / ASUS & GIGABYTE Server Architecture"
+    "pill": "MRC / AMI Aptio V & AMD AGESA"
    },
    "mb-pcie-dxe-post": {
     "title": "PCIe & DXE Codes",
     "subtitle": "DXE phase chipset init, PCIe bus enumeration (92/94/96), Above 4G BAR exhaustion & VGA/Console faults (d6/d7)",
-    "pill": "PCI / ASUS & GIGABYTE Server Architecture"
+    "pill": "PCI / AMI Aptio V & AMD AGESA"
    },
    "mb-storage-bds-post": {
     "title": "Storage & Boot BDS",
     "subtitle": "SATA/NVMe detection (A0/A2), USB initialization (99/B4), BIOS Setup prompt (A9/AB) & OS boot handoff (AD/AA/00)",
-    "pill": "BDS / ASUS & GIGABYTE Server Architecture"
+    "pill": "BDS / AMI Aptio V & AMD AGESA"
    }
   } };
 
@@ -1147,7 +914,7 @@ function initPostDecoder() {
       phaseBadge.textContent = rangeHint.toUpperCase();
       phaseBadge.style.color = "var(--accent-secondary)";
       meaningOut.textContent = `0x${clean} — ${rangeHint}`;
-      actionOut.innerHTML = `<strong>Rack Action:</strong> Type <code>${escapeHtml(clean)}</code> into the search box above to filter matching command cards, or inspect the BMC Event Log (SEL) and POST Code history in ASUS ASMB / GIGABYTE GSM.`;
+      actionOut.innerHTML = `<strong>Rack Action:</strong> Type <code>${escapeHtml(clean)}</code> into the search box above to filter matching command cards, or inspect the BMC event log (SEL) and the BMC's POST code history.`;
     }
   }
 
