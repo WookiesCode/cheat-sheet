@@ -1846,6 +1846,7 @@
     const t = String(text || '');
     if (tlLooksLikeLog(t)) return 'timeline';
     if (/\bGPU0\b/.test(t) && /\b(NV\d+|PIX|PXB|PHB|NODE|SYS)\b/.test(t) && /(Legend|CPU Affinity|^\s*GPU1\b)/m.test(t)) return 'topo';
+    if (swCounterOs(t)) return 'swcounters';
     if (/Rx Power Current|Effective Physical (Errors|BER)|Raw Physical BER|Physical state\s*:/i.test(t)) return 'mlxlink';
     if (/critical_warning\s*:/i.test(t) && /available_spare|media_errors|percentage_used/i.test(t)) return 'smartlog';
     return null;
@@ -2434,6 +2435,182 @@
     };
   }
 
+  // -------------------------------------------------------------
+  // SWITCH ERROR COUNTERS (R10). The counters command of each switch OS on the site, laid out as
+  // its vendor documents it (samples read 2026-11-11): Arista EOS "show interfaces counters errors",
+  // NX-OS "show interface counters errors" (stacked tables merged by port, with Stomped-CRC),
+  // SONiC "show interfaces counters", Cumulus "nv show interface --view counters" and the one-port
+  // "nv show interface <swp> counters [errors]", and MLNX-OS "show interfaces ib [<port>]".
+  // Columns are found by their header names, never by position, so a release that adds or moves
+  // a column still parses; anything unrecognised is left out rather than guessed.
+  // -------------------------------------------------------------
+  const SW_OS = {
+    arista: { name: 'Arista EOS', cmd: 'show interfaces counters errors', sheet: 'sw-arista-ports.html', src: 'Arista EOS 4.37 manual: show interfaces counters errors' },
+    nxos: { name: 'Cisco NX-OS', cmd: 'show interface counters errors', sheet: 'sw-nxos-ports.html', src: 'Cisco 216239: Nexus 9000 CRC identification (show interface counters errors)' },
+    sonic: { name: 'SONiC', cmd: 'show interfaces counters', sheet: 'sw-sonic.html', src: 'SONiC Command Reference: show interfaces counters' },
+    cumulus: { name: 'Cumulus Linux (NVUE)', cmd: 'nv show interface --view counters', sheet: 'sw-cumulus-ports.html', src: 'Cumulus Linux 5.18: Monitoring Interfaces and Transceivers with NVUE' },
+    mlnxos: { name: 'MLNX-OS (InfiniBand)', cmd: 'show interfaces ib', sheet: 'sw-quantum-ports.html', src: 'NVIDIA MLNX-OS 3.12.6200 user manual: show interfaces ib' }
+  };
+  // Header name → counter. "rxerr"/"txerr" are a port's error totals where the OS prints one.
+  const SW_COLS = [
+    [/^(fcs|fcs-err|fcs errors)$/i, 'fcs'], [/^(align|align-err|alignment errors)$/i, 'align'],
+    [/^(symbol|symbol-err|symbol errors)$/i, 'symbol'], [/^(runts|undersize|undersize errors)$/i, 'runts'],
+    [/^(giants|oversize errors)$/i, 'giants'], [/^(jabber errors)$/i, 'jabber'], [/^(length errors)$/i, 'length'],
+    [/^(rx|rcv-err|rx_err)$/i, 'rxerr'], [/^(tx|xmit-err|tx_err)$/i, 'txerr'],
+    [/^(intmactx-er|intmacrx-er)$/i, 'macerr'], [/^stomped-crc$/i, 'stomped'],
+    [/^(indiscards|rx_drp)$/i, 'rxdrop'], [/^(outdiscards|tx_drp)$/i, 'txdrop'], [/^rx_ovr$/i, 'rxdrop'], [/^tx_ovr$/i, 'txdrop']
+  ];
+  const SW_L1 = ['fcs', 'align', 'symbol', 'runts', 'giants', 'jabber', 'length'];
+  const SW_LABEL = { fcs: 'FCS', align: 'Align', symbol: 'Symbol', runts: 'Runts', giants: 'Giants', jabber: 'Jabber', length: 'Length', rxerr: 'Rx errors', txerr: 'Tx errors', macerr: 'MAC', stomped: 'Stomped CRC', rxdrop: 'Rx drops', txdrop: 'Tx drops', vl15: 'VL15 dropped', txwait: 'Tx wait' };
+
+  function swCounterOs(text) {
+    const t = String(text || '');
+    if (/^\s*Port\s+FCS\s+Align\s+Symbol\s+Rx\s+Runts\s+Giants\s+Tx\b/mi.test(t)) return 'arista';
+    if (/^\s*Port\s+Align-Err\s+FCS-Err\b/mi.test(t) || /^\s*Port\s+Stomped-CRC\b/mi.test(t)) return 'nxos';
+    if (/^\s*IFACE\s+STATE\s+RX_OK\b/mi.test(t)) return 'sonic';
+    if (/^\s*Interface\s+MTU\s+RX_OK\s+RX_ERR\b/mi.test(t)) return 'cumulus';
+    if (/^\s*Counter\s+Receive\s+Transmit\b/mi.test(t) && /(FCS|Symbol|Total) (Errors|Drops)/i.test(t)) return 'cumulus';
+    if (/\bIB\d+\/\d+(\/\d+)?\s+state:/i.test(t) && /Symbol errors\s*:/i.test(t)) return 'mlnxos';
+    return null;
+  }
+  const swNum = v => { const s = String(v == null ? '' : v).replace(/,/g, '').trim(); return /^\d+$/.test(s) ? parseInt(s, 10) : null; };
+  const swKey = name => { const hit = SW_COLS.find(([re]) => re.test(String(name).trim())); return hit ? hit[1] : null; };
+  // Column spans from a dashed rule ("-----  -------"); a single unbroken rule gives none.
+  function swSpans(line) {
+    const spans = [];
+    for (const m of String(line).matchAll(/-+/g)) spans.push(m.index);
+    return spans.length > 1 && /^[\s-]+$/.test(line) ? spans : null;
+  }
+  const swCut = (line, spans) => spans.map((s, k) => line.slice(k === 0 ? 0 : s, k + 1 < spans.length ? spans[k + 1] : undefined).trim());
+
+  // Every "Port / IFACE / Interface" table in the text, merged by port.
+  function swTables(text, ports) {
+    const lines = String(text).replace(/\t/g, '    ').split(/\r?\n/);
+    for (let i = 0; i < lines.length; i++) {
+      if (!/^\s*(Port|IFACE|Interface)\s+\S/.test(lines[i])) continue;
+      const header = lines[i];
+      let j = i + 1;
+      const spans = j < lines.length ? swSpans(lines[j]) : null;
+      if (j < lines.length && /^[\s-]+$/.test(lines[j]) && lines[j].trim()) j++;
+      const names = spans ? swCut(header, spans) : header.trim().split(/\s+/);
+      for (; j < lines.length; j++) {
+        const line = lines[j];
+        if (!line.trim() || /^[\s-]+$/.test(line) || /^\s*(Port|IFACE|Interface)\s+\S/.test(line) || /[#>$]\s*(show|nv)\b/.test(line) || /^\S+[#>]\s*$/.test(line.trim())) break;
+        const cells = spans ? swCut(line, spans) : line.trim().split(/\s+/);
+        if (cells.length !== names.length || !cells[0]) continue;
+        const port = cells[0];
+        const row = ports.get(port) || {};
+        names.forEach((n, k) => { const key = k ? swKey(n) : null; const v = swNum(cells[k]); if (key && v != null) row[key] = (row[key] || 0) + v; });
+        ports.set(port, row);
+      }
+      i = j - 1;
+    }
+  }
+  // Cumulus one-port view: "Counter  Receive  Transmit" rows; the port comes from the command line.
+  function swCumulusPort(text, ports) {
+    const port = (String(text).match(/nv show interface (\S+) counters/) || [])[1] || 'this port';
+    const row = ports.get(port) || {};
+    for (const m of String(text).matchAll(/^\s*([A-Za-z][A-Za-z -]*?)\s{2,}(\S+)\s{2,}(\S+)\s*$/gm)) {
+      const name = m[1].trim();
+      const rx = swNum(m[2]), tx = swNum(m[3]);
+      if (/^total errors$/i.test(name)) { if (rx != null) row.rxerr = rx; if (tx != null) row.txerr = tx; continue; }
+      if (/^total drops$/i.test(name)) { if (rx != null) row.rxdrop = rx; if (tx != null) row.txdrop = tx; continue; }
+      const key = swKey(name);
+      if (key && rx != null) row[key] = rx;
+    }
+    ports.set(port, row);
+  }
+  // MLNX-OS: one "IB1/1 state:" block per port, counters under "Rx:" and "Tx:".
+  function swMlnxos(text, ports) {
+    const blocks = String(text).split(/(?=\bIB\d+\/\d+(?:\/\d+)?\s+state:)/i).filter(b => /^IB\d/i.test(b.trim()));
+    blocks.forEach(b => {
+      const port = b.trim().match(/^(IB\S+)\s+state:/i)[1];
+      const rx = (b.split(/\bRx:/i)[1] || '').split(/\bTx:/i)[0];
+      const tx = b.split(/\bTx:/i)[1] || '';
+      const get = (part, re) => { const m = part.match(re); return m ? swNum(m[1]) : null; };
+      const row = {};
+      const put = (k, v) => { if (v != null) row[k] = v; };
+      put('rxerr', get(rx, /\bErrors\s*:\s*([\d,]+)/i));
+      put('symbol', get(rx, /Symbol errors\s*:\s*([\d,]+)/i));
+      put('vl15', get(rx, /VL15 dropped packets\s*:\s*([\d,]+)/i));
+      put('txdrop', get(tx, /Discarded packets\s*:\s*([\d,]+)/i));
+      put('txwait', get(tx, /\bWait\s*:\s*([\d,]+)/i));
+      ports.set(port, row);
+    });
+  }
+
+  function parseSwitchCounters(text) {
+    const os = swCounterOs(text);
+    const ports = new Map();
+    if (os === 'mlnxos') swMlnxos(text, ports);
+    else if (os === 'cumulus' && /^\s*Counter\s+Receive\s+Transmit\b/mi.test(text) && !/^\s*Interface\s+MTU\b/mi.test(text)) swCumulusPort(text, ports);
+    else swTables(text, ports);
+    return { os, ports };
+  }
+
+  // A port's receive-side error total (for ranking): the OS's own total where it prints one
+  // (Rx, Rcv-Err, RX_ERR, Total Errors), because one bad frame can raise FCS, Align and Symbol
+  // together (Cisco's sample shows all three equal); the sum of the Layer-1 counters only when
+  // there is no total. On InfiniBand, receive errors and symbol errors are separate counters.
+  // NX-OS: stomped CRCs arrived already bad, so they are not this link's.
+  function swScore(row, os) {
+    const l1 = SW_L1.reduce((a, k) => a + (row[k] || 0), 0);
+    const rx = os === 'mlnxos' ? (row.rxerr || 0) + (row.symbol || 0) : row.rxerr != null ? row.rxerr : l1;
+    const rxLocal = os === 'nxos' && row.stomped ? Math.max(0, rx - row.stomped) : rx;
+    return { rx: rxLocal, tx: (row.txerr || 0) + (row.macerr || 0), drops: (row.rxdrop || 0) + (row.txdrop || 0) + (row.vl15 || 0), wait: row.txwait || 0 };
+  }
+
+  function analyzeSwitchCounters(text) {
+    const { os, ports } = parseSwitchCounters(text);
+    const meta = SW_OS[os];
+    const f = [];
+    const add = (sev, title, detail, rule) => f.push({ sev, title, detail, rule });
+    const rows = [...ports].map(([port, row]) => ({ port, row, ...swScore(row, os) }));
+    const bad = rows.filter(r => r.rx + r.tx > 0).sort((a, b) => (b.rx + b.tx) - (a.rx + a.tx));
+    const breakdown = row => [...SW_L1, 'macerr'].filter(k => row[k]).map(k => `${SW_LABEL[k]} ${row[k].toLocaleString('en-US')}`).join(', ');
+    bad.slice(0, 6).forEach((r, i) => {
+      const what = [r.rx && `${r.rx.toLocaleString('en-US')} receive`, r.tx && `${r.tx.toLocaleString('en-US')} transmit`].filter(Boolean).join(' and ');
+      const parts = breakdown(r.row);
+      add(i === 0 && bad.length > 1 && r.rx + r.tx >= 10 * (bad[1].rx + bad[1].tx) ? 'crit' : 'warn',
+        `${r.port}: ${what} errors${parts ? ` (${parts})` : ''}`,
+        r.rx ? `Errors on receive point at the physical link into this port: the optic, the cable or the far end. Clean and reseat, A/B swap the optics, and check DOM and BER on this port${os === 'mlnxos' ? ' (mlxlink on the HCA side)' : ''}. The counters run since the last clear: paste the same command again a minute later to see whether it is still climbing.`
+          : 'Errors on transmit: this port or its optic. Check DOM on this port and compare with its link partner.',
+        meta.src + (i === 0 && bad.length > 1 && r.rx + r.tx >= 10 * (bad[1].rx + bad[1].tx) ? ' · this port has at least 10× the errors of any other' : ''));
+    });
+    if (bad.length > 6) add('warn', `${bad.length - 6} more ports with errors`, bad.slice(6, 16).map(r => r.port).join(', ') + (bad.length > 16 ? '…' : ''), meta.src);
+    // NX-OS cut-through: a stomped CRC was already bad when it arrived (Cisco 216239).
+    rows.filter(r => os === 'nxos' && r.row.stomped && r.row.fcs).forEach(r => {
+      const local = Math.max(0, r.row.fcs - r.row.stomped);
+      add('info', `${r.port}: ${r.row.stomped.toLocaleString('en-US')} of ${r.row.fcs.toLocaleString('en-US')} CRC errors are stomped`,
+        local ? `${local.toLocaleString('en-US')} are local to this link; the rest arrived already stomped: the device on the other side runs cut-through and passed on a bad frame. Look upstream for those.`
+          : 'All of them arrived already stomped: the device on the other side runs cut-through and passed on a frame it received bad. The fault is upstream of that device, not this link.',
+        'Cisco 216239: stomped CRC vs normal CRC');
+    });
+    const dropOnly = rows.filter(r => r.drops > 0 && r.rx + r.tx === 0).sort((a, b) => b.drops - a.drops);
+    if (dropOnly.length) add('info', `Drops without errors on ${dropOnly.length} port${dropOnly.length === 1 ? '' : 's'} (${dropOnly.slice(0, 5).map(r => r.port).join(', ')}${dropOnly.length > 5 ? '…' : ''})`,
+      os === 'mlnxos' ? 'Discarded or VL15-dropped packets with no receive or symbol errors: congestion or management traffic, not the cable. VL15 is the subnet-management lane.'
+        : 'Discards with clean error counters are congestion or policy (buffers, ACLs, PFC), not a bad cable or optic.',
+      os === 'arista' ? 'Arista EOS manual: errors vs discards' : meta.src);
+    const waits = rows.filter(r => r.wait > 0).sort((a, b) => b.wait - a.wait);
+    if (os === 'mlnxos' && waits.length) add('info', `Tx wait on ${waits.length} port${waits.length === 1 ? '' : 's'} (${waits.slice(0, 5).map(r => r.port).join(', ')})`, 'Time the port had data to send but no credits from the far end: congestion, not a link fault.', meta.src);
+    if (!bad.length && rows.some(r => r.row.stomped)) add('ok', `No errors that start on these ${rows.length} link${rows.length === 1 ? '' : 's'}`, 'Every CRC error counted here arrived already stomped (see above); look at the upstream device.', meta.src);
+    else if (!bad.length) add('ok', `No error counters above zero on ${rows.length} port${rows.length === 1 ? '' : 's'}`, 'Clean since the last counter clear.', meta.src);
+    const worst = bad[0];
+    return {
+      type: 'swcounters', title: `${meta.name}: ${meta.cmd}`, sheet: meta.sheet, runbook: os === 'mlnxos' ? 'ib-link' : null,
+      facts: [['Switch OS', meta.name], ['Ports read', rows.length], ['Ports with errors', bad.length], ['Worst port', worst ? `${worst.port} (${(worst.rx + worst.tx).toLocaleString('en-US')})` : '—']],
+      ports: { os, rows: (bad.length ? bad : rows).slice(0, 16), cols: [...new Set(rows.flatMap(r => Object.keys(r.row)))].filter(k => SW_LABEL[k]) },
+      findings: f.sort((a, b) => AN_SEV_ORDER[b.sev] - AN_SEV_ORDER[a.sev])
+    };
+  }
+
+  function renderPortTable(r) {
+    const cols = r.ports.cols;
+    return `<div class="an-chart sw-ports"><div class="an-chart-head"><b>Ports, worst first</b><span>counters since the last clear</span></div>
+      <table class="sw-table"><thead><tr><th>Port</th>${cols.map(k => `<th>${escapeHtml(SW_LABEL[k])}</th>`).join('')}</tr></thead>
+      <tbody>${r.ports.rows.map(p => `<tr class="${p.rx + p.tx ? 'is-bad' : ''}"><td>${escapeHtml(p.port)}</td>${cols.map(k => `<td class="${p.row[k] ? 'nz' : ''}">${p.row[k] != null ? p.row[k].toLocaleString('en-US') : '—'}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  }
+
   // nvidia-smi topo -m: tabs or (after a terminal copy) runs of spaces.
   const TOPO_RANK = { PIX: 1, PXB: 2, PHB: 3, NODE: 4, SYS: 5 };
   function analyzeTopo(text) {
@@ -2755,6 +2932,7 @@
     if (type === 'topo') return analyzeTopo(text);
     if (type === 'mlxlink') return analyzeMlxlink(text);
     if (type === 'smartlog') return analyzeSmartlog(text);
+    if (type === 'swcounters') return analyzeSwitchCounters(text);
     if (type === 'timeline') return analyzeTimeline(text);
     return null;
   }
@@ -2806,6 +2984,7 @@
         ${r.gauges ? `<div class="an-charts">${gauge('Available spare', r.gauges.spare, 100, r.gauges.spareTh, true)}${gauge('Endurance used', r.gauges.used, 100, 90, false)}</div>` : ''}
         ${r.matrix ? renderTopo(r) : ''}
         ${r.timeline ? renderTimeline(r) : ''}
+        ${r.ports ? renderPortTable(r) : ''}
         <ol class="an-findings">
           ${r.findings.map(x => `<li class="sev-${x.sev}"><span class="an-sev">${{ crit: 'Critical', warn: 'Warning', info: 'Note', ok: 'OK' }[x.sev]}</span><div><b>${escapeHtml(x.title)}</b><p>${escapeHtml(x.detail)}</p><small>Rule: ${escapeHtml(x.rule)}</small></div></li>`).join('')}
         </ol>
@@ -2824,6 +3003,7 @@
   function analysisMarkdown(r) {
     return [`### Output analysis: ${r.title}`, '', ...r.facts.map(([k, v]) => `- **${k}:** ${v}`), '', '#### Findings',
       ...r.findings.map(x => `- **${x.sev.toUpperCase()}** ${x.title} — ${x.detail} _(rule: ${x.rule})_`),
+      ...(r.ports ? ['', '#### Ports, worst first', `| Port | ${r.ports.cols.map(k => SW_LABEL[k]).join(' | ')} |`, `|---|${r.ports.cols.map(() => '---').join('|')}|`, ...r.ports.rows.map(p => `| ${p.port} | ${r.ports.cols.map(k => p.row[k] != null ? p.row[k] : '—').join(' | ')} |`)] : []),
       ...(r.pairing && r.pairing.some(p => p.nic) ? ['', '#### GPU → nearest NIC', '| GPU | NIC | Device | Link | NUMA |', '|---|---|---|---|---|', ...r.pairing.map(p => `| ${p.gpu} | ${p.nic || '—'} | ${p.dev || '—'} | ${p.link}${p.bad ? ' ⚠' : ''} | ${p.numa || '—'} |`)] : [])].join('\n') + (r.timeline ? timelineMarkdown(r) : '');
   }
 
@@ -2837,12 +3017,12 @@
       anBackdrop.innerHTML = `
         <div class="an-dialog" role="dialog" aria-modal="true" aria-labelledby="an-title">
           <header class="an-head">
-            <div><h2 id="an-title">Output analyzer</h2><p>Paste a whole <code>dmesg -T</code> / <code>ipmitool sel elist</code> / <code>journalctl -k</code> dump (mix them) for a cross-layer incident timeline, or the full output of <code>mlxlink -d &lt;dev&gt; -m -c -e</code>, <code>nvme smart-log</code> or <code>nvidia-smi topo -m</code>. Checked against the team playbooks; nothing leaves this browser.</p></div>
+            <div><h2 id="an-title">Output analyzer</h2><p>Paste a whole <code>dmesg -T</code> / <code>ipmitool sel elist</code> / <code>journalctl -k</code> dump (mix them) for a cross-layer incident timeline, or the full output of <code>mlxlink -d &lt;dev&gt; -m -c -e</code>, <code>nvme smart-log</code>, <code>nvidia-smi topo -m</code>, or a switch's error counters (Arista, NX-OS, SONiC, Cumulus, MLNX-OS). Checked against the team playbooks; nothing leaves this browser.</p></div>
             <button type="button" class="trail-close" data-an="close" aria-label="Close analyzer">✕</button>
           </header>
           <div class="an-body">
             <textarea class="an-input" spellcheck="false" placeholder="Paste command output here…" aria-label="Command output"></textarea>
-            <div class="an-samples"><span>No output handy? Try a sample:</span><button type="button" data-an-sample="timeline">dmesg + SEL timeline</button><button type="button" data-an-sample="mlxlink">mlxlink -m -c -e</button><button type="button" data-an-sample="smartlog">nvme smart-log</button><button type="button" data-an-sample="topo">nvidia-smi topo -m</button></div>
+            <div class="an-samples"><span>No output handy? Try a sample:</span><button type="button" data-an-sample="timeline">dmesg + SEL timeline</button><button type="button" data-an-sample="mlxlink">mlxlink -m -c -e</button><button type="button" data-an-sample="smartlog">nvme smart-log</button><button type="button" data-an-sample="topo">nvidia-smi topo -m</button><button type="button" data-an-sample="swcounters">switch counters errors</button></div>
             <div class="an-out" aria-live="polite"></div>
           </div>
         </div>`;
@@ -3274,6 +3454,16 @@
 
   // Bundled outputs so the analyzer can be tried without a node at hand.
   const AN_SAMPLES = {
+    // Arista's documented layout (EOS manual), with made-up counts: one port stands out.
+    swcounters: [
+      'switch# show interfaces counters errors',
+      'Port               FCS    Align   Symbol       Rx    Runts   Giants       Tx',
+      'Et1                  0        0        0        0        0        0        0',
+      'Et2                  0        0        0        0        0        0        0',
+      'Et3               4182        0     3977     8159        0        0        0',
+      'Et4                  2        0        0        2        0        0        0',
+      'Et5                  0        0        0        0        0        0        0'
+    ].join('\n'),
     timeline: [
       '   1 | 11/04/2026 | 02:58:11 | Event Logging Disabled SEL | Log area reset/cleared | Asserted',
       '   2 | 11/04/2026 | 03:11:57 | Power Supply PSU1_Status | Power Supply AC lost | Asserted',
@@ -6549,7 +6739,9 @@ ${rmaTrailSection()}#### Action Requested:
     const vals = [...p.fields.values()];
     return !vals.length || vals.filter(v => v !== '').length < vals.length * 0.5 || /\|\s*\d{2}\/\d{2}\/\d{4}\s*\|/.test(text) || /^\[[^\]]+\]\s/m.test(text);
   }
-  const frLooksLike = (text) => { const r = frParse(text); return !!(r && r.nodes.size >= 2); };
+  // Switch counter tables (R10) have one row per port, which reads like "node: output" lines;
+  // they belong to the output analyzer, so they never count as fleet results.
+  const frLooksLike = (text) => { if (swCounterOs(text)) return false; const r = frParse(text); return !!(r && r.nodes.size >= 2); };
 
   // Grouping key: structured fields minus the noise; raw trimmed lines otherwise.
   function frKey(lines) {

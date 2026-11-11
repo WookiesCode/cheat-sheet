@@ -19,6 +19,8 @@ const CASES = {
   fleet: () => __t.openFleetResults(`gpu-node-01${P('fleet-host')}: NVIDIA H200, 535.104 ${both('fleet-val')}\ngpu-node-02: NVIDIA H200, 535.104\ngpu-node-03: NVIDIA H200, 550.54 ${P('fleet-val2')}`),
   xray: () => __t.openXray(`index, name, pci.bus_id, serial, temperature.gpu, ecc.errors.uncorrected.volatile.total\n0, NVIDIA H200 ${both('xray-name')}, 00000000:18:00.0, 165000${P('xray-sn')}, 41, 0\n1, NVIDIA H200, 00000000:2A:00.0, ${both('xray-sn2')}, 43, 2`),
   checkup: () => __t.openCheckup(`@@host\ngpu-node-07${both('ck-host')}\n@@gpu\n0, NVIDIA H200 ${both('ck-gpu')}, 00000000:18:00.0, 41, 0\n@@dmesg\n[Mon Nov  9 01:00:00 2026] NVRM: Xid (PCI:0000:18:00): 79, ${both('ck-dmesg')}`),
+  // Switch counters (R10): a port name is one token, so the payload uses / instead of spaces.
+  'analyzer-switch': () => __t.openAnalyzer(`Port               FCS    Align   Symbol       Rx    Runts   Giants       Tx\n<img/src=x/onerror=__xss.push('an-swport')>  5  0  0  5  0  0  0\nEt2  0  0  0  0  0  0  0`),
   analyzer: () => __t.openAnalyzer(`[Mon Nov  9 01:00:00 2026] NVRM: Xid (PCI:0000:18:00): 79, pid=1234, name=${both('an-dmesg')}\n[Mon Nov  9 01:00:01 2026] mlx5_core 0000:41:00.0: ${both('an-mlx')} link down\nSmart Log for NVME device:nvme0 namespace-id:ffffffff\ncritical_warning : 0 ${P('an-smart')}`),
   explain: () => __t.openExplain(`ls -la ${both('explain')} | grep ${P('explain-pipe')}`),
   rack: () => __t.openRack(both('rack')),

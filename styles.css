@@ -8699,3 +8699,13 @@ body.con-live .pb-btn { right: 128px; }
   user-select: none;
 }
 .kit-ref { font: 600 0.72rem var(--font-sans); color: var(--text-muted); align-self: center; }
+
+/* Switch counters (R10): the ports table in the output analyzer, worst first. */
+.sw-table { width: 100%; border-collapse: collapse; font: 0.78rem var(--font-mono); margin-top: 0.4rem; }
+.sw-table th { text-align: right; font: 600 0.68rem var(--font-sans); color: var(--text-muted); padding: 0.3rem 0.6rem; border-bottom: 1px solid var(--border-strong); white-space: nowrap; }
+.sw-table th:first-child, .sw-table td:first-child { text-align: left; }
+.sw-table td { text-align: right; padding: 0.28rem 0.6rem; color: var(--text-muted); border-bottom: 1px solid var(--border-subtle); font-variant-numeric: tabular-nums; }
+.sw-table td:first-child { color: var(--text-primary); font-weight: 600; }
+.sw-table td.nz { color: var(--accent-amber); font-weight: 600; }
+.sw-table tr.is-bad:first-child td.nz { color: var(--accent-red); }
+

@@ -1185,7 +1185,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). Ranked by user impact relative
 - Impact **H** · Effort **M** · Risk **L**.
 - **Files:** `common.js` (decoder), sheet data where a missing command needs a card (`app.js`, `infiniband.js`, `slurm.js`, `containers.js`), the decoder test.
 
-**R10. Analyse pasted switch counter output**
+**R10. ✅ Analyse pasted switch counter output** (built: `improve/switch-counters`, from the vendors' documented samples since there was no switch to read: Arista EOS 4.37 manual, Cisco 216239 (NX-OS, with Stomped-CRC), the SONiC Command Reference, Cumulus 5.18 NVUE docs, the MLNX-OS 3.12.6200 manual. Columns are found by header name. Found while building: a multi-table NX-OS paste was claimed by Fleet results (pdsh-style lines), so switch counters now never count as fleet output; and summing FCS + Align + Symbol double-counted the same frames, so a port's own receive total wins when the OS prints one)
 - **What:** extend "Analyze command output" (it reads mlxlink, `nvme smart-log` and `nvidia-smi topo` today) to switch error counters: Arista/Cumulus/NX-OS `show interfaces counters errors` and MLNX-OS `show interfaces ib` output, with one table of ports that have errors, worst first.
 - **Why:** J4. Spotting the one bad port among 64 by eye is slow.
 - **Evidence:** pasting `Port 1/1/3 Symbol Errors: 1534` matched nothing; the analyser has no switch parsers.
