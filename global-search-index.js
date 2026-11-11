@@ -53072,9 +53072,14 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700",
     "sheet": "switches.html#sw-quantum-ports",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "Only the per-port form (show interfaces ib 1/36 transceiver) is in the MLNX-OS manual chapters read."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking/display/nvidia-mlnx-os-user-manual-v3-12-6200-lts-2025-lts-u2.pdf",
+          "title": "NVIDIA MLNX-OS 3.12.6200 LTS user manual (PDF)"
+        }
+      ],
+      "note": "MLNX-OS 3.12.6200: show interfaces ib [<inf>] transceiver; the port is optional."
     }
   },
   {
@@ -53083,15 +53088,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "qtm",
     "id": "mlnxos-show-interfaces-ib",
     "sec": "NVIDIA Quantum IB (MLNX-OS) — Ports, Optics & Counters",
-    "cmd": "show interfaces ib 1/1 counters",
-    "desc": "Display IB 1/1 traffic and physical error counters (SymbolError, LinkErrorRecovery, LinkDowned, PortRcvErrors)",
+    "cmd": "show interfaces ib 1/1",
+    "desc": "IB 1/1 counters are in the per-port output: Rx errors, symbol errors, VL15 dropped packets; Tx discarded",
     "tip": "",
     "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700",
     "sheet": "switches.html#sw-quantum-ports",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "Not in the MLNX-OS manual chapters read."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking/display/nvidia-mlnx-os-user-manual-v3-12-6200-lts-2025-lts-u2.pdf",
+          "title": "NVIDIA MLNX-OS 3.12.6200 LTS user manual (PDF)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: there is no counters keyword. MLNX-OS 3.12.6200: show interfaces ib <inf> displays the configuration and status, with the counters."
     }
   },
   {
@@ -53101,14 +53111,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "mlnxos-show-interfaces-ib",
     "sec": "NVIDIA Quantum IB (MLNX-OS) — Ports, Optics & Counters",
     "cmd": "interface ib 1/1\nclear counters",
-    "desc": "Reset IB 1/1 error counters after cleaning fiber or replacing an OSFP/QSFP module (MLNX-OS clears counters only inside interface ib mode, from configure terminal)",
+    "desc": "Reset IB 1/1 error counters after cleaning fiber or replacing an OSFP/QSFP module (run from configure terminal: clear counters works inside interface ib mode)",
     "tip": "",
     "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700",
     "sheet": "switches.html#sw-quantum-ports",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "Clearing counters is not in the MLNX-OS manual chapters read."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking/display/nvidia-mlnx-os-user-manual-v3-12-6200-lts-2025-lts-u2.pdf",
+          "title": "NVIDIA MLNX-OS 3.12.6200 LTS user manual (PDF)"
+        }
+      ],
+      "note": "MLNX-OS 3.12.6200: clear counters in config interface ib mode clears the interface counters (example: switch (config interface ib 1/1) # clear counters). The global form clear counters [all | interface <type> <number>] also exists."
     }
   },
   {
@@ -53139,15 +53154,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "qtm",
     "id": "mlnxos-show-interfaces-ib",
     "sec": "NVIDIA Quantum IB (MLNX-OS) — Ports, Optics & Counters",
-    "cmd": "interface ib 1/1 description \"GPU-Node-01 mlx5_0\"",
-    "desc": "Label InfiniBand switch port IB 1/1 with the connected GPU server hostname and HCA",
+    "cmd": "interface ib 1/1\ndescription GPU-Node-01_mlx5_0",
+    "desc": "Label InfiniBand switch port IB 1/1 with the connected GPU server hostname and HCA (up to 40 bytes; run from configure terminal)",
     "tip": "",
     "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700",
     "sheet": "switches.html#sw-quantum-ports",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "Not in the MLNX-OS manual chapters read."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking/display/nvidia-mlnx-os-user-manual-v3-12-6200-lts-2025-lts-u2.pdf",
+          "title": "NVIDIA MLNX-OS 3.12.6200 LTS user manual (PDF)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: description <string> is entered inside interface ib mode, not on the interface line. MLNX-OS 3.12.6200: 40 bytes, example description my_interface."
     }
   },
   {
@@ -53200,15 +53220,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "qtm",
     "id": "mlnxos-split-ports-cable",
     "sec": "NVIDIA Quantum IB (MLNX-OS) — Ports, Optics & Counters",
-    "cmd": "show cables",
-    "desc": "List all plugged InfiniBand cables/transceivers (OSFP/QSFP, active optical vs passive DAC, length, vendor PN/SN)",
+    "cmd": "show interfaces ib transceiver",
+    "desc": "List the transceiver or cable in every populated InfiniBand port (type, vendor, PN/SN, DOM)",
     "tip": "",
     "tags": "nvidia quantum mlnx-os split osfp ndr hdr cables",
     "sheet": "switches.html#sw-quantum-ports",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "Not in the MLNX-OS manual chapters read; use show interfaces ib <port> transceiver."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking/display/nvidia-mlnx-os-user-manual-v3-12-6200-lts-2025-lts-u2.pdf",
+          "title": "NVIDIA MLNX-OS 3.12.6200 LTS user manual (PDF)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: show cables is not in the MLNX-OS 3.12.6200 manual; show interfaces ib [<inf>] transceiver is."
     }
   },
   {
@@ -53271,9 +53296,14 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version",
     "sheet": "switches.html#sw-quantum-hw-sm",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "Not in the MLNX-OS manual chapters read."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking/display/nvidia-mlnx-os-user-manual-v3-12-6200-lts-2025-lts-u2.pdf",
+          "title": "NVIDIA MLNX-OS 3.12.6200 LTS user manual (PDF)"
+        }
+      ],
+      "note": "MLNX-OS 3.12.6200: show inventory displays system inventory (module, part number, serial); show version the running image. Any command mode."
     }
   },
   {
@@ -53367,15 +53397,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "qsm",
     "id": "mlnxos-hardware-sm-config",
     "sec": "NVIDIA Quantum IB (MLNX-OS) — Hardware, SM/UFM & Config",
-    "cmd": "show images && boot system partition next",
-    "desc": "Inspect installed MLNX-OS software partition images (image 1 vs image 2) for upgrades",
+    "cmd": "show images\nconfigure terminal\nboot system next",
+    "desc": "Inspect the installed MLNX-OS images (location 1 vs 2), then boot the other one at the next reload",
     "tip": "",
     "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version",
     "sheet": "switches.html#sw-quantum-hw-sm",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "show images and the next-boot command were not found in the MLNX-OS chapters read; check the Software Management commands."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking/display/nvidia-mlnx-os-user-manual-v3-12-6200-lts-2025-lts-u2.pdf",
+          "title": "NVIDIA MLNX-OS 3.12.6200 LTS user manual (PDF)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the syntax is boot system {location | next} in config mode (no boot system next undoes it); there is no partition keyword. show images displays the system images and boot parameters."
     }
   },
   {
@@ -53514,9 +53549,14 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches",
     "sheet": "switches.html#sw-quantum-inband",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "smpquery was not checked this round."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/smpquery.8.in.rst",
+          "title": "smpquery man page (rdma-core)"
+        }
+      ],
+      "note": "smpquery nodeinfo <lid> and portinfo <lid> [<portnum>]: LID 1 and port 15 are examples (find the switch LID with ibswitches)."
     }
   },
   {
@@ -54483,9 +54523,9 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "arista eos lldp port-channel lacp mlag mac arp",
     "sheet": "switches.html#sw-arista-mlag",
     "src": {
-      "verified": "2026-11-09",
+      "verified": "2026-11-10",
       "refs": [],
-      "note": "EOS documents bash but not the Linux name of Ethernet1 or ethtool; check ip link in bash first."
+      "note": "EOS runs a one-off Linux command as bash <command> (manual examples: bash md5sum …, bash tcpdump -i mirror0), but it does not document the Linux name of Ethernet1 or ethtool: run bash ip -br link first."
     }
   },
   {
@@ -54554,14 +54594,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "arista-bgp-environment-logs",
     "sec": "Arista EOS — BGP, Environment, Logs & Config Diff",
     "cmd": "show version && show boot-config",
-    "desc": "Check Arista switch hardware model, serial number, MAC, uptime, and EOS image version",
+    "desc": "Check Arista switch hardware model, serial number, MAC, uptime, and EOS image version, then the image the next reload boots",
     "tip": "",
     "tags": "arista eos bgp environment psu fan logging version",
     "sheet": "switches.html#sw-arista-bgp",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "show version is not in the EOS chapters read; show boot-config appears only in an example."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.arista.com/assets/data/pdf/user-manual/EOS-User-Manual.pdf",
+          "title": "Arista EOS 4.37.0F user guide (PDF)"
+        }
+      ],
+      "note": "EOS 4.37.0F: show version identifies the switch (model, serial, system MAC, image, uptime); the manual views boot settings with show boot-config."
     }
   },
   {
@@ -54570,15 +54615,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "env",
     "id": "arista-bgp-environment-logs",
     "sec": "Arista EOS — BGP, Environment, Logs & Config Diff",
-    "cmd": "show running-config interfaces Ethernet1",
+    "cmd": "show running-config interfaces ethernet 1",
     "desc": "View the exact configuration block applied to interface Ethernet1",
     "tip": "",
     "tags": "arista eos bgp environment psu fan logging version",
     "sheet": "switches.html#sw-arista-bgp",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "Not in the EOS chapters read."
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.arista.com/assets/data/pdf/user-manual/EOS-User-Manual.pdf",
+          "title": "Arista EOS 4.37.0F user guide (PDF)"
+        }
+      ],
+      "note": "EOS 4.37.0F examples: show running-config interfaces ethernet 3 and ethernet 15/1."
     }
   },
   {

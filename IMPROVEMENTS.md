@@ -660,6 +660,23 @@ The returning-user invite and the Ctrl+K "What's new" entry name the new additio
 
 Confirmed unchanged: FS SFP-10GLR-31, XS+85LC01D, QSFP56-200G-SR4, QSFP-DD-400G-DR4, OSFP-800G-2XDR4, QM9790 (MQM9790-NS2R unmanaged, C2P), 7260CX3-64-F, CCR2216, Hasivo, ACS8000 (copper left / SFP right, one per LAN, fiber priority; 8/16/32/48 serial), MX304 (LMIC0/1, RE1/LMIC2), N9K-FX3. Cage layouts and port order are from the vendor photos: no vendor text describes them.
 
+## #22 Switch commands checked: the sheet rows and every Rosetta cell (2026-11-10, `switch-commands-check`)
+
+Sources this time were the full manuals as PDFs (downloaded and searched, which got past Arista's refusals and the page-length limits that stopped the last round): MLNX-OS 3.12.6200 LTS (727 pages), Arista EOS 4.37.0F user guide (5,163 pages), Cisco NX-OS 10.5(x) Interfaces and Fundamentals guides, the rdma-core smpquery man page.
+
+| Switches page row | Result |
+|---|---|
+| `show cables` (MLNX-OS) | **Not a command** in 3.12.6200: now `show interfaces ib transceiver` |
+| `show images && boot system partition next` | **Wrong syntax**: `boot system {location \| next}`: now `show images` / `configure terminal` / `boot system next` |
+| `interface ib 1/1 description "…"` | **Wrong form**: `description <string>` (40 bytes) is entered inside interface ib mode |
+| `show interfaces ib 1/1 counters` | **No counters keyword**: the counters are in `show interfaces ib 1/1` |
+| `show interfaces ib transceiver`, `interface ib 1/1` + `clear counters`, `show inventory && show version` | Confirmed |
+| `smpquery nodeinfo 1 && smpquery portinfo 1 15` | Confirmed (LID and port are examples) |
+| EOS `show version && show boot-config`, `show running-config interfaces ethernet 1` | Confirmed (now the manual's `ethernet 1` form) |
+| EOS `bash ethtool -m Ethernet1` | Still **Not verified**: EOS documents `bash <command>` but not the Linux name of Ethernet1 |
+
+Switch Rosetta: all 15 cells that said "check on your release" are confirmed (EOS: version, inventory, MAC lookup, BGP summary, bounce, clear counters, copy; MLNX-OS: version, per-port errors, inventory, `show ib sm`, clear counters in interface ib mode; NX-OS: bounce, `clear counters interface ethernet1/1`, copy). Notes added: EOS MACs in dotted hex; `show ib sm` is the SM admin state (`show ib smnodes` for HA); EOS `clear counters ethernet 1` for one port.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

@@ -156,8 +156,12 @@ const rows = (p) => p.evaluate(() => {
     const swText = await p.evaluate(() => { const c = document.querySelector('#sections-container').cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
     const swList = (await rows(p)).filter(r => !/-(tips|flags)-card/.test(r.id));
     check(swList.length >= 67 && swList.every(l => l.text), `every switch command and recipe shows a source line (${swList.filter(l => l.text).length}/${swList.length})`);
+    // Checked 2026-11-10 against the MLNX-OS 3.12.6200 manual, the EOS 4.37.0F guide and the smpquery man
+    // page: only bash ethtool stays unconfirmed (EOS does not document the Linux name of Ethernet1).
     const swUnv = swList.filter(l => /is-unverified/.test(l.cls));
-    check(swUnv.length === 11, `the 11 unconfirmed switch commands say "Not verified" (${swUnv.length})`);
+    check(swUnv.length === 1 && /bash ethtool -m Ethernet1/.test(swUnv[0].cmd || ''), `only the bash ethtool row says "Not verified" (${swUnv.length}: ${swUnv.map(l => (l.cmd || '').slice(0, 30)).join(' | ')})`);
+    check(!/boot system partition|show cables|show interfaces ib 1\/1 counters|interface ib 1\/1 description/.test(swText) && /boot system next/.test(swText),
+      'MLNX-OS rows corrected: boot system next, show interfaces ib transceiver (not show cables), description inside interface ib mode');
     const swCmds = swList.map(l => l.cmd).join('\n');
     check(/module-type qsfp-split-2/.test(swText) && !/interface ib 1\/1 split/.test(swText), 'MLNX-OS split uses module-type qsfp-split-2');
     check(/ib smnode <sm-node> enable/.test(swCmds) && !/show ib smgoing/.test(swCmds), 'MLNX-OS SM uses ib smnode … enable; no invented show ib smgoing');
@@ -840,6 +844,8 @@ const rows = (p) => p.evaluate(() => {
     check(/nv show interface lldp/.test(r.text) && !/--view (lldp|counters)|nv show interface status/.test(r.text), 'NVUE: nv show interface lldp, no invented --view or status forms');
     check(/show logging \| tail -n 50/.test(r.text) && !/--lines 50/.test(r.text), 'SONiC logs: --lines only goes with a process name');
     check(/show interfaces ib 1\/1 transceiver/.test(r.text) && !/transceiver diagnostics/.test(r.text), 'MLNX-OS optics: the per-port form the manual shows');
+    check(!(await p.evaluate(() => document.querySelectorAll('.ros-cell.is-unverified').length)), 'every Switch Rosetta cell is documented: none says "check on your release"');
+    check(/dotted hex/.test(await p.evaluate(() => document.querySelector('.ros-table').textContent)), 'the EOS MAC lookup notes the dotted-hex MAC format (EOS 4.37 guide)');
     check(r.links.includes('switches.html#sw-arista-ports') && r.links.includes('switches.html#sw-sonic') && !r.links.some(h => /^sw-/.test(h)), `column links open parts of switches.html (${r.links.join(' ')})`);
     await ctx.close();
   }
