@@ -1806,19 +1806,19 @@
   // Sheets show their own metrics inline; Ctrl+K "healthy" opens all of them.
   // -------------------------------------------------------------
   const HEALTH = [
-    { id: 'rx', group: 'Optics', title: 'Rx power per lane', unit: 'dBm', pick: /\bdom\b|dbm|optical|transceiver|rx power/i, pickCmd: /mlxlink[^|;&]*-m|ethtool\s+-m|transceiver|sfputil|\bdom\b/i, cmd: 'sudo mlxlink -d $HCA -m', field: 'Rx Power Current [dBm]', src: 'network-optics §2',
+    { id: 'rx', group: 'Optics', title: 'Rx power per lane', unit: 'dBm', pick: /\bdom\b|dbm|optical|transceiver|rx power/i, pickCmd: /mlxlink[^|;&]*-m|ethtool\s+-m|transceiver|sfputil|\bdom\b/i, cmd: 'mlxlink -d $HCA -m', field: 'Rx Power Current [dBm]', src: 'network-optics §2',
       min: -42, max: 6, zones: [{ to: -10, cls: 'crit', label: '< -10 dBm' }, { to: -6, cls: 'warn', label: 'low' }, { to: 2, cls: 'ok', label: '-6 … +2' }, { to: 6, cls: 'warn', label: 'hot' }],
       ex: [{ v: 1.2, cls: 'ok', label: 'Healthy 1.2' }, { v: -8.5, cls: 'warn', label: 'Weak -8.5' }, { v: -40, cls: 'crit', label: 'LOS -40' }],
       note: '-40 dBm on every lane = no light (port down, unplugged, polarity). One low lane = dirty fiber in the MPO.' },
-    { id: 'tx', group: 'Optics', title: 'Tx power per lane', unit: 'dBm', pick: /\bdom\b|dbm|optical|transceiver|tx power/i, pickCmd: /mlxlink[^|;&]*-m|ethtool\s+-m|transceiver|sfputil|\bdom\b/i, cmd: 'sudo mlxlink -d $HCA -m', field: 'Tx Power Current [dBm]', src: 'network-optics §2',
+    { id: 'tx', group: 'Optics', title: 'Tx power per lane', unit: 'dBm', pick: /\bdom\b|dbm|optical|transceiver|tx power/i, pickCmd: /mlxlink[^|;&]*-m|ethtool\s+-m|transceiver|sfputil|\bdom\b/i, cmd: 'mlxlink -d $HCA -m', field: 'Tx Power Current [dBm]', src: 'network-optics §2',
       min: -14, max: 6, zones: [{ to: -8, cls: 'crit', label: '< -8 dBm' }, { to: -3, cls: 'warn', label: 'low' }, { to: 3, cls: 'ok', label: '-3 … +3' }, { to: 6, cls: 'warn', label: 'high' }],
       ex: [{ v: 1.0, cls: 'ok', label: 'Healthy 1.0' }, { v: -5, cls: 'warn', label: 'Weak -5' }, { v: -11, cls: 'crit', label: 'Failing -11' }],
       note: 'Low local Tx on a lane = that laser is dying. Reseat once; if still low, RMA the transceiver.' },
-    { id: 'skew', group: 'Optics', title: 'Rx lane-to-lane skew', unit: 'dB', pick: /\bdom\b|dbm|optical|transceiver|rx power/i, pickCmd: /mlxlink[^|;&]*-m|ethtool\s+-m|transceiver|sfputil|\bdom\b/i, cmd: 'sudo mlxlink -d $HCA -m', field: 'max − min of the Rx lanes', src: 'network-optics §2–3',
+    { id: 'skew', group: 'Optics', title: 'Rx lane-to-lane skew', unit: 'dB', pick: /\bdom\b|dbm|optical|transceiver|rx power/i, pickCmd: /mlxlink[^|;&]*-m|ethtool\s+-m|transceiver|sfputil|\bdom\b/i, cmd: 'mlxlink -d $HCA -m', field: 'max − min of the Rx lanes', src: 'network-optics §2–3',
       min: 0, max: 10, zones: [{ to: 1.5, cls: 'ok', label: 'tight' }, { to: 3, cls: 'warn', label: 'watch' }, { to: 10, cls: 'crit', label: '> 3 dB' }],
       ex: [{ v: 0.4, cls: 'ok', label: '0.4' }, { v: 2.4, cls: 'warn', label: '2.4' }, { v: 5.3, cls: 'crit', label: '5.3' }],
       note: 'The #1 cause of a skewed lane is contamination on that fiber: 1-click clean both ends and the bulkhead.' },
-    { id: 'otemp', group: 'Optics', title: 'Transceiver temperature', unit: '°C', pick: /\bdom\b|optical|transceiver|temperature/i, pickCmd: /mlxlink[^|;&]*-m|ethtool\s+-m|transceiver|sfputil|\bdom\b/i, cmd: 'sudo mlxlink -d $HCA -m', field: 'Temperature [C]', src: 'network-optics §2',
+    { id: 'otemp', group: 'Optics', title: 'Transceiver temperature', unit: '°C', pick: /\bdom\b|optical|transceiver|temperature/i, pickCmd: /mlxlink[^|;&]*-m|ethtool\s+-m|transceiver|sfputil|\bdom\b/i, cmd: 'mlxlink -d $HCA -m', field: 'Temperature [C]', src: 'network-optics §2',
       min: 20, max: 90, zones: [{ to: 65, cls: 'ok', label: '< 65' }, { to: 75, cls: 'warn', label: '~70 warn' }, { to: 90, cls: 'crit', label: '75+ critical' }],
       ex: [{ v: 46, cls: 'ok', label: '46' }, { v: 71, cls: 'warn', label: '71' }, { v: 79, cls: 'crit', label: '79' }],
       note: 'Heat ages the laser and raises BER: check finned-top airflow, fan speed and dust before replacing anything.' },
@@ -1830,23 +1830,23 @@
       min: 0, max: 40, zones: [{ to: 20, cls: 'ok', label: 'normal' }, { to: 25, cls: 'warn', label: 'watch' }, { to: 40, cls: 'crit', label: '> 25 °C' }],
       ex: [{ v: 8, cls: 'ok', label: '8' }, { v: 22, cls: 'warn', label: '22' }, { v: 31, cls: 'crit', label: '31' }],
       note: 'A delta over 25 °C, or a sudden jump, points at TIM dry-out or coldplate seating on SXM modules.' },
-    { id: 'pcie', group: 'GPU', title: 'PCIe link speed / width', cmd: 'sudo lspci -vvv -s <bdf> | grep -E "LnkCap:|LnkSta:"', field: 'LnkSta vs LnkCap', src: 'bmc-hardware §4 · network-optics §4',
+    { id: 'pcie', group: 'GPU', title: 'PCIe link speed / width', cmd: 'lspci -vvv -s <bdf> | grep -E "LnkCap:|LnkSta:"', field: 'LnkSta vs LnkCap', src: 'bmc-hardware §4 · network-optics §4',
       states: [{ cls: 'ok', label: 'Healthy', lines: ['LnkCap: Speed 32GT/s, Width x16', 'LnkSta: Speed 32GT/s, Width x16'] },
         { cls: 'warn', label: 'Idle downshift', lines: ['LnkSta: Speed 2.5GT/s (downgraded)'], tip: 'GPUs drop to Gen1 when idle; re-check under load before acting.' },
         { cls: 'crit', label: 'Degraded', lines: ['LnkSta: Width x8 (downgraded)', 'or Speed 16GT/s under load'], tip: 'Lost lanes or a Gen4 retrain: reseat card / riser / MCIO cable, cold-cycle.' }] },
-    { id: 'cw', group: 'NVMe', title: 'critical_warning', cmd: 'sudo nvme smart-log $DISK', field: 'critical_warning', src: 'storage-jbod §1',
+    { id: 'cw', group: 'NVMe', title: 'critical_warning', cmd: 'nvme smart-log $DISK', field: 'critical_warning', src: 'storage-jbod §1',
       states: [{ cls: 'ok', label: 'Healthy', lines: ['critical_warning : 0'] },
         { cls: 'warn', label: 'Cooling', lines: ['critical_warning : 0x2  (temperature)'], tip: 'Fans, airflow, heatsink; not the drive.' },
         { cls: 'crit', label: 'RMA', lines: ['0x1 spare low · 0x4 reliability', '0x8 read-only (immediate)'], tip: 'RMA the drive.' }] },
-    { id: 'spare', group: 'NVMe', title: 'available_spare vs threshold', unit: '%', cmd: 'sudo nvme smart-log $DISK', field: 'available_spare / available_spare_threshold', src: 'storage-jbod §1',
+    { id: 'spare', group: 'NVMe', title: 'available_spare vs threshold', unit: '%', cmd: 'nvme smart-log $DISK', field: 'available_spare / available_spare_threshold', src: 'storage-jbod §1',
       min: 0, max: 100, zones: [{ to: 10, cls: 'crit', label: '< threshold (often 10%)' }, { to: 30, cls: 'warn', label: 'getting low' }, { to: 100, cls: 'ok', label: 'healthy' }],
       ex: [{ v: 100, cls: 'ok', label: '100%' }, { v: 22, cls: 'warn', label: '22%' }, { v: 8, cls: 'crit', label: '8%' }],
       note: 'Below its own threshold the drive raises critical_warning 0x1: replace it.' },
-    { id: 'wear', group: 'NVMe', title: 'percentage_used (endurance)', unit: '%', pick: /wear|reliab|health|smart/i, pickCmd: /smart-log|Get-StorageReliabilityCounter|smartctl/i, cmd: 'sudo nvme smart-log $DISK', field: 'percentage_used', src: 'NVMe spec: 100% = rated endurance used',
+    { id: 'wear', group: 'NVMe', title: 'percentage_used (endurance)', unit: '%', pick: /wear|reliab|health|smart/i, pickCmd: /smart-log|Get-StorageReliabilityCounter|smartctl/i, cmd: 'nvme smart-log $DISK', field: 'percentage_used', src: 'NVMe spec: 100% = rated endurance used',
       min: 0, max: 110, zones: [{ to: 90, cls: 'ok', label: 'normal' }, { to: 100, cls: 'warn', label: '≥ 90 plan' }, { to: 110, cls: 'crit', label: '≥ 100' }],
       ex: [{ v: 3, cls: 'ok', label: '3%' }, { v: 94, cls: 'warn', label: '94%' }, { v: 104, cls: 'crit', label: '104%' }],
       note: 'Rated write endurance is a planning number, not an instant failure; pair it with spare and media errors.' },
-    { id: 'media', group: 'NVMe', title: 'media_errors', pick: /error|reliab|health|smart/i, pickCmd: /smart-log|Get-StorageReliabilityCounter|smartctl/i, cmd: 'sudo nvme smart-log $DISK', field: 'media_errors', src: 'storage-jbod §1',
+    { id: 'media', group: 'NVMe', title: 'media_errors', pick: /error|reliab|health|smart/i, pickCmd: /smart-log|Get-StorageReliabilityCounter|smartctl/i, cmd: 'nvme smart-log $DISK', field: 'media_errors', src: 'storage-jbod §1',
       states: [{ cls: 'ok', label: 'Healthy', lines: ['media_errors : 0'] },
         { cls: 'warn', label: 'Watch', lines: ['media_errors : 3', 'no kernel I/O errors'], tip: 'Trend it; check nvme error-log.' },
         { cls: 'crit', label: 'RMA', lines: ['media_errors climbing', '+ I/O errors in dmesg'], tip: 'Meets the RMA criteria.' }] },
@@ -1932,7 +1932,7 @@
       states: [{ cls: 'ok', label: 'Healthy', lines: ['Pause counters low and', 'only growing under heavy load'] },
         { cls: 'warn', label: 'Congested', lines: ['Pauses rising steadily', 'on the RoCE priority'], tip: 'Lossless is working hard: check ECN marking and incast patterns.' },
         { cls: 'crit', label: 'PFC storm', lines: ['Pause counters racing,', 'or PFC watchdog drops'], tip: 'A stuck receiver can freeze the fabric: find the port sourcing the pauses.' }] },
-    { id: 'tdr', group: 'Network', title: 'Copper cable test (TDR)', pick: /tdr|cable.?test|cable-test/i, pickCmd: /cable-test|cable_test|tdr/i, cmd: 'sudo ethtool --cable-test $IFACE', field: 'Result per pair (A–D) and fault distance', src: 'eth-rj45-tdr sheet',
+    { id: 'tdr', group: 'Network', title: 'Copper cable test (TDR)', pick: /tdr|cable.?test|cable-test/i, pickCmd: /cable-test|cable_test|tdr/i, cmd: 'ethtool --cable-test $IFACE', field: 'Result per pair (A–D) and fault distance', src: 'eth-rj45-tdr sheet',
       states: [{ cls: 'ok', label: 'Healthy', lines: ['Pair A..D: OK'] },
         { cls: 'warn', label: 'Marginal', lines: ['Pair OK but link trains', 'below rated speed'], tip: 'Check category / length and re-terminate.' },
         { cls: 'crit', label: 'Fault', lines: ['Pair X: Open / Short', 'at N m'], tip: 'The distance shows where: patch cord, panel or run. The test drops the link briefly: idle ports only.' }] },
@@ -2051,7 +2051,7 @@
     return `
       <article class="hx-card" id="hx-${m.id}">
         <header><span class="hx-group">${escapeHtml(m.group)}</span><h3>${escapeHtml(m.title)}</h3></header>
-        <div class="hx-cmd"><code>${escapeHtml(m.cmd)}</code><button type="button" data-hx-copy="${escapeHtml(m.cmd)}">Copy</button></div>
+        <div class="hx-cmd">${privTagHtml(m.cmd)}<code>${escapeHtml(m.cmd)}</code><button type="button" data-hx-copy="${escapeHtml(m.cmd)}">Copy</button></div>
         <div class="hx-field">Read: <code>${escapeHtml(m.field)}</code></div>
         ${visual}
         ${m.note ? `<p class="hx-note">${escapeHtml(m.note)}</p>` : ''}
@@ -5285,7 +5285,7 @@ ${rmaTrailSection()}#### Action Requested:
     return !DANGER_RE.test(cmd) && !RB_NEVER_RETURNS.test(cmd);
   }
   function liveCmd(raw) {
-    return substituteVariables(firstCommand(raw)).text.replace(/(^|[;&|]\s*)sudo\s+(?!-n\b)/g, '$1sudo -n ');
+    return privRunForm(substituteVariables(firstCommand(raw)).text);
   }
   function livePanel(box) {
     let p = box.nextElementSibling;
@@ -11280,7 +11280,9 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   const csSlug = (s, n) => `${String(n).padStart(2, '0')}-${String(s || 'command').toLowerCase().replace(/\([^)]*\)/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40).replace(/-$/, '') || 'command'}`;
-  const csSudo = (cmd) => cmd.replace(/(^|[;&|(]\s*|\$\(\s*)sudo\s+(?!-n\b)/g, '$1sudo -n ');
+  // One line: sudo -n on every stage the root rules mark (sheet commands carry no sudo, so a captured
+  // nvme smart-log would otherwise run unprivileged). Several lines: only a written sudo becomes sudo -n.
+  const csSudo = (cmd) => (/\n/.test(String(cmd).trim()) ? cmd.replace(/(^|[;&|(]\s*|\$\(\s*)sudo\s+(?!-n\b)/g, '$1sudo -n ') : privRunForm(cmd));
 
   function csScript(rows, opts) {
     const now = new Date().toISOString().replace(/\.\d+Z$/, 'Z');
@@ -13803,7 +13805,7 @@ ${rmaTrailSection()}#### Action Requested:
     [/^(tcpdump|tshark|dumpcap|arp-scan|nmap\b[^|;&]*\s-s[SUAFNXO])\b/, 'root', 'captures or crafts raw packets (CAP_NET_RAW)'],
     [/^(iptables|ip6tables|nft|ebtables|firewall-cmd|ufw)\b/, 'root', 'changes the firewall'],
     [/^ip\s+(-\S+\s+)*(link|l|addr|address|a|route|r|neigh|n|rule|tunnel|netns|xfrm)\s+(add|del|delete|set|change|replace|flush|append)\b/, 'root', 'changes interfaces, addresses or routes (CAP_NET_ADMIN)'],
-    [/^ethtool\s+(-[sKGALCErfU]|--set-\S+|--change|--reset|--flash|--identify|-p)\b/, 'root', 'changes NIC settings or blinks its LED (CAP_NET_ADMIN)'],
+    [/^ethtool\s+(-[sKGALCErfU]|--set-\S+|--change|--reset|--flash|--identify|-p|--cable-test(-tdr)?)\b/, 'root', 'changes NIC settings, blinks its LED or runs a cable test (CAP_NET_ADMIN)'],
     [/^sysctl\b[^|;&]*(\s-w\b|\s--write\b|\s-p\b|\s--system\b|\s[\w.]+=\S)/, 'root', 'writes kernel parameters'],
     [/^systemctl\b(?![^|;&]*--user)[^|;&]*\s(start|stop|restart|reload|try-restart|reload-or-restart|enable|disable|mask|unmask|daemon-reload|daemon-reexec|edit|kill|isolate|set-property|reboot|poweroff|halt|kexec|reset-failed|preset)\b/, 'root', 'changes system services'],
     [/^(apt|apt-get|aptitude|dnf|yum|zypper|snap)\s+(install|remove|purge|upgrade|update|full-upgrade|dist-upgrade|autoremove|reinstall|downgrade|refresh|makecache|clean)\b/, 'root', 'installs or changes system packages'],
@@ -13914,6 +13916,24 @@ ${rmaTrailSection()}#### Action Requested:
     }).join('');
     // Fleet wraps the line in pdsh quotes: a comment line would break it.
     return fleetOn ? stripped : `# needs root\n${stripped}`;
+  }
+
+  // What the terminal runs (▶ Run on a sheet, a runbook step): every stage the rules mark root gets
+  // sudo -n, so it runs with root when sudo needs no password and fails fast when it does, instead
+  // of hanging on a prompt or failing with "Permission denied". A sudo already written stays,
+  // as sudo -n. What is copied follows the root style (privCopy); what is shown never has sudo.
+  function privRunForm(text) {
+    const s = String(text || '');
+    if (!s.trim() || /\n/.test(s.trim())) return s;
+    return privStages(s).map(st => {
+      const lead = (st.text.match(/^\s*/) || [''])[0];
+      const body = st.text.slice(lead.length);
+      if (!body) return st.op + st.text;
+      const { bare, sudo } = privBare(body);
+      if (sudo) return st.op + lead + body.replace(/^sudo(\s+-[nEHAbP]+)*\s+/, 'sudo -n ');
+      const needs = PRIV_RULES.some(([re, lv]) => lv === 'root' && re.test(bare));
+      return st.op + lead + (needs ? `sudo -n ${body}` : body);
+    }).join('');
   }
 
   function privTagHtml(raw) {
@@ -15657,17 +15677,17 @@ ${rmaTrailSection()}#### Action Requested:
       phases: [
         { name: 'Identify & safety', steps: [
           DRAIN_CHECK,
-          { id: 'platform', type: 'cmd', title: 'Record platform, chassis serial and BIOS', cmd: 'sudo dmidecode -t system -t bios | grep -E "Manufacturer|Product Name|Serial Number|Version|Release Date"', look: 'Goes straight into the RMA identification block.' }
+          { id: 'platform', type: 'cmd', title: 'Record platform, chassis serial and BIOS', cmd: 'dmidecode -t system -t bios | grep -E "Manufacturer|Product Name|Serial Number|Version|Release Date"', look: 'Goes straight into the RMA identification block.' }
         ] },
         { name: 'Collect', steps: [
           { id: 'xids', type: 'cmd', title: 'Find the Xid 79 and what came right before it', cmd: 'dmesg -T | grep -E -i "NVRM: Xid|nvidia-nvswitch: SXid|AER|pcieport|fallen off the bus"', look: 'The BDF in "Xid (PCI:0000:xx:00): 79". A Xid 48/74/119 just before it points at the real cause.' },
           { id: 'count', type: 'cmd', title: 'Count GPUs on the PCIe bus', cmd: 'lspci -nn | grep -i nvidia', look: 'Fewer 3D controllers than installed (8 on HGX) means the device dropped off PCIe, not just the driver.' },
           { id: 'map', type: 'cmd', title: 'Map surviving GPUs: index ↔ BDF ↔ serial', cmd: 'nvidia-smi --query-gpu=index,pci.bus_id,serial,uuid,vbios_version --format=csv', look: 'Which BDF is missing from the list identifies the slot / SXM module.' },
           { id: 'sel', type: 'cmd', title: 'BMC: power, VRD, thermal and leak events', cmd: 'ipmitool sel elist | tail -n 50; ipmitool sdr elist | grep -E -i "gpu|sxm|pwr|temp|vrd|leak"', look: 'Events at the same timestamp as the Xid. Any "Leak Detected" / "Coolant Flow Low" → STOP and alert; never power on with an active leak alarm.' },
-          { id: 'bugreport', type: 'cmd', title: 'NVIDIA bug report (safe mode, before any reset)', cmd: 'sudo nvidia-bug-report.sh --safe-mode', look: '--safe-mode stops the script hanging on a GPU that is off the bus. Attach the .log.gz to the RMA.' }
+          { id: 'bugreport', type: 'cmd', title: 'NVIDIA bug report (safe mode, before any reset)', cmd: 'nvidia-bug-report.sh --safe-mode', look: '--safe-mode stops the script hanging on a GPU that is off the bus. Attach the .log.gz to the RMA.' }
         ] },
         { name: 'Correlate', steps: [
-          { id: 'parent', type: 'cmd', title: 'Parent root port / switch link state', cmd: 'sudo lspci -vvv -s <parent_bridge_bdf> | grep -E "LnkSta:|LnkCap:|AER|UESta"', look: 'Link down or UESta errors on the bridge above the missing GPU.' },
+          { id: 'parent', type: 'cmd', title: 'Parent root port / switch link state', cmd: 'lspci -vvv -s <parent_bridge_bdf> | grep -E "LnkSta:|LnkCap:|AER|UESta"', look: 'Link down or UESta errors on the bridge above the missing GPU.' },
           { id: 'cause', type: 'decide', title: 'What did the BMC show at the time of the Xid?', options: [
             { label: 'PSU / VRD / power event', verdict: 'Power path suspect: check PSU, busbar and power cabling before blaming the GPU.' },
             { label: 'Thermal trip / high temps', verdict: 'Cooling suspect: check coldplate/heatsink seating and GPU vs memory temp delta (> 25 °C is a red flag).' },
@@ -15705,7 +15725,7 @@ ${rmaTrailSection()}#### Action Requested:
           ] }
         ] },
         { name: 'Recovery', steps: [
-          { id: 'reset', type: 'gate', title: 'GPU reset to complete the remap', cmd: 'sudo nvidia-smi -r -i $GPU', look: 'Only on a drained node with no processes on the GPU. A cold reboot also completes the remap.' },
+          { id: 'reset', type: 'gate', title: 'GPU reset to complete the remap', cmd: 'nvidia-smi -r -i $GPU', look: 'Only on a drained node with no processes on the GPU. A cold reboot also completes the remap.' },
           { id: 'diag', type: 'gate', title: 'DCGM level 3 diagnostic', cmd: 'dcgmi diag -r 3', look: '10–15 minutes of memory/PCIe/NVLink stress. The result goes in the RMA.' },
           { id: 'after', type: 'decide', title: 'After reset and diag…', options: [
             { label: 'Remap done, diag passes, no new DBEs', verdict: 'Recovered: return to service and trend ECC.' },
@@ -15719,12 +15739,12 @@ ${rmaTrailSection()}#### Action Requested:
       phases: [
         { name: 'Identify', steps: [
           { id: 'ibstat', type: 'cmd', title: 'Port state and rate', cmd: 'ibstat $HCA', look: '"Polling" = no light / remote port down / broken fiber. "Training" = marginal signal. Rate below NDR 400 or width < 4x = lost lanes.' },
-          { id: 'mst', type: 'cmd', title: 'Map HCA ↔ BDF ↔ netdev', cmd: 'sudo mst status -v', look: 'Ties mlx5_X to the PCIe slot and ibX for the ticket.' }
+          { id: 'mst', type: 'cmd', title: 'Map HCA ↔ BDF ↔ netdev', cmd: 'mst status -v', look: 'Ties mlx5_X to the PCIe slot and ibX for the ticket.' }
         ] },
         { name: 'Collect', steps: [
-          { id: 'mlxlink', type: 'cmd', analyze: true, title: 'Physical layer: DOM, BER, FEC, eye', cmd: 'sudo mlxlink -d $HCA -m -c -e', look: 'Effective Physical Errors > 0 · Raw BER > 5e-4 · Effective BER > 1e-12 · Rx < -10 dBm (-40 = LOS) · lane-to-lane Rx skew > 3 dB · Tx < -8 dBm · module temp > 70 °C.' },
+          { id: 'mlxlink', type: 'cmd', analyze: true, title: 'Physical layer: DOM, BER, FEC, eye', cmd: 'mlxlink -d $HCA -m -c -e', look: 'Effective Physical Errors > 0 · Raw BER > 5e-4 · Effective BER > 1e-12 · Rx < -10 dBm (-40 = LOS) · lane-to-lane Rx skew > 3 dB · Tx < -8 dBm · module temp > 70 °C.' },
           { id: 'perf', type: 'cmd', title: 'Fabric error counters', cmd: 'perfquery -x', look: 'SymbolErrorCounter and LinkDownedCounter rising.' },
-          { id: 'pcie', type: 'cmd', title: 'HCA PCIe width / speed', cmd: 'sudo lspci -vvv -s <hca_bdf> | grep -E "LnkCap:|LnkSta:"', look: 'ConnectX-7 at 400G needs Gen5 x16. x8 caps at ~200 Gb/s and causes NCCL regressions.' }
+          { id: 'pcie', type: 'cmd', title: 'HCA PCIe width / speed', cmd: 'lspci -vvv -s <hca_bdf> | grep -E "LnkCap:|LnkSta:"', look: 'ConnectX-7 at 400G needs Gen5 x16. x8 caps at ~200 Gb/s and causes NCCL regressions.' }
         ] },
         { name: 'Correlate', steps: [
           { id: 'dom', type: 'decide', title: 'The DOM / BER pattern is…', options: [
@@ -15756,9 +15776,9 @@ ${rmaTrailSection()}#### Action Requested:
         ] },
         { name: 'Collect', steps: [
           { id: 'edac', type: 'cmd', title: 'EDAC counters per DIMM', cmd: 'edac-util -v', look: 'Which mc/csrow/channel is counting. One DIMM climbing = that DIMM.' },
-          { id: 'ras', type: 'cmd', title: 'RAS history', cmd: 'sudo ras-mc-ctl --summary && sudo ras-mc-ctl --errors', look: 'Corrected vs uncorrected, and the DIMM label the kernel decoded.' },
+          { id: 'ras', type: 'cmd', title: 'RAS history', cmd: 'ras-mc-ctl --summary && ras-mc-ctl --errors', look: 'Corrected vs uncorrected, and the DIMM label the kernel decoded.' },
           { id: 'sel', type: 'cmd', title: 'BMC silkscreen slot', cmd: 'ipmitool sel elist | grep -i -E "memory|dimm|ecc|mcr"', look: 'The BMC usually names the exact slot (DIMM_A1 / P0_MC0_DIMM_A0) and whether the CE logging limit was reached.' },
-          { id: 'dmi', type: 'cmd', title: 'Serial and part number for that slot', cmd: 'sudo dmidecode -t memory | grep -E "Locator:|Size:|Speed:|Serial Number:|Part Number:"', look: 'Match the Locator to the slot from the SEL. These go in the RMA.' }
+          { id: 'dmi', type: 'cmd', title: 'Serial and part number for that slot', cmd: 'dmidecode -t memory | grep -E "Locator:|Size:|Speed:|Serial Number:|Part Number:"', look: 'Match the Locator to the slot from the SEL. These go in the RMA.' }
         ] },
         { name: 'Correlate', steps: [
           { id: 'kind', type: 'decide', title: 'The errors are…', options: [
@@ -15781,12 +15801,12 @@ ${rmaTrailSection()}#### Action Requested:
       id: 'nvme', icon: '💽', title: 'NVMe drive errors or missing drive', tag: 'critical_warning · I/O timeout · media errors', component: 'NVMe SSD Drive (Critical Warning)', source: 'storage-jbod.md §1, §3',
       phases: [
         { name: 'Identify & safety', steps: [
-          { id: 'list', type: 'cmd', title: 'Drives, models, serials, firmware', cmd: 'sudo nvme list', look: 'Is the drive listed at all? Missing → bay / backplane isolation.' },
+          { id: 'list', type: 'cmd', title: 'Drives, models, serials, firmware', cmd: 'nvme list', look: 'Is the drive listed at all? Missing → bay / backplane isolation.' },
           { id: 'raid', type: 'cmd', title: 'Array / pool health before touching anything', cmd: 'cat /proc/mdstat; zpool status -v 2>/dev/null', look: 'Never pull a member of a DEGRADED array without confirming which serial is already FAULTED/REMOVED.' }
         ] },
         { name: 'Collect', steps: [
-          { id: 'smart', type: 'cmd', analyze: true, title: 'SMART / health log', cmd: 'sudo nvme smart-log $DISK', look: 'critical_warning bits: 0x01 spare low · 0x02 temperature · 0x04 reliability degraded · 0x08 read-only. Also media_errors and available_spare vs threshold.' },
-          { id: 'errlog', type: 'cmd', title: 'Controller error log', cmd: 'sudo nvme error-log $DISK | head -n 40', look: 'Recent error entries and their status codes.' },
+          { id: 'smart', type: 'cmd', analyze: true, title: 'SMART / health log', cmd: 'nvme smart-log $DISK', look: 'critical_warning bits: 0x01 spare low · 0x02 temperature · 0x04 reliability degraded · 0x08 read-only. Also media_errors and available_spare vs threshold.' },
+          { id: 'errlog', type: 'cmd', title: 'Controller error log', cmd: 'nvme error-log $DISK | head -n 40', look: 'Recent error entries and their status codes.' },
           { id: 'dmesg', type: 'cmd', title: 'Kernel: timeouts, resets, I/O errors', cmd: 'dmesg -T | grep -E -i "nvme|I/O error|blk_update_request|AER|pciehp"', look: 'Timeouts + controller resets + I/O errors on the same drive.' },
           { id: 'slot', type: 'cmd', title: 'Controller → PCIe BDF / slot', cmd: 'ls -l /sys/class/nvme/', look: 'The symlink shows the BDF; match it to the bay for the swap.' }
         ] },
@@ -15801,7 +15821,7 @@ ${rmaTrailSection()}#### Action Requested:
         ] },
         { name: 'Physical isolation', steps: [
           { id: 'label', type: 'check', title: 'Verify the serial on the carrier label', body: 'Confirm the serial from nvme list on the physical drive before pulling anything.' },
-          { id: 'pull', type: 'gate', title: 'Remove the drive from the array (if it is a member)', cmd: 'sudo mdadm --detail /dev/md0', look: 'Read the array first. Any --fail / --remove or zpool offline is a storage mutation that needs approval.' }
+          { id: 'pull', type: 'gate', title: 'Remove the drive from the array (if it is a member)', cmd: 'mdadm --detail /dev/md0', look: 'Read the array first. Any --fail / --remove or zpool offline is a storage mutation that needs approval.' }
         ] }
       ]
     }
@@ -15915,7 +15935,7 @@ ${rmaTrailSection()}#### Action Requested:
       showGlobalToast('Connect the terminal: the step runs as soon as the shell is up.');
       return Promise.resolve(false);
     }
-    const cmd = substituteVariables(firstCommand(st.cmd)).text.replace(/(^|[;&|]\s*)sudo\s+(?!-n\b)/g, '$1sudo -n ');
+    const cmd = privRunForm(substituteVariables(firstCommand(st.cmd)).text);
     // An unfilled <placeholder> would be read by the shell as a redirection: never send it.
     const hole = cmd.match(/<([A-Za-z][\w.-]*)>/);
     if (hole) {
@@ -16033,10 +16053,10 @@ ${rmaTrailSection()}#### Action Requested:
                   ${st.body ? `<p class="rb-body">${escapeHtml(st.body)}</p>` : ''}
                   ${st.cmd ? (locked
                     ? `<div class="rb-locked">
-                         <code>${escapeHtml(st.cmd)}</code>
+                         ${privTagHtml(st.cmd)}<code>${escapeHtml(st.cmd)}</code>
                          <label><input type="checkbox" data-rb-act="unlock"/> The node is drained and this action is approved by the technician on site</label>
                        </div>`
-                    : `<div class="rb-cmd"><code>${escapeHtml(st.cmd)}</code>${rbSafe(st) ? (rbHole(st) ? `<button type="button" class="rb-run is-hole" data-rb-act="run" title="Set &lt;${escapeHtml(rbHole(st))}&gt; first: click the dashed chip in the command">Needs &lt;${escapeHtml(rbHole(st))}&gt;</button>` : `<button type="button" class="rb-run${run.outputs[st.id] && rbBusy !== st.id ? ' is-again' : ''}" data-rb-act="run" ${rbBusy || rbAuto ? 'disabled' : ''}>${rbBusy === st.id ? '◌ Running' : run.outputs[st.id] ? '↻ Re-run' : '▶ Run'}</button>`) : ''}<button type="button" data-rb-act="copy" data-cmd="${escapeHtml(st.cmd)}">Copy</button>${st.analyze ? '<button type="button" class="rb-analyze" data-rb-act="analyze">Analyze output</button>' : ''}</div>${rbOutputHtml(run.outputs[st.id], st)}`) : ''}
+                    : `<div class="rb-cmd">${privTagHtml(st.cmd)}<code>${escapeHtml(st.cmd)}</code>${rbSafe(st) ? (rbHole(st) ? `<button type="button" class="rb-run is-hole" data-rb-act="run" title="Set &lt;${escapeHtml(rbHole(st))}&gt; first: click the dashed chip in the command">Needs &lt;${escapeHtml(rbHole(st))}&gt;</button>` : `<button type="button" class="rb-run${run.outputs[st.id] && rbBusy !== st.id ? ' is-again' : ''}" data-rb-act="run" ${rbBusy || rbAuto ? 'disabled' : ''}>${rbBusy === st.id ? '◌ Running' : run.outputs[st.id] ? '↻ Re-run' : '▶ Run'}</button>`) : ''}<button type="button" data-rb-act="copy" data-cmd="${escapeHtml(st.cmd)}">Copy</button>${st.analyze ? '<button type="button" class="rb-analyze" data-rb-act="analyze">Analyze output</button>' : ''}</div>${rbOutputHtml(run.outputs[st.id], st)}`) : ''}
                   ${st.look ? `<p class="rb-look"><b>${st.type === 'gate' ? 'Note' : 'Look for'}:</b> ${escapeHtml(st.look)}</p>` : ''}
                   ${st.type === 'decide' ? `<div class="rb-options" role="radiogroup" aria-label="${escapeHtml(st.title)}">${st.options.map((o, oi) => `
                     <button type="button" role="radio" aria-checked="${run.picks[st.id] === oi}" class="rb-option ${run.picks[st.id] === oi ? 'picked' : ''} ${o.rma ? 'is-rma' : ''} ${o.sev === 'crit' ? 'is-crit' : ''}" data-rb-act="pick" data-opt="${oi}">
@@ -16076,7 +16096,7 @@ ${rmaTrailSection()}#### Action Requested:
           const pick = run.picks[st.id];
           lines.push(`- ${pick !== undefined ? '[x]' : '[ ]'} ${st.title} ${pick !== undefined ? `**${st.options[pick].label}**` : ''}${note}`);
         } else {
-          lines.push(`- ${run.done[st.id] ? '[x]' : '[ ]'} ${st.title}${st.cmd ? ` (\`${st.cmd.length > 90 ? st.cmd.slice(0, 87) + '…' : st.cmd}\`)` : ''}${note}`);
+          lines.push(`- ${run.done[st.id] ? '[x]' : '[ ]'} ${st.title}${st.cmd ? ` (\`${st.cmd.length > 90 ? st.cmd.slice(0, 87) + '…' : st.cmd}\`${privOf(st.cmd).level === 'root' ? ', needs root' : ''})` : ''}${note}`);
         }
       });
       lines.push('');
@@ -17170,6 +17190,8 @@ ${rmaTrailSection()}#### Action Requested:
     openTriageModal,
     closeTriageModal,
     substituteVariables,
+    privRunForm,
+    privCopy,
     showToast: showGlobalToast,
     scrollToCard,
     applyTheme: applyGlobalTheme,

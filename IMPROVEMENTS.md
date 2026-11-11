@@ -715,6 +715,14 @@ InfiniBand page: no "Not verified" rows left.
 | Its UESta / CESta flag | Listed BadTLP, BadDLLP, replay timeout for both | Split: UESta = DLP, SDES, poisoned TLP, CmpltTO, MalfTLP, UnsupReq…; CESta = RxErr, BadTLP, BadDLLP, Rollover, Timeout; `+` means set |
 | RJ45 T568A / T568B chart | Pinout unchecked (TIA paywalled); T568A labelled "Gov/Res"; "PAM5 / PAM16" unsourced | Pin colors confirmed (trueCABLE article by a Fluke Networks specialist), pin 1 orientation (ICC), A vs B swaps pairs 2 and 3 (FOA). Label now "older TIA default; some US government contracts" (ANSI/TIA 568.0-E mandates neither); the modulation detail is gone. The diagram labels match |
 
+## #27 No sudo in the tools; root stages run as sudo -n (2026-11-11, `tools-no-sudo`)
+
+| Found | Now |
+|---|---|
+| 23 commands in the healthy-ranges panel and the runbooks were stored as `sudo nvme smart-log`, `sudo mlxlink`, `sudo lspci`… against the house rule. The no-sudo test only read the sheets | Stored without sudo, shown with the 🔒 ROOT badge (healthy ranges, runbook steps, locked steps), copied as `# needs root` (the site-wide root style); the runbook export says "needs root". The test reads the tools too |
+| ▶ Run on a sheet and the runbook autopilot only turned an existing `sudo` into `sudo -n`: sheet commands have none, so ▶ Run on `nvme smart-log` ran as your user and printed Permission denied | One helper, `privRunForm`, puts `sudo -n` on exactly the stages the root rules mark (`sudo -n lspci … \| grep …`, both stages of `ras-mc-ctl … && ras-mc-ctl …`), leaves the rest (`nvidia-smi -q`, `ethtool -S`) and multi-line scripts alone. ▶ Run, the runbook steps and the capture script all use it |
+| `ethtool --cable-test` was not marked root | Added to the ethtool rule: a cable test is an ethtool-netlink "action" request, which needs CAP_NET_ADMIN (kernel docs) |
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |
