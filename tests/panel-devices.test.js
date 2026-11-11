@@ -1,6 +1,7 @@
 // Devices folded in from the team's Switch & Fiber Field Guide: the front panel finds ports on the
-// ten new layouts by the names each OS prints, shows the vendor photo, explains photo-only devices,
-// and records the optic installed in a cage. The fiber and switch pages carry the guide's cards.
+// ten new layouts by the names each OS prints, draws each cage as a tile (label, logical ports, optic),
+// switches breakout views, shows the vendor photo, and records the optic installed in a cage.
+// The fiber and switch pages carry the guide's cards.
 const fs = require('fs');
 const path = require('path');
 const { ROOT, BASE, launch, newContext } = require('./lib');
@@ -11,6 +12,8 @@ const check = (ok, what) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`); if
 // model, what a tech types, the cage it must light up
 const FINDS = [
   ['nvidia-qm9700', 'port 3', '2'], ['nvidia-qm9700', 'port 4', '2'], ['nvidia-qm9700', 'port 5', '3'],
+  ['nvidia-qm9700', '3', '2'], ['nvidia-qm9700', 'cage 14', '14'], ['nvidia-qm9700', 'C05', '5'],
+  ['vertiv-acs8000', 'LAN2 SFP', '4'], ['juniper-mx304', 'LMIC1', '2'],
   ['nvidia-sn5400', 'swp6', '6'], ['nvidia-sn5400', 'swp14s1', '14'], ['nvidia-sn5400', '66', '66'],
   ['nvidia-sn5600', 'swp65', '65'], ['nvidia-sn2410', 'swp56', '56'],
   ['cisco-c9200l-48t-4x', 'Gi1/0/14', '14'], ['cisco-c9200l-48t-4x', 'Te1/1/3', '51'],
@@ -50,8 +53,44 @@ const FINDS = [
     if (!ok) noPhoto.push(m);
   }
   check(!noPhoto.length, `the vendor photo shows for every guide device (${noPhoto.join(', ') || 'all'})`);
+
+  // Tiles as in the field guide: QM cages are labelled C01… with their IB ports inside, odd cages
+  // 1 | 2 and even cages 4 | 3 (port numbering snakes through the top and bottom cages).
+  await pick('nvidia-qm9700');
+  const subsOf = c => p.evaluate(c => [...document.querySelectorAll(`.pn-svg [data-pn-cage="${c}"] [data-pn-sub]`)].map(g => g.dataset.pnSub).join('|') + ' ' + (document.querySelector(`.pn-svg [data-pn-cage="${c}"] .pn-tile-id`) || {}).textContent, c);
+  const qm = [await subsOf(1), await subsOf(2), await subsOf(32)];
+  check(qm.join(',') === '1|2 C01,4|3 C02,64|63 C32', `QM9700 tiles: C01 holds 1|2, C02 holds 4|3, C32 holds 64|63 (${qm.join(', ')})`);
+  await find('3');
+  check(await p.evaluate(() => !!document.querySelector('.pn-svg [data-pn-cage="2"] .pn-sub.is-hit[data-pn-sub="3"]')), 'searching IB port 3 lights the "3" inside cage C02');
+  await p.click('.pn-svg [data-pn-cage="5"] [data-pn-sub="10"]', { delay: 120 });
+  check(await p.$eval('.pn-find', i => i.value) === '10', 'clicking a logical port inside a tile searches for it');
+
+  // Breakout views: SN5600 2× shows s0|s1 on the upper cage rows and s1|s0 on the lower ones.
+  await pick('nvidia-sn5600');
+  await find('');
+  await p.selectOption('.pn-mode', '2');
+  await p.waitForTimeout(150);
+  const sn = [await subsOf(1), await subsOf(3)];
+  check(sn.join(',') === 's0|s1 1,s1|s0 3', `SN5600 2×: upper cages s0|s1, lower cages s1|s0 (${sn.join(', ')})`);
+  const mode = () => p.$eval('.pn-mode', s => s.value);
+  await find('swp14s3');
+  const m1 = await mode();
+  await p.selectOption('.pn-mode', '1');
+  await p.waitForTimeout(150);
+  const m2 = await mode();
+  await find('swp6'); await find('swp14s3');
+  check(m1 === '4' && m2 === '1' && await mode() === '4', `a breakout search switches to 4×, a View choice then sticks, a new search switches again (${m1}, ${m2}, ${await mode()})`);
+  await p.selectOption('.pn-mode', '2');
+  await find('');
+
+  // Devices with tiles in place of a port grid: console server and router.
   await pick('vertiv-acs8000');
-  check(/no fixed port drawing/.test((await find('LAN1')).ans) && !(await p.$('.pn-svg')), 'a console server is photo-only: no drawing, and the answer says why');
+  const acs = await p.evaluate(() => [...document.querySelectorAll('.pn-svg .pn-tile-id')].map(t => t.textContent).sort().join(','));
+  check(acs === 'LAN1 Cu,LAN1 SFP,LAN2 Cu,LAN2 SFP', `ACS8000 draws its four network ports as tiles (${acs})`);
+
+  // The picker separates the team's devices from the other reference layouts.
+  const groups = await p.evaluate(() => [...document.querySelectorAll('.pn-model optgroup')].map(g => `${g.label}:${g.children.length}`).join(','));
+  check(groups === 'Your devices:11,Other reference layouts:6', `the switch picker is grouped (${groups})`);
 
   // Installed optic: record one in QM cage 2, then copper ports refuse one.
   await pick('nvidia-qm9700');

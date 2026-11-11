@@ -7771,7 +7771,7 @@ body.is-home .sheet-shell { display: block; }
 .pn-svg { display: block; width: 100%; min-width: 760px; height: auto; }
 .pn-chassis { fill: #15181d; stroke: #3a414d; stroke-width: 2; }
 :root[data-theme="light"] .pn-chassis, .pn-svg .pn-chassis { filter: drop-shadow(0 4px 10px rgba(0,0,0,0.35)); }
-.pn-brand { fill: #6b7380; font: 800 9px var(--font-sans); letter-spacing: 0.2em; }
+.pn-brand { fill: #6b7380; font: 800 9px var(--font-sans); letter-spacing: 0.2em; text-anchor: middle; }
 .pn-cage rect { fill: #0b0d10; stroke: #505a68; stroke-width: 1.4; transition: fill 0.12s, stroke 0.12s; }
 .pn-cage text { fill: #d6dde6; font: 700 11px var(--font-mono); pointer-events: none; }
 .pn-cage .pn-twin { stroke: #2c333d; stroke-width: 1; }
@@ -7789,6 +7789,18 @@ body.is-home .sheet-shell { display: block; }
 .pn-extra text { fill: #8b94a3; font: 600 8.5px var(--font-sans); }
 .pn-mgmt rect { stroke: #6b7380; stroke-dasharray: none; }
 .pn-QSFP rect { stroke: #6b7380; stroke-dasharray: none; }
+/* Guide-style tiles: label on top, logical ports inside, recorded optic below. */
+.pn-cage .pn-tile-id { font: 700 10.5px var(--font-mono); }
+.pn-cage .pn-tile-optic { fill: #8b94a3; font: 600 8px var(--font-mono); }
+.pn-cage .pn-sub rect { fill: #161b22; stroke: #3a4350; stroke-width: 1; animation: none; }
+.pn-cage .pn-sub text { font: 700 8.5px var(--font-mono); fill: #d6dde6; }
+.pn-cage .pn-sub { cursor: pointer; }
+.pn-cage .pn-sub:hover rect { stroke: var(--accent-primary); }
+.pn-cage .pn-sub.is-hit rect { fill: rgba(56, 189, 248, 0.6); stroke: #fff; }
+.pn-cage.has-optic .pn-tile-optic { fill: #4ade80; }
+/* Bonus/uplink ports drawn as tiles: amber edge, as in the field guide. */
+.pn-cage.pn-x > rect { stroke: #b7791f; }
+.pn-mode-l select { margin-left: 0.35rem; }
 /* Extra ports that can be searched (SFP uplinks, QSFP, management RJ45 with a port number). */
 .pn-extra[data-pn-cage] { cursor: pointer; outline: none; }
 .pn-extra[data-pn-cage]:hover rect, .pn-extra[data-pn-cage]:focus rect { stroke: var(--accent-primary); stroke-width: 2; }
