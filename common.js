@@ -14558,18 +14558,18 @@ ${rmaTrailSection()}#### Action Requested:
   const SW_TASKS = [
     { group: 'Look', id: 'ver', task: 'Version & model', hint: 'What is this switch?', cells: {
       eos: 'show version', nvue: 'nv show platform', nxos: 'show version', sonic: 'show version', mlnx: 'show version', host: null },
-      gaps: { host: 'Run it on the switch.' }, unverified: { eos: 1 }, notes: { nvue: 'Model, serial, MAC, part number.' } },
+      gaps: { host: 'Run it on the switch.' }, unverified: { eos: 1, mlnx: 1 }, notes: { nvue: 'Model, serial, MAC, part number.' } },
     { group: 'Look', id: 'status', task: 'Port status', hint: 'Up, down, speed', cells: {
-      eos: 'show interfaces status', nvue: 'nv show interface status', nxos: 'show interface status', sonic: 'show interfaces status', mlnx: 'show interfaces ib status', host: 'ip -br link show' },
+      eos: 'show interfaces status', nvue: 'nv show interface', nxos: 'show interface status', sonic: 'show interfaces status', mlnx: 'show interfaces ib status', host: 'ip -br link show' },
       notes: { host: 'InfiniBand HCA: ibstat.' } },
     { group: 'Look', id: 'optics', task: 'Optics power (DOM)', hint: 'Rx/Tx dBm, temperature', cells: {
-      eos: 'show interfaces ethernet 1 transceiver', nvue: 'nv show platform transceiver swp1', nxos: 'show interface ethernet1/1 transceiver details', sonic: 'show interfaces transceiver eeprom --dom Ethernet0', mlnx: 'show interfaces ib transceiver diagnostics', host: 'ethtool -m $IFACE' },
-      unverified: { nxos: 1 }, notes: { nvue: 'Per-lane power plus alarm and warning thresholds.', mlnx: 'Every port: temperatures, voltages, Tx/Rx power, alarms.', host: `${ROOT}. InfiniBand: mlxlink -d $HCA -m.` } },
+      eos: 'show interfaces ethernet 1 transceiver', nvue: 'nv show platform transceiver swp1', nxos: 'show interface ethernet1/1 transceiver details', sonic: 'show interfaces transceiver eeprom --dom Ethernet0', mlnx: 'show interfaces ib 1/1 transceiver', host: 'ethtool -m $IFACE' },
+      notes: { nvue: 'Per-lane power plus alarm and warning thresholds.', mlnx: 'One port at a time: temperature, voltage, Tx/Rx power, alarms.', host: `${ROOT}. InfiniBand: mlxlink -d $HCA -m.` } },
     { group: 'Look', id: 'errors', task: 'Error counters', hint: 'CRC, drops, symbol errors', cells: {
       eos: 'show interfaces counters errors', nvue: 'nv show interface swp1 counters errors', nxos: 'show interface counters errors', sonic: 'show interfaces counters errors', mlnx: 'show interfaces ib 1/1', host: "ethtool -S $IFACE | grep -iE 'err|drop|crc'" },
-      notes: { nvue: 'All ports: nv show interface --view counters.', mlnx: 'Errors, symbol errors and discards are in the per-port output.' } },
+      unverified: { mlnx: 1 }, notes: { nvue: 'Drops: nv show interface swp1 counters drops.', mlnx: 'Errors, symbol errors and discards are in the per-port output.' } },
     { group: 'Look', id: 'lldp', task: 'Who is plugged in? (LLDP)', hint: 'Neighbor on each port', cells: {
-      eos: 'show lldp neighbors', nvue: 'nv show interface --view lldp', nxos: 'show lldp neighbors', sonic: 'show lldp table', mlnx: null, host: 'lldpctl' },
+      eos: 'show lldp neighbors', nvue: 'nv show interface lldp', nxos: 'show lldp neighbors', sonic: 'show lldp table', mlnx: null, host: 'lldpctl' },
       gaps: { mlnx: 'InfiniBand has no LLDP: from a host, iblinkinfo shows what each switch port connects to.' }, notes: { host: `${ROOT}; needs the lldpd service.` } },
     { group: 'Look', id: 'mac', task: 'Find a host by MAC', hint: 'Which port learned it', cells: {
       eos: 'show mac address-table address <mac>', nvue: 'nv show bridge domain br_default mac-table', nxos: 'show mac address-table address <mac>', sonic: 'show mac -a <mac>', mlnx: null, host: 'ip neigh show' },
@@ -14579,13 +14579,13 @@ ${rmaTrailSection()}#### Action Requested:
       gaps: { host: 'Server hardware: the BMC Rosetta.' }, notes: { nvue: 'Detail: nv show platform environment fan | psu | temperature.', sonic: 'Also show platform fan, show platform temperature.', mlnx: 'Also show fan, show temperature.' } },
     { group: 'Look', id: 'inv', task: 'Serial numbers & inventory', hint: 'For the RMA', cells: {
       eos: 'show inventory', nvue: 'nv show platform inventory', nxos: 'show inventory', sonic: 'show platform syseeprom', mlnx: 'show inventory', host: "ethtool -m $IFACE | grep -iE 'vendor|serial|part'" },
-      unverified: { eos: 1 }, notes: { host: `${ROOT}. The transceiver at the server end.` } },
+      unverified: { eos: 1, mlnx: 1 }, notes: { host: `${ROOT}. The transceiver at the server end.` } },
     { group: 'Look', id: 'logs', task: 'Recent logs', hint: 'Flaps, errors, alarms', cells: {
-      eos: 'show logging', nvue: 'nv show system log file brief', nxos: 'show logging last 50', sonic: 'show logging --lines 50', mlnx: 'show log', host: "journalctl -k --since '-1h' --no-pager" },
+      eos: 'show logging', nvue: 'nv show system log file brief', nxos: 'show logging last 50', sonic: 'show logging | tail -n 50', mlnx: 'show log', host: "journalctl -k --since '-1h' --no-pager" },
       notes: { mlnx: 'Not show logging: that shows the logging settings.', host: 'Kernel log: link up/down, driver errors. Needs root or the adm / systemd-journal group.' } },
     { group: 'Look', id: 'ctrl', task: 'Routing / Subnet Manager', hint: 'BGP peers or the IB SM', cells: {
       eos: 'show ip bgp summary', nvue: 'nv show vrf default router bgp neighbor', nxos: 'show bgp ipv4 unicast summary', sonic: 'show ip bgp summary', mlnx: 'show ib sm', host: null },
-      gaps: { host: 'From a host on InfiniBand: sminfo shows the master SM.' }, unverified: { eos: 1, nvue: 1, nxos: 1, sonic: 1 } },
+      gaps: { host: 'From a host on InfiniBand: sminfo shows the master SM.' }, unverified: { eos: 1, mlnx: 1 } },
     { group: 'Act', id: 'bounce', task: 'Bounce a port', hint: 'Shut, then bring up', danger: true, cells: {
       eos: 'configure\ninterface ethernet 1\nshutdown\nno shutdown\nend', nvue: 'nv set interface swp1 link state down\nnv config apply\nnv set interface swp1 link state up\nnv config apply',
       nxos: 'configure terminal\ninterface ethernet1/1\nshutdown\nno shutdown\nend', sonic: 'config interface shutdown Ethernet0\nconfig interface startup Ethernet0',
@@ -14593,7 +14593,7 @@ ${rmaTrailSection()}#### Action Requested:
       unverified: { eos: 1, nxos: 1 }, notes: { sonic: ROOT, host: `${ROOT}. Use NVUE, not ip link, on a Cumulus switch.` } },
     { group: 'Act', id: 'clear', task: 'Clear counters', hint: 'Before a re-test', danger: true, cells: {
       eos: 'clear counters', nvue: 'nv action clear interface swp1 counters', nxos: 'clear counters interface ethernet1/1', sonic: 'sonic-clear counters', mlnx: 'configure terminal\ninterface ib 1/1\nclear counters\nexit', host: null },
-      gaps: { host: 'NIC counters don’t reset: save ethtool -S before and after instead.' }, unverified: { nxos: 1 }, notes: { eos: 'Clears every interface.', nvue: 'Software counters only.', mlnx: 'Only inside interface ib mode.' } },
+      gaps: { host: 'NIC counters don’t reset: save ethtool -S before and after instead.' }, unverified: { eos: 1, nxos: 1, mlnx: 1 }, notes: { eos: 'Clears every interface.', nvue: 'Software counters only.', mlnx: 'Only inside interface ib mode.' } },
     { group: 'Act', id: 'save', task: 'Save the config', hint: 'Survives a reboot', danger: true, cells: {
       eos: 'copy running-config startup-config', nvue: 'nv config save', nxos: 'copy running-config startup-config', sonic: 'config save -y', mlnx: 'configure terminal\nconfiguration write', host: null },
       gaps: { host: 'Not a switch task.' }, unverified: { eos: 1, nxos: 1 }, notes: { nvue: 'Only when auto-save is off: nv config apply already saves by default.', sonic: ROOT } }

@@ -810,6 +810,30 @@ const rows = (p) => p.evaluate(() => {
     await ctx.close();
   }
 
+  // 2zd. Switch Rosetta: commands checked against NVUE, SONiC, MLNX-OS and NX-OS references;
+  // the corrected ones, and column links that open the right part of switches.html.
+  {
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    await p.goto(BASE + 'switches.html', { waitUntil: 'load' });
+    await p.waitForTimeout(600);
+    await p.click('#ros-strip .ros-strip-open', { delay: 120 });
+    await p.waitForTimeout(400);
+    // Show every OS side by side.
+    const all = p.locator('.ros-vendor[data-ros-vendor=""]');
+    if (await all.count()) await all.first().click({ delay: 120 });
+    await p.waitForTimeout(300);
+    const r = await p.evaluate(() => {
+      const t = document.querySelector('.ros-table, table');
+      return { text: t ? t.innerText : '', links: [...document.querySelectorAll('th a[data-ros-sheet]')].map(a => a.getAttribute('href')) };
+    });
+    check(/nv show interface lldp/.test(r.text) && !/--view (lldp|counters)|nv show interface status/.test(r.text), 'NVUE: nv show interface lldp, no invented --view or status forms');
+    check(/show logging \| tail -n 50/.test(r.text) && !/--lines 50/.test(r.text), 'SONiC logs: --lines only goes with a process name');
+    check(/show interfaces ib 1\/1 transceiver/.test(r.text) && !/transceiver diagnostics/.test(r.text), 'MLNX-OS optics: the per-port form the manual shows');
+    check(r.links.includes('switches.html#sw-arista-ports') && r.links.includes('switches.html#sw-sonic') && !r.links.some(h => /^sw-/.test(h)), `column links open parts of switches.html (${r.links.join(' ')})`);
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

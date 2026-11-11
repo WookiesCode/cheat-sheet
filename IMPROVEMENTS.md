@@ -567,6 +567,21 @@ The CLI pilot's pattern, applied to the other 21 groups: 172 more pages became p
 
 With every group on one page, nothing ran the 25 page generators (`generate-*-suite.js`, `generate-card-utils.js`, `generate-suite-kit.js`, `create-scripting-data.js`) or the redirect helper `build-redirect-stub.js`, and running one by hand would have re-created the deleted pages. All 26 were backed up to `backups/generators-20261110-183822.tar.gz` (+ `.sha256`, list in `.list.txt`) and deleted, with the code that still called them (the redirect checks in `build-index.js`, `build-portable.js` and the doc-counts test, and the unused generator-menu reader in `build-nav-groups.js`). Each group page's `.js` is its own source now; menus are edited in `nav/nav-source.html`.
 
+## #14 Switch Rosetta checked (2026-11-10, `rosetta-switch-check`)
+
+Each cell checked against the NVUE command reference (Interface, LLDP, Platform, System, System-Logs, BGP, Action and Config pages), the SONiC command reference, the MLNX-OS 3.12.6200 manual (InfiniBand interface, chassis management, logging, subnet manager) and the NX-OS 10.5 show-command book; Arista via its EOS 4.37 manual where it could be read.
+
+| Was | Now |
+|---|---|
+| `nv show interface status` | `nv show interface` (no status subcommand) |
+| `nv show interface --view lldp`; note "--view counters" | `nv show interface lldp`; drops via `nv show interface swp1 counters drops` (only `--view ber` and `--view dom` exist) |
+| `show logging --lines 50` (SONiC) | `show logging \| tail -n 50` (`--lines` only follows a process name) |
+| `show interfaces ib transceiver diagnostics` (MLNX-OS) | `show interfaces ib 1/1 transceiver` (the documented per-port form) |
+| "check on your release" on NX-OS optics and BGP, NVUE and SONiC BGP | removed: documented |
+| — | now marked: MLNX-OS version, per-port errors, inventory, `show ib sm`, clear counters; EOS clear counters |
+
+Still unconfirmed (marked): EOS `show version`, `show inventory`, `show mac address-table`, interface bounce, `copy running-config startup-config`, BGP summary (Arista refused or the manual pages were too long to read in full); NX-OS clear counters and copy (no 10.5 fundamentals reference). Column links go through `sheetHref()` to `switches.html#sw-…`.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |
