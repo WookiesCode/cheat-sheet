@@ -616,6 +616,17 @@ Sources: the guide's vendor links are carried as the cards' sources without a "v
 
 The four Arista 7060X5 layouts and the two generic patterns are gone; the picker lists only the team's 11 devices (no groups). Default model is the QM9700/QM9790 (a saved 7060 choice falls back to it). The cable-check sample and the rack-view sample leaf switches are now the Arista 7260CX3-64, so "open the front panel" from the rack still lands on a drawn switch. Removed with them: the `mine` flag, the picker groups, the generic brand/"pattern" styling.
 
+## #19 Group pages switch parts without reloading (2026-11-10, `part-switch`)
+
+| Found | Fixed |
+|---|---|
+| Every part change (rail, pager, menu, Back) ran `location.reload()`. The new page painted at the top, then the browser restored the old scroll position, animated by `scroll-behavior: smooth`: a flash to the top and a ~300 ms glide back to wherever the old part had been. The rail jumped too. | Each group script registers `SHEET_FILTER.setPart(part)`; `common.js` `switchSheetPart` calls it and redoes what a load sets up (Showing bar, strips, hub landing, visit record, visited ticks, rail, pager, panels). One document load per session. |
+| Where the new part lands | The window jumps once, instantly, so the Showing bar sits just below the fixed command bar (it was hidden under it in a first try); it stays put if the part's top is already in view. **All …** opens at the top. A card link waits two frames for the masonry layout, then jumps to the card. |
+| Back/Forward | `history.scrollRestoration = 'manual'` on group pages, so the browser's restore doesn't glide against the switch. |
+| Rail | Keeps its scroll position; scrolls only itself (not the window) if the current item is out of view; the load-time nudge is skipped during a switch. |
+
+A page without `setPart` (an old cached copy) still reloads. The portable file has its own in-place swap and is unchanged.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

@@ -4792,8 +4792,8 @@ ${rmaTrailSection()}#### Action Requested:
     repack();
   }
 
-  function setSheetContext(file) {
-    const changed = anatSheetFile && anatSheetFile !== file;
+  function setSheetContext(file, quiet) {
+    const changed = !quiet && anatSheetFile && anatSheetFile !== file;
     anatSheetFile = file;
     // The portable build swaps sheets in place: keep recents and the launchpad in step.
     if (changed && !IN_WIDGET_FRAME) queueVisit(file);
@@ -5431,6 +5431,7 @@ ${rmaTrailSection()}#### Action Requested:
 
   let railSpyQueued = false;
   let railReady = false;
+  let railHoldScroll = false;   // set while a group page switches parts in place
   function ensureSheetShell() {
     const main = document.querySelector('main');
     const lp = document.getElementById('launchpad');
@@ -5491,7 +5492,9 @@ ${rmaTrailSection()}#### Action Requested:
       ${rbs.length ? `<div class="rail-block"><div class="rail-h">Runbooks</div>${rbs.map(rb => `<button type="button" class="rail-ref rail-rb" data-suite-rb="${rb.id}"><span aria-hidden="true">${rb.icon}</span>${escapeHtml(rb.title)}</button>`).join('')}</div>` : ''}`;
     renderRailOutline();
     const cur = rail.querySelector('.rail-sheet.is-current');
-    if (cur) requestAnimationFrame(() => { const r = cur.getBoundingClientRect(), rr = rail.getBoundingClientRect(); if (r.bottom > rr.bottom - 120) rail.scrollTop += r.bottom - rr.bottom + 160; });
+    // On load, bring the current sheet well into view; after an in-place part switch the rail
+    // keeps its place (the item was just clicked, so it is already visible).
+    if (cur && !railHoldScroll) requestAnimationFrame(() => { const r = cur.getBoundingClientRect(), rr = rail.getBoundingClientRect(); if (r.bottom > rr.bottom - 120) rail.scrollTop += r.bottom - rr.bottom + 160; });
   }
 
   // Outline of the cards that are visible right now (search and Section filter hide cards).
@@ -9199,22 +9202,74 @@ ${rmaTrailSection()}#### Action Requested:
     } catch (e) { /* storage blocked: nothing to move */ }
   };
 
-  function sheetFilterScroll(card) {
+  function sheetFilterScroll(card, behavior = 'smooth') {
     const el = card && document.querySelector(`.cmd-item[data-id="${CSS.escape(card)}"], .cmd-item[data-cmd-id="${CSS.escape(card)}"], #${CSS.escape(card)}`);
     if (!el) return;
     el.classList.add('card-revealed');
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.scrollIntoView({ behavior, block: 'center' });
     el.classList.add('cmd-highlight-flash');
     setTimeout(() => el.classList.remove('cmd-highlight-flash'), 2500);
   }
 
-  // A hash change inside the same part only scrolls; a different part reloads the page.
+  // A hash change inside the same part only scrolls; a different part is redrawn in place.
   function applySheetFilter() {
     const f = window.SHEET_FILTER;
     if (!f) return;
     const { part, card } = sheetFilterTarget(f.sections);
-    if (part !== sheetFilterId) { location.reload(); return; }
+    if (part !== sheetFilterId) {
+      // A page without the hook (an older copy) still gets the old behaviour.
+      if (typeof f.setPart !== 'function') { location.reload(); return; }
+      switchSheetPart(part, card);
+      return;
+    }
     requestAnimationFrame(() => sheetFilterScroll(card));
+  }
+
+  // Everything a fresh load of group.html#part would set up, done without the reload: the
+  // page redraws its cards (SHEET_FILTER.setPart), then the "Showing" bar, the page-keyed
+  // strips, the visit record, the rail and the pager follow. The rail keeps its scroll
+  // position, and the window only moves when the new part's top is above the viewport.
+  function switchSheetPart(part, card) {
+    const f = window.SHEET_FILTER;
+    const railEl = document.querySelector('.sheet-rail');
+    const railTop = railEl ? railEl.scrollTop : 0;
+    sheetFilterId = part;
+    const ctx = part ? `${part}.html` : pageFile();
+    if (!window.portableOpenSheet) setSheetContext(ctx, true);
+    document.body.classList.toggle('sheet-filtered', !!part);
+    const oldBar = document.getElementById('sheet-filter-bar');
+    if (oldBar) oldBar.remove();
+    renderSheetFilterBar();
+    try { f.setPart(part); } catch (e) { location.reload(); return; }
+    mountRosettaStrip(ctx); mountFabricStrip(ctx); mountWorkbench(ctx);
+    const file = currentSheetFile();
+    mountHubLanding(file);
+    recordVisit(file);
+    markVisited(file);
+    railHoldScroll = true;
+    try { renderSuiteNav(); } finally { railHoldScroll = false; }
+    const rail = document.querySelector('.sheet-rail');
+    if (rail) {
+      rail.scrollTop = railTop;
+      const cur = rail.querySelector('.rail-sheet.is-current');
+      // Scroll only the rail (scrollIntoView could move the window too).
+      if (cur) { const r = cur.getBoundingClientRect(), rr = rail.getBoundingClientRect(); if (r.top < rr.top) rail.scrollTop -= rr.top - r.top + 40; else if (r.bottom > rr.bottom) rail.scrollTop += r.bottom - rr.bottom + 40; }
+    }
+    [renderBerPanel, renderHealthPanel, refreshFleetUi, markXidTiles].forEach(fn => { try { fn(); } catch (e) {} });
+    // A card in the new part: wait two frames for the card layout (masonry) to settle, then
+    // jump straight to it; a glide from the old part's position is the jumping this replaces.
+    if (card) { requestAnimationFrame(() => requestAnimationFrame(() => sheetFilterScroll(card, 'instant'))); return; }
+    // The whole group opens on its hub landing, at the top of the page, as a fresh load does.
+    if (!part) { window.scrollTo({ top: 0, behavior: 'instant' }); return; }
+    // Bring the new part's top into view, below the compact command bar that is fixed over the
+    // top of the window once the header scrolls away; stay put if it is already in view.
+    const anchor = document.getElementById('sheet-filter-bar') || document.querySelector('#sections-container, #sections-grid');
+    if (anchor) {
+      const cbar = document.getElementById('command-bar');
+      const offset = (cbar ? cbar.offsetHeight : 0) + 12;
+      const y = anchor.getBoundingClientRect().top + window.scrollY - offset;
+      if (window.scrollY > y) window.scrollTo({ top: Math.max(0, y), behavior: 'instant' });
+    }
   }
 
   // "Showing nvidia-smi · All 8 NVIDIA DC sheets →" above the cards while a part is picked.
@@ -9245,6 +9300,9 @@ ${rmaTrailSection()}#### Action Requested:
     // Features keyed by page name see the old page while a part is picked.
     if (part && !window.portableOpenSheet) setSheetContext(`${part}.html`);
     document.body.classList.add('is-merged');
+    // Parts switch in place and place the scroll themselves; the browser's own restore on
+    // Back/Forward would animate (smooth scrolling) against that.
+    try { history.scrollRestoration = 'manual'; } catch (e) {}
     document.body.classList.toggle('sheet-filtered', !!part);
     renderSheetFilterBar();
     window.addEventListener('hashchange', applySheetFilter);

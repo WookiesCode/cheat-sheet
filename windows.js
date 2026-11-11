@@ -1733,3 +1733,17 @@ renderSections();
 initPsPipelineBuilder();
 initMiniTabs();
 initEvents();
+
+// Picking another part (rail, pager, nav menu, Back) redraws in place: common.js calls this
+// with the new part instead of reloading the page. The search box and Section filter reset,
+// as a fresh load would; "Saved only" stays as the tech left it.
+if (typeof window !== "undefined" && window.SHEET_FILTER) {
+  window.SHEET_FILTER.setPart = (part) => {
+    state.part = part;
+    state.activeCategory = "all";
+    state.searchQuery = "";
+    if (searchInput) searchInput.value = "";
+    renderCategoryTabs();
+    renderSections();
+  };
+}
