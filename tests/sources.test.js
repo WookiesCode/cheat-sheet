@@ -295,8 +295,9 @@ const rows = (p) => p.evaluate(() => {
     const list = Object.values(got);
     check(list.length === 50 && list.every(l => l.text), `all 50 hardware-reference commands, recipes and tip cards show a source line (${list.filter(l => l.text).length}/${list.length})`);
     const unv = list.filter(l => /is-unverified/.test(l.cls)).map(l => l.id).sort();
-    check(unv.join(' ') === 'drives-link gpuform-tips-card power-circuit power-circuit-sub-1 rack-labels',
-      `only the paywalled/undocumented entries say "Not verified" (${unv.join(', ')})`);
+    check(unv.length === 0, `no hardware-reference entry says "Not verified" (${unv.join(', ')})`);
+    check(/listed for operation at 100% of its rating/.test(text) && /usually required before an RMA/.test(text),
+      'the 80% card quotes the 100%-listed exception; the GPU tip names field diagnostics before an RMA');
     check(!boxes.some(b => /(^|[\s;(|&$])sudo\s/.test(b.code)), 'no command on the hardware-reference sheets starts with sudo');
     const rooted = (re) => boxes.filter(b => re.test(b.code)).length > 0 && boxes.filter(b => re.test(b.code)).every(b => b.root);
     check(rooted(/^dmidecode /), 'dmidecode commands still carry the root badge');

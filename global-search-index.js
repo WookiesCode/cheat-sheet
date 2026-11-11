@@ -24317,9 +24317,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "hardware reference power nec 80-percent three-phase kw circuit pdu",
     "sheet": "hw-reference.html#hw-power",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "NEC 210.20(A) (NFPA 70) is not freely readable, so the 125 % / 80 % rule and the 100 %-rated exception are not checked here. The kW formulas are standard electrical math."
+      "verified": "2026-11-11",
+      "refs": [
+        {
+          "url": "https://iaeimagazine.org/2016/may2016/100-vs-80-choosing-the-right-ocpd-solution/",
+          "title": "IAEI Magazine: 100% vs 80%, choosing the right OCPD (quotes NEC 2014 210.20(A))"
+        },
+        {
+          "url": "https://iaeimagazine.org/columns/focus-on-the-code/are-there-any-practical-guidelines-available-to-installers-and-the-enforement-community-with-regards-to-continuous-loads/",
+          "title": "IAEI Magazine: continuous load, the Article 100 definition"
+        },
+        {
+          "url": "https://electricityforum.com/iep/power-quality/3-phase-power-formula",
+          "title": "Electricity Forum: 3-phase power formula (kW = √3 × V(L-L) × I × PF / 1000)"
+        }
+      ],
+      "note": "NEC 210.20(A) as quoted from NEC 2014: the device is rated not less than the noncontinuous load plus 125 % of the continuous load, so a continuous load uses 80 % of the breaker; the exception needs the assembly and its overcurrent devices listed for 100 %. Continuous = maximum current expected for 3 hours or more (Article 100). NFPA 70 itself is not freely readable: check the edition your AHJ enforces."
     }
   },
   {
@@ -24334,9 +24347,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "hardware reference power recipe nec 80-percent three-phase",
     "sheet": "hw-reference.html#hw-power",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "NEC 210.20(A) (NFPA 70) is not freely readable, so the 125 % / 80 % rule and the 100 %-rated exception are not checked here. The kW formulas are standard electrical math."
+      "verified": "2026-11-11",
+      "refs": [
+        {
+          "url": "https://iaeimagazine.org/2016/may2016/100-vs-80-choosing-the-right-ocpd-solution/",
+          "title": "IAEI Magazine: 100% vs 80%, choosing the right OCPD (quotes NEC 2014 210.20(A))"
+        },
+        {
+          "url": "https://electricityforum.com/iep/power-quality/3-phase-power-formula",
+          "title": "Electricity Forum: 3-phase power formula (kW = √3 × V(L-L) × I × PF / 1000)"
+        }
+      ],
+      "note": "Single-phase: kW = V × A × PF / 1000 (PF taken as 1 here). 80 % from NEC 210.20(A), quoted by IAEI."
     }
   },
   {
@@ -25105,9 +25127,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "hardware reference drives pcie link width speed degraded",
     "sheet": "hw-reference.html#hw-drives",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "current_link_width/_speed and max_link_* exist in PCI device sysfs (seen on a live system) but are not in the kernel ABI docs."
+      "verified": "2026-11-11",
+      "refs": [
+        {
+          "url": "https://github.com/torvalds/linux/blob/master/drivers/pci/pci-sysfs.c",
+          "title": "Linux kernel: drivers/pci/pci-sysfs.c (current_link_speed/width, max_link_speed/width)"
+        },
+        {
+          "url": "https://europe.kioxia.com/en-mea/business/ssd/solution/edsff/e3.html",
+          "title": "KIOXIA: EDSFF E3 form factor (x4 to x16)"
+        },
+        {
+          "url": "https://www.storagereview.com/what-is-edsff-form-factor",
+          "title": "StorageReview: what is EDSFF (E1.S x4/x8)"
+        }
+      ],
+      "note": "The four attributes are defined in pci-sysfs.c (not in the ABI docs); /sys/class/nvme/nvmeX/device is the PCI device. Speed reads like \"16.0 GT/s PCIe\". E1.S connectors carry x4 or x8 and E3 up to x16, but most SSDs ship x4."
     }
   },
   {
@@ -25330,9 +25365,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "hardware reference gpuform tips best-practice",
     "sheet": "hw-reference.html#hw-gpu-forms",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "nvidia-bug-report.sh ships with the NVIDIA driver but isn't described in the nvidia-smi docs."
+      "verified": "2026-11-11",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/deploy/gpu-debug-guidelines/pdf/GPU_Debug_Guidelines.pdf",
+          "title": "NVIDIA GPU Debug Guidelines (PDF): Reporting a GPU Issue"
+        },
+        {
+          "url": "https://manpages.debian.org/bookworm/nvidia-support/nvidia-bug-report.sh.1.en.html",
+          "title": "nvidia-bug-report.sh(1) man page"
+        }
+      ],
+      "note": "NVIDIA lists nvidia-bug-report.sh output, Fabric Manager logs (HGX) and DCGM diagnostics logs for the vendor ticket, and says field diagnostics are usually required before an RMA. The script needs root and writes nvidia-bug-report.log.gz. The SEL is this site's addition."
     }
   },
   {
@@ -25466,9 +25510,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "hardware reference rack labels tia-606 cabling cmdb",
     "sheet": "hw-reference.html#hw-rack",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "ANSI/TIA-606-D is sold, not published openly, so its date and class definitions are not checked here. The label format is an example."
+      "verified": "2026-11-11",
+      "refs": [
+        {
+          "url": "https://standards.globalspec.com/std/14472250/tia-606-d",
+          "title": "GlobalSpec: TIA-606-D, October 5, 2021 (current edition)"
+        },
+        {
+          "url": "https://www.akcp.com/2025/04/07/data-center-cable-labeling-standards/",
+          "title": "AKCP: data center cable labeling, ANSI/TIA-606-D"
+        }
+      ],
+      "note": "Edition and date from the standards listing. The four classes (scaled to infrastructure complexity) come from secondary summaries; TIA sells the text, so check the exact class boundaries there. The label format is an example."
     }
   },
   {

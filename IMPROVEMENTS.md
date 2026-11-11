@@ -731,6 +731,17 @@ InfiniBand page: no "Not verified" rows left.
 
 IPMI and Redfish pages: no "Not verified" rows left.
 
+## #29 The last five hardware-reference cards sourced (2026-11-11, `hw-five-check`)
+
+| Card | Was | Now |
+|---|---|---|
+| Circuit math (80% rule, three-phase) and the 208 V / 30 A recipe | "NEC not freely readable" | IAEI Magazine quotes NEC 2014 210.20(A) (noncontinuous + 125% of continuous, so 80% of the breaker), its exception (assembly **and** its overcurrent devices listed for 100%), and the Article 100 definition (maximum current for 3 hours or more). The 100% flag now uses the exception's wording. The note says to check the edition your AHJ enforces |
+| NVMe link width/speed | "Not in the kernel ABI docs" | The four attributes are defined in the kernel's `pci-sysfs.c`; output reads `16.0 GT/s PCIe` (checked here). E1.S carries x4/x8, E3 up to x16, most SSDs ship x4 (KIOXIA, StorageReview) |
+| GPU "evidence first" tip | "Not in the nvidia-smi docs" | NVIDIA GPU Debug Guidelines: the vendor ticket needs nvidia-bug-report.sh output, Fabric Manager logs (HGX) and DCGM diagnostics logs; **field diagnostics are usually required before an RMA** (new flag). Man page: needs root, writes nvidia-bug-report.log.gz |
+| TIA-606-D labelling | "Sold, not checked" | Edition and date (October 5, 2021) from the standards listing; the class line now says only what the summaries agree on (four classes by complexity, Class 4 multi-site) |
+
+Hardware reference: no "Not verified" entries left.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |
