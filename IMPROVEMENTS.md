@@ -608,9 +608,13 @@ Sources: the guide's vendor links are carried as the cards' sources without a "v
 
 | Ask | Done |
 |---|---|
-| "Arista 7060 is listed twice" | Not a duplicate: four different 7060X5 models (DX5-64E, PX5-64E, DX5-32, DX5-64S). The picker is now grouped: **Your devices** (the guide's 11) and **Other reference layouts** (4 Arista + 2 generic patterns). |
+| "Arista 7060 is listed twice" | Not a duplicate: four different 7060X5 models (DX5-64E, PX5-64E, DX5-32, DX5-64S). The picker was grouped, then the reference layouts were removed (#18). |
 | Port counting inside the cage (QM9790: 1-2, then 4-3) | Every cage is a tile: its label on top (QM `C01`…`C32`), its logical ports inside (QM odd cages 2n−1 \| 2n, even cages 2n \| 2n−1; SN5400/SN5600 breakout children `s0…`), and the recorded optic's short name below (`—` none, `RJ45` copper). Click a logical port to search it; click the cage to search the cage. On QM a plain number or `port N` is the IB port, `cage N` / `C05` is the cage. |
 | Check how all the other switches are laid out | Same tile drawing on all 17 models. SN5400/SN5600 get a **View** menu (Native / 2× / 4×, default 2×; SN5600 2× shows s1 \| s0 on the lower cage rows, as the guide draws it); typing a breakout name (`swp14s3`) switches the view once, and a View choice then sticks until the search changes. ACS8000 (LAN1/LAN2 Cu and SFP) and MX304 (LMIC0–2) are now drawn as tiles instead of photo-only. The vertical brand name is centred and fits short panels. |
+
+## #18 Reference layouts removed from the front panel (2026-11-10, `panel-tiles`)
+
+The four Arista 7060X5 layouts and the two generic patterns are gone; the picker lists only the team's 11 devices (no groups). Default model is the QM9700/QM9790 (a saved 7060 choice falls back to it). The cable-check sample and the rack-view sample leaf switches are now the Arista 7260CX3-64, so "open the front panel" from the rack still lands on a drawn switch. Removed with them: the `mine` flag, the picker groups, the generic brand/"pattern" styling.
 
 ## Found while building (not fixed)
 

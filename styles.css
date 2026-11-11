@@ -7765,7 +7765,6 @@ body.is-home .sheet-shell { display: block; }
 .pn-bar label { display: flex; align-items: center; gap: 0.45rem; font: 600 0.68rem var(--font-sans); text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
 .pn-bar select { font: 600 0.82rem var(--font-sans); color: var(--text-primary); background: var(--bg-code); border: 1px solid var(--border-strong); border-radius: 7px; padding: 0.35rem 0.55rem; text-transform: none; letter-spacing: 0; }
 .pn-src { font-size: 0.72rem; color: var(--text-muted); }
-.pn-src.is-generic { color: var(--accent-amber); }
 
 .pn-panel { padding: 0.3rem 1.2rem 0.6rem; overflow-x: auto; }
 .pn-svg { display: block; width: 100%; min-width: 760px; height: auto; }

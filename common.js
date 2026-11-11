@@ -10202,8 +10202,8 @@ ${rmaTrailSection()}#### Action Requested:
   const RK_U = 15;   // pixels per U
   const RK_SAMPLE = [
     'host,row,rack,u,height,type,model,serial,bmc',
-    'leaf01,3,R12,42,1,switch,Arista 7060DX5-64E,JPE23410001,',
-    'leaf02,3,R12,41,1,switch,Arista 7060DX5-64E,JPE23410002,',
+    'leaf01,3,R12,41,2,switch,Arista DCS-7260CX3-64-F,JPE23410001,',
+    'leaf02,3,R12,39,2,switch,Arista DCS-7260CX3-64-F,JPE23410002,',
     'gpu-node01,3,R12,34,4,server,8-GPU HGX server,S1A01,10.20.4.11',
     'gpu-node02,3,R12,30,4,server,8-GPU HGX server,S1A02,10.20.4.12',
     'gpu-node03,3,R12,26,4,server,8-GPU HGX server,S1A03,10.20.4.13',
@@ -10294,7 +10294,7 @@ ${rmaTrailSection()}#### Action Requested:
   // Switch models the front panel knows, matched on the model name.
   function rkPanelModel(model) {
     const m = String(model || '').toLowerCase();
-    return Object.keys(PANEL_MODELS).find(k => !k.startsWith('generic') && m.includes(k.split('-').slice(1).join('-'))) || '';
+    return Object.keys(PANEL_MODELS).find(k => m.includes(k.split('-').slice(1).join('-'))) || '';
   }
 
   function rkRender() {
@@ -10502,10 +10502,11 @@ ${rmaTrailSection()}#### Action Requested:
   // swp14, ib 1/14/2. (2) Cabling: paste the wiring manifest and the switch's LLDP output;
   // every link is classed ok / wrong NIC / wrong host / swapped / missing / unexpected,
   // painted on the panel, and turned into a fix list for the tech at the rack.
-  // Layouts checked 2026-11-07 against Arista's 7060X5 Quick Start Guide (Appendix C,
-  // Figures C-1 to C-4) and NVIDIA's QM97XX hardware manual front views. LLDP parsing follows
-  // the documented output of lldpctl/lldpcli, Arista EOS, SONiC and NX-OS-style tables.
-  // Ten more devices came from the team's Switch & Fiber Field Guide (2026-11-10): their cage
+  // The QM9700/QM9790 layout was checked 2026-11-07 against NVIDIA's QM97XX hardware manual
+  // front views. LLDP parsing follows the documented output of lldpctl/lldpcli, Arista EOS,
+  // SONiC and NX-OS-style tables. Only the team's own devices are listed (the Arista 7060X5
+  // and generic reference layouts were removed 2026-11-10). The other ten devices came from
+  // the team's Switch & Fiber Field Guide (2026-11-10): their cage
   // layouts were checked against the vendor front photos (assets/panels/), the port naming
   // and notes are the guide's. A model can bring its own port-name parser (parse), extra
   // ports placed by side/row/col that can be searched (port), a vendor photo, and the optic
@@ -10535,36 +10536,12 @@ ${rmaTrailSection()}#### Action Requested:
   // Vendor photos ship in assets/panels/; the one-file copy carries them inline (PANEL_PHOTOS).
   const pnPhotoUrl = f => (window.PANEL_PHOTOS && window.PANEL_PHOTOS[f]) || `${CON_BASE}assets/panels/${f}`;
   const PANEL_MODELS = {
-    'arista-7060dx5-64e': {
-      name: 'Arista 7060DX5-64E', vendor: 'arista', ru: 1, groups: [16], rows: [oddEven(1, 32)], cage: 'QSFP-DD 800G',
-      extras: [{ label: '33', kind: 'SFP', row: 0 }, { label: '34', kind: 'SFP', row: 1 }],
-      src: 'Arista 7060X5 Quick Start Guide, Figure C-1',
-      count: ['Two rows: odd numbers on top, even below. Count columns left to right: 1/2, 3/4, 5/6 …', 'Port 2 is directly under port 1, not next to it.', 'The two small SFP ports at the right are 33 (top) and 34 (bottom).']
-    },
-    'arista-7060px5-64e': {
-      name: 'Arista 7060PX5-64E', vendor: 'arista', ru: 1, groups: [4, 4, 4, 4], rows: [oddEven(1, 32)], cage: 'OSFP 800G',
-      extras: [{ label: '33', kind: 'SFP', row: 0 }, { label: '34', kind: 'SFP', row: 1 }],
-      src: 'Arista 7060X5 Quick Start Guide, Figure C-2',
-      count: ['Four blocks of four columns. Odd numbers on top, even below, left to right.', 'Each block ends on a multiple of 8: 7/8, 15/16, 23/24, 31/32.', 'SFP 33 (top) and 34 (bottom) at the right.']
-    },
-    'arista-7060dx5-32': {
-      name: 'Arista 7060DX5-32', vendor: 'arista', ru: 1, groups: [16], rows: [oddEven(1, 32)], cage: 'QSFP-DD 400G',
-      extras: [{ label: '33', kind: 'SFP', row: 1 }],
-      src: 'Arista 7060X5 Quick Start Guide, Figure C-3',
-      count: ['Odd numbers on top, even below, left to right.', 'One SFP port, 33, at the bottom right.']
-    },
-    'arista-7060dx5-64s': {
-      name: 'Arista 7060DX5-64S (2RU)', vendor: 'arista', ru: 2, groups: [4, 4, 4, 4], rows: [oddEven(1, 32), oddEven(33, 64)], cage: 'QSFP-DD 400G',
-      extras: [{ label: '65', kind: 'SFP', row: 2 }, { label: '66', kind: 'SFP', row: 3 }, { label: 'MGT · USB · CON', kind: 'mgmt', row: 0 }],
-      src: 'Arista 7060X5 Quick Start Guide, Figure C-4',
-      count: ['Four rows in two pairs. The top pair holds 1–32 (odd over even).', 'The bottom pair starts over: 33 is directly under 2, not next to 32. Odd over even again, up to 64.', 'SFP 65 and 66 at the right; management, USB and console at the top right.']
-    },
     'nvidia-qm9700': {
       name: 'NVIDIA QM9700 / QM9790 (Quantum-2)', vendor: 'nvidia', ru: 1, groups: [4, 4, 4, 4], rows: [oddEven(1, 32)], cage: 'OSFP, 2 × NDR per cage', twin: true,
       extras: [{ label: 'MGT', kind: 'mgmt', row: 0 }, { label: 'CON', kind: 'mgmt', row: 1 }],
       src: 'NVIDIA QM97XX hardware user manual, front view and logical port numbering (p. 32)',
       photo: 'qm9790-front.webp', photoSrc: 'https://docs.nvidia.com/networking/display/qm97xx-1u-ndr-400gbps-infiniband-switch-systems-user-manual.pdf', photoNote: 'QM9790 front view',
-      optics: () => 'osfp-twin', mine: true,
+      optics: () => 'osfp-twin',
       // Each cage shows its two IB port numbers (non-splittable profile, as ibnetdiscover and
       // iblinkinfo report them): odd cage n holds 2n-1 | 2n, even cage n holds 2n | 2n-1.
       label: n => `C${String(n).padStart(2, '0')}`,
@@ -10588,7 +10565,7 @@ ${rmaTrailSection()}#### Action Requested:
       extras: [{ label: '65', kind: 'SFP', row: 1, side: 'left', port: 65, where: 'small SFP28 cage at the far left, the upper one' }, { label: '66', kind: 'SFP', row: 2, side: 'left', port: 66, where: 'small SFP28 cage at the far left, the lower one' }],
       src: 'NVIDIA SN5000 hardware manual · layout checked against the vendor front view',
       photo: 'sn5400-front.webp', photoSrc: 'https://networking-docs.nvidia.com/sn5000hw/introduction', photoNote: 'SN5400 front view',
-      optics: n => n > 64 ? 'sfp28' : 'qsfp-dd', mine: true,
+      optics: n => n > 64 ? 'sfp28' : 'qsfp-dd',
       modes: [[1, 'Native ports'], [2, '2×200G breakout'], [4, '4×100G breakout']], mode: 2,
       subs: (n, mode) => n > 64 || mode < 2 ? [] : range(0, mode - 1).map(i => `s${i}`),
       count: ['16 columns of four cages. Count down each column: 1, 2, 3, 4 from the top, then 5–8 in the next column.', 'The label between the halves reads "1/2 ▲▼ 3/4": 1 and 2 are the upper pair, 3 and 4 the lower pair.', 'SFP28 65 (upper) and 66 (lower) are at the far left.', 'Cumulus names them swp1–swp66; a breakout child adds s0, s1… (swp14s1). Native mode is one swpN per QSFP-DD cage.']
@@ -10598,7 +10575,7 @@ ${rmaTrailSection()}#### Action Requested:
       extras: [{ label: '65', kind: 'SFP', row: 2, side: 'left', port: 65, where: 'the small SFP28 cage at the far left, level with the lower half' }],
       src: 'NVIDIA SN5000 hardware manual and cable installation guide · layout checked against the vendor front view',
       photo: 'sn5600-front.webp', photoSrc: 'https://networking-docs.nvidia.com/sn5000hw/introduction', photoNote: 'SN5600 front view',
-      optics: n => n > 64 ? 'sfp28' : 'osfp-twin', mine: true,
+      optics: n => n > 64 ? 'sfp28' : 'osfp-twin',
       modes: [[1, 'Native ports'], [2, '2×400G breakout'], [4, '4×200G breakout']], mode: 2,
       // In 2×400G the lower, upside-down modules (rows 3 and 4 of each column) read s1 | s0.
       subs: (n, mode) => n > 64 || mode < 2 ? [] : mode === 2 && (n - 1) % 4 >= 2 ? ['s1', 's0'] : range(0, mode - 1).map(i => `s${i}`),
@@ -10608,7 +10585,7 @@ ${rmaTrailSection()}#### Action Requested:
       name: 'Mellanox / NVIDIA SN2410 (MSN2410-CB2RC)', vendor: 'nvidia', ru: 1, groups: [6, 6, 6, 6, 4], rows: [{ top: range(0, 27).map(i => i < 24 ? i * 2 + 1 : 49 + (i - 24) * 2), bottom: range(0, 27).map(i => i < 24 ? i * 2 + 2 : 50 + (i - 24) * 2) }], cage: 'SFP28 25G (1–48) · QSFP28 100G (49–56)',
       extras: [], src: 'NVIDIA Spectrum SN2000 hardware manual · layout checked against the vendor front view',
       photo: 'sn2410-front.webp', photoSrc: 'https://docs.nvidia.com/networking/display/nvidia-spectrum-sn2000-1u-switch-systems-hardware-user-manual.pdf', photoNote: 'SN2410 front view',
-      mine: true, optics: n => n > 48 ? 'qsfp28' : 'sfp28',
+      optics: n => n > 48 ? 'qsfp28' : 'sfp28',
       count: ['SFP28 1–48 in four blocks of six columns: odd on top, even below.', 'QSFP28 49–56 in the block at the right: 49 over 50 … 55 over 56.', 'Cumulus: swp1–swp56; a QSFP28 breakout child is swp49s0–swp49s3. MSN2410-CB2RC is the Cumulus SKU with connector-to-power airflow.']
     },
     'arista-7260cx3-64': {
@@ -10616,14 +10593,14 @@ ${rmaTrailSection()}#### Action Requested:
       extras: [{ label: '65', kind: 'SFP', row: 0, port: 65, where: 'the upper SFP+ port at the top right' }, { label: '66', kind: 'SFP', row: 1, port: 66, where: 'the lower SFP+ port at the top right' }, { label: 'MGT · CON', kind: 'mgmt', row: 2 }],
       src: 'Arista 7260X3 data sheet · layout checked against the vendor front view',
       photo: 'arista7260-front.webp', photoSrc: 'https://www.arista.com/assets/data/pdf/Datasheets/7260X3_Datasheet.pdf', photoNote: '7260CX3-64 front view',
-      mine: true, optics: n => n > 64 ? 'sfpplus' : 'qsfp28',
+      optics: n => n > 64 ? 'sfpplus' : 'qsfp28',
       count: ['Four rows in two pairs, eight blocks of two columns. The top pair holds 1–32 (odd over even).', 'The bottom pair starts over at 33, odd over even again, up to 64.', 'SFP+ 65 and 66 are stacked at the top right.', 'EOS names: Ethernet14; a breakout lane is Ethernet14/2. The -F SKU is front-to-rear airflow.']
     },
     'cisco-n9k-c93180yc-fx3': {
       name: 'Cisco Nexus N9K-C93180YC-FX3', vendor: 'cisco', ru: 1, groups: [8, 8, 8, 3], rows: [{ top: range(0, 26).map(i => i < 24 ? i * 2 + 1 : 49 + (i - 24) * 2), bottom: range(0, 26).map(i => i < 24 ? i * 2 + 2 : 50 + (i - 24) * 2) }], cage: 'SFP28 1/10/25G (1–48) · QSFP28 40/100G (49–54)',
       extras: [], src: 'Cisco Nexus 93180YC-FX3 hardware installation guide · layout checked against the vendor front view',
       photo: 'n9k-front.webp', photoSrc: 'https://www.cisco.com/c/en/us/products/collateral/switches/nexus-9000-series-switches/datasheet-c78-744052.html', photoNote: 'Cisco’s image is labelled N9K-C93180YC-FX; the guide uses it for the FX3',
-      mine: true, optics: n => n > 48 ? 'qsfp28' : 'sfp28',
+      optics: n => n > 48 ? 'qsfp28' : 'sfp28',
       count: ['SFP28 1–48 in three blocks of eight columns: odd on top, even below ("1▲2" is printed above each column).', 'QSFP28 49–54 at the right: 49 over 50, 51 over 52, 53 over 54.', 'NX-OS names a standalone switch’s ports Ethernet1/14; a breakout child is Ethernet1/49/1.']
     },
     'cisco-c9200l-48t-4x': {
@@ -10631,7 +10608,7 @@ ${rmaTrailSection()}#### Action Requested:
       extras: [1, 2, 3, 4].map(i => ({ label: String(i), text: `SFP+ ${i}`, kind: 'SFP', row: 1, col: i - 1, port: 48 + i, where: `uplink ${i} of the four SFP+ ports side by side at the bottom right (Te1/1/${i})` })),
       src: 'Cisco Catalyst 9200 hardware installation guide · layout checked against the vendor front view',
       photo: 'c9200l-front.webp', photoSrc: 'https://www.cisco.com/c/en/us/products/collateral/switches/catalyst-9200-series-switches/datasheet-c78-741469.html', photoNote: 'Catalyst 9200L-48T-4X front view',
-      mine: true, optics: n => n > 48 ? 'sfpplus' : '', copper: n => n <= 48,
+      optics: n => n > 48 ? 'sfpplus' : '', copper: n => n <= 48,
       // Gi<member>/0/<port> → 1–48; Te/Gi<member>/1/<n> or "uplink n" → the SFP+ uplinks.
       parse(raw) {
         let m = raw.match(/^(?:gi|gigabitethernet)\s*\d\/0\/(\d+)$/i);
@@ -10648,7 +10625,7 @@ ${rmaTrailSection()}#### Action Requested:
         { label: 'CON', kind: 'mgmt', row: 0 }, { label: 'ether1', kind: 'mgmt', row: 1, port: 15, where: 'the RJ45 under CONSOLE (ETH/BOOT, management)' }],
       src: 'MikroTik CCR2216 product page and brochure · layout checked against the vendor front view',
       photo: 'ccr2216-front.webp', photoSrc: 'https://mikrotik.com/product/ccr2216_1g_12xs_2xq', photoNote: 'CCR2216-1G-12XS-2XQ front view',
-      mine: true, optics: n => n === 13 || n === 14 ? 'qsfp28' : n <= 12 ? 'sfp28' : '', copper: n => n === 15,
+      optics: n => n === 13 || n === 14 ? 'qsfp28' : n <= 12 ? 'sfp28' : '', copper: n => n === 15,
       parse(raw) {
         let m = raw.match(/^(?:sfp28-|s\s*)(\d+)$/i);
         if (m) return { cage: +m[1] <= 12 ? +m[1] : 0, sub: '' };
@@ -10664,7 +10641,7 @@ ${rmaTrailSection()}#### Action Requested:
       extras: [{ label: 'RJ45', kind: 'mgmt', row: 1, col: 0 }, { label: '25', kind: 'SFP', row: 1, col: 1, port: 25, where: 'the first SFP cage right of the copper ports, level with the bottom row' }, { label: '26', kind: 'SFP', row: 1, col: 2, port: 26, where: 'the second SFP cage, right of 25' }],
       src: 'Hasivo product page · layout checked against the vendor front view',
       photo: 'hasivo-front.webp', photoSrc: 'https://www.hasivopoe.com/full-gigabit-24ge-2sfp-l2-managed-switch/', photoNote: 'S5800W-24G-2S front view',
-      mine: true, optics: n => n > 24 ? 'sfp1g' : '', copper: n => n <= 24,
+      optics: n => n > 24 ? 'sfp1g' : '', copper: n => n <= 24,
       parse(raw) {
         let m = raw.match(/^rj45[\s-]*(\d+)$/i);
         if (m) return { cage: +m[1] <= 24 ? +m[1] : 0, sub: '' };
@@ -10675,7 +10652,7 @@ ${rmaTrailSection()}#### Action Requested:
       count: ['Copper 1–24 in three blocks of four columns: odd on top, even below.', 'The two 1G SFP uplinks, 25 and 26, sit side by side at the right, level with the bottom row; the separate RJ45 left of them is not one of 1–24.', 'The SFP uplinks are 1G only: a 10G SFP+ optic does not belong there.']
     },
     'vertiv-acs8000': {
-      name: 'Vertiv Avocent ACS8000 (console server)', vendor: 'vertiv', mine: true, ru: 1, groups: [2], cw: 84, rows: [{ top: [1, 3], bottom: [2, 4] }], cage: 'LAN1/LAN2: RJ45 or 1G SFP · 8–48 serial ports', extras: [],
+      name: 'Vertiv Avocent ACS8000 (console server)', vendor: 'vertiv', ru: 1, groups: [2], cw: 84, rows: [{ top: [1, 3], bottom: [2, 4] }], cage: 'LAN1/LAN2: RJ45 or 1G SFP · 8–48 serial ports', extras: [],
       src: 'Vertiv ACS8000 quick installation guide (photo shows a 48-port model)',
       photo: 'acs8000-front.webp', photoSrc: 'https://www.vertiv.com/49f5bb/globalassets/products/monitoring-control-and-management/serial-consoles-and-gateways/avocent-acs-8000-quick-installation-guide-english.pdf', photoNote: 'ACS8000 front view, 48 serial ports',
       // 1 = LAN1 copper, 3 = LAN1 SFP (top); 2 = LAN2 copper, 4 = LAN2 SFP (bottom).
@@ -10689,26 +10666,16 @@ ${rmaTrailSection()}#### Action Requested:
       count: ['A console server, not a packet switch: only its two network interfaces are drawn.', 'LAN1 (top) and LAN2 (bottom) each have a copper RJ45 (left) and a 1G SFP (right); only one medium per LAN is active, and Vertiv says fiber wins when both are connected.', 'The serial-port count is 8, 16, 32 or 48 depending on the submodel: read it from the unit before tracing serial cables.']
     },
     'juniper-mx304': {
-      name: 'Juniper MX304 (modular router)', vendor: 'juniper', mine: true, ru: 2, groups: [3], cw: 120, rows: [{ top: [1, 2, 3], bottom: [] }], cage: 'LMIC bays: ports depend on the installed line module', extras: [],
+      name: 'Juniper MX304 (modular router)', vendor: 'juniper', ru: 2, groups: [3], cw: 120, rows: [{ top: [1, 2, 3], bottom: [] }], cage: 'LMIC bays: ports depend on the installed line module', extras: [],
       src: 'Juniper MX304 hardware guide',
       photo: 'mx304-front.webp', photoSrc: 'https://www.juniper.net/documentation/us/en/hardware/mx304/topics/topic-map/mx304-chassis.html', photoNote: 'MX304 with two routing engines and two LMICs',
       label: n => `LMIC${n - 1}`,
       parse(raw) { const m = raw.match(/^(?:lmic|bay|slot)?\s*([0-2])$/i); return m ? { cage: +m[1] + 1, sub: '' } : /^(?:lmic|bay|slot)/i.test(raw) ? { cage: 0, sub: '' } : null; },
       count: ['A modular router: these are line-module (LMIC) bays, not optic cages.', 'With two routing engines there are two LMIC bays (LMIC0, LMIC1); with one routing engine the RE1 position can hold a third (LMIC2).', 'Read the installed LMIC model, the Junos release and the breakout profile before mapping its ports.']
-    },
-    'generic-oddeven': {
-      name: 'Other switch: odd top / even bottom', vendor: 'generic', ru: 1, groups: [8, 8], rows: [oddEven(1, 32)], cage: 'pattern, not a vendor drawing', generic: true,
-      extras: [], src: 'A common pattern, not a vendor drawing: check the numbers printed on your switch',
-      count: ['The most common two-row pattern: odd on top, even below, left to right.', 'Always trust the numbers printed next to the cages over any pattern.']
-    },
-    'generic-rows': {
-      name: 'Other switch: top row first', vendor: 'generic', ru: 1, groups: [8, 8], rows: [{ top: Array.from({ length: 16 }, (_, i) => i + 1), bottom: Array.from({ length: 16 }, (_, i) => i + 17) }], cage: 'pattern, not a vendor drawing', generic: true,
-      extras: [], src: 'A less common pattern, not a vendor drawing: check the numbers printed on your switch',
-      count: ['Some switches number the whole top row first (1–16), then the bottom row (17–32).', 'If port 2 is next to port 1 on your switch, this is your pattern.']
     }
   };
   const PANEL_SAMPLE = {
-    model: 'arista-7060dx5-64e', sw: 'leaf01',
+    model: 'arista-7260cx3-64', sw: 'leaf01',
     manifest: 'switch,port,host,nic\nleaf01,Ethernet1,gpu-node01,eth0\nleaf01,Ethernet2,gpu-node02,eth0\nleaf01,Ethernet3,gpu-node03,eth0\nleaf01,Ethernet4,gpu-node04,eth0\nleaf01,Ethernet5,gpu-node05,eth0\nleaf01,Ethernet6,gpu-node06,eth0\nleaf01,Ethernet7,gpu-node07,eth0\nleaf01,Ethernet8,gpu-node08,eth0',
     lldp: 'leaf01# show lldp neighbors\nPort      Neighbor Device ID             Neighbor Port ID           TTL\nEt1       gpu-node01                     eth0                       120\nEt2       gpu-node02                     eth1                       120\nEt3       gpu-node04                     eth0                       120\nEt4       gpu-node03                     eth0                       120\nEt5       gpu-node09                     eth0                       120\nEt7       gpu-node07                     eth0                       120\nEt8       gpu-node08                     eth0                       120\nEt12      gpu-node06                     eth0                       120'
   };
@@ -10719,8 +10686,10 @@ ${rmaTrailSection()}#### Action Requested:
   let pnModeAuto = '';
   const pnRead = () => { try { const v = JSON.parse(localStorage.getItem(PANEL_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (e) { return {}; } };
   const pnWrite = (patch) => { try { localStorage.setItem(PANEL_KEY, JSON.stringify(Object.assign(pnRead(), patch))); } catch (e) {} };
-  const pnModel = () => PANEL_MODELS[pnRead().model] || PANEL_MODELS['arista-7060dx5-64e'];
-  const pnModelKey = () => (PANEL_MODELS[pnRead().model] ? pnRead().model : 'arista-7060dx5-64e');
+  // A model saved before a layout was removed falls back to the first device in the list.
+  const PN_DEFAULT = 'nvidia-qm9700';
+  const pnModel = () => PANEL_MODELS[pnRead().model] || PANEL_MODELS[PN_DEFAULT];
+  const pnModelKey = () => (PANEL_MODELS[pnRead().model] ? pnRead().model : PN_DEFAULT);
   // Breakout view per model (Native / 2× / 4×), remembered; the model's default otherwise.
   const pnMode = () => { const m = pnModel(); if (!m.modes) return 1; const v = (pnRead().modes || {})[pnModelKey()]; return m.modes.some(([k]) => k === v) ? v : (m.mode || 1); };
   const pnSetMode = v => pnWrite({ modes: Object.assign({}, pnRead().modes, { [pnModelKey()]: v }) });
@@ -10803,7 +10772,7 @@ ${rmaTrailSection()}#### Action Requested:
     const height = y + pad + 4;
     const out = [`<svg class="pn-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(model.name)} front panel">`,
       `<rect class="pn-chassis" x="2" y="2" width="${width - 4}" height="${height - 4}" rx="6"/>`,
-      `<text class="pn-brand" x="${pad}" y="${height / 2}" transform="rotate(-90 ${pad + 4} ${height / 2})"${height < 120 ? ` textLength="${height - 24}" lengthAdjust="spacingAndGlyphs"` : ''}>${escapeHtml(model.vendor === 'generic' ? 'SWITCH' : model.vendor.toUpperCase())}</text>`];
+      `<text class="pn-brand" x="${pad}" y="${height / 2}" transform="rotate(-90 ${pad + 4} ${height / 2})"${height < 120 ? ` textLength="${height - 24}" lengthAdjust="spacingAndGlyphs"` : ''}>${escapeHtml(model.vendor.toUpperCase())}</text>`];
     const opt = n => optics && optics[n];
     const below = n => { const o = opt(n); return o ? pnOpticShort(o.type) : model.copper && model.copper(n) ? 'RJ45' : model.optics && model.optics(n) ? '—' : ''; };
     const tile = (n, tx, ty, w, label, extraCls) => {
@@ -10993,12 +10962,11 @@ ${rmaTrailSection()}#### Action Requested:
     pnEl.querySelectorAll('[data-pn-tab]').forEach(b => { const on = b.dataset.pnTab === pnTab; b.classList.toggle('is-on', on); b.setAttribute('aria-selected', String(on)); });
     const opt = ([k, m]) => `<option value="${k}" ${k === pnModelKey() ? 'selected' : ''}>${escapeHtml(m.name)}</option>`;
     const all = Object.entries(PANEL_MODELS);
-    pnEl.querySelector('.pn-model').innerHTML = `<optgroup label="Your devices">${all.filter(([, m]) => m.mine).map(opt).join('')}</optgroup><optgroup label="Other reference layouts">${all.filter(([, m]) => !m.mine).map(opt).join('')}</optgroup>`;
+    pnEl.querySelector('.pn-model').innerHTML = all.map(opt).join('');
     const modeL = pnEl.querySelector('.pn-mode-l');
     modeL.hidden = !model.modes;
     if (model.modes) pnEl.querySelector('.pn-mode').innerHTML = model.modes.map(([v, l]) => `<option value="${v}" ${v === pnMode() ? 'selected' : ''}>${escapeHtml(l)}</option>`).join('');
     pnEl.querySelector('.pn-src').textContent = `${model.cage} · ${model.src}`;
-    pnEl.querySelector('.pn-src').classList.toggle('is-generic', !!model.generic);
     pnEl.querySelectorAll('.pn-pane').forEach(p => { p.hidden = p.dataset.pane !== pnTab; });
     let marks = null, focus = null;
     if (pnTab === 'find') {

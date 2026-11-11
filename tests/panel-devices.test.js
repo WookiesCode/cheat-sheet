@@ -43,10 +43,10 @@ const FINDS = [
   await pick('mikrotik-ccr2216');
   check(/Q1 → Q1: QSFP28 1/.test((await find('Q1')).ans), 'an extra port is named the way it is printed (Q1), not by its index');
 
-  // Photos: every device but the generic patterns has one, and it loads.
+  // Photos: every device has one, and it loads.
   const models = await p.evaluate(() => [...document.querySelectorAll('.pn-model option')].map(o => o.value));
   const noPhoto = [];
-  for (const m of models.filter(m => !/^generic|^arista-7060/.test(m))) {
+  for (const m of models) {
     await pick(m);
     await p.waitForTimeout(150);
     const ok = await p.evaluate(() => new Promise(res => { const i = document.querySelector('.pn-photo img'); if (!i) return res(false); if (i.complete) return res(i.naturalWidth > 0); i.onload = () => res(true); i.onerror = () => res(false); }));
@@ -88,9 +88,9 @@ const FINDS = [
   const acs = await p.evaluate(() => [...document.querySelectorAll('.pn-svg .pn-tile-id')].map(t => t.textContent).sort().join(','));
   check(acs === 'LAN1 Cu,LAN1 SFP,LAN2 Cu,LAN2 SFP', `ACS8000 draws its four network ports as tiles (${acs})`);
 
-  // The picker separates the team's devices from the other reference layouts.
-  const groups = await p.evaluate(() => [...document.querySelectorAll('.pn-model optgroup')].map(g => `${g.label}:${g.children.length}`).join(','));
-  check(groups === 'Your devices:11,Other reference layouts:6', `the switch picker is grouped (${groups})`);
+  // The picker lists only the team's devices: no reference layouts or generic patterns.
+  const picker = await p.evaluate(() => ({ n: document.querySelectorAll('.pn-model option').length, groups: document.querySelectorAll('.pn-model optgroup').length, ref: [...document.querySelectorAll('.pn-model option')].some(o => /7060|generic/.test(o.value)) }));
+  check(picker.n === 11 && !picker.groups && !picker.ref, `the switch picker lists the 11 team devices only (${picker.n} options)`);
 
   // Installed optic: record one in QM cage 2, then copper ports refuse one.
   await pick('nvidia-qm9700');
