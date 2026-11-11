@@ -28,7 +28,7 @@ I built this mainly for myself, for two reasons:
 | [`agents/coding-agent.md`](agents/coding-agent.md) | My general instructions for AI coding agents. They include a **teach-as-you-go** mode, because I'm learning the languages. |
 | [`agents/chat-instructions.md`](agents/chat-instructions.md) | The same preferences, written for chat assistants. Includes a short version for fields limited to 1,500 characters. |
 | `cases/` | Per-incident working folders (`cases/<ticket-or-hostname>/`) for logs and a `summary.md`. |
-| `scripts/` | Read-only diagnostic collection helpers (still empty). |
+| `scripts/` | `check-source-links.js` (reports dead or moved source links on the cards; needs internet), plus the `--help` capture helpers. |
 
 ### Open the Site
 - **Normally:** open `index.html` in a browser. It opens on Mission Control, with Field notes for the server you are working on (saved as Markdown to `cases/` or an Obsidian vault).

@@ -59,7 +59,7 @@ const CHEAT_SHEET_DATA = [
           ["cat /sys/class/dmi/id/product_name /sys/class/dmi/id/product_serial", "Read product name and serial without root if permissions allow (/sys/class/dmi/id/)"]
         ],
         tags: ["psu", "power-supply", "cpu", "socket", "dmidecode", "datacenter"],
-        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html", "title": "dmidecode(8)"}, {"url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-dmi", "title": "Kernel ABI: sysfs-class-dmi"}], "note": "Many servers leave DMI Type 39 empty: check PSUs in the BMC (ipmitool sdr type 'Power Supply') if it prints nothing. product_serial in /sys/class/dmi/id is usually root-only."}
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html", "title": "dmidecode(8)"}, {"url": "https://github.com/torvalds/linux/blob/master/drivers/firmware/dmi-id.c", "title": "Linux drivers/firmware/dmi-id.c (/sys/class/dmi/id; product_serial and product_uuid are 0400)"}], "note": "Many servers leave DMI Type 39 empty: check PSUs in the BMC (ipmitool sdr type 'Power Supply') if it prints nothing. product_serial in /sys/class/dmi/id is usually root-only."}
       },
       {
         id: "lshw-hardware-tree",

@@ -234,8 +234,8 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "dmidecode(8)"
         },
         {
-          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-dmi",
-          "title": "Kernel ABI: sysfs-class-dmi"
+          "url": "https://github.com/torvalds/linux/blob/master/drivers/firmware/dmi-id.c",
+          "title": "Linux drivers/firmware/dmi-id.c (/sys/class/dmi/id; product_serial and product_uuid are 0400)"
         }
       ],
       "note": "Many servers leave DMI Type 39 empty: check PSUs in the BMC (ipmitool sdr type 'Power Supply') if it prints nothing. product_serial in /sys/class/dmi/id is usually root-only."
@@ -260,8 +260,8 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "dmidecode(8)"
         },
         {
-          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-dmi",
-          "title": "Kernel ABI: sysfs-class-dmi"
+          "url": "https://github.com/torvalds/linux/blob/master/drivers/firmware/dmi-id.c",
+          "title": "Linux drivers/firmware/dmi-id.c (/sys/class/dmi/id; product_serial and product_uuid are 0400)"
         }
       ],
       "note": "Many servers leave DMI Type 39 empty: check PSUs in the BMC (ipmitool sdr type 'Power Supply') if it prints nothing. product_serial in /sys/class/dmi/id is usually root-only."
@@ -286,8 +286,8 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "dmidecode(8)"
         },
         {
-          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-dmi",
-          "title": "Kernel ABI: sysfs-class-dmi"
+          "url": "https://github.com/torvalds/linux/blob/master/drivers/firmware/dmi-id.c",
+          "title": "Linux drivers/firmware/dmi-id.c (/sys/class/dmi/id; product_serial and product_uuid are 0400)"
         }
       ],
       "note": "Many servers leave DMI Type 39 empty: check PSUs in the BMC (ipmitool sdr type 'Power Supply') if it prints nothing. product_serial in /sys/class/dmi/id is usually root-only."
@@ -14634,7 +14634,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "kubectl scale"
         },
         {
-          "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+          "url": "https://kubernetes.io/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/",
           "title": "Kubernetes: HPA"
         }
       ]
@@ -14659,7 +14659,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "kubectl scale"
         },
         {
-          "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+          "url": "https://kubernetes.io/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/",
           "title": "Kubernetes: HPA"
         }
       ]
@@ -14684,7 +14684,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "kubectl scale"
         },
         {
-          "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+          "url": "https://kubernetes.io/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/",
           "title": "Kubernetes: HPA"
         }
       ]
@@ -17281,7 +17281,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Cursor changelog"
         },
         {
-          "url": "https://cursor.com/docs/context/rules",
+          "url": "https://cursor.com/docs/rules",
           "title": "Cursor: rules"
         }
       ]
@@ -18053,11 +18053,11 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://juniper.net/documentation/en_US/junos13.2/topics/reference/command-summary/show-interfaces-diagnostics-optics-10-gigabit-ethernet.html",
+          "url": "https://networkingdocs.hpe.com/documentation/en_US/junos13.2/topics/reference/command-summary/show-interfaces-diagnostics-optics-10-gigabit-ethernet.html",
           "title": "Junos: show interfaces diagnostics optics"
         },
         {
-          "url": "https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/command/show-chassis-pic.html",
+          "url": "https://networkingdocs.hpe.com/documentation/us/en/software/junos/cli-reference/topics/ref/command/show-chassis-pic.html",
           "title": "Junos: show chassis pic"
         }
       ],
@@ -18852,7 +18852,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "NVIDIA ConnectX-7 firmware 28.39.3004 LTS release notes"
         },
         {
-          "url": "https://docs.nvidia.com/networking/display/bluefield3firmwarev32394082lts",
+          "url": "https://networking-docs.nvidia.com/bluefield3fwrn/32394082lts",
           "title": "NVIDIA BlueField-3 firmware 32.39.4082 LTS release notes"
         }
       ],
@@ -23381,7 +23381,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "OCP Open Rack V3 base specification"
         },
         {
-          "url": "https://www.opencompute.org/wiki/Rack_&_Power",
+          "url": "https://www.opencompute.org/projects/rack-and-power/",
           "title": "OCP Rack & Power"
         }
       ]
@@ -23831,7 +23831,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.nvidia.com/doca/sdk/nvidia-sm",
+          "url": "https://networking-docs.nvidia.com/doca/archive/3-5-0/nvidia-sm",
           "title": "NVIDIA DOCA: NVIDIA SM / OpenSM (service opensmd start)"
         },
         {
@@ -24064,15 +24064,15 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.nvidia.com/networking/display/ibdiagnetutilityv2250/IBDIAGNET-Output-Control",
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2250/ibdiagnet-output-control",
           "title": "NVIDIA IBUtils2 2.25: ibdiagnet output control (default /var/tmp/ibdiagnet2/)"
         },
         {
-          "url": "https://docs.nvidia.com/networking/display/ibdiagnetutilityv2250/IBDIAGNET-Dump-Files",
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2250/ibdiagnet-dump-files",
           "title": "NVIDIA IBUtils2 2.25: ibdiagnet dump files (ibdiagnet2.log)"
         },
         {
-          "url": "https://docs.nvidia.com/networking/display/ibdiagnetutilityv2240/warnings-and-errors-printing-policy",
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2240/warnings-and-errors-printing-policy",
           "title": "NVIDIA IBUtils2 2.24: warnings and errors printing policy"
         },
         {
@@ -30599,7 +30599,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Fabric Manager user guide"
         },
         {
-          "url": "https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html",
+          "url": "https://docs.nvidia.com/cuda/cuda-runtime-api/cuda_runtime_api/group__CUDART__TYPES.html",
           "title": "CUDA runtime error codes"
         }
       ]
@@ -31111,11 +31111,11 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
           "title": "Omarchy 4.5.0: utilities.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua",
           "title": "Omarchy 4.5.0: applications.lua"
         }
       ],
@@ -31137,7 +31137,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua",
           "title": "Omarchy 4.5.0: applications.lua"
         }
       ],
@@ -31159,11 +31159,11 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua",
           "title": "Omarchy 4.5.0: applications.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
           "title": "Omarchy 4.5.0: utilities.lua"
         }
       ],
@@ -31185,19 +31185,19 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua",
           "title": "Omarchy 4.5.0: applications.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/config/hypr/bindings.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/config/hypr/bindings.lua",
           "title": "Omarchy 4.5.0: user bindings.lua template"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/chromium/extensions/copy-url/manifest.json",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/chromium/extensions/copy-url/manifest.json",
           "title": "Omarchy 4.5.0: copy-url extension"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/chromium/extensions/yt-dlp/manifest.json",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/chromium/extensions/yt-dlp/manifest.json",
           "title": "Omarchy 4.5.0: yt-dlp extension"
         }
       ],
@@ -31219,11 +31219,11 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
           "title": "Omarchy 4.5.0: tiling.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
           "title": "Omarchy 4.5.0: utilities.lua"
         }
       ],
@@ -31245,7 +31245,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
           "title": "Omarchy 4.5.0: tiling.lua"
         }
       ],
@@ -31267,7 +31267,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
           "title": "Omarchy 4.5.0: tiling.lua"
         }
       ],
@@ -31289,11 +31289,11 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
           "title": "Omarchy 4.5.0: utilities.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
           "title": "Omarchy 4.5.0: tiling.lua"
         }
       ],
@@ -31315,7 +31315,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
           "title": "Omarchy 4.5.0: tiling.lua"
         }
       ],
@@ -31337,7 +31337,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
           "title": "Omarchy 4.5.0: tiling.lua"
         }
       ],
@@ -31359,7 +31359,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
           "title": "Omarchy 4.5.0: tiling.lua"
         }
       ],
@@ -31381,11 +31381,11 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
           "title": "Omarchy 4.5.0: tiling.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
           "title": "Omarchy 4.5.0: utilities.lua"
         }
       ],
@@ -31407,7 +31407,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
           "title": "Omarchy 4.5.0: utilities.lua"
         }
       ],
@@ -31429,11 +31429,11 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
           "title": "Omarchy 4.5.0: utilities.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/bin/omarchy-capture-region",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/bin/omarchy-capture-region",
           "title": "Omarchy 4.5.0: omarchy-capture-region"
         }
       ],
@@ -31455,19 +31455,19 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/clipboard.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/clipboard.lua",
           "title": "Omarchy 4.5.0: clipboard.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/dictation.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/dictation.lua",
           "title": "Omarchy 4.5.0: dictation.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/input-method.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/input-method.lua",
           "title": "Omarchy 4.5.0: input-method.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/config/hypr/bindings.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/config/hypr/bindings.lua",
           "title": "Omarchy 4.5.0: user bindings.lua template"
         }
       ],
@@ -31489,7 +31489,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
           "title": "Omarchy 4.5.0: utilities.lua"
         }
       ],
@@ -31511,7 +31511,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/media.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/media.lua",
           "title": "Omarchy 4.5.0: media.lua"
         }
       ],
@@ -31533,7 +31533,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/media.lua",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/media.lua",
           "title": "Omarchy 4.5.0: media.lua"
         }
       ],
@@ -31555,15 +31555,15 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/config/ghostty/config",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/config/ghostty/config",
           "title": "Omarchy 4.5.0: Ghostty config"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/config/alacritty/alacritty.toml",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/config/alacritty/alacritty.toml",
           "title": "Omarchy 4.5.0: Alacritty config"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/config/foot/foot.ini",
+          "url": "https://github.com/omacom/omarchy/blob/v4.5.0/config/foot/foot.ini",
           "title": "Omarchy 4.5.0: foot config"
         }
       ],
@@ -33519,7 +33519,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "url": "https://docs.python.org/3/builtins/stdtypes.html",
           "title": "Python: built-in types"
         },
         {
@@ -33548,7 +33548,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "url": "https://docs.python.org/3/builtins/stdtypes.html",
           "title": "Python: built-in types"
         },
         {
@@ -33577,7 +33577,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "url": "https://docs.python.org/3/builtins/stdtypes.html",
           "title": "Python: built-in types"
         },
         {
@@ -33606,7 +33606,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "url": "https://docs.python.org/3/builtins/stdtypes.html",
           "title": "Python: built-in types"
         },
         {
@@ -33639,7 +33639,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Python tutorial: data structures"
         },
         {
-          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "url": "https://docs.python.org/3/builtins/stdtypes.html",
           "title": "Python: built-in types"
         }
       ]
@@ -33664,7 +33664,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Python tutorial: data structures"
         },
         {
-          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "url": "https://docs.python.org/3/builtins/stdtypes.html",
           "title": "Python: built-in types"
         }
       ]
@@ -33689,7 +33689,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Python tutorial: data structures"
         },
         {
-          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "url": "https://docs.python.org/3/builtins/stdtypes.html",
           "title": "Python: built-in types"
         }
       ]
@@ -33714,7 +33714,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Python tutorial: data structures"
         },
         {
-          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "url": "https://docs.python.org/3/builtins/stdtypes.html",
           "title": "Python: built-in types"
         }
       ]
@@ -33739,11 +33739,11 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Python: compound statements (if, for, match, def)"
         },
         {
-          "url": "https://docs.python.org/3/library/functions.html",
+          "url": "https://docs.python.org/3/builtins/functions.html",
           "title": "Python: built-in functions (enumerate, zip, any, all)"
         },
         {
-          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "url": "https://docs.python.org/3/builtins/stdtypes.html",
           "title": "Python: built-in types"
         }
       ]
@@ -33768,11 +33768,11 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Python: compound statements (if, for, match, def)"
         },
         {
-          "url": "https://docs.python.org/3/library/functions.html",
+          "url": "https://docs.python.org/3/builtins/functions.html",
           "title": "Python: built-in functions (enumerate, zip, any, all)"
         },
         {
-          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "url": "https://docs.python.org/3/builtins/stdtypes.html",
           "title": "Python: built-in types"
         }
       ]
@@ -33797,11 +33797,11 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Python: compound statements (if, for, match, def)"
         },
         {
-          "url": "https://docs.python.org/3/library/functions.html",
+          "url": "https://docs.python.org/3/builtins/functions.html",
           "title": "Python: built-in functions (enumerate, zip, any, all)"
         },
         {
-          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "url": "https://docs.python.org/3/builtins/stdtypes.html",
           "title": "Python: built-in types"
         }
       ]
@@ -33826,11 +33826,11 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Python: compound statements (if, for, match, def)"
         },
         {
-          "url": "https://docs.python.org/3/library/functions.html",
+          "url": "https://docs.python.org/3/builtins/functions.html",
           "title": "Python: built-in functions (enumerate, zip, any, all)"
         },
         {
-          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "url": "https://docs.python.org/3/builtins/stdtypes.html",
           "title": "Python: built-in types"
         }
       ]
@@ -33905,7 +33905,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Python: compound statements (if, for, match, def)"
         },
         {
-          "url": "https://docs.python.org/3/library/functions.html",
+          "url": "https://docs.python.org/3/builtins/functions.html",
           "title": "Python: built-in functions (enumerate, zip, any, all)"
         }
       ]
@@ -33930,7 +33930,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Python: compound statements (if, for, match, def)"
         },
         {
-          "url": "https://docs.python.org/3/library/functions.html",
+          "url": "https://docs.python.org/3/builtins/functions.html",
           "title": "Python: built-in functions (enumerate, zip, any, all)"
         }
       ]
@@ -33955,7 +33955,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Python: compound statements (if, for, match, def)"
         },
         {
-          "url": "https://docs.python.org/3/library/functions.html",
+          "url": "https://docs.python.org/3/builtins/functions.html",
           "title": "Python: built-in functions (enumerate, zip, any, all)"
         }
       ]
@@ -33980,7 +33980,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "Python: compound statements (if, for, match, def)"
         },
         {
-          "url": "https://docs.python.org/3/library/functions.html",
+          "url": "https://docs.python.org/3/builtins/functions.html",
           "title": "Python: built-in functions (enumerate, zip, any, all)"
         }
       ]
@@ -36215,7 +36215,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+          "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/bindings.lua",
           "title": "Omarchy: bindings.lua"
         },
         {
@@ -36249,7 +36249,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+          "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/bindings.lua",
           "title": "Omarchy: bindings.lua"
         },
         {
@@ -36283,7 +36283,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+          "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/bindings.lua",
           "title": "Omarchy: bindings.lua"
         },
         {
@@ -36317,7 +36317,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+          "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/bindings.lua",
           "title": "Omarchy: bindings.lua"
         },
         {
@@ -37256,15 +37256,15 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+          "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/bindings.lua",
           "title": "Omarchy: bindings.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/looknfeel.lua",
+          "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/looknfeel.lua",
           "title": "Omarchy: looknfeel.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/hyprland.lua",
+          "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/hyprland.lua",
           "title": "Omarchy: hyprland.lua (require order)"
         },
         {
@@ -37290,15 +37290,15 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+          "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/bindings.lua",
           "title": "Omarchy: bindings.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/looknfeel.lua",
+          "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/looknfeel.lua",
           "title": "Omarchy: looknfeel.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/hyprland.lua",
+          "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/hyprland.lua",
           "title": "Omarchy: hyprland.lua (require order)"
         },
         {
@@ -37324,15 +37324,15 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+          "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/bindings.lua",
           "title": "Omarchy: bindings.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/looknfeel.lua",
+          "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/looknfeel.lua",
           "title": "Omarchy: looknfeel.lua"
         },
         {
-          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/hyprland.lua",
+          "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/hyprland.lua",
           "title": "Omarchy: hyprland.lua (require order)"
         },
         {
@@ -44466,7 +44466,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "GitHub Flavored Markdown spec"
         },
         {
-          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists",
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-tasklists",
           "title": "GitHub: task lists"
         },
         {
@@ -44495,7 +44495,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "GitHub Flavored Markdown spec"
         },
         {
-          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists",
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-tasklists",
           "title": "GitHub: task lists"
         },
         {
@@ -44524,7 +44524,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "GitHub Flavored Markdown spec"
         },
         {
-          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists",
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-tasklists",
           "title": "GitHub: task lists"
         },
         {
@@ -45356,7 +45356,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "GitHub Flavored Markdown spec"
         },
         {
-          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists",
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-tasklists",
           "title": "GitHub: task lists"
         }
       ]
@@ -45381,7 +45381,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "GitHub Flavored Markdown spec"
         },
         {
-          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists",
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-tasklists",
           "title": "GitHub: task lists"
         }
       ]
@@ -47123,15 +47123,15 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible.html",
           "title": "ansible CLI"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_patterns.html",
           "title": "Ansible: patterns"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-inventory.html",
           "title": "ansible-inventory"
         }
       ]
@@ -47152,15 +47152,15 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible.html",
           "title": "ansible CLI"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_patterns.html",
           "title": "Ansible: patterns"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-inventory.html",
           "title": "ansible-inventory"
         }
       ]
@@ -47181,15 +47181,15 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible.html",
           "title": "ansible CLI"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_patterns.html",
           "title": "Ansible: patterns"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-inventory.html",
           "title": "ansible-inventory"
         }
       ]
@@ -47210,11 +47210,11 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible.html",
           "title": "ansible CLI"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/shell_module.html",
           "title": "ansible.builtin.shell"
         }
       ]
@@ -47235,11 +47235,11 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible.html",
           "title": "ansible CLI"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/shell_module.html",
           "title": "ansible.builtin.shell"
         }
       ]
@@ -47260,11 +47260,11 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-playbook.html",
           "title": "ansible-playbook"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_checkmode.html",
           "title": "Ansible: check mode"
         }
       ]
@@ -47285,11 +47285,11 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-playbook.html",
           "title": "ansible-playbook"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_checkmode.html",
           "title": "Ansible: check mode"
         }
       ]
@@ -47310,11 +47310,11 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-playbook.html",
           "title": "ansible-playbook"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_checkmode.html",
           "title": "Ansible: check mode"
         }
       ]
@@ -47335,11 +47335,11 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-playbook.html",
           "title": "ansible-playbook"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_checkmode.html",
           "title": "Ansible: check mode"
         }
       ]
@@ -47360,7 +47360,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-vault.html",
           "title": "ansible-vault"
         }
       ]
@@ -47381,7 +47381,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-vault.html",
           "title": "ansible-vault"
         }
       ]
@@ -47402,7 +47402,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-vault.html",
           "title": "ansible-vault"
         }
       ]
@@ -47423,19 +47423,19 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-doc.html",
           "title": "ansible-doc"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-config.html",
           "title": "ansible-config"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-galaxy.html",
           "title": "ansible-galaxy"
         },
         {
-          "url": "https://ansible.readthedocs.io/projects/lint/",
+          "url": "https://docs.ansible.com/projects/lint/",
           "title": "ansible-lint"
         }
       ]
@@ -47456,19 +47456,19 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-doc.html",
           "title": "ansible-doc"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-config.html",
           "title": "ansible-config"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-galaxy.html",
           "title": "ansible-galaxy"
         },
         {
-          "url": "https://ansible.readthedocs.io/projects/lint/",
+          "url": "https://docs.ansible.com/projects/lint/",
           "title": "ansible-lint"
         }
       ]
@@ -47489,19 +47489,19 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-doc.html",
           "title": "ansible-doc"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-config.html",
           "title": "ansible-config"
         },
         {
-          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-galaxy.html",
           "title": "ansible-galaxy"
         },
         {
-          "url": "https://ansible.readthedocs.io/projects/lint/",
+          "url": "https://docs.ansible.com/projects/lint/",
           "title": "ansible-lint"
         }
       ]
@@ -47522,7 +47522,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/setup_module.html",
+          "url": "https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/setup_module.html",
           "title": "ansible.builtin.setup"
         }
       ]
@@ -47806,7 +47806,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://developer.hashicorp.com/terraform/language/moved",
+          "url": "https://developer.hashicorp.com/terraform/language/block/moved",
           "title": "Terraform: moved block"
         },
         {
@@ -51016,7 +51016,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "url": "https://support.microsoft.com/en-us/accessibility/windows/keyboard-shortcuts-in-windows",
           "title": "Microsoft: keyboard shortcuts in Windows"
         }
       ],
@@ -51039,7 +51039,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "url": "https://support.microsoft.com/en-us/accessibility/windows/keyboard-shortcuts-in-windows",
           "title": "Microsoft: keyboard shortcuts in Windows"
         }
       ]
@@ -51061,7 +51061,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "url": "https://support.microsoft.com/en-us/accessibility/windows/keyboard-shortcuts-in-windows",
           "title": "Microsoft: keyboard shortcuts in Windows"
         }
       ]
@@ -51083,15 +51083,15 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "url": "https://support.microsoft.com/en-us/accessibility/windows/keyboard-shortcuts-in-windows",
           "title": "Microsoft: keyboard shortcuts in Windows"
         },
         {
-          "url": "https://support.microsoft.com/en-us/windows/use-snipping-tool-to-capture-screenshots-00246869-1843-655f-f220-97299b865f6b",
+          "url": "https://support.microsoft.com/en-us/windows/apps/use-snipping-tool-to-capture-screenshots",
           "title": "Microsoft: Snipping Tool"
         },
         {
-          "url": "https://support.microsoft.com/en-us/windows/clipboard-in-windows-c436501e-985d-1c8d-97ea-fe46ddf338c6",
+          "url": "https://support.microsoft.com/en-us/windows/apps/using-the-clipboard",
           "title": "Microsoft: clipboard history"
         }
       ],
@@ -51114,7 +51114,7 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "url": "https://support.microsoft.com/en-us/accessibility/windows/keyboard-shortcuts-in-windows",
           "title": "Microsoft: keyboard shortcuts in Windows"
         },
         {
@@ -51140,15 +51140,15 @@ window.GLOBAL_SEARCH_INDEX = [
       "verified": "2026-11-10",
       "refs": [
         {
-          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "url": "https://support.microsoft.com/en-us/accessibility/windows/keyboard-shortcuts-in-windows",
           "title": "Microsoft: keyboard shortcuts in Windows"
         },
         {
-          "url": "https://support.microsoft.com/en-us/windows/use-snipping-tool-to-capture-screenshots-00246869-1843-655f-f220-97299b865f6b",
+          "url": "https://support.microsoft.com/en-us/windows/apps/use-snipping-tool-to-capture-screenshots",
           "title": "Microsoft: Snipping Tool"
         },
         {
-          "url": "https://support.microsoft.com/en-us/windows/clipboard-in-windows-c436501e-985d-1c8d-97ea-fe46ddf338c6",
+          "url": "https://support.microsoft.com/en-us/windows/apps/using-the-clipboard",
           "title": "Microsoft: clipboard history"
         }
       ]

@@ -2178,7 +2178,7 @@ const HWREF_HUB_DATA = [
               "title": "OCP Open Rack V3 base specification"
             },
             {
-              "url": "https://www.opencompute.org/wiki/Rack_&_Power",
+              "url": "https://www.opencompute.org/projects/rack-and-power/",
               "title": "OCP Rack & Power"
             }
           ]

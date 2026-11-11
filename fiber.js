@@ -60,7 +60,7 @@ const FIBER_CHEAT_SHEET_DATA = [
           ["Junos: show interfaces diagnostics optics et-0/0/0", "Displays per-lane laser output/receiver power and alarm flags on Junos"]
         ],
         tags: ["arista", "eos", "cisco", "nxos", "juniper", "junos", "switch"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://juniper.net/documentation/en_US/junos13.2/topics/reference/command-summary/show-interfaces-diagnostics-optics-10-gigabit-ethernet.html","title":"Junos: show interfaces diagnostics optics"},{"url":"https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/command/show-chassis-pic.html","title":"Junos: show chassis pic"}],"note":"Arista and Cisco documentation refuse automated requests; their syntax was not re-checked here."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://networkingdocs.hpe.com/documentation/en_US/junos13.2/topics/reference/command-summary/show-interfaces-diagnostics-optics-10-gigabit-ethernet.html","title":"Junos: show interfaces diagnostics optics"},{"url":"https://networkingdocs.hpe.com/documentation/us/en/software/junos/cli-reference/topics/ref/command/show-chassis-pic.html","title":"Junos: show chassis pic"}],"note":"Arista and Cisco documentation refuse automated requests; their syntax was not re-checked here."}
       }
     ]
   },
@@ -1165,7 +1165,7 @@ const FIBER_CHEAT_SHEET_DATA = [
               "title": "NVIDIA ConnectX-7 firmware 28.39.3004 LTS release notes"
             },
             {
-              "url": "https://docs.nvidia.com/networking/display/bluefield3firmwarev32394082lts",
+              "url": "https://networking-docs.nvidia.com/bluefield3fwrn/32394082lts",
               "title": "NVIDIA BlueField-3 firmware 32.39.4082 LTS release notes"
             }
           ],

@@ -55,6 +55,8 @@ src: { verified: '2026-11-09', refs: [{ url: 'https://docs.vendor.com/…', titl
 
 A recipe in a command's `subcommands` list can carry its own source as a third element (`[cmd, desc, src]`); otherwise it shares its command's. On the group pages a recipe is a row inside its card; where its source differs from the card's (or it is not confirmed), the row gets its own source line. `build-index.js` carries it into the search index and `common.js` draws the line under the command (`initSources`), on the sheets, the hub and the portable copy. Only `https://` links are shown.
 
+**Checking the source links** (needs internet; not part of the test suite): `node scripts/check-source-links.js` requests every `refs[].url` once and lists the ones that are `dead` (404/410), `moved` (now answer at another address: update the card), `blocked` (401/403/406/429 or a bot check: open it in a browser) or `error` (timeouts after one retry, 5xx). It exits 1 when any link is dead. `--host docs.nvidia.com` checks one site; `--json out.json` saves every result. Only status codes are read, so a bot check served at the same address passes as ok (git.kernel.org): cite the GitHub `torvalds/linux` mirror where you can.
+
 ## Use it on a rack
 
 1. Fill in **Rack Targets** at the top: BMC address, user, password, NIC, HCA, disk and GPU index.

@@ -1017,7 +1017,7 @@ const SCRIPTING_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.python.org/3/library/stdtypes.html",
+              "url": "https://docs.python.org/3/builtins/stdtypes.html",
               "title": "Python: built-in types"
             },
             {
@@ -1089,7 +1089,7 @@ const SCRIPTING_DATA = [
               "title": "Python tutorial: data structures"
             },
             {
-              "url": "https://docs.python.org/3/library/stdtypes.html",
+              "url": "https://docs.python.org/3/builtins/stdtypes.html",
               "title": "Python: built-in types"
             }
           ]
@@ -1162,11 +1162,11 @@ const SCRIPTING_DATA = [
               "title": "Python: compound statements (if, for, match, def)"
             },
             {
-              "url": "https://docs.python.org/3/library/functions.html",
+              "url": "https://docs.python.org/3/builtins/functions.html",
               "title": "Python: built-in functions (enumerate, zip, any, all)"
             },
             {
-              "url": "https://docs.python.org/3/library/stdtypes.html",
+              "url": "https://docs.python.org/3/builtins/stdtypes.html",
               "title": "Python: built-in types"
             }
           ]
@@ -1289,7 +1289,7 @@ const SCRIPTING_DATA = [
               "title": "Python: compound statements (if, for, match, def)"
             },
             {
-              "url": "https://docs.python.org/3/library/functions.html",
+              "url": "https://docs.python.org/3/builtins/functions.html",
               "title": "Python: built-in functions (enumerate, zip, any, all)"
             }
           ]
@@ -3065,7 +3065,7 @@ const SCRIPTING_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+              "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/bindings.lua",
               "title": "Omarchy: bindings.lua"
             },
             {
@@ -3853,15 +3853,15 @@ const SCRIPTING_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+              "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/bindings.lua",
               "title": "Omarchy: bindings.lua"
             },
             {
-              "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/looknfeel.lua",
+              "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/looknfeel.lua",
               "title": "Omarchy: looknfeel.lua"
             },
             {
-              "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/hyprland.lua",
+              "url": "https://github.com/omacom/omarchy/blob/quattro/config/hypr/hyprland.lua",
               "title": "Omarchy: hyprland.lua (require order)"
             },
             {
@@ -8382,7 +8382,7 @@ const SCRIPTING_DATA = [
               "title": "GitHub Flavored Markdown spec"
             },
             {
-              "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists",
+              "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-tasklists",
               "title": "GitHub: task lists"
             },
             {
@@ -9122,7 +9122,7 @@ const SCRIPTING_DATA = [
               "title": "GitHub Flavored Markdown spec"
             },
             {
-              "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists",
+              "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-tasklists",
               "title": "GitHub: task lists"
             }
           ]

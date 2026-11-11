@@ -2269,7 +2269,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
               "title": "Cursor changelog"
             },
             {
-              "url": "https://cursor.com/docs/context/rules",
+              "url": "https://cursor.com/docs/rules",
               "title": "Cursor: rules"
             }
           ]

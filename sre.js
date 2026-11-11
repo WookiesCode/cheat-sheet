@@ -684,15 +684,15 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible.html",
               "title": "ansible CLI"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_patterns.html",
               "title": "Ansible: patterns"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-inventory.html",
               "title": "ansible-inventory"
             }
           ]
@@ -715,15 +715,15 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible.html",
               "title": "ansible CLI"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_patterns.html",
               "title": "Ansible: patterns"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-inventory.html",
               "title": "ansible-inventory"
             }
           ]
@@ -746,15 +746,15 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible.html",
               "title": "ansible CLI"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_patterns.html",
               "title": "Ansible: patterns"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-inventory.html",
               "title": "ansible-inventory"
             }
           ]
@@ -810,11 +810,11 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible.html",
               "title": "ansible CLI"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/shell_module.html",
               "title": "ansible.builtin.shell"
             }
           ]
@@ -837,11 +837,11 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible.html",
               "title": "ansible CLI"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/shell_module.html",
               "title": "ansible.builtin.shell"
             }
           ]
@@ -902,11 +902,11 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-playbook.html",
               "title": "ansible-playbook"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_checkmode.html",
               "title": "Ansible: check mode"
             }
           ]
@@ -929,11 +929,11 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-playbook.html",
               "title": "ansible-playbook"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_checkmode.html",
               "title": "Ansible: check mode"
             }
           ]
@@ -956,11 +956,11 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-playbook.html",
               "title": "ansible-playbook"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_checkmode.html",
               "title": "Ansible: check mode"
             }
           ]
@@ -983,11 +983,11 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-playbook.html",
               "title": "ansible-playbook"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_checkmode.html",
               "title": "Ansible: check mode"
             }
           ]
@@ -1043,7 +1043,7 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-vault.html",
               "title": "ansible-vault"
             }
           ]
@@ -1066,7 +1066,7 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-vault.html",
               "title": "ansible-vault"
             }
           ]
@@ -1089,7 +1089,7 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-vault.html",
               "title": "ansible-vault"
             }
           ]
@@ -1141,19 +1141,19 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-doc.html",
               "title": "ansible-doc"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-config.html",
               "title": "ansible-config"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-galaxy.html",
               "title": "ansible-galaxy"
             },
             {
-              "url": "https://ansible.readthedocs.io/projects/lint/",
+              "url": "https://docs.ansible.com/projects/lint/",
               "title": "ansible-lint"
             }
           ]
@@ -1176,19 +1176,19 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-doc.html",
               "title": "ansible-doc"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-config.html",
               "title": "ansible-config"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-galaxy.html",
               "title": "ansible-galaxy"
             },
             {
-              "url": "https://ansible.readthedocs.io/projects/lint/",
+              "url": "https://docs.ansible.com/projects/lint/",
               "title": "ansible-lint"
             }
           ]
@@ -1211,19 +1211,19 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-doc.html",
               "title": "ansible-doc"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-config.html",
               "title": "ansible-config"
             },
             {
-              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/cli/ansible-galaxy.html",
               "title": "ansible-galaxy"
             },
             {
-              "url": "https://ansible.readthedocs.io/projects/lint/",
+              "url": "https://docs.ansible.com/projects/lint/",
               "title": "ansible-lint"
             }
           ]
@@ -1265,7 +1265,7 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/setup_module.html",
+              "url": "https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/setup_module.html",
               "title": "ansible.builtin.setup"
             }
           ]
@@ -1688,7 +1688,7 @@ const SRE_HUB_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://developer.hashicorp.com/terraform/language/moved",
+              "url": "https://developer.hashicorp.com/terraform/language/block/moved",
               "title": "Terraform: moved block"
             },
             {

@@ -20,7 +20,7 @@ const WINDOWS_CHEAT_SHEET_DATA = [
         ],
         tip: "Win+X = right-click on Start",
         tags: ["admin", "elevate", "task-manager", "shutdown", "menu", "terminal"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec","title":"Microsoft: keyboard shortcuts in Windows"}],"note":"Corrected 2026-11-10: the Win+X letter shortcuts were wrong (I is Terminal, not Terminal (Admin)) and are not in Microsoft's list; Ctrl+Shift+Enter (run elevated) isn't in it either."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.microsoft.com/en-us/accessibility/windows/keyboard-shortcuts-in-windows","title":"Microsoft: keyboard shortcuts in Windows"}],"note":"Corrected 2026-11-10: the Win+X letter shortcuts were wrong (I is Terminal, not Terminal (Admin)) and are not in Microsoft's list; Ctrl+Shift+Enter (run elevated) isn't in it either."}
       },
       {
         id: "win-snap-multimonitor",
@@ -35,7 +35,7 @@ const WINDOWS_CHEAT_SHEET_DATA = [
           ["Win+Home / Win+D", "Minimize all windows except active one / Show Desktop"]
         ],
         tags: ["snap", "tile", "monitor", "layout", "minimize", "desktop"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec","title":"Microsoft: keyboard shortcuts in Windows"}]}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.microsoft.com/en-us/accessibility/windows/keyboard-shortcuts-in-windows","title":"Microsoft: keyboard shortcuts in Windows"}]}
       },
       {
         id: "win-virtual-desktops",
@@ -50,7 +50,7 @@ const WINDOWS_CHEAT_SHEET_DATA = [
           ["Win+Ctrl+F4", "Close current Virtual Desktop (moves open windows to neighbor)"]
         ],
         tags: ["virtual-desktop", "workspaces", "task-view", "switch"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec","title":"Microsoft: keyboard shortcuts in Windows"}]}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.microsoft.com/en-us/accessibility/windows/keyboard-shortcuts-in-windows","title":"Microsoft: keyboard shortcuts in Windows"}]}
       },
       {
         id: "win-clipboard-capture-gpu",
@@ -66,7 +66,7 @@ const WINDOWS_CHEAT_SHEET_DATA = [
         ],
         tip: "Win+Ctrl+Shift+B fixes black screens",
         tags: ["clipboard", "screenshot", "snip", "record", "gpu", "audio"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec","title":"Microsoft: keyboard shortcuts in Windows"},{"url":"https://support.microsoft.com/en-us/windows/use-snipping-tool-to-capture-screenshots-00246869-1843-655f-f220-97299b865f6b","title":"Microsoft: Snipping Tool"},{"url":"https://support.microsoft.com/en-us/windows/clipboard-in-windows-c436501e-985d-1c8d-97ea-fe46ddf338c6","title":"Microsoft: clipboard history"}],"note":"Microsoft describes Win+Ctrl+Shift+B as waking the PC from a blank or black screen."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.microsoft.com/en-us/accessibility/windows/keyboard-shortcuts-in-windows","title":"Microsoft: keyboard shortcuts in Windows"},{"url":"https://support.microsoft.com/en-us/windows/apps/use-snipping-tool-to-capture-screenshots","title":"Microsoft: Snipping Tool"},{"url":"https://support.microsoft.com/en-us/windows/apps/using-the-clipboard","title":"Microsoft: clipboard history"}],"note":"Microsoft describes Win+Ctrl+Shift+B as waking the PC from a blank or black screen."}
       },
       {
         id: "win-explorer-power-tricks",
@@ -82,7 +82,7 @@ const WINDOWS_CHEAT_SHEET_DATA = [
         ],
         tip: "Alt+D -> wt opens shell here",
         tags: ["explorer", "path", "copy", "terminal", "folder", "preview"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec","title":"Microsoft: keyboard shortcuts in Windows"},{"url":"https://blogs.windows.com/windows-insider/2021/09/22/announcing-windows-11-insider-preview-build-22463/","title":"Windows Insider build 22463 (Ctrl+Shift+C)"}]}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.microsoft.com/en-us/accessibility/windows/keyboard-shortcuts-in-windows","title":"Microsoft: keyboard shortcuts in Windows"},{"url":"https://blogs.windows.com/windows-insider/2021/09/22/announcing-windows-11-insider-preview-build-22463/","title":"Windows Insider build 22463 (Ctrl+Shift+C)"}]}
       }
     ]
   },
@@ -121,15 +121,15 @@ const WINDOWS_CHEAT_SHEET_DATA = [
           "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+              "url": "https://support.microsoft.com/en-us/accessibility/windows/keyboard-shortcuts-in-windows",
               "title": "Microsoft: keyboard shortcuts in Windows"
             },
             {
-              "url": "https://support.microsoft.com/en-us/windows/use-snipping-tool-to-capture-screenshots-00246869-1843-655f-f220-97299b865f6b",
+              "url": "https://support.microsoft.com/en-us/windows/apps/use-snipping-tool-to-capture-screenshots",
               "title": "Microsoft: Snipping Tool"
             },
             {
-              "url": "https://support.microsoft.com/en-us/windows/clipboard-in-windows-c436501e-985d-1c8d-97ea-fe46ddf338c6",
+              "url": "https://support.microsoft.com/en-us/windows/apps/using-the-clipboard",
               "title": "Microsoft: clipboard history"
             }
           ]

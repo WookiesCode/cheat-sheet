@@ -845,6 +845,20 @@ A check of the whole site for leftovers of #32–#35 (Dell, DGX, HPE/Lenovo/SAA,
 
 New test `links.test.js`: the static link check, the redirect table, and Recent with stale entries on the site and in the portable file. It will catch the next removal that leaves a link behind.
 
+## #38 Source links checked (2026-11-11, `source-links`)
+
+New `scripts/check-source-links.js` requested all 1,024 source URLs the cards cite (run by hand; needs internet).
+
+| Result | Count | What was done |
+|---|---|---|
+| Dead | 2 | `kernel.org/doc/Documentation/ABI/testing/sysfs-class-dmi` is gone from the kernel tree: the DMI card now cites `drivers/firmware/dmi-id.c` on GitHub, which shows `product_serial` and `product_uuid` are `0400` (root-only), as the card says. The nano `global.c` 404 was a transient Savannah error |
+| Moved | 47 (105 citations) | Updated to the address the site now redirects to: Omarchy `basecamp/omarchy` → `omacom/omarchy` (17), Ansible `docs.ansible.com/ansible/latest` → `/projects/ansible/latest` (12) and ansible-lint, NVIDIA networking pages → `networking-docs.nvidia.com` (ibdiagnet 2.24/2.25, BlueField-3 FW notes; the unversioned NVIDIA SM page now redirects to the DOCA 3.5.0 archive), Python `library/` → `builtins/` (2), CUDA runtime types, Juniper → `networkingdocs.hpe.com` (2), Kubernetes HPA, Cursor rules, the Terraform `moved` block, GitHub task lists, three support.microsoft.com pages, OCP Rack & Power |
+| Not moves | 66 | Microsoft Learn only adds `?view=`; conserver drops `www.`; two Debian sites answer with a bot check. The script now treats these as ok or blocked |
+| Blocked | 12 | Arista (406, 10 pages), TIA-606-D on GlobalSpec (403), plus the two Debian bot checks: open them in a browser |
+| Flaky | 3 hosts | lua.org, gnu.org and Savannah drop some connections; the script retries network errors once |
+
+Only the addresses changed; the redirects come from each doc site, so the pages are the same and the verified dates stay. git.kernel.org (the ethtool `cmis.c` source) now serves a bot check at the same address, which a status-code check can't see; ethtool has no official mirror, so it stays.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

@@ -441,7 +441,7 @@ const NVIDIA_CHEAT_SHEET_DATA = [
         ],
         tip: "CUDA Error 802 = check Fabric Manager",
         tags: ["fabricmanager", "nvswitch", "hgx", "sxm", "sxid", "802"],
-        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html", "title": "Fabric Manager user guide"}, {"url": "https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html", "title": "CUDA runtime error codes"}]}
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html", "title": "Fabric Manager user guide"}, {"url": "https://docs.nvidia.com/cuda/cuda-runtime-api/cuda_runtime_api/group__CUDART__TYPES.html", "title": "CUDA runtime error codes"}]}
       },
       {
         id: "nvbandwidth-p2p",

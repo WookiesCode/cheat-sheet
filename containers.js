@@ -3922,7 +3922,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
               "title": "kubectl scale"
             },
             {
-              "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+              "url": "https://kubernetes.io/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/",
               "title": "Kubernetes: HPA"
             }
           ]
@@ -3950,7 +3950,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
               "title": "kubectl scale"
             },
             {
-              "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+              "url": "https://kubernetes.io/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/",
               "title": "Kubernetes: HPA"
             }
           ]
@@ -3978,7 +3978,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
               "title": "kubectl scale"
             },
             {
-              "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+              "url": "https://kubernetes.io/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/",
               "title": "Kubernetes: HPA"
             }
           ]

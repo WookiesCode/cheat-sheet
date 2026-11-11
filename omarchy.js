@@ -27,7 +27,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
         ],
         tip: "Super+K searches every live binding",
         tags: ["menu", "launcher", "keybindings", "system", "theme", "wallpaper", "background", "hardware", "toggle", "share", "capture", "tmux", "herdr", "power"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"},{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua","title":"Omarchy 4.5.0: applications.lua"}],"note":"Corrected 2026-11-10: removed Super+Shift+F23 (Copilot key), which Omarchy 4.5.0 does not bind. Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"},{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua","title":"Omarchy 4.5.0: applications.lua"}],"note":"Corrected 2026-11-10: removed Super+Shift+F23 (Copilot key), which Omarchy 4.5.0 does not bind. Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       },
       {
         id: "om-terminals-browser-files",
@@ -47,7 +47,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
         ],
         tip: "Two chords open the browser",
         tags: ["terminal", "tmux", "herdr", "browser", "private", "files", "nautilus", "editor", "neovim"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua","title":"Omarchy 4.5.0: applications.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua","title":"Omarchy 4.5.0: applications.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       },
       {
         id: "om-tuis-utilities-agents",
@@ -67,7 +67,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
           ["Super + Shift + Alt + M", "Terminal music player"]
         ],
         tags: ["agent", "activity", "btop", "docker", "lazydocker", "calculator", "1password", "passwords", "obsidian", "omawrite", "music", "spotify"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua","title":"Omarchy 4.5.0: applications.lua"},{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua","title":"Omarchy 4.5.0: applications.lua"},{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       },
       {
         id: "om-webapps-shortcuts",
@@ -94,7 +94,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
         ],
         tip: "Shift+Alt+L copies the URL inside any web app",
         tags: ["webapp", "chatgpt", "grok", "email", "gmail", "calendar", "youtube", "whatsapp", "signal", "messages", "photos", "maps", "url", "download"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua","title":"Omarchy 4.5.0: applications.lua"},{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/config/hypr/bindings.lua","title":"Omarchy 4.5.0: user bindings.lua template"},{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/chromium/extensions/copy-url/manifest.json","title":"Omarchy 4.5.0: copy-url extension"},{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/chromium/extensions/yt-dlp/manifest.json","title":"Omarchy 4.5.0: yt-dlp extension"}],"note":"Email and Calendar point at Gmail and Google Calendar through personal overrides in ~/.config/hypr/bindings.lua. Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua","title":"Omarchy 4.5.0: applications.lua"},{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/config/hypr/bindings.lua","title":"Omarchy 4.5.0: user bindings.lua template"},{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/chromium/extensions/copy-url/manifest.json","title":"Omarchy 4.5.0: copy-url extension"},{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/chromium/extensions/yt-dlp/manifest.json","title":"Omarchy 4.5.0: yt-dlp extension"}],"note":"Email and Calendar point at Gmail and Google Calendar through personal overrides in ~/.config/hypr/bindings.lua. Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       }
     ]
   },
@@ -126,7 +126,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
         tip: "Super+O keeps a video on top",
         danger: "Ctrl+Alt+Delete closes every window",
         tags: ["close", "fullscreen", "float", "pop", "pip", "pin", "split", "pseudo", "minimize", "dock"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"},{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"},{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       },
       {
         id: "om-window-focus-swap",
@@ -143,7 +143,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
           ["Super + Alt + L", "Cycle workspace layout back"]
         ],
         tags: ["focus", "swap", "move", "arrows", "layout", "alt-tab", "navigate"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       },
       {
         id: "om-window-resize-mouse-keys",
@@ -170,7 +170,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
           ["Super + Home", "Restore saved window width"]
         ],
         tags: ["resize", "mouse", "drag", "width", "height", "expand", "shrink", "save", "restore"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       },
       {
         id: "om-visual-toggles-gaps-opacity",
@@ -185,7 +185,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
           ["Super + Shift + Space", "Show or hide the top bar"]
         ],
         tags: ["transparency", "opacity", "gaps", "bar", "hide", "aspect"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"},{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"},{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       }
     ]
   },
@@ -213,7 +213,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
         ],
         tip: "Super+Ctrl+Tab jumps back",
         tags: ["workspace", "switch", "move", "silent", "tab", "scroll", "former"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       },
       {
         id: "om-scratchpad-quake",
@@ -229,7 +229,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
         ],
         tip: "Good for an always-handy terminal or chat",
         tags: ["scratchpad", "quake", "dropdown", "overlay", "tilde", "grave"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       },
       {
         id: "om-window-groups-tabs",
@@ -250,7 +250,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
           ["Super + Alt + Scroll Up", "Previous window in group"]
         ],
         tags: ["group", "tabs", "tabbed", "stack", "container", "ungroup"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       },
       {
         id: "om-multimonitor-scaling",
@@ -269,7 +269,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
           ["Super + Ctrl + Alt + Delete", "Toggle laptop display mirroring"]
         ],
         tags: ["monitor", "display", "scaling", "mirror", "laptop", "clamshell"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"},{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua","title":"Omarchy 4.5.0: tiling.lua"},{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       }
     ]
   },
@@ -296,7 +296,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
           ["Super + Ctrl + 1..9", "Right-side bar panels by position, counted from the left"]
         ],
         tags: ["panel", "bar", "quickshell", "audio", "bluetooth", "network", "wifi", "calendar", "clock", "power", "display"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       },
       {
         id: "om-capture-screenshot-record-ocr",
@@ -320,7 +320,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
         ],
         tip: "Enter snaps the highlighted window",
         tags: ["screenshot", "screenrecord", "ocr", "color-picker", "capture", "webcam", "share", "transcode"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"},{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/bin/omarchy-capture-region","title":"Omarchy 4.5.0: omarchy-capture-region"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"},{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/bin/omarchy-capture-region","title":"Omarchy 4.5.0: omarchy-capture-region"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       },
       {
         id: "om-clipboard-dictation-emojis",
@@ -343,7 +343,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
         ],
         tip: "Super+C/V works in terminals and apps",
         tags: ["copy", "paste", "cut", "select", "clipboard", "emoji", "dictation", "voice", "voxtype", "language", "prefix"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/clipboard.lua","title":"Omarchy 4.5.0: clipboard.lua"},{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/dictation.lua","title":"Omarchy 4.5.0: dictation.lua"},{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/input-method.lua","title":"Omarchy 4.5.0: input-method.lua"},{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/config/hypr/bindings.lua","title":"Omarchy 4.5.0: user bindings.lua template"}],"note":"Omarchy's own dictation keys are Alt+Space (toggle) and hold Alt+Right Alt; F9 and Super+Ctrl+X are personal bindings on this machine. Dictation keys exist only while a dictation backend is installed. Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/clipboard.lua","title":"Omarchy 4.5.0: clipboard.lua"},{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/dictation.lua","title":"Omarchy 4.5.0: dictation.lua"},{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/input-method.lua","title":"Omarchy 4.5.0: input-method.lua"},{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/config/hypr/bindings.lua","title":"Omarchy 4.5.0: user bindings.lua template"}],"note":"Omarchy's own dictation keys are Alt+Space (toggle) and hold Alt+Right Alt; F9 and Super+Ctrl+X are personal bindings on this machine. Dictation keys exist only while a dictation backend is installed. Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       },
       {
         id: "om-notifications-reminders-lock",
@@ -370,7 +370,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
           ["Super + Ctrl + I", "Toggle locking on idle"]
         ],
         tags: ["notification", "dismiss", "dnd", "silence", "reminder", "lock", "idle", "zoom", "weather", "battery", "time"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua","title":"Omarchy 4.5.0: utilities.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       }
     ]
   },
@@ -400,7 +400,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
         ],
         tip: "Alt gives fine volume steps",
         tags: ["volume", "mute", "microphone", "media", "play", "pause", "track", "audio", "output", "eject"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/media.lua","title":"Omarchy 4.5.0: media.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/media.lua","title":"Omarchy 4.5.0: media.lua"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       },
       {
         id: "om-brightness-touchpad-keys",
@@ -422,7 +422,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
           ["Power Key", "Open the system menu"]
         ],
         tags: ["brightness", "screen", "keyboard", "backlight", "touchpad", "power"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/media.lua","title":"Omarchy 4.5.0: media.lua"}],"note":"Added 2026-11-10: Ctrl+Brightness also changes the keyboard backlight. Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/default/hypr/bindings/media.lua","title":"Omarchy 4.5.0: media.lua"}],"note":"Added 2026-11-10: Ctrl+Brightness also changes the keyboard backlight. Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       },
       {
         id: "om-terminal-keys",
@@ -436,7 +436,7 @@ const OMARCHY_CHEAT_SHEET_DATA = [
           ["Super + Shift + Ctrl + Alt + Arrows", "Resize a Ghostty split"]
         ],
         tags: ["terminal", "copy", "paste", "ghostty", "alacritty", "foot", "split"],
-        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/config/ghostty/config","title":"Omarchy 4.5.0: Ghostty config"},{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/config/alacritty/alacritty.toml","title":"Omarchy 4.5.0: Alacritty config"},{"url":"https://github.com/basecamp/omarchy/blob/v4.5.0/config/foot/foot.ini","title":"Omarchy 4.5.0: foot config"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/config/ghostty/config","title":"Omarchy 4.5.0: Ghostty config"},{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/config/alacritty/alacritty.toml","title":"Omarchy 4.5.0: Alacritty config"},{"url":"https://github.com/omacom/omarchy/blob/v4.5.0/config/foot/foot.ini","title":"Omarchy 4.5.0: foot config"}],"note":"Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."}
       }
     ]
   }
