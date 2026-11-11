@@ -26,6 +26,7 @@ Run the tests after `node build-all.js`. The tests read the built pages and the 
 | File | Checks |
 |---|---|
 | `all-pages.test.js` | Every page loads with no page errors and no 4xx/5xx requests |
+| `links.test.js` | Every `<page>.html` / `<page>.html#<part>` written in the sources (sheets, pages, nav source, README, docs) names a page and part that still exist; old sheet names redirect to live parts; Recent on the home page leaves out sheets and parts removed since they were visited (site and portable file) |
 | `load.test.js` | The key pages and the portable file over `file://`: errors, console errors, failed requests (screenshots go to `output/`) |
 | `search.test.js` | Ctrl+K finds commands once the stamped search index loads |
 | `xss.test.js` | Every paste or input tool renders HTML payloads as text, never runs them (it includes a control payload that must fire) |

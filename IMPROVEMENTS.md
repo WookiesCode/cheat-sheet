@@ -831,6 +831,20 @@ The vPC tips card said the configuration guide "could not be read". It is read n
 
 Test: `sources` (switch check) asserts the new wording and the guide reference.
 
+## #37 Sweep after the removals (2026-11-11, `sweep-removed`)
+
+A check of the whole site for leftovers of #32–#35 (Dell, DGX, HPE/Lenovo/SAA, board details, parallel filesystems).
+
+| Checked | Result |
+|---|---|
+| Page and `#part` links in every sheet, page, the nav source, README and docs | All resolve; the redirect table points only at live parts |
+| Runbook, decoder, tour and launchpad references to card ids | All live |
+| Stars / My kit, visited ticks, a saved Rosetta vendor | Already ignore removed items |
+| Ctrl+K: ilorest, racadm, idrac, onecli, saa, lfs, weka, beegfs, ceph, mmgetstate | No results. `nvsm` matches only the kept `slurm-nvsm-burnin` id (a tag) and `nvidia-smi -q` output ("NVSMI LOG"), both live cards |
+| **Home → Recent** | **Fixed:** sheets visited before a removal (`pfs.html`, `bmc-tools.html#racadm`) were still listed and opened a 404 or an empty part. `readRecents()` now keeps only pages and parts the menu still has (the notes page is allowed; in the portable file it checks `PORTABLE_SHEETS` and `data-part`) |
+
+New test `links.test.js`: the static link check, the redirect table, and Recent with stale entries on the site and in the portable file. It will catch the next removal that leaves a link behind.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

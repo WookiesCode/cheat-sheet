@@ -15248,8 +15248,25 @@ ${rmaTrailSection()}#### Action Requested:
     }
   }
 
+  // Recents saved before a sheet or part was removed would open a 404 or an empty part,
+  // so only list what the menu still has. The notes page is not in the menu.
+  function sheetStillExists(file) {
+    const [page, part] = String(file).split('#');
+    const nav = document.querySelector('.top-bar .sheet-switcher');
+    if (!nav) return true;   // no menu to check against: keep everything
+    const sheets = Array.isArray(window.PORTABLE_SHEETS) ? window.PORTABLE_SHEETS : null;
+    const pageOk = page === 'notes.html' || page === 'index.html'
+      || (sheets ? sheets.some(c => c.file === page)
+        : !!nav.querySelector(`a[href="${CSS.escape(page)}"], a[href^="${CSS.escape(page)}#"]`));
+    if (!pageOk || !part) return pageOk;
+    return !!nav.querySelector(`a[href$="#${CSS.escape(part)}"], a[data-part="${CSS.escape(part)}"]`);
+  }
+
   function readRecents() {
-    try { const l = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); return Array.isArray(l) ? l : []; } catch (e) { return []; }
+    try {
+      const l = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
+      return Array.isArray(l) ? l.filter(r => r && typeof r.file === 'string' && sheetStillExists(r.file)) : [];
+    } catch (e) { return []; }
   }
 
   // A sheet named the old way (nv-pcie.html) is now a part of its group page: find its
