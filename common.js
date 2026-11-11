@@ -3054,7 +3054,7 @@
   // -------------------------------------------------------------
   const TOUR_SEEN_KEY = 'dc_tour_seen';
   // Bumped when the tour gains steps: anyone who saw an older one is offered "What's new" (the isNew steps).
-  const TOUR_VERSION = '12';
+  const TOUR_VERSION = '13';
   // center: the step still shows (centred) when its control is not on this page.
   const TOUR_STEPS = [
     { title: 'This reference does more than list commands', body: 'A short tour that follows an incident: diagnose the error, set up the node, run commands in the built-in terminal, see the GPU tray, compare against healthy nodes, and file the case. Use ← → or the buttons; Esc ends it.' },
@@ -3095,10 +3095,13 @@
     { center: true, title: 'More sheets checked against the docs', body: 'Switch, Ethernet, Linux storage and hardware, hardware-reference and Kubernetes commands now show their source too. Checking them corrected dozens of wrong flags and claims.' },
     { target: '#navgroup-devops', title: 'Slurm: drain, resume, what ran there', body: 'DevOps → Slurm covers the scheduler side of a hardware ticket: a node\u2019s state and who drained it, drain and resume (RESUME vs UNDRAIN), the jobs that ran on it, and slurmd -C to check its hardware after a swap.' },
     { target: '#navgroup-hw', title: 'Lustre, WEKA, BeeGFS and Ceph', body: 'Hardware → Parallel filesystems: are all the servers and targets up, which one is full, which disk sits behind a failed Ceph OSD, and noout for a swap. BeeGFS cards give both the 8.x and 7.x commands.' },
-    { center: true, isNew: true, title: 'Every card now shows its source', body: 'All sheets, from Linux and the CLI tools to Docker, Grafana, editors, Windows, macOS, scripting, fiber, motherboards, Omarchy and Jira, end each card with the docs it was checked against and when. Cards nobody could confirm say \u26a0 Not verified. Checking them fixed dozens of wrong flags and removed invented numbers.' },
-    { target: '.hdr-search-pill, #global-search-btn', isNew: true, title: 'Search shows the source too', body: 'Ctrl+K results now carry the same line: which doc a command was checked against and when, or \u26a0 Not verified. Amber means re-check before you trust it.',
+    { center: true, title: 'Every card now shows its source', body: 'All sheets, from Linux and the CLI tools to Docker, Grafana, editors, Windows, macOS, scripting, fiber, motherboards, Omarchy and Jira, end each card with the docs it was checked against and when. Cards nobody could confirm say \u26a0 Not verified. Checking them fixed dozens of wrong flags and removed invented numbers.' },
+    { target: '.hdr-search-pill, #global-search-btn', title: 'Search shows the source too', body: 'Ctrl+K results now carry the same line: which doc a command was checked against and when, or \u26a0 Not verified. Amber means re-check before you trust it.',
       try: { label: 'Search "nvidia-smi -q"', run: () => { endTour(); openGlobalSearch('nvidia-smi -q'); } } },
-    { target: '#navgroup-hw', isNew: true, title: 'IBM Storage Scale (GPFS)', body: 'Hardware → Parallel filesystems → IBM Storage Scale: node state with mmgetstate, mmhealth for what is degraded, and the disks and NSDs behind a failed drive.' },
+    { target: '#navgroup-hw', title: 'IBM Storage Scale (GPFS)', body: 'Hardware → Parallel filesystems → IBM Storage Scale: node state with mmgetstate, mmhealth for what is degraded, and the disks and NSDs behind a failed drive.' },
+    { center: true, isNew: true, title: 'One page per group', body: 'Each menu group is one page now: NVIDIA DC, InfiniBand, Linux, Scripting and the rest. The old sheets are parts of it: pick one in the menu or the left rail and only its cards show, under a Showing … bar with the sheet\u2019s title and version. All … sheets brings everything back; Back and the pager step between parts. Your stars, visited ticks and practice came with them.',
+      try: { label: 'Open nvidia-smi on the NVIDIA page', run: () => { endTour(); goToSheet('nvidia.html#nv-smi'); } } },
+    { target: '.hdr-search-pill, #global-search-btn', isNew: true, title: 'Search lands in the right part', body: 'A Ctrl+K result opens its group page filtered to its sheet and flashes the command. Bookmarks to the old pages (nv-smi.html) no longer open: the sheet is now nvidia.html#nv-smi, which the menu links to.' },
     { target: '.hdr-more-btn', title: 'Replay this anytime', body: 'My kit (★) collects bookmarked commands into a printable pocket card. Themes, Manuals and the offline 1-file copy live under More. j/k move between commands, Enter copies, ? lists every shortcut. Ctrl+K → "tour" or "what’s new" brings this back.' }
   ];
   const tourSeenVersion = () => { try { return localStorage.getItem(TOUR_SEEN_KEY); } catch (e) { return null; } };
@@ -3232,7 +3235,7 @@
     inv.className = `tour-invite${returning ? ' is-whatsnew' : ''}`;
     inv.setAttribute('role', 'status');
     inv.innerHTML = returning
-      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Sources on every card and in Ctrl+K results, and an IBM Storage Scale (GPFS) sheet.</span></div>
+      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Every menu group is one page now: pick a sheet and only its cards show.</span></div>
       <button type="button" class="tour-invite-go">What\u2019s new</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`
       : `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New here?</b><span>Two-minute tour of what this reference can do.</span></div>
       <button type="button" class="tour-invite-go">Take the tour</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`;
