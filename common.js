@@ -201,9 +201,8 @@
     else if (disk) key = 'disk';
     if (key) {
       const v = String(targetState.vars[key] || '').trim();
-      const isVar = !!varName;
-      // A literal sample only changes once the tech picked something other than the default.
-      const set = targetState.active && !!v && (isVar || v !== DEFAULT_TARGET_VARS[key]);
+      // A $VAR or a literal sample only changes once the tech set the target (not the example).
+      const set = targetIsSet(key);
       return { key, kind: 'target', value: set ? v : match, set, sample: match };
     }
     if (placeholder && !SLOT_SKIP.test(placeholder)) {
@@ -279,8 +278,7 @@
       let r;
       if (chip.dataset.slotKind === 'target') {
         const v = String(targetState.vars[key] || '').trim();
-        const isVar = /^\$/.test(sample);
-        const set = targetState.active && !!v && (isVar || v !== DEFAULT_TARGET_VARS[key]);
+        const set = targetIsSet(key);
         r = { value: set ? v : sample, set };
       } else {
         const v = String(slotStore()[key] || '').trim();
@@ -336,7 +334,7 @@
         const real = document.getElementById(`var-${key}`);
         targetState.vars[key] = value || DEFAULT_TARGET_VARS[key];
         saveTargetState();
-        if (real) real.value = targetState.vars[key];
+        if (real) real.value = targetShown(key);
       } else {
         setSlotStore(key, value);
       }
@@ -366,44 +364,39 @@
   // Hook clipboard to automatically substitute variables if active
   // Placeholders are uppercase on purpose: lowercase $disk or $hca is a script's
   // own variable, and $USER is the local login, so none of those are rewritten.
+  // A Rack Target counts only once you set it: the built-in values (2001:db8:dc::50, ADMIN, eno1…)
+  // are examples. Until then copies keep "$BMC", "$BMC_USER"… for your shell to fill, and an
+  // unfilled <interface> or <disk> stays visible so the copy warning names it.
+  function targetIsSet(key) {
+    const v = String(targetState.vars[key] || '').trim();
+    return targetState.active && !!v && v !== DEFAULT_TARGET_VARS[key];
+  }
+  // What an input shows: empty while the target is unset, so the example is only the placeholder.
+  function targetShown(key) {
+    const v = String(targetState.vars[key] || '');
+    return v.trim() === DEFAULT_TARGET_VARS[key] ? '' : v;
+  }
+  const TARGET_PATTERNS = {
+    // $BMC also replaces the two literal sample addresses some commands are written with.
+    bmc: /(\$BMC\b|\$\{BMC\}|\$BMC_IP\b|\$\{BMC_IP\}|<bmc[_-]ip>|<bmc_host>|2001:db8:dc::1|192\.168\.1\.120)/g,
+    user: /(\$BMC_USER\b|\$\{BMC_USER\}|<bmc_user>)/g,
+    iface: /(\$IFACE\b|\$\{IFACE\}|<interface>|<iface>)/g,
+    hca: /(\$HCA\b|\$\{HCA\}|<hca>)/g,
+    disk: /(\$DISK\b|\$\{DISK\}|<disk>|<device>)/g,
+    gpu: /(\$GPU\b|\$\{GPU\}|<gpu>|<gpu_id>)/g
+  };
+
   function substituteVariables(text) {
     if (!text) return { text, substituted: false, hasSecret: false };
     const filled = fillSlots(text);
     if (!targetState.active) return { text: filled, substituted: filled !== text, hasSecret: false };
     let result = filled;
 
-    const bmcVal = (targetState.vars.bmc || '').trim();
-    if (bmcVal && bmcVal !== DEFAULT_TARGET_VARS.bmc) {
-      const bmcRegex = /(\$BMC\b|\$\{BMC\}|\$BMC_IP\b|\$\{BMC_IP\}|<bmc[_-]ip>|<bmc_host>|2001:db8:dc::1|192\.168\.1\.120)/g;
-      result = result.replace(bmcRegex, () => bmcVal);
-    } else if (bmcVal) {
-      result = result.replace(/(\$BMC\b|\$\{BMC\}|\$BMC_IP\b|\$\{BMC_IP\}|<bmc[_-]ip>|<bmc_host>)/g, () => bmcVal);
-    }
-
-    const userVal = (targetState.vars.user || '').trim();
-    if (userVal) {
-      result = result.replace(/(\$BMC_USER\b|\$\{BMC_USER\}|<bmc_user>)/g, () => userVal);
-    }
-
-    const ifaceVal = (targetState.vars.iface || '').trim();
-    if (ifaceVal) {
-      result = result.replace(/(\$IFACE\b|\$\{IFACE\}|<interface>|<iface>)/g, () => ifaceVal);
-    }
-
-    const hcaVal = (targetState.vars.hca || '').trim();
-    if (hcaVal) {
-      result = result.replace(/(\$HCA\b|\$\{HCA\}|<hca>)/g, () => hcaVal);
-    }
-
-    const diskVal = (targetState.vars.disk || '').trim();
-    if (diskVal) {
-      result = result.replace(/(\$DISK\b|\$\{DISK\}|<disk>|<device>)/g, () => diskVal);
-    }
-
-    const gpuVal = (targetState.vars.gpu || '').trim();
-    if (gpuVal) {
-      result = result.replace(/(\$GPU\b|\$\{GPU\}|<gpu>|<gpu_id>)/g, () => gpuVal);
-    }
+    Object.entries(TARGET_PATTERNS).forEach(([key, re]) => {
+      if (!targetIsSet(key)) return;
+      const value = String(targetState.vars[key]).trim();
+      result = result.replace(re, () => value);
+    });
 
     // Last, so no other substitution can rewrite part of the password.
     let hasSecret = false;
@@ -419,6 +412,7 @@
 
     return { text: result, substituted: result !== text, hasSecret };
   }
+
 
   // Intercept navigator.clipboard.writeText so all sheets inherit variable substitution automatically!
   // navigator.clipboard is undefined on plain HTTP, so give every caller a fallback.
@@ -991,7 +985,8 @@
     const chips = rows.map(([k, tag]) => {
       const v = String(targetState.vars[k] || '').trim();
       const set = !!v && v !== DEFAULT_TARGET_VARS[k];
-      return `<button type="button" class="target-chip ${set ? 'is-set' : ''}" data-target-edit="${k}" title="Edit ${tag}"><b>${tag}</b>${escapeHtml(v || '—')}</button>`;
+      if (!set) return `<button type="button" class="target-chip is-example" data-target-edit="${k}" title="${tag} is not set: copies keep ${tag}. Click to set it."><b>${tag}</b><i>e.g. ${escapeHtml(DEFAULT_TARGET_VARS[k])}</i></button>`;
+      return `<button type="button" class="target-chip is-set" data-target-edit="${k}" title="Edit ${tag}"><b>${tag}</b>${escapeHtml(v)}</button>`;
     }).join('');
     const pass = targetState.pass ? '<span class="target-chip is-set is-static"><b>$BMC_PASS</b>•••• this tab</span>' : '';
     return `<span class="target-summary ${targetState.active ? '' : 'is-off'}">${chips}${pass}</span>`;
@@ -1057,11 +1052,11 @@
         <div class="target-inputs-row ${targetState.collapsed ? 'hidden' : ''}">
           <div class="target-field">
             <label for="var-bmc"><span class="var-tag">$BMC</span> BMC IP/Host</label>
-            <input type="text" id="var-bmc" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.bmc)}" placeholder="2001:db8:dc::50" />
+            <input type="text" id="var-bmc" spellcheck="false" autocomplete="off" value="${escapeHtml(targetShown('bmc'))}" placeholder="2001:db8:dc::50" />
           </div>
           <div class="target-field">
             <label for="var-user"><span class="var-tag">$BMC_USER</span> BMC User</label>
-            <input type="text" id="var-user" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.user)}" placeholder="ADMIN" />
+            <input type="text" id="var-user" spellcheck="false" autocomplete="off" value="${escapeHtml(targetShown('user'))}" placeholder="ADMIN" />
           </div>
           <div class="target-field">
             <label for="var-pass"><span class="var-tag">$BMC_PASS</span> BMC Password</label>
@@ -1074,19 +1069,19 @@
           </div>
           <div class="target-field">
             <label for="var-iface"><span class="var-tag">$IFACE</span> NIC</label>
-            <input type="text" id="var-iface" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.iface)}" placeholder="eno1" />
+            <input type="text" id="var-iface" spellcheck="false" autocomplete="off" value="${escapeHtml(targetShown('iface'))}" placeholder="eno1" />
           </div>
           <div class="target-field">
             <label for="var-hca"><span class="var-tag">$HCA</span> IB/NIC HCA</label>
-            <input type="text" id="var-hca" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.hca)}" placeholder="mlx5_0" />
+            <input type="text" id="var-hca" spellcheck="false" autocomplete="off" value="${escapeHtml(targetShown('hca'))}" placeholder="mlx5_0" />
           </div>
           <div class="target-field">
             <label for="var-disk"><span class="var-tag">$DISK</span> NVMe / Disk</label>
-            <input type="text" id="var-disk" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.disk)}" placeholder="/dev/nvme0n1" />
+            <input type="text" id="var-disk" spellcheck="false" autocomplete="off" value="${escapeHtml(targetShown('disk'))}" placeholder="/dev/nvme0n1" />
           </div>
           <div class="target-field">
             <label for="var-gpu"><span class="var-tag">$GPU</span> GPU Index</label>
-            <input type="text" id="var-gpu" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.gpu)}" placeholder="0" />
+            <input type="text" id="var-gpu" spellcheck="false" autocomplete="off" value="${escapeHtml(targetShown('gpu'))}" placeholder="0" />
           </div>
         </div>
       </div>

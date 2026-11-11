@@ -1148,7 +1148,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). Ranked by user impact relative
 - Impact **M** · Effort **S** · Risk **L**.
 - **Files:** `tests/decoder.test.js`, `tests/README.md`.
 
-**R5. Show unset rack targets as placeholders, not values**
+**R5. ✅ Show unset rack targets as placeholders, not values** (built: `improve/unset-targets`. **The evidence above was wrong:** a fresh browser did copy the examples: `-H "$BMC" -U "$BMC_USER"` became `-H "2001:db8:dc::50" -U "ADMIN"`, because `substituteVariables` filled `$VARS` with any held value, defaults included. Chosen with the user: unset targets are never filled in, so copies keep the `$VARS`; the bar shows "e.g. …" and the form inputs are empty with the example as placeholder. `targetIsSet()` is the one rule for copies, command chips and the bar)
 - **What:** draw the built-in examples (`2001:db8:dc::50`, `ADMIN`, `eno1`, `mlx5_0`, `/dev/nvme0n1`) dimmed and labelled "example" until you set them.
 - **Why:** J3. On a fresh browser the bar looks like it already points at a BMC.
 - **Evidence:** screenshot at 1280×800 shows `$BMC 2001:db8:dc::50` styled like a real value; the code already treats those defaults as unset (`v !== DEFAULT_TARGET_VARS[key]`, `common.js` ~line 206), so copies are safe. Only the display misleads.

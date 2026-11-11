@@ -5442,6 +5442,8 @@ header.top-bar:has(.nav-dropdown:hover, .nav-dropdown:focus-within, .nav-dropdow
 .target-chip b { font-weight: 700; font-size: 0.66rem; color: var(--text-muted); }
 .target-chip.is-set { color: var(--accent-amber); border-style: solid; border-color: color-mix(in srgb, var(--accent-amber) 50%, transparent); background: color-mix(in srgb, var(--accent-amber) 10%, transparent); }
 .target-chip.is-set b { color: color-mix(in srgb, var(--accent-amber) 75%, var(--text-muted)); }
+/* Not set yet: the built-in value is only an example and copies keep the $VAR. */
+.target-chip.is-example i { font-style: italic; color: var(--text-muted); opacity: 0.8; }
 .target-chip:hover { border-color: var(--accent-primary); color: var(--text-primary); }
 .target-chip.is-static { cursor: default; }
 /* Field Mode: keep the dock above open panels so you can switch panels without closing first. */

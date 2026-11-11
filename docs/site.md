@@ -66,7 +66,7 @@ A recipe in a command's `subcommands` list can carry its own source as a third e
 
 1. Fill in **Rack Targets** at the top: BMC address, user, password, NIC, HCA, disk and GPU index.
 2. Leave **Active** checked.
-3. Click any command box to copy it. Your values replace placeholders like `$BMC` and `$DISK` automatically.
+3. Click any command box to copy it. Your values replace placeholders like `$BMC` and `$DISK` automatically. Only values you set are used: until then a target shows its example dimmed ("e.g. 2001:db8:dc::50", "e.g. ADMIN"), and copies keep `"$BMC"`, `"$BMC_USER"`… for your shell to fill. Clearing a field unsets it again.
 
 Only real commands copy. Reference information such as POST codes, wire colors and keyboard shortcuts is read-only, and `build-reference-rules.js` lists what counts as reference.
 
