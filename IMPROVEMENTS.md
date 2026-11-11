@@ -627,6 +627,19 @@ The four Arista 7060X5 layouts and the two generic patterns are gone; the picker
 
 A page without `setPart` (an old cached copy) still reloads. The portable file has its own in-place swap and is unchanged.
 
+## #20 Tour v14: the front panel and in-place sheets (2026-11-10, `tour-v14`)
+
+Four new steps, shown to returning users under **What's new** (v13's two steps are now in the full tour only):
+
+| Step | ▶ button |
+|---|---|
+| Find a port on your own switches (the 11 devices, photos, tiles with the logical ports inside: C02 holds 4 \| 3) | Opens the front panel on the QM9790 with IB port 3 lit |
+| Breakouts and the optic in each cage (SN5400/SN5600 View menu, installed-optics record) | Opens the SN5600 at `swp14s3` in the 4× view |
+| Team optics and the first connection (Fiber parts, Switch hardware cards, 30 glossary terms) | Opens Fiber → Team Optics & Fit |
+| Switching sheets no longer reloads | Opens CLI Tools at `tar` |
+
+The returning-user invite and the Ctrl+K "What's new" entry name the new additions (the Ctrl+K line still described the Slurm and filesystem round).
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

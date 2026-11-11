@@ -3054,7 +3054,7 @@
   // -------------------------------------------------------------
   const TOUR_SEEN_KEY = 'dc_tour_seen';
   // Bumped when the tour gains steps: anyone who saw an older one is offered "What's new" (the isNew steps).
-  const TOUR_VERSION = '13';
+  const TOUR_VERSION = '14';
   // center: the step still shows (centred) when its control is not on this page.
   const TOUR_STEPS = [
     { title: 'This reference does more than list commands', body: 'A short tour that follows an incident: diagnose the error, set up the node, run commands in the built-in terminal, see the GPU tray, compare against healthy nodes, and file the case. Use ← → or the buttons; Esc ends it.' },
@@ -3099,9 +3099,17 @@
     { target: '.hdr-search-pill, #global-search-btn', title: 'Search shows the source too', body: 'Ctrl+K results now carry the same line: which doc a command was checked against and when, or \u26a0 Not verified. Amber means re-check before you trust it.',
       try: { label: 'Search "nvidia-smi -q"', run: () => { endTour(); openGlobalSearch('nvidia-smi -q'); } } },
     { target: '#navgroup-hw', title: 'IBM Storage Scale (GPFS)', body: 'Hardware → Parallel filesystems → IBM Storage Scale: node state with mmgetstate, mmhealth for what is degraded, and the disks and NSDs behind a failed drive.' },
-    { center: true, isNew: true, title: 'One page per group', body: 'Each menu group is one page now: NVIDIA DC, InfiniBand, Linux, Scripting and the rest. The old sheets are parts of it: pick one in the menu or the left rail and only its cards show, under a Showing … bar with the sheet\u2019s title and version. All … sheets brings everything back; Back and the pager step between parts. Your stars, visited ticks and practice came with them.',
+    { center: true, title: 'One page per group', body: 'Each menu group is one page now: NVIDIA DC, InfiniBand, Linux, Scripting and the rest. The old sheets are parts of it: pick one in the menu or the left rail and only its cards show, under a Showing … bar with the sheet\u2019s title and version. All … sheets brings everything back; Back and the pager step between parts. Your stars, visited ticks and practice came with them.',
       try: { label: 'Open nvidia-smi on the NVIDIA page', run: () => { endTour(); goToSheet('nvidia.html#nv-smi'); } } },
-    { target: '.hdr-search-pill, #global-search-btn', isNew: true, title: 'Search lands in the right part', body: 'A Ctrl+K result opens its group page filtered to its sheet and flashes the command. Bookmarks to the old pages (nv-smi.html) no longer open: the sheet is now nvidia.html#nv-smi, which the menu links to.' },
+    { target: '.hdr-search-pill, #global-search-btn', title: 'Search lands in the right part', body: 'A Ctrl+K result opens its group page filtered to its sheet and flashes the command. Bookmarks to the old pages (nv-smi.html) no longer open: the sheet is now nvidia.html#nv-smi, which the menu links to.' },
+    { center: true, isNew: true, title: 'Find a port on your own switches', body: 'Switches → ▦ Front panel now lists the team\u2019s 11 devices: QM9700/QM9790, SN5400, SN5600, SN2410, Arista 7260CX3-64, Cisco N9K and C9200L, MikroTik CCR2216, Hasivo, the ACS8000 console server and the MX304, each with its vendor photo. Every cage is a tile, as in the field guide: its label on top, its logical ports inside (on a QM9790, C02 holds 4 | 3) and the optic recorded there below. Type a port the way the switch prints it.',
+      try: { label: 'Find IB port 3 on a QM9790', run: () => { endTour(); pnWrite({ model: 'nvidia-qm9700' }); openPanel('find', '3'); } } },
+    { center: true, isNew: true, title: 'Breakouts and the optic in each cage', body: 'On the SN5400 and SN5600 the View menu shows the cage as one port, 2× or 4× breakout; typing swp14s3 switches to the view that shows it. Pick a cage to record the optic installed there, from the team\u2019s part list or an exact label: recorded cages get a green dot, the list copies as CSV, and it is kept in Backup.',
+      try: { label: 'Find swp14s3 on an SN5600', run: () => { endTour(); pnWrite({ model: 'nvidia-sn5600' }); openPanel('find', 'swp14s3'); } } },
+    { center: true, isNew: true, title: 'Team optics and the first connection', body: 'Fiber → Team Optics & Fit matches the team\u2019s transceiver labels to each device, with the BlueField-3 and ConnectX-7 part numbers. Fiber → First Connection goes from a cable label to a live link. Switches → Hardware & Front Panels has a card per device, and the glossary gained 30 optics and switch terms.',
+      try: { label: 'Open Team Optics & Fit', run: () => { endTour(); goToSheet('fiber.html#fo-team-optics'); } } },
+    { center: true, isNew: true, title: 'Switching sheets no longer reloads', body: 'On a group page, the rail, the pager, the menu and Back change the cards in place: no reload, no flash to the top and glide back. The page moves once, to the new sheet\u2019s top, and the rail keeps its place.',
+      try: { label: 'Open CLI Tools at tar, then click around the rail', run: () => { endTour(); goToSheet('cli-tools.html#tar'); } } },
     { target: '.hdr-more-btn', title: 'Replay this anytime', body: 'My kit (★) collects bookmarked commands into a printable pocket card. Themes, Manuals and the offline 1-file copy live under More. j/k move between commands, Enter copies, ? lists every shortcut. Ctrl+K → "tour" or "what’s new" brings this back.' }
   ];
   const tourSeenVersion = () => { try { return localStorage.getItem(TOUR_SEEN_KEY); } catch (e) { return null; } };
@@ -3235,7 +3243,7 @@
     inv.className = `tour-invite${returning ? ' is-whatsnew' : ''}`;
     inv.setAttribute('role', 'status');
     inv.innerHTML = returning
-      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Every menu group is one page now: pick a sheet and only its cards show.</span></div>
+      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Your own switches on the front panel, with port numbers inside each cage, and sheets that switch without reloading.</span></div>
       <button type="button" class="tour-invite-go">What\u2019s new</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`
       : `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New here?</b><span>Two-minute tour of what this reference can do.</span></div>
       <button type="button" class="tour-invite-go">Take the tour</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`;
@@ -3343,7 +3351,7 @@
       { icon: '📶', label: 'BER: healthy vs unhealthy', sub: 'What raw and effective BER look like on a clean, degraded and failing link', kw: 'ber bit error rate fec raw effective mlxlink healthy unhealthy reference thresholds', run: () => openBerReference() },
       { icon: '⌨', label: 'Keyboard shortcuts', sub: 'j/k move between commands, ↵ copy, b save, ? for the full map', kw: 'keyboard shortcuts keys hotkeys vim navigation help accessibility', run: () => toggleKbHelp(true) },
       { icon: '🧭', label: 'Take the tour', sub: 'Walkthrough of what this reference can do, following an incident', kw: 'tour help guide getting started onboarding features walkthrough', run: () => startTour() },
-      { icon: '✨', label: 'What\u2019s new', sub: 'Only the newest additions: the Slurm suite and the parallel filesystem sheets', kw: 'whats new what\'s new changes changelog latest updates recent features', run: () => startTour('new') },
+      { icon: '✨', label: 'What\u2019s new', sub: 'Only the newest additions: your switches on the front panel, breakouts and optics, team optics, sheets that switch without reloading', kw: 'whats new what\'s new changes changelog latest updates recent features', run: () => startTour('new') },
       { icon: '📋', label: 'Shift board & handoff', sub: 'All node workspaces at a glance; copy or print the handoff', kw: 'board shift handoff handover incidents nodes overview status report', run: () => openBoard() },
       { icon: '📈', label: 'Analyze command output', sub: 'Paste mlxlink, nvme smart-log or nvidia-smi topo -m output for a report', kw: 'analyze analyzer output paste mlxlink smart-log smartlog dom ber optics nvme report topo topology nvlink pix numa affinity', run: () => openAnalyzer() },
       { icon: '☰', label: 'Toggle compact view', sub: 'Hide or show explanations and variants', kw: 'compact density detailed dense view', run: () => { const b = document.getElementById('density-toggle'); if (b) b.click(); } },
