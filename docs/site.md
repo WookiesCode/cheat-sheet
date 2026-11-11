@@ -123,11 +123,12 @@ Open **Jira** in the nav, fill in the form with a node, rack, position or serial
 
 A web page can't start a shell, so a small helper does:
 
-1. Start the bridge once per login: `python3 term-bridge.py` (run from this folder). Python standard library only; default port 8767.
-2. Paste the token it prints into the dock's **Setup** panel, then click **Connect**. The token is kept in the browser and in `~/.config/dc-cheatsheet/term-token` (mode 0600). `--new-token` rotates it.
+1. Start the bridge: `python3 term-bridge.py` (run from this folder). Python standard library only; default port 8767. It moves to the background (you can close that terminal), logs to `~/.cache/dc-cheatsheet/term-bridge.log`, and opens this site in your default browser with the token in the address fragment (`#term-token=…`). The page saves the token, removes it from the address bar and history, opens the Terminal and connects. It opens the preview server (`http://127.0.0.1:8765/`) if that is running, else `index.html` as a file; `--url` picks another address, `--no-open` skips the browser, `--foreground` stays attached.
+2. If the page didn't open (or you use another browser), paste the token it prints into the dock's **Setup** panel and click **Connect**. The token is kept in the browser and in `~/.config/dc-cheatsheet/term-token` (mode 0600). `--new-token` rotates it (and restarts a running bridge).
 3. Hover any command and click **⏎ Send**. It's typed at the prompt with your Rack Targets filled in.
+4. **Stop bridge** in the dock (it asks first) or `python3 term-bridge.py --stop` stops the bridge and hangs up every shell it opened. Running `python3 term-bridge.py` again while it's up just reopens the site.
 
-- **Security:** the bridge listens on 127.0.0.1 only. It refuses any connection without the token, and any page that isn't the cheat-sheet (file:// or localhost).
+- **Security:** the bridge listens on 127.0.0.1 only. It refuses any connection without the token, and any page that isn't the cheat-sheet (file:// or localhost). It never serves the token over HTTP: a sandboxed iframe on any site also sends Origin `null`, the same as a file:// page, so only the browser-open hand-off carries it.
 - **Confirmation:** commands that change state ask first.
 - **Copy and paste:** Ctrl+Shift+C copies the selection, Ctrl+Shift+V pastes. **^C** sends an interrupt.
 - **Save log:** downloads the scrollback as a timestamped `.txt` for `cases/<host>/logs/`. Check it for secrets first.

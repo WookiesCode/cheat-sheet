@@ -582,6 +582,14 @@ Each cell checked against the NVUE command reference (Interface, LLDP, Platform,
 
 Still unconfirmed (marked): EOS `show version`, `show inventory`, `show mac address-table`, interface bounce, `copy running-config startup-config`, BGP summary (Arista refused or the manual pages were too long to read in full); NX-OS clear counters and copy (no 10.5 fundamentals reference). Column links go through `sheetHref()` to `switches.html#sw-…`.
 
+## #15 Terminal bridge: token hand-off, background, Stop (2026-11-10, `bridge-handoff-stop`)
+
+| Ask | Done |
+|---|---|
+| Token goes in by itself | `term-bridge.py` opens the site in the default browser (`xdg-open` / `open`) with `#term-token=…&term-port=…`; the page saves it, strips it from the address and history, opens the Terminal and connects. Preview server if up, else the file; `--url`, `--no-open`. The token is not served over HTTP (a sandboxed iframe sends Origin `null` too). |
+| Close the terminal after starting it | Default is background: double fork + `setsid`, log `~/.cache/dc-cheatsheet/term-bridge.log`, pid `~/.config/dc-cheatsheet/term-bridge.pid`. `--foreground` keeps the old behaviour. A second start reports "already running" and reopens the site. |
+| Stop bridge button | In the dock (asks first): sends `{"type":"stop"}` on the live connection (or a short one with the saved token); the bridge hangs up every shell, removes its pid file and exits. Also `--stop` (SIGTERM). |
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

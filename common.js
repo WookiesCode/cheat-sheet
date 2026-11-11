@@ -3068,7 +3068,7 @@
       try: { label: 'Open it with a sample fabric', run: () => { endTour(); openFabric(fmSample()); } } },
     { target: '.node-chip', title: 'One workspace per machine', body: 'Name the node you are on. Its targets, Case Trail, pinned evidence and runbook progress stay with it, so switching to the next node is one click and nothing leaks between tickets.' },
     { target: '.target-summary, .target-inputs-row', title: 'Your targets go into every command', body: 'BMC, interface, HCA, disk and GPU are filled in when you copy or send a command. Dashed chips inside commands are those values: click one to change it. The BMC password is never stored. Red-tagged commands change state and need a drained node and approval.' },
-    { target: '#console-btn, .con-cbar', center: true, title: 'A real terminal under every sheet', body: 'Ctrl+` opens a shell on this jumpbox (start python3 term-bridge.py once and paste its token). Hover a read-only command and press ▶ Run: it runs and the output appears right under it, like a notebook, with Copy, 📌 Pin and the ✦ tool that can read it. ⏎ Send types any command into the dock instead; state-changing ones ask first.',
+    { target: '#console-btn, .con-cbar', center: true, title: 'A real terminal under every sheet', body: 'Ctrl+` opens a shell on this jumpbox (run python3 term-bridge.py: it starts in the background and opens this site with its token filled in). Hover a read-only command and press ▶ Run: it runs and the output appears right under it, like a notebook, with Copy, 📌 Pin and the ✦ tool that can read it. ⏎ Send types any command into the dock instead; state-changing ones ask first.',
       try: { label: 'Open the terminal', run: () => { endTour(); toggleConsole(true); } } },
     { target: '[data-lp="checkup"], [data-flow="checkup"]', center: true, title: 'Node checkup: the whole node in one click', body: 'One read-only sweep through the terminal (no root): scheduler drain state, GPUs, kernel errors, memory ECC, InfiniBand ports, NVMe, failed services and full disks, scored in a single report. Every red row opens the tool or runbook that explains it, and the report pins to the case.',
       try: { label: 'See a sample checkup', run: () => { endTour(); openCheckup(CK_SAMPLE); } } },
@@ -4853,6 +4853,18 @@ ${rmaTrailSection()}#### Action Requested:
   function conSavePrefs(patch) {
     try { localStorage.setItem(CON_PREFS_KEY, JSON.stringify(Object.assign(conPrefs(), patch))); } catch (e) {}
   }
+  // term-bridge.py opens the site with its token in the address fragment
+  // (#term-token=…&term-port=…; a fragment never reaches a server). Keep it as if it had been
+  // pasted, take it out of the address bar and history at once, and connect when the page is up.
+  let conHandoff = false;
+  (() => {
+    const m = /^#term-token=([A-Za-z0-9_-]{24,128})(?:&term-port=(\d{1,5}))?$/.exec(window.location.hash || '');
+    if (!m || window.top !== window.self) return;
+    conSavePrefs(Object.assign({ token: m[1] }, m[2] && +m[2] >= 1 && +m[2] <= 65535 ? { port: +m[2] } : {}));
+    try { history.replaceState(null, '', window.location.pathname + window.location.search); } catch (e) { window.location.hash = ''; }
+    conHandoff = true;
+  })();
+
   // Where term-bridge.py sits: next to this page when it was opened from disk.
   function conBridgeCmd() {
     if (location.protocol === 'file:') {
@@ -4907,14 +4919,15 @@ ${rmaTrailSection()}#### Action Requested:
           <button type="button" class="con-btn" data-con="clear" title="Clear the screen and scrollback (not the shell)">Clear</button>
           <button type="button" class="con-btn" data-con="save" title="Download the session as a timestamped .txt log">Save log</button>
           <button type="button" class="con-btn" data-con="setup" title="Bridge port and token">Setup</button>
+          <button type="button" class="con-btn con-stop" data-con="stopbridge" title="Stop term-bridge.py on this jumpbox and hang up every shell it opened">Stop bridge</button>
           <button type="button" class="con-btn con-icon" data-con="close" title="Hide terminal (the shell keeps running) · Ctrl+\`" aria-label="Hide terminal">▾</button>
         </span>
       </header>
       <div class="con-confirm" hidden></div>
       <div class="con-setup" hidden>
-        <div class="con-setup-step"><span class="con-n">1</span><div><b>Start the bridge on this jumpbox</b> <span class="con-muted">once per login; it only listens on 127.0.0.1</span>
+        <div class="con-setup-step"><span class="con-n">1</span><div><b>Start the bridge on this jumpbox</b> <span class="con-muted">it only listens on 127.0.0.1, runs in the background (close that terminal if you like) and opens this site with its token filled in</span>
           <div class="con-cmd"><code>${escapeHtml(conBridgeCmd())}</code><button type="button" class="con-btn" data-con="copybridge">Copy</button></div></div></div>
-        <div class="con-setup-step"><span class="con-n">2</span><div><b>Paste the token it prints</b> <span class="con-muted">saved in this browser; stored in ~/.config/dc-cheatsheet/term-token</span>
+        <div class="con-setup-step"><span class="con-n">2</span><div><b>Token</b> <span class="con-muted">filled in when the bridge opens the site; otherwise paste the one it prints (~/.config/dc-cheatsheet/term-token). Saved in this browser.</span>
           <form class="con-setup-form" autocomplete="off"><input type="password" class="con-token" placeholder="token" aria-label="Bridge token" value="${escapeHtml(p.token)}" spellcheck="false"><label class="con-port-l">Port <input type="number" class="con-port" min="1" max="65535" value="${p.port}" aria-label="Bridge port"></label><button type="submit" class="con-btn con-connect-2">Connect</button></form>
           <p class="con-err" hidden></p></div></div>
       </div>
@@ -4938,6 +4951,7 @@ ${rmaTrailSection()}#### Action Requested:
       if (act === 'setup') return conShowSetup(con.setup.hidden);
       if (act === 'copybridge') { copyVerbatim(conBridgeCmd().replace(/\s+#.*$/, '')); b.textContent = 'Copied'; setTimeout(() => { b.textContent = 'Copy'; }, 1200); return; }
       if (act === 'close') return toggleConsole(false);
+      if (act === 'stopbridge') return conConfirm('Stop term-bridge.py? Every shell it opened is hung up; start it again with python3 term-bridge.py.', 'Stop bridge', conStopBridge);
       if (act === 'confirm-yes' && con.pending) { const run = con.pending; conConfirm(null); run(); return; }
       if (act === 'confirm-no') return conConfirm(null);
     });
@@ -5052,6 +5066,26 @@ ${rmaTrailSection()}#### Action Requested:
       conSetLive(false, 'Shell closed');
       conNote('Shell ended. Press Connect for a new one.');
     };
+  }
+
+  // Ask the bridge to stop (it hangs up its shells and exits). Uses the live connection, or
+  // opens a short one with the saved token when the dock is not connected.
+  function conStopBridge() {
+    const done = () => { con.stopping = false; conSetLive(false, 'Bridge stopped'); conNote('term-bridge.py stopped: every shell it opened was hung up. Start it again with python3 term-bridge.py.'); showGlobalToast('term-bridge.py stopped.'); };
+    con.stopping = true;
+    if (con.ws && con.ws.readyState === 1) {
+      const ws = con.ws;
+      con.ws = null;
+      ws.send(JSON.stringify({ type: 'stop' }));
+      setTimeout(() => { try { ws.close(); } catch (e) {} }, 300);
+      return done();
+    }
+    const { port, token } = conPrefs();
+    if (!token) { con.stopping = false; return showGlobalToast('No bridge token saved here: stop it with python3 term-bridge.py --stop.'); }
+    let ws;
+    try { ws = new WebSocket(`ws://127.0.0.1:${port}/term?token=${encodeURIComponent(token)}`); } catch (e) { con.stopping = false; return showGlobalToast('Could not reach the bridge.'); }
+    ws.onopen = () => { ws.send(JSON.stringify({ type: 'stop' })); setTimeout(() => { try { ws.close(); } catch (e) {} }, 300); done(); };
+    ws.onerror = () => { con.stopping = false; showGlobalToast(`No bridge answered on 127.0.0.1:${port}: it is already stopped, or started with another port.`); };
   }
 
   function conDisconnect() {
@@ -5366,6 +5400,12 @@ ${rmaTrailSection()}#### Action Requested:
     }).observe(document.body, { childList: true, subtree: true });
     // Theme switches recolour the terminal.
     new MutationObserver(() => { if (con.term) con.term.options.theme = conTheme(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    // Opened by term-bridge.py: the token is saved; open the dock and connect.
+    if (conHandoff && !IN_WIDGET_FRAME) {
+      conHandoff = false;
+      toggleConsole(true);
+      showGlobalToast('Terminal token received from term-bridge.py: connecting.');
+    }
   }
 
   // -------------------------------------------------------------

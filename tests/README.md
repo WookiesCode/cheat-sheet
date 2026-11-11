@@ -52,7 +52,8 @@ Run the tests after `node build-all.js`. The tests read the built pages and the 
 | `nav-once.test.js` | Pages carry only the fallback nav plus `nav.js`; the full menus are in place by DOMContentLoaded (http and `file://`) and match `nav/nav-source.html`; hovering a tab opens its menu; without JavaScript the fallback still links every tab |
 | `doc-counts.test.js` | The counts in `README.md` and `docs/site.md` match the home page (run after `node build-all.js`) |
 | `portable-icon.test.js` | The portable file's favicon data URI decodes |
-| `bridge.test.py` | `term-bridge.py` survives a large paste and bad or oversized resize messages (it uses a throwaway `HOME`) |
+| `bridge.test.py` | `term-bridge.py` survives a large paste and bad or oversized resize messages; a stop message ends it and its shells; it starts in the background in its own session, says "already running", and `--stop` stops it (it uses a throwaway `HOME` and `--no-open`) |
+| `bridge-handoff.test.js` | Opening the site with `#term-token=…&term-port=…` saves the token, takes it out of the address bar and history, opens the Terminal and connects; Stop bridge asks first, then ends the bridge; a malformed token is ignored |
 
 Run these by hand; the runner skips them:
 

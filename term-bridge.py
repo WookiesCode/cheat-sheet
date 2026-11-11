@@ -6,9 +6,17 @@ A web page cannot start a shell, so this small helper does: it listens on
 pseudo-terminal (the same shell you would get in a terminal window on this
 jumpbox). Standard library only; Linux and macOS.
 
-    python3 term-bridge.py             # port 8767
+    python3 term-bridge.py              # start in the background, open the site with the token
+    python3 term-bridge.py --stop       # stop it and hang up its shells
     python3 term-bridge.py --port 9000
-    python3 term-bridge.py --new-token # rotate the token
+    python3 term-bridge.py --new-token  # rotate the token
+    python3 term-bridge.py --foreground # stay attached (Ctrl-C stops it)
+
+Starting it opens the cheat-sheet in your default browser with the token in the
+address fragment (#term-token=...): the fragment never leaves the browser, and the
+page saves it, removes it from the address bar and connects. Then the bridge runs
+in the background, so the terminal you started it from can be closed. The page's
+Stop bridge button, or --stop, ends it.
 
 Safety:
   * Binds to 127.0.0.1, never to the network.
@@ -18,6 +26,8 @@ Safety:
   * The Origin header must be the cheat-sheet itself: a file:// page ("null") or
     http://localhost / http://127.0.0.1 on any port.
   * Closing the page or pressing Disconnect hangs up the shell (SIGHUP).
+  * The token is never served over HTTP: a sandboxed iframe on any site also
+    sends Origin "null", so only the browser-open hand-off carries it.
 """
 import argparse
 import base64
@@ -35,11 +45,17 @@ import socketserver
 import struct
 import sys
 import termios
+import subprocess
 import threading
-from urllib.parse import parse_qs, urlsplit
+import time
+import urllib.request
+from urllib.parse import parse_qs, quote, urlsplit
 
 WS_GUID = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11'
 TOKEN_PATH = os.path.expanduser('~/.config/dc-cheatsheet/term-token')
+PID_PATH = os.path.expanduser('~/.config/dc-cheatsheet/term-bridge.pid')
+LOG_PATH = os.path.expanduser('~/.cache/dc-cheatsheet/term-bridge.log')
+SITE_DIR = os.path.dirname(os.path.abspath(__file__))
 ALLOWED_HOSTS = {'localhost', '127.0.0.1', '[::1]'}
 
 
@@ -179,6 +195,7 @@ class Handler(socketserver.BaseRequestHandler):
                 pass
             os.execvp(shell, [shell, '-l'])
         log(f'shell {shell} pid {pid} opened')
+        self.server.shells.add(pid)
         ws.send(json.dumps({'type': 'hello', 'user': os.environ.get('USER', ''), 'host': socket.gethostname(), 'shell': os.path.basename(shell), 'pid': pid}).encode(), 0x1)
         alive = threading.Event()
         alive.set()
@@ -219,6 +236,11 @@ class Handler(socketserver.BaseRequestHandler):
                         msg = json.loads(data.decode())
                     except ValueError:
                         continue
+                    if isinstance(msg, dict) and msg.get('type') == 'stop':
+                        # The page's Stop bridge button (this connection already passed the token check).
+                        log('stop requested from the page')
+                        self.server.stop()
+                        break
                     if isinstance(msg, dict) and msg.get('type') == 'resize':
                         # A malformed size must not end the session: skip it. Clamp to what
                         # struct winsize (unsigned short) holds.
@@ -245,6 +267,7 @@ class Handler(socketserver.BaseRequestHandler):
                 os.close(fd)
             except OSError:
                 pass
+            self.server.shells.discard(pid)
             log(f'shell pid {pid} closed')
 
 
@@ -252,25 +275,188 @@ class Server(socketserver.ThreadingTCPServer):
     daemon_threads = True
     allow_reuse_address = True
 
+    def __init__(self, *a, **kw):
+        super().__init__(*a, **kw)
+        self.shells = set()
+        self._stopping = False
+
+    def stop(self):
+        """Hang up every shell and end serve_forever (callable from any thread or a signal)."""
+        if self._stopping:
+            return
+        self._stopping = True
+        for pid in list(self.shells):
+            try:
+                os.kill(pid, signal.SIGHUP)
+            except ProcessLookupError:
+                pass
+        threading.Thread(target=self.shutdown, daemon=True).start()
+
 
 def log(msg):
     print(f'[term-bridge] {msg}', file=sys.stderr, flush=True)
+
+
+def running_pid():
+    """The pid of a bridge started earlier, if it is still alive."""
+    try:
+        with open(PID_PATH) as f:
+            pid = int(f.read().strip())
+        os.kill(pid, 0)
+    except (OSError, ValueError):
+        return None
+    try:  # a reused pid that is not a bridge does not count
+        with open(f'/proc/{pid}/cmdline', 'rb') as f:
+            if b'term-bridge' not in f.read():
+                return None
+    except OSError:
+        pass  # no /proc (macOS): trust the pid file
+    return pid
+
+
+def write_pid():
+    fd = os.open(PID_PATH, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+    with os.fdopen(fd, 'w') as f:
+        f.write(f'{os.getpid()}\n')
+
+
+def remove_pid():
+    try:
+        with open(PID_PATH) as f:
+            if f.read().strip() == str(os.getpid()):
+                os.remove(PID_PATH)
+    except OSError:
+        pass
+
+
+def stop_running():
+    pid = running_pid()
+    if not pid:
+        print('term-bridge is not running.')
+        return 0
+    os.kill(pid, signal.SIGTERM)
+    for _ in range(50):
+        time.sleep(0.1)
+        try:
+            os.kill(pid, 0)
+        except OSError:
+            print(f'term-bridge (pid {pid}) stopped; its shells were hung up.')
+            return 0
+    print(f'term-bridge (pid {pid}) did not stop within 5 s.', file=sys.stderr)
+    return 1
+
+
+def site_url(explicit):
+    """Where to open the cheat-sheet: --url, else the repo preview server if it is up, else the file."""
+    if explicit:
+        return explicit
+    try:  # python3 -m http.server 8765 in the repo serves this very file
+        with urllib.request.urlopen('http://127.0.0.1:8765/term-bridge.py', timeout=0.5) as r:
+            if r.status == 200 and r.read(64).startswith(b'#!/usr/bin/env python3\n"""term-bridge.py'):
+                return 'http://127.0.0.1:8765/index.html'
+    except (OSError, ValueError):
+        pass
+    return 'file://' + quote(os.path.join(SITE_DIR, 'index.html'))
+
+
+def open_site(base, token, port):
+    url = f'{base}#term-token={token}&term-port={port}'
+    cmd = ['open', url] if sys.platform == 'darwin' else ['xdg-open', url]
+    try:
+        subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+        print(f'Opening {base} in your default browser; it fills in the token and connects.')
+    except OSError:
+        print(f'Could not open a browser ({cmd[0]} not found): open {base} and paste the token.')
+
+
+def detach():
+    """Run on in the background with no terminal (double fork). Returns in the background
+    process; the starting process prints the new pid and returns None."""
+    r, w = os.pipe()
+    if os.fork() > 0:  # the process the user started
+        os.close(w)
+        with os.fdopen(r) as f:
+            return f.read().strip() or '?'
+    os.close(r)
+    os.setsid()  # no controlling terminal: closing the window sends no SIGHUP
+    if os.fork() > 0:
+        os._exit(0)
+    os.makedirs(os.path.dirname(LOG_PATH), mode=0o700, exist_ok=True)
+    out = os.open(LOG_PATH, os.O_WRONLY | os.O_CREAT | os.O_APPEND, 0o600)
+    nul = os.open(os.devnull, os.O_RDONLY)
+    os.dup2(nul, 0)
+    os.dup2(out, 1)
+    os.dup2(out, 2)
+    os.chdir('/')
+    with os.fdopen(w, 'w') as f:
+        f.write(str(os.getpid()))
+    return None
 
 
 def main():
     ap = argparse.ArgumentParser(description='Local shell bridge for the cheat-sheet Terminal dock.')
     ap.add_argument('--port', type=int, default=8767)
     ap.add_argument('--new-token', action='store_true', help='rotate the access token')
+    ap.add_argument('--stop', action='store_true', help='stop the running bridge and hang up its shells')
+    ap.add_argument('--foreground', action='store_true', help='stay attached to this terminal (Ctrl-C stops it)')
+    ap.add_argument('--no-open', action='store_true', help='do not open the cheat-sheet in the browser')
+    ap.add_argument('--url', help='address of the cheat-sheet to open (default: the repo preview server on :8765 if up, else index.html as a file)')
     a = ap.parse_args()
-    srv = Server(('127.0.0.1', a.port), Handler)
-    srv.token = load_token(a.new_token)
+    if a.stop:
+        sys.exit(stop_running())
+
+    pid = running_pid()
+    if pid and a.new_token:
+        stop_running()  # the running one holds the old token
+        pid = None
+    token = load_token(a.new_token)
+    if pid:
+        print(f'term-bridge is already running (pid {pid}).')
+        if not a.no_open:
+            open_site(site_url(a.url), token, a.port)
+        return
+
+    try:
+        srv = Server(('127.0.0.1', a.port), Handler)
+    except OSError as e:
+        sys.exit(f'term-bridge: cannot listen on 127.0.0.1:{a.port} ({e.strerror}). Is something else using it? Try --port.')
+    srv.token = token
     print(f'term-bridge listening on 127.0.0.1:{a.port} (local only)')
-    print(f'Token (paste once into the Terminal dock): {srv.token}')
-    print(f'Stored in {TOKEN_PATH}. Ctrl-C stops the bridge and its shells.', flush=True)
+    print(f'Token (filled in for you; paste it only if the page asks): {srv.token}')
+    print(f'Stored in {TOKEN_PATH}.', flush=True)
+    base = None if a.no_open else site_url(a.url)
+
+    if not a.foreground:
+        child = detach()
+        if child is not None:
+            print(f'Running in the background (pid {child}); you can close this terminal.')
+            print(f'Stop it with the Stop bridge button in the Terminal, or: python3 {os.path.abspath(__file__)} --stop')
+            print(f'Log: {LOG_PATH}', flush=True)
+            if base:
+                open_site(base, token, a.port)
+            return
+    else:
+        print('Ctrl-C stops the bridge and its shells.', flush=True)
+        if base:
+            open_site(base, token, a.port)
+
+    write_pid()
+    signal.signal(signal.SIGTERM, lambda *_: srv.stop())
+    log(f'listening on 127.0.0.1:{a.port}, pid {os.getpid()}')
     try:
         srv.serve_forever()
     except KeyboardInterrupt:
         print()
+        srv.stop()
+    finally:
+        for pid in list(srv.shells):
+            try:
+                os.kill(pid, signal.SIGHUP)
+            except ProcessLookupError:
+                pass
+        srv.server_close()
+        remove_pid()
+        log('stopped')
 
 
 if __name__ == '__main__':

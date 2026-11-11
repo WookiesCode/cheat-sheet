@@ -3,6 +3,9 @@
 Runs the bridge with a throwaway HOME (so the real token is untouched), then:
   1. paste test: send a large multi-line paste into `cat > file` and compare byte counts
   2. bad resize: send {"type":"resize","cols":"abc"} and check the shell survives
+  3. resizes reach the pty
+  4. a {"type":"stop"} message (the page's Stop bridge button) ends the bridge and its shells
+  5. background start, "already running", and --stop
 Usage: python3 tests/bridge.test.py [path-to-term-bridge.py]   (default: the repo's term-bridge.py)
 Exits 1 if any check fails.
 """
@@ -60,7 +63,7 @@ def drain(s, secs):
 
 home = tempfile.mkdtemp(prefix='tb-home-')
 env = dict(os.environ, HOME=home, SHELL='/bin/bash')
-proc = subprocess.Popen([sys.executable, BRIDGE, '--port', str(PORT)], env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+proc = subprocess.Popen([sys.executable, BRIDGE, '--port', str(PORT), '--foreground', '--no-open'], env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 try:
     time.sleep(0.8)
     token = open(os.path.join(home, '.config/dc-cheatsheet/term-token')).read().strip()
@@ -111,5 +114,66 @@ finally:
     tail = [l for l in err.splitlines() if 'Traceback' in l or 'Error' in l]
     if tail:
         print('bridge stderr:', ' | '.join(tail[-3:]))
+
+
+def check(ok, what):
+    print(f'{"ok  " if ok else "FAIL"} {what}')
+    if not ok:
+        failures.append(what)
+
+
+def port_open(port):
+    try:
+        socket.create_connection(('127.0.0.1', port), timeout=0.5).close()
+        return True
+    except OSError:
+        return False
+
+
+PID_FILE = os.path.join(home, '.config/dc-cheatsheet/term-bridge.pid')
+
+# 4. The page's Stop bridge button: {"type":"stop"} ends the bridge and hangs up its shells.
+proc = subprocess.Popen([sys.executable, BRIDGE, '--port', str(PORT), '--foreground', '--no-open'], env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+time.sleep(0.8)
+check(os.path.exists(PID_FILE), 'a running bridge writes its pid file')
+s = connect(token)
+out, _ = drain(s, 1.0)
+shell_pid = json.loads(out[out.index(b'{'):out.index(b'}') + 1])['pid'] if b'"hello"' in out else None
+s.sendall(frame(json.dumps({'type': 'stop'}).encode(), 0x1))
+try:
+    proc.wait(timeout=5)
+    stopped = True
+except subprocess.TimeoutExpired:
+    proc.kill()
+    stopped = False
+check(stopped, 'a stop message from the page ends the bridge')
+gone = True
+if shell_pid:
+    try:
+        os.kill(shell_pid, 0)
+        gone = False
+    except OSError:
+        pass
+check(shell_pid is not None and gone, 'its shell was hung up')
+check(not os.path.exists(PID_FILE) and not port_open(PORT), 'the pid file is removed and the port is closed')
+
+# 5. Background start: the starting process returns at once; the bridge lives on in its own session.
+r = subprocess.run([sys.executable, BRIDGE, '--port', str(PORT), '--no-open'], env=env, capture_output=True, text=True, timeout=10)
+check(r.returncode == 0 and 'Running in the background' in r.stdout, 'it starts in the background and the starting command returns')
+time.sleep(0.5)
+bg = int(open(PID_FILE).read().strip()) if os.path.exists(PID_FILE) else None
+check(bg is not None and port_open(PORT), 'the background bridge is listening')
+check(bg is not None and os.getsid(bg) != os.getsid(0), 'it runs in its own session, so closing the terminal does not hang it up')
+r2 = subprocess.run([sys.executable, BRIDGE, '--port', str(PORT), '--no-open'], env=env, capture_output=True, text=True, timeout=10)
+check('already running' in r2.stdout, 'starting it again says it is already running')
+s = connect(token)
+out, alive = drain(s, 1.0)
+check(b'"hello"' in out, 'the background bridge opens shells')
+s.close()
+r3 = subprocess.run([sys.executable, BRIDGE, '--stop'], env=env, capture_output=True, text=True, timeout=10)
+time.sleep(0.3)
+check(r3.returncode == 0 and 'stopped' in r3.stdout and not port_open(PORT) and not os.path.exists(PID_FILE), '--stop stops it')
+r4 = subprocess.run([sys.executable, BRIDGE, '--stop'], env=env, capture_output=True, text=True, timeout=10)
+check('not running' in r4.stdout, '--stop with nothing running says so')
 
 sys.exit(1 if failures else 0)

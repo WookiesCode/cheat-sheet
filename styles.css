@@ -6221,6 +6221,9 @@ body.con-open { padding-bottom: calc(var(--con-pad, 38vh) + var(--pager-h, 0px) 
 .con-drawer.is-live .con-connect { background: transparent; color: var(--accent-red); border-color: color-mix(in srgb, var(--accent-red) 50%, transparent); }
 .con-icon { min-width: 30px; }
 .con-danger { background: var(--accent-red); border-color: var(--accent-red); color: #fff; }
+/* Stops term-bridge.py itself (asks first): red text, not a filled button. */
+.con-stop { color: var(--accent-red); }
+.con-stop:hover, .con-stop:focus-visible { border-color: var(--accent-red); }
 .con-confirm { display: flex; align-items: center; gap: 0.55rem; padding: 0.45rem 0.9rem; font: 0.76rem var(--font-sans); color: var(--text-primary); background: color-mix(in srgb, var(--accent-red) 14%, var(--bg-elevated)); border-bottom: 1px solid color-mix(in srgb, var(--accent-red) 45%, transparent); }
 .con-confirm[hidden] { display: none; }
 .con-confirm-msg { flex: 1; min-width: 0; overflow-wrap: anywhere; }
