@@ -44,7 +44,7 @@ const calls = (page) => page.evaluate(() => window.__persistCalls);
     // Give the notes page a draft, so anything that saves on load would show up.
     await page.goto(BASE + 'notes.html', { waitUntil: 'load' });
     await page.evaluate(() => localStorage.setItem('dc_field_notes', JSON.stringify({ notes: [], active: '' })));
-    for (const f of ['index.html', 'nv-smi.html', 'notes.html', 'tools.html']) {
+    for (const f of ['index.html', 'nvidia.html#nv-smi', 'notes.html', 'tools.html']) {
       await page.goto(BASE + f, { waitUntil: 'load' });
       await page.waitForTimeout(600);
       check(await calls(page) === 0, `${f}: no persist() request on page load`);
@@ -56,7 +56,7 @@ const calls = (page) => page.evaluate(() => window.__persistCalls);
   {
     const ctx = await fakeContext(browser, 'not-kept');
     const page = await ctx.newPage();
-    await page.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+    await page.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     const box = await openPanel(page);
     check(/Not guaranteed/.test(await box.innerText()), 'panel shows "Not guaranteed" when not kept');
     check(await calls(page) === 0, 'opening the panel does not ask by itself');
@@ -70,7 +70,7 @@ const calls = (page) => page.evaluate(() => window.__persistCalls);
   {
     const ctx = await fakeContext(browser, 'refuse');
     const page = await ctx.newPage();
-    await page.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+    await page.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     const box = await openPanel(page);
     await page.click('.bk-persist [data-bk="persist"]');
     await page.waitForTimeout(300);
@@ -86,7 +86,7 @@ const calls = (page) => page.evaluate(() => window.__persistCalls);
   for (const [mode, re, what] of [['kept', /✓ Kept/, 'already kept: "Kept", no button'], ['unavailable', /No promise available/, 'no storage API: says so and suggests a backup']]) {
     const ctx = await fakeContext(browser, mode);
     const page = await ctx.newPage();
-    await page.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+    await page.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     const box = await openPanel(page);
     const t = await box.innerText();
     check(re.test(t) && !(await page.$('.bk-persist button')), what);
@@ -117,7 +117,7 @@ const calls = (page) => page.evaluate(() => window.__persistCalls);
   // 6. Report only: what this Chrome really answers (headless usually says no: no engagement history).
   {
     const ctx = await newContext(browser);
-    for (const [name, url] of [['localhost', BASE + 'nv-smi.html'], ['portable file://', 'file://' + path.join(ROOT, 'datacenter-cheatsheet-portable.html')]]) {
+    for (const [name, url] of [['localhost', BASE + 'nvidia.html#nv-smi'], ['portable file://', 'file://' + path.join(ROOT, 'datacenter-cheatsheet-portable.html')]]) {
       const page = await ctx.newPage();
       await page.goto(url, { waitUntil: 'load' });
       const real = await page.evaluate(async () => ({

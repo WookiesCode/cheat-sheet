@@ -3,7 +3,7 @@ const { ROOT, BASE, OUT, launch, newContext } = require('./lib');
 const fs = require('fs');
 const path = require('path');
 
-const PERF_PAGES = ['index.html', 'linux.html', 'nv-smi.html', 'git.html', 'grafana.html', 'ib-mlxlink.html'];
+const PERF_PAGES = ['index.html', 'linux.html', 'nvidia.html#nv-smi', 'scripting.html#git', 'grafana.html', 'infiniband.html#ib-mlxlink'];
 const WIDTHS = [700, 900, 1024, 1280];
 const allPages = fs.readdirSync(ROOT).filter(f => f.endsWith('.html') && !f.includes('portable'));
 

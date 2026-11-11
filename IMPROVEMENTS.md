@@ -561,6 +561,7 @@ The CLI pilot's pattern, applied to the other 21 groups: 172 more pages became p
 | Renderers | Windows and ipmitool cards now draw their recipes (`subcommands`), which only the old pages showed |
 | Build | No generators run: menus edited in `nav/nav-source.html`; `build-nav-groups.js` reads the current menus |
 | Checked | every old page's commands are in its part (index comparison, 172/172); each old address opens filtered with the rail and pager following (browser, 172/172); 25/25 tests |
+| Old pages deleted | After the checks passed, the 219 redirect pages and the 172 old data files were backed up to `backups/merged-old-pages-20261110-181904.tar.gz` (+ `.sha256`, file list in `.list.txt`) and deleted. Links that named old pages now resolve through `sheetHref()` (decoder, analyzer, Explain, Rosetta) or were rewritten (Omarchy's own nav, the storage playbook). All 219 `group#part` addresses re-checked in the browser. |
 
 ## Found while building (not fixed)
 

@@ -10,7 +10,7 @@ const check = (ok, what) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`); if
   const ctx = await newContext(browser);
   const p = await ctx.newPage();
   p.on('pageerror', e => check(false, 'page error: ' + e.message));
-  await p.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+  await p.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
   await p.waitForTimeout(500);
   await p.keyboard.press('e');
   await p.waitForTimeout(300);

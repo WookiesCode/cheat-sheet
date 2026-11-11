@@ -1503,7 +1503,8 @@
     }
     if (tokens.length > 1 && about.includes(phrase)) score += 8;
     if (tokens.length > 1 && cmd.includes(phrase)) score += 2;
-    if (boost && boost.includes(item.file)) score += 12;
+    // Boost lists name sheets; a merged page's part still answers to its old name (nv-pcie.html).
+    if (boost && (boost.includes(item.file) || (item.sheet && boost.includes(`${item.sheet.split('#')[1]}.html`)))) score += 12;
     if (GENERIC_SHEETS.test(item.sName) && !tokens.includes(item.sName)) score *= 0.5;
     return score;
   }
@@ -3648,6 +3649,7 @@
   }
 
   function openSearchResult(file, id) {
+    file = sheetHref(file);
     // The portable build is one file, so sheet pages don't exist beside it.
     if (window.portableOpenSheet) {
       closeGlobalSearch();
@@ -14436,12 +14438,12 @@ ${rmaTrailSection()}#### Action Requested:
   };
   const ROS_TOOLS = {
     ipmi: { name: 'ipmitool', sheet: 'ipmi.html', logoFrom: '[data-suite-hub="ipmi.html"] .ng-logo' },
-    fipmi: { name: 'FreeIPMI', sheet: 'freeipmi.html', logoFrom: 'a.dropdown-item[href="freeipmi.html"] svg' },
+    fipmi: { name: 'FreeIPMI', sheet: 'freeipmi.html', logoFrom: 'a.dropdown-item[href="bmc-tools.html#freeipmi"] svg' },
     rf: { name: 'Redfish', sheet: 'redfish.html', logoFrom: '[data-suite-hub="redfish.html"] .ng-logo' },
-    dell: { name: 'racadm', sheet: 'racadm.html', logoFrom: 'a.dropdown-item[href="racadm.html"] svg' },
-    hpe: { name: 'iLOrest', sheet: 'ilorest.html', logoFrom: 'a.dropdown-item[href="ilorest.html"] svg' },
-    lenovo: { name: 'OneCLI', sheet: 'onecli.html', logoFrom: 'a.dropdown-item[href="onecli.html"] svg' },
-    smc: { name: 'SAA', sheet: 'supermicro-saa.html', logoFrom: 'a.dropdown-item[href="supermicro-saa.html"] svg' }
+    dell: { name: 'racadm', sheet: 'racadm.html', logoFrom: 'a.dropdown-item[href="bmc-tools.html#racadm"] svg' },
+    hpe: { name: 'iLOrest', sheet: 'ilorest.html', logoFrom: 'a.dropdown-item[href="bmc-tools.html#ilorest"] svg' },
+    lenovo: { name: 'OneCLI', sheet: 'onecli.html', logoFrom: 'a.dropdown-item[href="bmc-tools.html#onecli"] svg' },
+    smc: { name: 'SAA', sheet: 'supermicro-saa.html', logoFrom: 'a.dropdown-item[href="bmc-tools.html#supermicro-saa"] svg' }
   };
   // Redfish resource IDs: Dell names its members; HPE, Lenovo and Supermicro use 1.
   const ROS_RF_IDS = { dell: { SYS: 'System.Embedded.1', MGR: 'iDRAC.Embedded.1', CH: 'System.Embedded.1' } };
@@ -14688,7 +14690,7 @@ ${rmaTrailSection()}#### Action Requested:
     rosEl.querySelectorAll('[data-ros-domain]').forEach(b => { const on = b.dataset.rosDomain === rosDomain; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', String(on)); });
     const chips = Object.entries(d.vendors).map(([k, o]) => `<button type="button" class="ros-vendor ${k === vendor ? 'is-on' : ''}" data-ros-vendor="${k}" aria-pressed="${k === vendor}">${rosLogo(o.tool)}<span>${escapeHtml(o.name)}</span></button>`).join('')
       + `<button type="button" class="ros-vendor ${!vendor ? 'is-on' : ''}" data-ros-vendor="" aria-pressed="${!vendor}"><span>${escapeHtml(d.other)}</span></button>`;
-    const head = cols.map(c => `<th scope="col" class="${c === vendorTool ? 'is-vendor' : ''}"><a href="${d.tools[c].sheet}" data-ros-sheet="${d.tools[c].sheet}">${rosLogo(c)}${escapeHtml(d.tools[c].name)}</a></th>`).join('');
+    const head = cols.map(c => `<th scope="col" class="${c === vendorTool ? 'is-vendor' : ''}"><a href="${sheetHref(d.tools[c].sheet)}" data-ros-sheet="${sheetHref(d.tools[c].sheet)}">${rosLogo(c)}${escapeHtml(d.tools[c].name)}</a></th>`).join('');
     let lastGroup = '';
     const rows = tasks.map(t => {
       const sep = t.group !== lastGroup ? `<tr class="ros-group"><th colspan="${cols.length + 1}">${escapeHtml(t.group)}${t.group === 'Act' ? ` <span>${escapeHtml(d.act)}</span>` : ''}</th></tr>` : '';
@@ -14901,7 +14903,21 @@ ${rmaTrailSection()}#### Action Requested:
     try { const l = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); return Array.isArray(l) ? l : []; } catch (e) { return []; }
   }
 
+  // A sheet named the old way (nv-pcie.html) is now a part of its group page: find its
+  // menu link (nvidia.html#nv-pcie). Names that are pages of their own come back unchanged.
+  function sheetHref(file) {
+    if (!file || String(file).includes('#')) return file;
+    const part = String(file).replace(/\.html$/, '');
+    const nav = document.querySelector('.top-bar .sheet-switcher') || document;
+    const a = nav.querySelector(`a.dropdown-item[href$="#${CSS.escape(part)}"]`);
+    if (a) return a.getAttribute('href');
+    const pa = nav.querySelector(`a[data-part="${CSS.escape(part)}"]`);   // the portable build's menu
+    const cfg = pa && Array.isArray(window.PORTABLE_SHEETS) ? window.PORTABLE_SHEETS.find(c => c.key === pa.dataset.sheet) : null;
+    return cfg ? `${cfg.file}#${part}` : file;
+  }
+
   function goToSheet(file) {
+    file = sheetHref(file);
     if (window.portableOpenSheet) return window.portableOpenSheet(file, '');
     // On a merged group page, its own parts (and the page itself) only change the hash.
     const [page, part] = String(file).split('#');

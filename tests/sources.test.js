@@ -419,7 +419,7 @@ const rows = (p) => p.evaluate(() => {
     await ctx.close();
   }
 
-  // 2m. CLI tools (one page, cli-tools.html; the old tool pages redirect to its #tool): every
+  // 2m. CLI tools (one page, cli-tools.html; each tool is a part, cli-tools.html#tool): every
   // card sourced, the corrections, and the state-change flags; read-only ip/sysctl/efibootmgr stay plain.
   {
     // Load the tool list the way the generator does: a sandbox with a stub localStorage.
@@ -773,7 +773,7 @@ const rows = (p) => p.evaluate(() => {
     await ctx.close();
   }
 
-  // 2zc. Merged CLI page: the old tool pages redirect to cli-tools.html#tool, which shows only that
+  // 2zc. Merged CLI page: cli-tools.html#tool shows only that
   // tool; a command id picks its tool and flashes the card; the rail and pager follow; the All link
   // shows everything again; stars from the old pages carry over.
   {
@@ -788,7 +788,7 @@ const rows = (p) => p.evaluate(() => {
     await p.goto(BASE + 'cli-tools.html#grep', { waitUntil: 'load' });
     await p.waitForTimeout(700);
     let v = await view();
-    check(v.url === 'cli-tools.html#grep' && v.cards === 1 && /Showing grep/.test(v.bar) && v.rail === 'grep' && !v.widgets, `grep.html opens cli-tools.html#grep with only grep's card (${JSON.stringify(v)})`);
+    check(v.url === 'cli-tools.html#grep' && v.cards === 1 && /Showing grep/.test(v.bar) && v.rail === 'grep' && !v.widgets, `cli-tools.html#grep shows only grep's card (${JSON.stringify(v)})`);
     check(await p.evaluate(() => [...document.querySelectorAll('.bookmark-btn.bookmarked')].length === 1 && localStorage.getItem('grep_bookmarks') === null), 'a star from the old grep page shows on the merged page');
     await p.locator('.rail-sheet', { hasText: 'Columns' }).click({ delay: 120 });
     await p.waitForTimeout(500);
@@ -801,10 +801,10 @@ const rows = (p) => p.evaluate(() => {
     await p.waitForTimeout(600);
     v = await view();
     check(v.cards > 40 && !v.bar && v.widgets, 'the All link shows every tool and the widgets again');
-    await p.goto(BASE + 'sed.html#sed-range-slice-logs', { waitUntil: 'load' });
+    await p.goto(BASE + 'cli-tools.html#sed-range-slice-logs', { waitUntil: 'load' });
     await p.waitForTimeout(700);
     v = await view();
-    check(v.url === 'cli-tools.html#sed-range-slice-logs' && v.cards === 1 && v.rail === 'sed', 'an old card link lands on its tool, filtered');
+    check(v.url === 'cli-tools.html#sed-range-slice-logs' && v.cards === 1 && v.rail === 'sed', 'a command link lands on its tool, filtered');
     const nav = fs.readFileSync(path.join(ROOT, 'nav', 'nav-source.html'), 'utf8');
     check(/href="cli-tools\.html#grep"/.test(nav) && !/href="grep\.html"/.test(nav), 'the CLI menu links to cli-tools.html#tool');
     await ctx.close();

@@ -1,4 +1,4 @@
-// Auto-generated Global Search Index across all 196 cheat sheets
+// Auto-generated Global Search Index across all 24 cheat sheets
 // Total indexed items: 2130
 window.GLOBAL_SEARCH_INDEX = [
   {

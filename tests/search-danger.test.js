@@ -16,7 +16,7 @@ const check = (ok, what) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`); if
   });
   const page = await ctx.newPage();
   page.on('pageerror', e => check(false, 'page error: ' + e.message));
-  await page.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+  await page.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
   await page.waitForTimeout(500);
 
   const copied = () => writes.slice();
@@ -69,7 +69,7 @@ const check = (ok, what) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`); if
 
   writes.length = 0;
   // 5. Clicking a dangerous result opens it without copying (it navigates within this sheet's suite).
-  await page.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+  await page.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
   await page.waitForTimeout(400);
   await openSearch('mlxlink ber');
   const el = page.locator('.palette-item.is-danger').first();
@@ -84,7 +84,7 @@ const check = (ok, what) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`); if
 
   writes.length = 0;
   // 6. A safe result still copies on the first Enter (no regression).
-  await page.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+  await page.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
   await page.waitForTimeout(400);
   await openSearch('nvidia-smi topo');
   check(await highlight(/^nvidia-smi topo -m/), 'keyboard reaches nvidia-smi topo -m');

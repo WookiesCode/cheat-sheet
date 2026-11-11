@@ -8,7 +8,7 @@ const { ROOT, BASE, OUT, launch, newContext } = require('./lib');
   const page = await ctx.newPage();
   let indexUrl = '';
   page.on('response', r => { if (r.url().includes('global-search-index.js')) indexUrl = r.url() + ' ' + r.status(); });
-  await page.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+  await page.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
   await page.waitForTimeout(500);
   await page.keyboard.press('Control+k');
   await page.waitForTimeout(300);

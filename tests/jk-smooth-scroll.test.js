@@ -23,7 +23,7 @@ const hidden = () => {
 
 (async () => {
   const browser = await launch();
-  for (const [w, h, file] of [[800, 700, 'ib-mlxlink.html'], [1280, 800, 'nv-smi.html']]) {
+  for (const [w, h, file] of [[800, 700, 'infiniband.html#ib-mlxlink'], [1280, 800, 'nvidia.html#nv-smi']]) {
     const ctx = await newContext(browser, { viewport: { width: w, height: h } });
     const p = await ctx.newPage();
     await p.goto(BASE + file, { waitUntil: 'load' });

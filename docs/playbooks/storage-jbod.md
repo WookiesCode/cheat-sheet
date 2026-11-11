@@ -97,7 +97,7 @@ zpool iostat -v
 
 ## 4. Parallel & Distributed File Systems (Read-Only Health Checks)
 
-When a compute node or storage server reports slow I/O, hung mounts, or OSD/OST errors, use these read-only checks to distinguish client network issues from backend storage server faults. Each one is sourced, with more commands, on the site's Parallel filesystems sheets (`pfs-lustre.html`, `pfs-weka.html`, `pfs-beegfs.html`, `pfs-scale.html`, `pfs-ceph.html`), checked 2026-11-09.
+When a compute node or storage server reports slow I/O, hung mounts, or OSD/OST errors, use these read-only checks to distinguish client network issues from backend storage server faults. Each one is sourced, with more commands, on the site's Parallel filesystems page's parts (`pfs.html#pfs-lustre`, `pfs.html#pfs-weka`, `pfs.html#pfs-beegfs`, `pfs.html#pfs-scale`, `pfs.html#pfs-ceph`), checked 2026-11-09.
 
 ### Lustre
 ```bash

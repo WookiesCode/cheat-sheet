@@ -34,7 +34,7 @@ const TOOLS = [
   const ctx = await newContext(browser);
   const page = await ctx.newPage();
   page.on('pageerror', e => check(false, 'page error: ' + e.message));
-  await page.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+  await page.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
   await page.waitForTimeout(600);
 
   for (const t of TOOLS) {

@@ -6,7 +6,7 @@ const path = require('path');
 const PAGES = [
   ['home', BASE + 'index.html'],
   ['linux', BASE + 'linux.html'],
-  ['nv-smi', BASE + 'nv-smi.html'],
+  ['nv-smi', BASE + 'nvidia.html#nv-smi'],
   ['notes', BASE + 'notes.html'],
   ['tools', BASE + 'tools.html'],
   ['portable', 'file://' + path.join(ROOT, 'datacenter-cheatsheet-portable.html')],

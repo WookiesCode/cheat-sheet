@@ -6,7 +6,7 @@ const { BASE, launch, newContext } = require('./lib');
 const failures = [];
 const check = (ok, what) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`); if (!ok) failures.push(what); };
 const SIZES = [[1280, 800], [800, 700]];
-const PAGES = ['nv-smi.html', 'ib-mlxlink.html'];
+const PAGES = ['nvidia.html#nv-smi', 'infiniband.html#ib-mlxlink'];
 
 // Sample 9 points of the focused element; "hidden" = every on-screen point is covered by a
 // fixed/sticky layer. Elements inside such a layer (header, pager, rail) don't count.
@@ -61,7 +61,7 @@ async function sweep(p, keys) {
   {
     const ctx = await newContext(browser, { viewport: { width: 800, height: 700 } });
     const p = await ctx.newPage();
-    await p.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     await p.waitForTimeout(1200);
     const r = await p.evaluate(() => {
       const pager = document.querySelector('.suite-rail-pager').getBoundingClientRect();
@@ -86,7 +86,7 @@ async function sweep(p, keys) {
   {
     const ctx = await newContext(browser, { viewport: { width: 1280, height: 800 } });
     const p = await ctx.newPage();
-    await p.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
+    await p.goto(BASE + 'nvidia.html#nv-smi', { waitUntil: 'load' });
     await p.waitForTimeout(1200);
     await p.evaluate(() => window.scrollTo({ top: 300, behavior: 'instant' }));
     await p.waitForTimeout(200);
