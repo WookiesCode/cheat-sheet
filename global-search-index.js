@@ -30494,15 +30494,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "MRC / RAM",
     "id": "asus-gigabyte-dimm-population",
     "sec": "Memory (MRC) POST Codes — ASUS & GIGABYTE (50–55, B0–BF)",
-    "cmd": "1-DIMM Minimal Boot Test:  ASUS = CPU1_DIMM_A1   |   GIGABYTE = CPU0_DIMM_A0 (or DIMM_P0_A0)",
-    "desc": "ASUS (K14/KRPA/Z13) vs GIGABYTE (MZ/MD/MS) server motherboard DIMM slot naming & population order",
-    "tip": "Give the first DDR5 boot several minutes before assuming a hang",
-    "tags": "population slots a1 a0 ddr5 ddr4 rdimm lrdimm asus gigabyte",
+    "cmd": "1-DIMM boot test:  ASUS K14PG-D24 = CPU1_DIMM_A1   |   GIGABYTE MZ73-LM0 = see the manual's matrix (slots A0–X0)",
+    "desc": "ASUS vs GIGABYTE dual-socket EPYC boards: DIMM slot names and population order (checked: ASUS K14PG-D24, GIGABYTE MZ73-LM0)",
+    "tip": "Population is board-specific: open the matrix for your exact board before moving DIMMs",
+    "tags": "population slots a1 a0 ddr5 rdimm 3ds asus gigabyte k14pg-d24 mz73-lm0",
     "sheet": "motherboards.html#mb-memory-post",
     "src": {
-      "verified": "2026-11-10",
-      "refs": [],
-      "note": "Board-specific (LED names, jumper positions, menu paths): check this board's manual; not confirmed against a vendor document here."
+      "verified": "2026-11-11",
+      "refs": [
+        {
+          "url": "https://dlcdnets.asus.com/pub/ASUS/server/ESC8000A-E12P/Manual/E22383_ESC8000A-E12P_UM_V2_WEB.pdf",
+          "title": "ASUS ESC8000A-E12P user guide (K14PG-D24 board), PDF"
+        },
+        {
+          "url": "https://www.manualslib.com/manual/3054427/Gigabyte-Mz73-Lm0.html",
+          "title": "GIGABYTE MZ73-LM0 / MZ73-LM1 user manual rev 1.0 (ManualsLib copy)"
+        },
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        }
+      ],
+      "note": "ASUS order from the ESC8000A-E12P guide, section 2.4.2 (recommended single and dual CPU tables). GIGABYTE from the MZ73-LM0 manual rev 1.0, section 1-4-3; the matrix marks did not extract as text, so the GIGABYTE order is not repeated here. Removed: the DIMM_P0_A0 naming and a \"minutes of DDR5 training\" claim with no source."
     },
     "noCopy": true
   },
@@ -30594,7 +30607,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "PCIe, GPU, Riser & Option ROM POST Codes (60–99, d2–d8)",
     "cmd": "POST 0x60 (DXE Core)  ->  0x61 (NVRAM)  ->  0x68 (PCI Host Bridge)  ->  0x70 (Southbridge)  ->  0x79 (CSM)",
     "desc": "Decode DXE Core, NVRAM, Northbridge/UPI, and Southbridge/PCH codes (`0x60`–`0x79`)",
-    "tip": "Stuck at 0x61 = corrupted UEFI NVRAM (use CLRTC / CLR_CMOS jumper)",
+    "tip": "Stuck at 0x61 = corrupted UEFI NVRAM: clear CMOS (jumper or switch, see the board manual)",
     "tags": "60 61 62 63 68 69 70 78 79 dxe nvram cmos acpi csm",
     "sheet": "motherboards.html#mb-pcie-dxe-post",
     "src": {
@@ -30742,15 +30755,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "EPYC CPU",
     "id": "epyc-xgmi-dual-socket",
     "sec": "AMD EPYC CPU (AGESA ABL & PSP) POST Codes (E0–FF, D0–DF)",
-    "cmd": "BMC SEL: which socket (P0 / P1) logged the error   |   New CPU generation: update BIOS first",
+    "cmd": "BMC SEL: which socket (CPU1/CPU2 or CPU0/CPU1) logged the error   |   New CPU generation: update BIOS first",
     "desc": "Two-socket boards (AMD EPYC xGMI, Intel Xeon UPI): find which socket failed, and update BIOS before a newer CPU",
-    "tip": "Update BIOS through the BMC before swapping in a newer CPU generation",
+    "tip": "Update BIOS before swapping in a newer CPU generation",
     "tags": "xgmi upi 2p dual-socket e3 e4 mz73 k14 krpa",
     "sheet": "motherboards.html#mb-epyc-agesa",
     "src": {
-      "verified": "2026-11-10",
-      "refs": [],
-      "note": "Corrected 2026-11-10: removed unsourced xGMI/UPI code numbers. General advice; check your board's BMC guide."
+      "verified": "2026-11-11",
+      "refs": [
+        {
+          "url": "https://dlcdnets.asus.com/pub/ASUS/server/ESC8000A-E12P/Manual/E22383_ESC8000A-E12P_UM_V2_WEB.pdf",
+          "title": "ASUS ESC8000A-E12P user guide (K14PG-D24 board), PDF"
+        },
+        {
+          "url": "https://www.manualslib.com/manual/3054427/Gigabyte-Mz73-Lm0.html",
+          "title": "GIGABYTE MZ73-LM0 / MZ73-LM1 user manual rev 1.0 (ManualsLib copy)"
+        }
+      ],
+      "note": "Socket labels and BIOS tools from the two manuals (ASUS sections 2.4 and 4.1; GIGABYTE sections 1-4-3 and 2-10). \"Update BIOS before a newer CPU\" is general practice. Removed: the claim that BMCs can flash the host BIOS with the host off (not in either manual)."
     }
   },
   {
@@ -30811,17 +30833,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "ASUS SERVER",
     "id": "asus-onboard-leds-jumpers",
     "sec": "ASUS Server Boards (ASMB10 / ASMB11 BMC, Q-Code & Jumpers)",
-    "cmd": "BMC_LED1 (Blinking Green = ASMB Ready)   |   CATERR_LED1 (Solid Red = CPU IERR/MCERR)   |   CLRTC1 (Clear CMOS)",
-    "desc": "ASUS server motherboard onboard diagnostic LEDs (`BMC_LED1`, `CATERR_LED1`, `Q-LED`) and recovery jumpers",
-    "tip": "Wait ~60s after plugging in AC power for BMC_LED1 to blink green before powering on!",
-    "tags": "asus bmc_led1 caterr q-led clrtc1 vga_sw1 jumper cmos",
+    "cmd": "BMCLED1 (lit = BMC functional)   |   Q-Code LED (rear, port 80)   |   Clear CMOS switch (rear)   |   VGA_SW1 1-2 = VGA on",
+    "desc": "ASUS server board LEDs, Q-Code display and jumpers (checked: K14PG-D24 in the ESC8000A-E12P)",
+    "tip": "A Q-Code that cycles through every value is the BIOS waiting for the BMC, not a fault",
+    "tags": "asus bmcled1 q-code message-led clear-cmos vga_sw1 dm_ip_sel1 jumper cmos k14pg-d24",
     "sheet": "motherboards.html#mb-asus-servers",
     "src": {
-      "verified": "2026-11-10",
-      "refs": [],
-      "note": "Board-specific (LED names, jumper positions, menu paths): check this board's manual; not confirmed against a vendor document here."
-    },
-    "noCopy": true
+      "verified": "2026-11-11",
+      "refs": [
+        {
+          "url": "https://dlcdnets.asus.com/pub/ASUS/server/ESC8000A-E12P/Manual/E22383_ESC8000A-E12P_UM_V2_WEB.pdf",
+          "title": "ASUS ESC8000A-E12P user guide (K14PG-D24 board), PDF"
+        }
+      ],
+      "note": "Corrected 2026-11-11 from the ESC8000A-E12P guide (sections 1.8, 3.4, 3.6, Q-Code table): the LED is BMCLED1, steady when the BMC works; there is no CATERR_LED1 or CLRTC1 on this board (clear CMOS is a rear switch). Older ASUS boards differ: check yours."
+    }
   },
   {
     "sName": "motherboards",
@@ -30881,17 +30907,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "GIGABYTE",
     "id": "gigabyte-leds-switches-jumpers",
     "sec": "GIGABYTE Server Boards (GSM / AST2600 BMC, Dual-BIOS & Jumpers)",
-    "cmd": "BMC_RDY LED (Blinking Green)   |   SW_BIOS / BIOS_SW (Dual-BIOS ROM Select)   |   CLR_CMOS (Pins 1-2 Short)",
-    "desc": "GIGABYTE server motherboard status LEDs (`BMC_RDY`, `CPU_ERR`), Dual-BIOS switches & CMOS jumpers",
-    "tip": "If a GIGABYTE board won't POST after a failed BIOS flash, flip SW_BIOS to the backup ROM!",
-    "tags": "gigabyte bmc_rdy sw_bios dual-bios clr_cmos jumper dip-switch",
+    "cmd": "LED_BMC (blink = BMC ready)   |   CLR_CMOS (3-pin)   |   J1: BIOS_RCVR, BIOS_PWD   |   ID LED blue",
+    "desc": "GIGABYTE server board LEDs, jumpers and BIOS recovery (checked: MZ73-LM0 rev 1.0)",
+    "tip": "Wait for LED_BMC to blink before pressing power",
+    "tags": "gigabyte led_bmc bios_rcvr bios_pwd clr_cmos jumper id-led mz73-lm0",
     "sheet": "motherboards.html#mb-gigabyte-servers",
     "src": {
-      "verified": "2026-11-10",
-      "refs": [],
-      "note": "Board-specific (LED names, jumper positions, menu paths): check this board's manual; not confirmed against a vendor document here."
-    },
-    "noCopy": true
+      "verified": "2026-11-11",
+      "refs": [
+        {
+          "url": "https://www.manualslib.com/manual/3054427/Gigabyte-Mz73-Lm0.html",
+          "title": "GIGABYTE MZ73-LM0 / MZ73-LM1 user manual rev 1.0 (ManualsLib copy)"
+        }
+      ],
+      "note": "Corrected 2026-11-11 from the MZ73-LM0 manual rev 1.0 (pages 19, 26, 34, 151): the BMC LED is LED_BMC (was BMC_RDY), the board has no SW_BIOS dual-BIOS switch, and its status-LED meanings are not in the manual. Other GIGABYTE boards differ: check yours. GIGABYTE's own PDF did not download (403), so this is the ManualsLib copy."
+    }
   },
   {
     "sName": "motherboards",
@@ -31007,8 +31037,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "gigabyte-server-board-tips-card",
     "sec": "GIGABYTE Server Boards: Pro Tips & Best Practices",
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
-    "desc": "GIGABYTE Dual-BIOS Switching & Remote Port 0x80 Snooping",
-    "tip": "If BMC_RDY LED is solid amber or off, BMC power rail or SPI flash is unpowered; verify standby 3.3V rail.",
+    "desc": "GIGABYTE BIOS recovery & remote POST codes",
+    "tip": "LED_BMC still steady on? The BMC has not finished starting: wait before pressing power.",
     "tags": "gigabyte-server-board tips pro motherboard post best-practice",
     "sheet": "motherboards.html#mb-gigabyte-servers",
     "src": {
@@ -31021,9 +31051,13 @@ window.GLOBAL_SEARCH_INDEX = [
         {
           "url": "https://www.gigabyte.com/Support/Security/1762",
           "title": "GIGABYTE: BMC unique pre-programmed password"
+        },
+        {
+          "url": "https://www.manualslib.com/manual/3054427/Gigabyte-Mz73-Lm0.html",
+          "title": "GIGABYTE MZ73-LM0 / MZ73-LM1 user manual rev 1.0 (ManualsLib copy)"
         }
       ],
-      "note": "Corrected 2026-11-10: replaced an unsourced raw IPMI command with the standard SEL listing. LED and switch names are board-specific."
+      "note": "Corrected 2026-11-11 from the MZ73-LM0 manual rev 1.0: removed the BIOS_SEL dual-BIOS switch, the BMC_RDY 1 Hz description and the CPU_ERR LED (none are in the manual). Earlier: replaced an unsourced raw IPMI command with the standard SEL listing."
     }
   },
   {

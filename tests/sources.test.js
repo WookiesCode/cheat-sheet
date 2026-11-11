@@ -692,11 +692,11 @@ const rows = (p) => p.evaluate(() => {
     await ctx.close();
   }
 
-  // 2x. Motherboard POST codes (hub + seven sheets): every card has a source line; the four
-  // board-manual cards say "Not verified"; AMI/Intel code meanings, no raw IPMI guesses.
+  // 2x. Motherboard POST codes (hub + seven sheets): every card has a source line and none says
+  // "Not verified" (board cards checked against the K14PG-D24 and MZ73-LM0 manuals); AMI/Intel
+  // code meanings, no raw IPMI guesses, no LED/switch names the manuals do not have.
   {
     const PAGES = ['motherboards', 'mb-memory-post', 'mb-pcie-dxe-post', 'mb-storage-bds-post', 'mb-epyc-agesa', 'mb-asus-servers', 'mb-gigabyte-servers', 'mb-linux-audit'];
-    const UNVERIFIED = ['asus-gigabyte-dimm-population', 'epyc-xgmi-dual-socket', 'asus-onboard-leds-jumpers', 'gigabyte-leds-switches-jumpers'];
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
     const all = [];
@@ -709,7 +709,10 @@ const rows = (p) => p.evaluate(() => {
     }
     const base = id => id.replace(/-sub-\d+$/, '');
     check(all.length >= 35 && all.every(x => x.line), `every card on the motherboard hub and sheets has a source line (${all.filter(x => x.line).length}/${all.length})`);
-    check(all.filter(x => x.unv).every(x => UNVERIFIED.includes(base(x.id))) && UNVERIFIED.every(u => all.some(x => base(x.id) === u && x.unv)), 'only the four board-manual cards say Not verified');
+    check(!all.some(x => x.unv), `no motherboard card says Not verified (${all.filter(x => x.unv).map(x => base(x.id)).join(', ')})`);
+    check(/BMCLED1/.test(text) && /LED_BMC/.test(text) && /BIOS_RCVR/.test(text) && !/BMC_LED1|BMC_RDY|SW_BIOS|BIOS_SEL|CATERR_LED1|CPU_ERR LED|DIMM_P0_A0/.test(text),
+      'board names from the manuals (BMCLED1, LED_BMC, BIOS_RCVR); no invented LED, switch or slot names');
+    check(/CPU1_DIMM_A1/.test(text) && /A1 G1/.test(text) && !/0xE3 \/ 0xE4|ABL Memory Training Fail/.test(text), 'ASUS fill order from the manual; no unsourced ABL code meanings in the quick table');
     check(/0x51.{0,60}SPD reading has failed/.test(text) && /0x53.{0,60}no usable memory/i.test(text) && /Driver connecting is started/.test(text), 'AMI meanings: 0x51 SPD, 0x53 no usable memory, 0x91 driver connecting');
     check(/Train DDR4 ranks/.test(text) && !/ABL Memory Training Error/.test(text) && !/12\.0–13\.5 in-lbs/.test(text), 'Intel MRC B7; no invented ABL codes or torque');
     check(!/raw 0x30 0x18/.test(text) && !/raw 0x32 0x8b/.test(text) && !/Oem\/Asus\/PostCode/.test(text) && /last 11 characters of the serial/.test(text), 'no guessed raw IPMI or OEM Redfish paths; GIGABYTE password rule');

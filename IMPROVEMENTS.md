@@ -742,6 +742,20 @@ IPMI and Redfish pages: no "Not verified" rows left.
 
 Hardware reference: no "Not verified" entries left.
 
+## #30 Motherboard cards checked against two board manuals (2026-11-11, `mb-manuals`)
+
+Checked against the **ASUS K14PG-D24** (ESC8000A-E12P user guide, ASUS PDF) and the **GIGABYTE MZ73-LM0** (manual rev 1.0; GIGABYTE's PDF returns 403, so the ManualsLib copy). Both are current 2-socket EPYC boards; other models differ, and the cards say which board each fact is from.
+
+| Entry | Was | Now |
+|---|---|---|
+| DIMM population | ASUS "slot 1 of each channel first"; GIGABYTE `DIMM_P0_A0`; never mix RDIMM/LRDIMM; "minutes of DDR5 training" | K14PG-D24 is one DIMM per channel (`CPU1_DIMM_A1` … `L1`), with the manual's fill order (1: A1 · 2: A1 G1 · 4: + C1 I1 · 6: + B1 H1 · 8: + E1 K1 · 10: + D1 J1). MZ73-LM0 labels slots A0–X0, one per channel; its matrix did not extract, so the card points to section 1-4-3. ASUS lists RDIMM / 3DS RDIMM only, same CAS latency. The training-time claim is gone |
+| ASUS LEDs and jumpers | `BMC_LED1` blinking green, `CATERR_LED1`, `CLRTC1`, "wait ~60 s" | **`BMCLED1`, lit when the BMC works**; no CATERR LED or CLRTC jumper on this board (clear CMOS is a rear switch); `VGA_SW1` 1-2 = VGA on; `DM_IP_SEL1` 2-3 = BMC LAN static 10.10.10.10; Message LED = hardware-monitor event; a Q-Code cycling 0x00–0xFF = "Wait BMC ready" |
+| GIGABYTE LEDs and jumpers | `BMC_RDY`, dual-BIOS `SW_BIOS`/`BIOS_SEL` switch ("flip to the backup ROM"), amber `CPU_ERR` | **`LED_BMC`: on = initializing, blink = ready, off = AC loss**; blue ID LED; `CLR_CMOS` 3-pin; J1 `BIOS_RCVR` (recovery from a USB .rom) and `BIOS_PWD`. The MZ73-LM0 has **no backup BIOS chip or switch**; the CPU_ERR LED is not in the manual |
+| Dual-socket card | "BMC can flash the host BIOS with the host off" | Removed (in neither manual). Added: ASUS numbers sockets CPU1/CPU2, GIGABYTE CPU0/CPU1; the BIOS update tools each manual names (EZ Flash, CrashFree BIOS 3; BIOS_RCVR) |
+| Elsewhere on the page | The GIGABYTE tip card, the 0x61 action ("short CLRTC1 for 10 seconds") and the AGESA quick table (E0–EF meanings removed from the card on 2026-11-10, still in the table) repeated the old names | Rewritten to the same facts; the quick table now says early PSP/ABL codes are vendor-specific |
+
+Motherboards: no "Not verified" entries left.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |
