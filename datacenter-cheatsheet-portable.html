@@ -6520,11 +6520,13 @@ body.fleet-on .cmd-code-box:not(.is-reference):has(> .fleet-badge:not([data-kind
   body.hdr-compact .top-bar-inner {
     flex-wrap: nowrap; gap: 0.7rem; padding-top: 0.55rem; padding-bottom: 0.45rem;
   }
-  body.hdr-compact .brand { flex: 0 1 auto; min-width: 0; gap: 0.6rem; }
+  /* The title keeps its full width; the search pill gives way instead (R7, 2026-11-11). Even a tiny
+     flex-shrink here lost a fraction of a pixel on a tight row, enough to draw the ellipsis. */
+  body.hdr-compact .brand { flex: 0 0 auto; min-width: 0; gap: 0.6rem; }
   body.hdr-compact .brand > div { min-width: 0; }
   body.hdr-compact .terminal-badge { width: 32px; height: 32px; }
   body.hdr-compact .brand-title-row { flex-wrap: nowrap; gap: 0.5rem; min-width: 0; }
-  body.hdr-compact .brand-title-row h1 { font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 30vw; cursor: help; }
+  body.hdr-compact .brand-title-row h1 { font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 19rem; cursor: help; }
   body.hdr-compact .version-pill { white-space: nowrap; }
   body.hdr-compact .brand-subtitle { display: none; }
   
@@ -6569,11 +6571,9 @@ body.hdr-compact .header-actions .hdr-more-menu .action-btn > span:not(.count-ba
 body.hdr-compact .header-actions .hdr-more-menu .action-btn { padding-left: 0.7rem; padding-right: 0.7rem; gap: 0.55rem; }
 @media (max-width: 1499px) {
   body.hdr-compact .version-pill { display: none; }
-  body.hdr-compact .brand-title-row h1 { max-width: 24vw; }
   
 }
 @media (max-width: 1100px) {
-  body.hdr-compact .brand-title-row h1 { max-width: 20vw; }
   
   
 }
@@ -7059,6 +7059,17 @@ body.hdr-compact .target-vars-wrapper { margin-top: 0; }
 .hdr-search-pill svg { flex: none; color: var(--accent-primary); }
 .hdr-search-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hdr-search-pill kbd { flex: none; font: 600 0.66rem var(--font-mono); padding: 0.15rem 0.4rem; border-radius: 5px; color: var(--text-secondary); background: var(--bg-elevated); border: 1px solid var(--border-subtle); }
+/* R7 (2026-11-11): the search pill gives way before the sheet title does, down to its icon
+   (Ctrl K is clipped first). Between 1100 and 1279 px the three most self-explanatory tools also
+   drop their labels (they keep icon and tooltip, as below 1100 px), so the longest title fits. */
+.top-bar-inner > .hdr-search-pill { min-width: 2.6rem; overflow: hidden; container-type: inline-size; }
+/* Too narrow for the Ctrl K hint (it would show as "Ctr"): just the search icon. */
+@container (max-width: 6.5rem) { .hdr-search-pill kbd { display: none; } }
+@media (min-width: 1100px) and (max-width: 1279px) {
+  body.hdr-compact .header-actions > #density-toggle > #density-label,
+  body.hdr-compact .header-actions > #rack-btn > span:not([class*="badge"]),
+  body.hdr-compact .header-actions > #theme-menu-wrapper > #theme-palette-btn > #theme-btn-label { display: none; }
+}
 @media all {
   /* The pill is Search All now; the duplicate toolbar button goes (the command bar still proxies it). */
   body.no-sheet-filters .header-actions #global-search-btn { display: none; }

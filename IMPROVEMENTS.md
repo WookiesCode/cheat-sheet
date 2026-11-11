@@ -1162,7 +1162,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). Ranked by user impact relative
 - Impact **M** · Effort **S** · Risk **L**.
 - **Files:** `styles.css`, possibly `tests/focus-visible.test.js` (it checks the fixed bars).
 
-**R7. Stop cutting off sheet titles in the header**
+**R7. ✅ Stop cutting off sheet titles in the header** (built: `improve/header-titles`. Measured first: 8 titles cut at 1280 px, 26 at 1100 px, 2 at 1024 px. The title had a 30/24/20vw cap and the brand shrank like the search pill. Now the brand never shrinks and the title cap is 19rem; the search pill gives way, down to its icon (a container query hides Ctrl K rather than clip it); from 1100 to 1279 px the Compact, Rack and theme tools show icon and tooltip only. A first try with a tiny flex-shrink still drew an ellipsis from a sub-pixel loss that `scrollWidth` rounds away; the test measures the text with a Range. All 26 pages clean from 1024 to 1440 px, and with the side dock open)
 - **What:** let the title shrink before the buttons do (shorter tool labels at ≤1280 px, the title's full text in its tooltip).
 - **Why:** J1. "NVIDIA Datacenter G…" at 1280 px; the header's nine buttons win the space.
 - **Evidence:** screenshot `nvidia.html#nv-smi` at 1280×800.
