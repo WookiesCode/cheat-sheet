@@ -46,6 +46,11 @@ function waitForServer(deadline) {
     process.exit(2);
   }
 
+  // Every test drives the same browser: picked once here (see lib.js) and handed down.
+  const { BROWSER } = require('./lib');
+  process.env.CHROME_PATH = BROWSER.path;
+  console.log(`Browser: ${BROWSER.path} (${BROWSER.why})`);
+
   const results = [];
   for (const t of tests) {
     const runner = t.endsWith('.py') ? 'python3' : process.execPath;

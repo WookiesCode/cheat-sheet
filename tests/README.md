@@ -1,6 +1,6 @@
 # Site tests
 
-Browser checks for the cheat-sheet site. They drive headless Chrome with Playwright. The repo has no `package.json`, so Playwright is borrowed from wherever it is installed.
+Browser checks for the cheat-sheet site. They drive a headless Chromium-based browser (your default one; see `CHROME_PATH` below) with Playwright. The repo has no `package.json`, so Playwright is borrowed from wherever it is installed.
 
 ## Run them
 
@@ -17,7 +17,7 @@ Run the tests after `node build-all.js`. The tests read the built pages and the 
 | Variable | Default | What it sets |
 |---|---|---|
 | `PLAYWRIGHT_PATH` | `~/.npm/_npx/e41f203b7505f1fb/node_modules/playwright` | Playwright's `node_modules/playwright` folder |
-| `CHROME_PATH` | `/usr/bin/google-chrome-stable` | The browser to drive |
+| `CHROME_PATH` | your default browser, else Playwright's Chromium | The browser to drive. Unset, `lib.js` asks `xdg-settings` for the default browser (on Omarchy, `omarchy-cmd-default-browser` behind its launcher) and uses it if it is Chromium-based (Chromium, Chrome, Brave, Edge, Vivaldi); otherwise Playwright's own Chromium. `run-all.js` prints which one and why. |
 | `TEST_PORT` | `8799` | The runner's server port |
 | `TEST_BASE` | `http://127.0.0.1:8765/` | Site URL when you run one test directly against your own preview server |
 
