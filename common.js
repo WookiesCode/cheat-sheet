@@ -1336,6 +1336,12 @@
       }
     },
     {
+      // An SXid with its number: classified from the Fabric Manager guide's tables (sxidCard).
+      id: 'sxid',
+      test: q => sxidNumber(q) !== null,
+      build: (q, ent) => sxidCard(q, ent)
+    },
+    {
       id: 'fabric',
       test: q => /fabric ?manager|nv-fabricmanager|cuda[^\n]{0,30}\b802\b|system not yet initialized|\bsxid\b|nvswitch/i.test(q),
       build: () => ({ sev: 'crit', layer: 'Software / NVSwitch fabric', title: 'NVSwitch fabric not ready (Fabric Manager / SXid)', meaning: 'On HGX systems CUDA refuses to start (error 802, "system not yet initialized") until Fabric Manager has trained the NVSwitch fabric. A stopped Fabric Manager, a driver/FM version mismatch, or an SXid on a switch keeps the fabric down.', next: 'Fabric Manager version must exactly match the driver. A restart of the service needs a drain and your OK. SXids that repeat on one switch port → baseboard RMA.', steps: [['Fabric Manager service state', 'systemctl status nvidia-fabricmanager --no-pager'], ['FM log, last errors', 'journalctl -u nvidia-fabricmanager --no-pager | tail -n 50'], ['Fabric state per GPU', 'nvidia-smi -q | grep -A3 -i fabric'], ['Driver vs FM version', 'nvidia-smi --query-gpu=driver_version --format=csv,noheader | head -1; nv-fabricmanager --version']], sheet: 'nv-nvlink.html', q: 'fabric manager', boost: ['nv-nvlink.html', 'nv-ops.html', 'nvidia.html'] })
@@ -1414,6 +1420,84 @@
     ['CUDA 802', 'cudaGetDeviceCount returned 802 -> system not yet initialized']
   ];
 
+  // NVSwitch SXids, from the Fabric Manager user guide's Error Handling chapter (Tables 22-25,
+  // read 2026-11-11). The guide writes recovery for shared-NVSwitch VMs ("guest VM"); on a
+  // bare-metal node that is the jobs on the GPUs behind the port. SXids don't apply to HGX B200/B300.
+  const FM_GUIDE = { url: 'https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html', title: 'NVIDIA Fabric Manager user guide: NVSwitch SXid errors (Tables 22-25)' };
+  const SXID_ECC_SBE = [11012, 11021, 11022, 11023, 12021, 12023, 15008, 15011, 19049, 19055, 19057, 19059, 19062, 19065, 19068, 19071, 24001, 24002, 24003];
+  const SXID_FATAL = [11001, 11009, 11013, 11018, 11019, 11020, 12001, 12002, 12022, 12024, 12025, 12026, 12027, 12030, 12031, 12032, 14017,
+    15001, 15006, 15009, 15010, 15012, 15013, 19047, 19048, 19054, 19056, 19058, 19060, 19061, 19063, 19064, 19066, 19067, 19069, 19070,
+    20034, 22012, 24004, 24005, 24006, 24007];
+  const SXID_ALWAYS_FATAL = [12020, 22003, 22011, 23001, 23002, 23003, 23004, 23005, 23006, 23007, 23008, 23009, 23010, 23011, 23012,
+    23013, 23014, 23015, 23016, 23017];
+  // Rows the guide describes one by one (non-fatal, Table 22; other notable, Table 25).
+  const SXID_NOTES = {
+    11004: { cls: 'nonfatal', sev: 'warn', meaning: 'Ingress invalid ACL. The guide expects it only from an incorrect Fabric Manager partition configuration. NVLink traffic through the port stalls and later GPU access hangs; the driver aborts CUDA jobs with Xid 45.', next: 'Validate the partition routing with the NVSwitch-audit tool, then restart the affected VM or jobs. On a trunk port every partition using it is affected.' },
+    20001: { cls: 'nonfatal', sev: 'info', meaning: 'TX replay: an NVLink packet had to be retransmitted. It can lower that port\'s NVLink throughput.', next: 'No recovery needed. If it keeps climbing on one link, watch nvidia-smi nvlink -e for that GPU and plan a reseat.' },
+    12028: { cls: 'nonfatal', sev: 'warn', meaning: 'Egress non-posted PRIV error. NVLink traffic through the port stalls and later GPU access hangs.', next: 'The guide\'s recovery: restart the affected VM (on bare metal, the jobs on those GPUs). On a trunk port every partition using it is affected.' },
+    19084: { cls: 'nonfatal', sev: 'crit', meaning: 'AN1 heartbeat timeout. Usually comes with a fatal SXid that affects that GPU\'s NVLink traffic.', next: 'Find the fatal SXid next to it. The guide\'s recovery is to reset all GPUs and all NVSwitches: drain first, and it needs your OK.' },
+    22013: { cls: 'nonfatal', sev: 'info', meaning: 'Minion link DLREQ interrupt. The guide: this SXid can be safely ignored.', next: 'No action.' },
+    20012: { cls: 'nonfatal', sev: 'warn', meaning: 'A broken or inconsistent connection, or an uncoordinated shutdown. No impact if it is confined to one GPU.', next: 'If it was not caused by an uncoordinated shutdown, check the link\'s mechanical connections (GPU seating, baseboard).' },
+    10001: { cls: 'other', sev: 'warn', meaning: 'Host privilege error. Not fatal to the fabric, but other fatal events can follow.', next: 'Watch for further SXids on the same NVSwitch.' },
+    10002: { cls: 'other', sev: 'warn', meaning: 'Host privilege timeout. Not fatal to the fabric, but other fatal events can follow.', next: 'Watch for further SXids on the same NVSwitch.' },
+    10003: { cls: 'other', sev: 'crit', meaning: 'Host unhandled interrupt. Never expected; fatal to the fabric.', next: 'The guide\'s recovery is to reset all GPUs and NVSwitches: drain first, and it needs your OK.' },
+    10004: { cls: 'other', sev: 'warn', meaning: 'NVSwitch thermal event started. Not directly fatal to the fabric.', next: 'Check cooling: inlet temperature, fans and the baseboard\'s airflow.' },
+    10005: { cls: 'other', sev: 'info', meaning: 'NVSwitch thermal event ended.', next: 'Look for the matching thermal-start SXid (10004) and what caused it.' }
+  };
+  const SXID_CLASS_TEXT = {
+    nonfatal: 'non-fatal', fatal: 'fatal', always: 'always fatal', other: 'notable', unknown: 'not in the guide\'s tables'
+  };
+
+  function sxidNumber(q) {
+    const m = String(q).replace(/\(PCI:[^)]*\)/gi, '').match(/\bsxid\b[^0-9]{0,6}(\d{5})\b/i);
+    return m ? parseInt(m[1], 10) : null;
+  }
+
+  function sxidCard(q, ent) {
+    const n = sxidNumber(q);
+    const tail = String(q).replace(/\(PCI:[^)]*\)/gi, '').split(new RegExp(`\\b${n}\\b`))[1] || '';
+    const said = (tail.match(/^\s*,\s*(non-fatal|fatal)\b/i) || [])[1] || '';
+    const text = tail.replace(/^\s*,\s*(non-fatal|fatal)?\s*,?\s*/i, '').trim().slice(0, 90);
+    const link = (text.match(/\blink\s+(\d+)\b/i) || [])[1];
+    let cls = 'unknown';
+    if (SXID_NOTES[n]) cls = SXID_NOTES[n].cls;
+    else if (SXID_ECC_SBE.includes(n)) cls = 'nonfatal';
+    else if (SXID_FATAL.includes(n)) cls = 'fatal';
+    else if (SXID_ALWAYS_FATAL.includes(n)) cls = 'always';
+    let sev, meaning, next;
+    if (SXID_NOTES[n]) ({ sev, meaning, next } = SXID_NOTES[n]);
+    else if (SXID_ECC_SBE.includes(n)) {
+      sev = 'info';
+      meaning = 'Single-bit ECC error inside the NVSwitch. The hardware corrects it: no impact.';
+      next = 'No action. Many in a short time on one NVSwitch are worth noting in the case file.';
+    } else if (cls === 'fatal') {
+      sev = 'crit';
+      meaning = 'Fatal for NVLink traffic through that NVSwitch port; the guide says it reaches the GPU as Xid 74 when applicable. On an access port only the GPUs behind it are affected; on a trunk port, every partition that crosses it.';
+      next = 'The guide\'s recovery (written for VMs): shut down the affected VM, or the partitions crossing a trunk port, and recreate them. On bare metal that means the jobs on those GPUs: drain the node. Any GPU or NVSwitch reset needs your OK. Repeats on one port → baseboard RMA.';
+    } else if (cls === 'always') {
+      sev = 'crit';
+      meaning = 'Always fatal to the whole NVLink fabric on this node.';
+      next = 'The guide\'s recovery: restart the host, or reset (SBR) the NVSwitches and GPUs and restart the service VM. Drain first; it needs your OK. Capture nvidia-bug-report.sh before the reset.';
+    } else {
+      sev = /^fatal$/i.test(said) ? 'crit' : 'warn';
+      meaning = `SXid ${n} is not in the Fabric Manager guide's tables for your release. The line itself says "${said || 'no severity'}".`;
+      next = 'Look it up in the Fabric Manager guide for your driver branch, and correlate with Xids on the GPUs at the same time.';
+    }
+    const steps = [
+      ['All SXids and GPU Xids, in time order', 'dmesg -T | grep -E -i "SXid|NVRM: Xid"'],
+      ['Fabric Manager log, last lines', 'journalctl -u nvidia-fabricmanager --no-pager | tail -n 50'],
+      ['Fabric state per GPU', 'nvidia-smi -q | grep -A3 -i fabric']
+    ];
+    if (sev === 'crit') steps.push(['NVLink state and error counters, every GPU', 'nvidia-smi nvlink -s && nvidia-smi nvlink -e']);
+    return {
+      sev, layer: 'NVSwitch / NVLink fabric',
+      title: `SXid ${n} (${SXID_CLASS_TEXT[cls]})${text ? ` — ${text}` : ''}`,
+      meaning: `${meaning}${link ? ` Link ${link} on this NVSwitch.` : ''} Per the guide, SXids no longer apply to HGX B200/B300: there NVSwitch errors come through DCGM.`,
+      next, steps, src: FM_GUIDE,
+      sheet: 'nv-nvlink.html', q: 'nvlink fabric manager', boost: ['nv-nvlink.html', 'nv-ops.html', 'nvidia.html']
+    };
+  }
+
   // "GPU has fallen off the bus" is Xid 79's own text; the driver also prints it on a line of
   // its own, and people type it as "gpu fell off bus".
   const OFF_THE_BUS = /\b(fallen|fell|falls?|dropped)\s+off\s+(the\s+)?(pcie?\s+)?bus\b/i;
@@ -1457,7 +1541,7 @@
     const rule = DECODER_RULES.find(r => r.test(q));
     if (!rule) return null;
     const ent = extractEntities(q);
-    const card = rule.id === 'xid' ? rule.build(q, ent) : rule.build(ent);
+    const card = rule.id === 'xid' || rule.id === 'sxid' ? rule.build(q, ent) : rule.build(ent);
     card.ent = ent;
     card.ruleId = rule.id;
     return card;
@@ -1489,6 +1573,7 @@
         </ol>
         <div class="decoder-foot">
           <p class="decoder-next"><b>Then:</b> ${escapeHtml(card.next)}</p>
+          ${card.src ? `<p class="decoder-src">Source: <a href="${escapeHtml(card.src.url)}" target="_blank" rel="noopener">${escapeHtml(card.src.title)}</a></p>` : ''}
           <span class="decoder-foot-actions">
             ${runbookForDecoded(card) ? `<button type="button" class="decoder-runbook" data-dec-runbook="${runbookForDecoded(card)}">Start guided runbook</button>` : ''}
             <button type="button" class="decoder-pin pin-btn" data-dec-pin="${escapeHtml(card.ent.raw)}" title="Add this diagnosis to the node's case file">📌 Pin to case</button>
@@ -15727,7 +15812,7 @@ ${rmaTrailSection()}#### Action Requested:
           { id: 'platform', type: 'cmd', title: 'Record platform, chassis serial and BIOS', cmd: 'dmidecode -t system -t bios | grep -E "Manufacturer|Product Name|Serial Number|Version|Release Date"', look: 'Goes straight into the RMA identification block.' }
         ] },
         { name: 'Collect', steps: [
-          { id: 'xids', type: 'cmd', title: 'Find the Xid 79 and what came right before it', cmd: 'dmesg -T | grep -E -i "NVRM: Xid|nvidia-nvswitch: SXid|AER|pcieport|fallen off the bus"', look: 'The BDF in "Xid (PCI:0000:xx:00): 79". A Xid 48/74/119 just before it points at the real cause.' },
+          { id: 'xids', type: 'cmd', title: 'Find the Xid 79 and what came right before it', cmd: 'dmesg -T | grep -E -i "NVRM: Xid|nvidia-nvswitch[0-9]*: SXid|AER|pcieport|fallen off the bus"', look: 'The BDF in "Xid (PCI:0000:xx:00): 79". A Xid 48/74/119 just before it points at the real cause.' },
           { id: 'count', type: 'cmd', title: 'Count GPUs on the PCIe bus', cmd: 'lspci -nn | grep -i nvidia', look: 'Fewer 3D controllers than installed (8 on HGX) means the device dropped off PCIe, not just the driver.' },
           { id: 'map', type: 'cmd', title: 'Map surviving GPUs: index ↔ BDF ↔ serial', cmd: 'nvidia-smi --query-gpu=index,pci.bus_id,serial,uuid,vbios_version --format=csv', look: 'Which BDF is missing from the list identifies the slot / SXM module.' },
           { id: 'sel', type: 'cmd', title: 'BMC: power, VRD, thermal and leak events', cmd: 'ipmitool sel elist | tail -n 50; ipmitool sdr elist | grep -E -i "gpu|sxm|pwr|temp|vrd|leak"', look: 'Events at the same timestamp as the Xid. Any "Leak Detected" / "Coolant Flow Low" → STOP and alert; never power on with an active leak alarm.' },

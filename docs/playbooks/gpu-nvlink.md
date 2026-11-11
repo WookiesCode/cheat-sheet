@@ -28,12 +28,12 @@ nvidia-smi nvlink -e
 # 6. Topology matrix (Verify all GPUs see NVSwitch / expected NUMA & NIC affinity)
 nvidia-smi topo -m
 
-# 7. Fabric Manager & NVSwitch SXid status (HGX H200 / B200 nodes)
+# 7. Fabric Manager status (HGX H200 / B200 nodes). NVSwitch SXids are not reported on HGX B200/B300.
 systemctl status nvidia-fabricmanager
 journalctl -u nvidia-fabricmanager --no-pager -n 200
 
 # 8. Extract Xid and SXid errors from kernel ring buffer with human timestamps
-dmesg -T | grep -E -i "NVRM: Xid|nvidia-nvswitch: SXid|AER|pcieport|fallen off the bus"
+dmesg -T | grep -E -i "NVRM: Xid|nvidia-nvswitch[0-9]*: SXid|AER|pcieport|fallen off the bus"
 ```
 
 ---
@@ -58,7 +58,7 @@ In `dmesg -T`, look for `NVRM: Xid (PCI:0000:xx:00): <Code>, ...`:
 | **Xid 95** | **Uncontained ECC Error** | **Severe Hardware Fault.** Uncorrectable ECC in shared state or SRAM parity error. Requires immediate GPU reset; if SRAM uncorrectable > 0 or repeats, **RMA**. |
 | **Xid 119 / 120** | **GSP RPC Timeout / GSP Error** | GPU System Processor (GSP) hung on H200/B200/RTX. Check for preceding Xid 48/74/79 or thermal throttling. Requires GPU reset or cold AC cycle. |
 | **Xid 140** | Unrecoverable ECC Error | Blackwell / Hopper unrecoverable memory error. Check `nvidia-smi -q -d ECC,ROW_REMAPPER`. |
-| **SXid (NVSwitch)** | `nvidia-nvswitch: SXid (PCI:0000:xx:00.0): <Code>` | **20000–28xxx**: NVSwitch port/link/routing faults. Correlate the NVSwitch PCIe BDF and link number with the connected GPU to isolate SXM module vs. HGX baseboard. |
+| **SXid (NVSwitch)** | `nvidia-nvswitch0: SXid (PCI:0000:xx:00.0): <Code>, Non-fatal\|Fatal, Link <n> <text>` | The code's class comes from the [Fabric Manager guide](https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html)'s tables, not from a number range: **non-fatal** (Table 22; single-bit ECC is corrected, 22013 can be ignored, 12028 stalls the port's NVLink traffic), **fatal** (Table 23; reaches the GPU as Xid 74 when applicable, limited to the GPUs behind an access port), **always fatal** (Table 24; the whole fabric: host restart or SBR of NVSwitches and GPUs). The home decoder classifies a pasted line. Correlate the NVSwitch BDF and link number with the connected GPU to isolate SXM module vs. HGX baseboard. Not reported on HGX B200/B300 (NVSwitch errors come through DCGM there). |
 
 ---
 

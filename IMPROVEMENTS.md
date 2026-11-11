@@ -1130,7 +1130,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). Ranked by user impact relative
 - Impact **H** · Effort **S** · Risk **L**.
 - **Files:** `common.js` (copy hook), a new `tests/placeholder-copy.test.js`.
 
-**R3. Decode SXids by code: non-fatal, fatal or always-fatal, with the guide's action**
+**R3. ✅ Decode SXids by code: non-fatal, fatal or always-fatal, with the guide's action** (built: `improve/sxid-decode`. The tables were re-read verbatim in a browser: 11011 is in no table and 15011 is non-fatal, unlike the summary. Found while building: the SXid `grep` in the NVIDIA dmesg card, the GPU-missing runbook and the GPU playbook read `nvidia-nvswitch: SXid`, which matches no real line (`nvidia-nvswitch0: SXid`); fixed in all three. The playbook's "20000–28xxx" range row is replaced by the guide's classes)
 - **What:** read the SXid number and look it up in a table built from the Fabric Manager guide; say whether it is non-fatal (often no action), fatal (limited to the affected partition) or always fatal; note that SXids don't apply to B200. Unknown codes keep today's generic card.
 - **Why:** J2. A non-fatal SXid currently reads as "fabric not ready", which can send a technician to restart Fabric Manager for nothing.
 - **Evidence:** `SXid … 12028, Non-fatal` decoded as "NVSwitch fabric not ready". The decoder's test is `/…\bsxid\b|nvswitch/i` with no code lookup (`common.js` ~line 1320).

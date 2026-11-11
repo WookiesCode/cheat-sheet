@@ -30874,7 +30874,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pcie",
     "id": "dmesg-xid-sxid-triage",
     "sec": "PCIe AER, ACS, Xid Triage, GSP & Bug Reports",
-    "cmd": "dmesg -T | grep -E 'NVRM: Xid|nvidia-nvswitch: SXid|nvlink|AER|fallen off the bus'",
+    "cmd": "dmesg -T | grep -E 'NVRM: Xid|nvidia-nvswitch[0-9]*: SXid|nvlink|AER|fallen off the bus'",
     "desc": "Extract all NVIDIA Xid, NVSwitch SXid, NVLink, and PCIe AER hardware errors with timestamps",
     "tip": "Match PCI BDF to physical slot",
     "tags": "xid sxid dmesg aer triage fault 79 48 64",
@@ -30890,7 +30890,8 @@ window.GLOBAL_SEARCH_INDEX = [
           "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
           "title": "Fabric Manager user guide"
         }
-      ]
+      ],
+      "note": "Corrected 2026-11-11: SXid lines read nvidia-nvswitch0: SXid (the switch number comes before the colon), so the old nvidia-nvswitch: SXid pattern matched none."
     }
   },
   {
