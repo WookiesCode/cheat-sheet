@@ -138,14 +138,14 @@ const rows = (p) => p.evaluate(() => {
     await ctx.close();
   }
 
-  // 2d. BMC vendor tools (racadm, iLOrest, SAA, OneCLI, FreeIPMI, serial consoles).
+  // 2d. BMC vendor tools (iLOrest, SAA, OneCLI, FreeIPMI, serial consoles; no Dell since 2026-11-11).
   {
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
     await p.goto(BASE + 'bmc-tools.html', { waitUntil: 'load' });
     await p.waitForTimeout(600);
     const all = (await rows(p)).filter(r => !/-(tips|flags)-card/.test(r.id));
-    check(all.length >= 107 && all.every(r => r.text), `every BMC-tool command and recipe shows a source line (${all.filter(r => r.text).length}/${all.length})`);
+    check(all.length >= 78 && all.every(r => r.text), `every BMC-tool command and recipe shows a source line (${all.filter(r => r.text).length}/${all.length})`);
     const unv = all.filter(r => /is-unverified/.test(r.cls)).map(r => r.cmd);
     check(unv.length === 0, `no BMC-tool entry says "Not verified" (${unv.map(c => c.slice(0, 40)).join(' | ')})`);
     const ln0 = await lines(p);
@@ -153,7 +153,7 @@ const rows = (p) => p.evaluate(() => {
     check(/FAQ 42925/.test(srcOf('saa-multi')) && /60-serial\.rules/.test(srcOf('serial-picocom-sub-1')) && /dialout/.test(srcOf('serial-picocom-sub-3')),
       'SAA multi-host cites Supermicro FAQ 42925; serial recipes cite udev and the distro group docs');
     const ln = await lines(p);
-    check(/Dell RACADM 7\.xx/.test((ln.find(l => l.id === 'racadm-getsysinfo') || {}).text || ''), 'racadm cites the Dell RACADM 7.xx guide');
+    check(!all.some(r => /^racadm\b/.test(r.cmd)), 'no racadm entries left (no Dell hardware)');
     check(/HPE iLOrest 7\.4/.test((ln.find(l => l.id === 'ilorest-reboot') || {}).text || ''), 'iLOrest cites the HPE iLOrest 7.4 guide (even on the reference-only reboot card)');
     await ctx.close();
   }
@@ -760,7 +760,7 @@ const rows = (p) => p.evaluate(() => {
       'rf-discovery', 'rf-power-boot', 'rf-inventory', 'rf-thermals-power', 'rf-logs-sel', 'rf-bios-bmc', 'rf-firmware', 'rf-hgx-dlc',
       'sw-quantum-ports', 'sw-quantum-hw-sm', 'sw-quantum-inband', 'sw-cumulus-ports', 'sw-cumulus-optics', 'sw-cumulus-lldp', 'sw-cumulus-bonds',
       'sw-cumulus-bgp', 'sw-cumulus-hw', 'sw-arista-ports', 'sw-arista-mlag', 'sw-arista-bgp', 'sw-nxos-ports', 'sw-nxos-vpc', 'sw-sonic',
-      'racadm', 'ilorest', 'supermicro-saa', 'onecli', 'freeipmi', 'serial-console'];
+      'ilorest', 'supermicro-saa', 'onecli', 'freeipmi', 'serial-console'];
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
     const tips = {};
@@ -863,6 +863,29 @@ const rows = (p) => p.evaluate(() => {
     check(!(await p.evaluate(() => document.querySelectorAll('.ros-cell.is-unverified').length)), 'every Switch Rosetta cell is documented: none says "check on your release"');
     check(/dotted hex/.test(await p.evaluate(() => document.querySelector('.ros-table').textContent)), 'the EOS MAC lookup notes the dotted-hex MAC format (EOS 4.37 guide)');
     check(r.links.includes('switches.html#sw-arista-ports') && r.links.includes('switches.html#sw-sonic') && !r.links.some(h => /^sw-/.test(h)), `column links open parts of switches.html (${r.links.join(' ')})`);
+    await ctx.close();
+  }
+
+  // 2ze. BMC Rosetta without Dell (removed 2026-11-11): a "dell" vendor saved before then is
+  // ignored instead of breaking the matrix, all six tools show, and Redfish paths use ID 1.
+  {
+    const ctx = await newContext(browser);
+    await ctx.addInitScript(() => { try { localStorage.setItem('cs_rosetta_v1', JSON.stringify({ last: 'dell' })); } catch (e) {} });
+    const p = await ctx.newPage();
+    const errs = [];
+    p.on('pageerror', e => errs.push(e.message));
+    await p.goto(BASE + 'bmc-tools.html', { waitUntil: 'load' });
+    await p.waitForTimeout(600);
+    await p.click('#ros-strip .ros-strip-open', { delay: 120 });
+    await p.waitForTimeout(400);
+    await p.click('.ros-all', { delay: 120 });
+    await p.waitForTimeout(300);
+    const r = await p.evaluate(() => {
+      const t = document.querySelector('.ros-table');
+      return { text: t ? t.textContent + [...t.querySelectorAll('[data-ros-copy]')].map(b => b.dataset.rosCopy).join('\n') : '', cols: t ? t.querySelectorAll('thead th').length - 1 : 0, all: (document.querySelector('.ros-all') || {}).textContent || '' };
+    });
+    check(!errs.length && r.cols === 6 && /Show my vendor only/.test(r.all), `BMC Rosetta: a saved "dell" vendor is ignored and all 6 tools show (${r.cols} columns${errs.length ? '; ' + errs[0] : ''})`);
+    check(!/racadm|iDRAC|System\.Embedded/i.test(r.text) && /\/Systems\/1"/.test(r.text) && /\/Managers\/1\//.test(r.text) && !/\/(Systems|Managers|Chassis)\/(SYS|MGR|CH)\b/.test(r.text), 'BMC Rosetta: no racadm or Dell ids; Redfish paths use Systems/1 and Managers/1');
     await ctx.close();
   }
 

@@ -18,7 +18,7 @@ const CHEAT_SHEET_DATA = [
         ],
         subcommands: [
           ["dmidecode -s system-serial-number", "Print only the server chassis/system serial number"],
-          ["dmidecode -s system-product-name", "Print only the server model (e.g. PowerEdge, ProLiant, Supermicro)"],
+          ["dmidecode -s system-product-name", "Print only the server model (e.g. ProLiant, ThinkSystem, Supermicro)"],
           ["dmidecode -s bios-version && dmidecode -s bios-release-date", "Print only the active BIOS version and release date"],
           ["dmidecode -t slot", "DMI Type 9: List all physical PCIe riser slots and whether each slot is In Use or Available"]
         ],

@@ -146,7 +146,6 @@
  "prometheus.html": "sre.html#prometheus",
  "ps.html": "cli-tools.html#ps",
  "python.html": "scripting.html#python",
- "racadm.html": "bmc-tools.html#racadm",
  "regex.html": "scripting.html#regex",
  "rf-bios-bmc.html": "redfish.html#rf-bios-bmc",
  "rf-discovery.html": "redfish.html#rf-discovery",

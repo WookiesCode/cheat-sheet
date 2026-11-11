@@ -33,10 +33,10 @@ async function build(p, col, act, ven) {
     check(/\/Systems\/DGX\/Actions\/ComputerSystem\.Reset/.test(reset), `${name}: DGX power cycle goes to Systems/DGX`);
     const std = await build(p, 'managers', 'sel-entries', 'standard');
     check(/\/Managers\/1\/LogServices\/Sel\/Entries/.test(std), `${name}: Standard still uses Managers/1/LogServices/Sel`);
-    const dell = await build(p, 'managers', 'sel-entries', 'dell');
-    check(/\/Managers\/iDRAC\.Embedded\.1\/LogServices\/Sel\/Entries/.test(dell), `${name}: Dell still uses iDRAC.Embedded.1`);
+    check(!options.includes('dell'), `${name}: no Dell preset (no Dell hardware in the fleet)`);
     const all = await p.evaluate(() => document.body.innerHTML);
     check(!/HGX_BMC_0|HGX_Chassis_0/.test(all), `${name}: no undocumented HGX ids left on the page`);
+    check(!/System\.Embedded\.1|iDRAC\.Embedded\.1/.test(all), `${name}: no Dell ids left on the page`);
     await ctx.close();
   }
   // The portable file carries the hub's builder markup but does not render the builder (it shows

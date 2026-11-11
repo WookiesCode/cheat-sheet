@@ -346,7 +346,7 @@
   }
 
   // Commands that change state get a visible tag and a reminder when copied.
-  const DANGER_RE = /\b(nvme\s+(format|sanitize|delete-ns|fw-activate|fw-commit)|mkfs(\.\w+)?|wipefs|sgdisk\s+(-Z|--zap)|parted\b[^|;&]*\bmklabel|dd\b[^|;&]*\bof=\/dev|mdadm\b[^|;&]*--(fail|remove|zero-superblock|create|stop|add)|\bblkdiscard\b|\bmodprobe\b(?![^|;&]*\s(-c|--showconfig|-n|--dry-run|-D|--show-depends)\b)|\bstress-ng\b|\bcpupower\b[^|;&]*\bfrequency-set\b|\blv(extend|reduce|resize)\b|zpool\s+(destroy|offline|replace|labelclear)|rm\s+-[a-z]*r[a-z]*f|nvidia-smi\b(?![^|;&]*\snvlink\b)[^|;&]*\s(-r|--gpu-reset)\b|reboot\b|shutdown\b|poweroff\b|chassis\s+power\s+(off|cycle|reset)|power\s+(off|cycle|reset)\b|scontrol\s+update\b[^|;&]*state=|\bscancel\b|\bfuser\b[^|;&]*\s-[a-zA-Z]*k|(?<=>\s*\/)proc\/[^\s|;&]*\/fd\/|\befibootmgr\b[^|;&]*\s(-[nNoBcaAtT]|--bootnext|--delete-bootnext|--bootorder|--delete-bootnum|--create|--active|--inactive|--timeout)\b|\bsysctl\b[^|;&]*\s(-w|--write|-p|--load|--system)\b|\budevadm\s+trigger\b|\bip\s+(-\S+\s+)*(addr|address|a|route|r|neigh|neighbor|neighbour|n|rule)\s+(add|del|delete|flush|change|replace|append)\b|\bfaillock\b[^|;&]*--reset\b|\bsystemctl\s+(start|enable|disable|mask|unmask|edit|daemon-reload|kill|isolate|set-property)\b|\bjournalctl\b[^|;&]*--vacuum-|\bufw\s+(allow|deny|reject|limit|delete|insert|enable|disable|reset|route|default)\b|\b(apt|apt-get|aptitude)\s+(install|remove|purge|upgrade|full-upgrade|dist-upgrade|autoremove|reinstall)\b|\bapt(-get)?\s+--fix-broken\b|\bdpkg\s+(-i|--install|-r|--remove|-P|--purge|--configure)\b|\bapt-mark\s+(hold|unhold|auto|manual)\b|\b(useradd|usermod|userdel|groupadd|groupmod|groupdel|chpasswd)\b|(?<=(?:^|[|;&])\s*)passwd\s+(?!-S\b)|\b(chown|chgrp)\b|\bchmod\b|\bchattr\s+[-+=]|\bsetfacl\s+(-[a-zA-Z]*[mxbkMX]|--set)|\bsed\b[^|;&]*\s-i[^|;&]*\s\/etc\/|\brsync\b(?![^|;&]*(\s--dry-run\b|\s-[a-zA-Z]*n[a-zA-Z]*\b))[^|;&]*\s--delete\b|\bumount\b|\bmm(shutdown|startup|chdisk|umount|unmount|mount|deldisk|delnode|delfs|rpldisk|restripefs|chconfig|chfs|chmgr)\b|\blfs\s+setstripe\b|\bceph\s+osd\s+(set|unset|out|in|down|rm|purge|destroy|reweight|crush)\b|\bceph\s+(crash\s+(archive|archive-all|rm|prune)|pg\s+repair|health\s+(mute|unmute))\b|\bceph\s+orch\s+(apply|rm|host\s+(add|rm|drain|maintenance)|daemon\s+(start|stop|restart|redeploy|rm))\b|\bweka\s+(cluster\s+(drive|container)\s+(deactivate|activate|remove|requested-action|apply|restore)|cluster\s+(stop-io|start-io)|fs\s+remove|local\s+(stop|rm|restart))\b|\bbeegfs\s+(node\s+delete|entry\s+migrate)\b|\bbeegfs-ctl\b[^|;&]*--(removenode|migrate)\b|\bscontrol\s+(reboot|cancel_reboot|reconfigure)\b|\bkubectl\b[^|;&]*\s(drain|cordon|uncordon|delete|apply|create|replace|patch|edit|scale|autoscale|set|label|annotate|taint|expose|run|cp|debug)\b|\bkubectl\b[^|;&]*\brollout\s+(restart|undo|pause|resume)\b|\bkubectl\s+config\s+(use-context|set-context|delete-context|set)\b|\bdocker\s+(rm|rmi|kill|stop|restart|pause|unpause|run|create|start|build|push|pull|load|import|commit|update|rename|tag|login)\b|\bdocker\s+(container|image|volume|network|system|builder|buildx|swarm|node|service|stack|plugin|context)\s+(rm|prune|create|remove|kill|stop|restart|run|start|build|push|pull|load|import|connect|disconnect|update|scale|install|enable|disable|use|bake)\b|\bdocker\s+compose\b[^|;&]*\s(up|down|restart|stop|start|rm|kill|pull|build|push|create|run|scale|pause|unpause|watch)\b|\bprune\b|\bfind\b[^|;&]*\s(-delete|-exec(dir)?\s+rm)\b|tee\s+(-a\s+)?\/(etc|sys|proc|boot)\/|\bvisudo\b(?![^|;&]*\s-c\b)|\bupdate-alternatives\s+--(set|install|config|remove)\b|\bnvidia-ctk\s+(runtime\s+configure|cdi\s+generate)\b|\b(curl|wget)\b[^;&]*\|\s*(sudo\s+)?(ba|z)?sh\b|\bgcx\s+resources\s+(push|delete|edit)\b|\bgrafana(-cli)?\b[^|;&]*\b(plugins\s+(install|uninstall|remove|update(-all)?)|reset-admin-password)\b|\bhelm\s+(install|upgrade|uninstall|delete|rollback)\b|\bracadm\b[^|;&]*\b(serveraction\s+(powercycle|powerdown|powerup|graceshutdown|hardreset)|racreset|clrsel|set|update|jobqueue\s+(create|delete))\b|\bilorest\b[^|;&]*\b(reboot|iloreset|commit|set|flashfwpkg|firmwareupdate|uploadcomp|deletecomp|createvolume|deletevolume|drivesanitize|clearcontrollerconfig|factoryresetcontroller|--clearlog|--network_ipv4|--nameservers)\b|\bilorest\s+virtualmedia\s+\d|\bsaa\b(?![^|;&]*\s-h\b)[^|;&]*-c\s+(Update\w*|ClearEventLog|ClearMaintenEventLog|BmcReset|Change\w*|Restore\w*|LoadDefaultBmcCfg|EditDmiInfo|RawCommand)\b|\bOneCli\b[^|;&]*\b(power\s+(on|forceoff|forcerestart|normaloff|normalrestart|accycle|dccycle|boottosetup|triggernmi|schedule\w+)|rebootbmc|config\s+(set|restore|batch|import)|update\s+flash|logmgr\s+clear\w*)\b|\bipmipower\b[^|;&]*\s(--on|--off|--cycle|--reset|--pulse|--soft|--on-if-off|-[nfcr])\b|\bipmi-sel\b[^|;&]*--(clear|post-clear|delete)|\bipmi-chassis\b[^|;&]*--chassis-control|\bipmi-dcmi\b[^|;&]*--set-power-limit|\b(terraform|tofu)\s+(apply|destroy|import|taint|untaint|force-unlock)\b|\b(terraform|tofu)\s+state\s+(mv|rm|push|replace-provider)\b|\bansible\b[^|;&]*\s(-b|--become)\b|\bansible-playbook\b(?![^|;&]*(--check|\s-C\b|--syntax-check|--list-))|\bargocd\s+app\s+(sync|rollback|delete|set|create|patch|terminate-op)\b|\bamtool\s+silence\s+(add|expire|import)\b|\bcrictl\s+(rm|rmi|rmp|stop|stopp|runp|create|start|pull)\b|\bctr\b[^|;&]*\s(rm|delete|import|pull|kill)\b|ip\s+link\s+set\b[^|;&]*\bdown\b|mlxfwmanager\b[^|;&]*(-u|--update)|flint\b[^|;&]*\bburn|fwupdmgr\s+(update|install)|sg_reset|echo\s+1\s*>\s*\S*\/remove|rmmod|modprobe\s+-r|sel\s+clear|systemctl\s+(stop|restart)\b|mlxlink\b[^|;&]*--(port_state|rx_prbs|tx_prbs|test_mode)|\bbfb-install\b|mlxconfig\b[^|;&]*\s(s|set|r|reset)(\s|$)|mlxfwreset|ethtool\s+(-[sKGAL]\s+[^\s|;&]+\s+[^\s|;&-]|--set-\S+\s|--change\s)|ip\s+link\s+set\b[^|;&]*\bmtu\b|ipmitool\b[^|;&]*\b(lan\s+set|user\s+set|mc\s+reset|chassis\s+bootdev)|dcgmi\s+diag\s+-r\s*[234]|\b(ib_write_bw|ib_read_bw|ib_send_bw|nvbandwidth|all_reduce_perf|fio)\b|(?<=-)X\s*(POST|PATCH|PUT|DELETE)\b(?![^|;&]*SessionService)|ComputerSystem\.Reset|Manager\.Reset|nv\s+(set|unset)\b|nv\s+config\s+apply|(?<![\w-])config\s+(interface|save|reload|load|apply|qos|vlan|portchannel|bgp)\b|\bclear\s+(counters|ib|interface|mac|arp|ip)\b|\bsonic-clear\b|\bperfquery\b[^|;&]*\s-R\b|\bnvidia-smi\b[^|;&]*\s(-p\s*[01]\b|--reset-ecc-errors|-re\b|--reseterrorcounters)|\bsetpci\b[^|;&]*=)/i;
+  const DANGER_RE = /\b(nvme\s+(format|sanitize|delete-ns|fw-activate|fw-commit)|mkfs(\.\w+)?|wipefs|sgdisk\s+(-Z|--zap)|parted\b[^|;&]*\bmklabel|dd\b[^|;&]*\bof=\/dev|mdadm\b[^|;&]*--(fail|remove|zero-superblock|create|stop|add)|\bblkdiscard\b|\bmodprobe\b(?![^|;&]*\s(-c|--showconfig|-n|--dry-run|-D|--show-depends)\b)|\bstress-ng\b|\bcpupower\b[^|;&]*\bfrequency-set\b|\blv(extend|reduce|resize)\b|zpool\s+(destroy|offline|replace|labelclear)|rm\s+-[a-z]*r[a-z]*f|nvidia-smi\b(?![^|;&]*\snvlink\b)[^|;&]*\s(-r|--gpu-reset)\b|reboot\b|shutdown\b|poweroff\b|chassis\s+power\s+(off|cycle|reset)|power\s+(off|cycle|reset)\b|scontrol\s+update\b[^|;&]*state=|\bscancel\b|\bfuser\b[^|;&]*\s-[a-zA-Z]*k|(?<=>\s*\/)proc\/[^\s|;&]*\/fd\/|\befibootmgr\b[^|;&]*\s(-[nNoBcaAtT]|--bootnext|--delete-bootnext|--bootorder|--delete-bootnum|--create|--active|--inactive|--timeout)\b|\bsysctl\b[^|;&]*\s(-w|--write|-p|--load|--system)\b|\budevadm\s+trigger\b|\bip\s+(-\S+\s+)*(addr|address|a|route|r|neigh|neighbor|neighbour|n|rule)\s+(add|del|delete|flush|change|replace|append)\b|\bfaillock\b[^|;&]*--reset\b|\bsystemctl\s+(start|enable|disable|mask|unmask|edit|daemon-reload|kill|isolate|set-property)\b|\bjournalctl\b[^|;&]*--vacuum-|\bufw\s+(allow|deny|reject|limit|delete|insert|enable|disable|reset|route|default)\b|\b(apt|apt-get|aptitude)\s+(install|remove|purge|upgrade|full-upgrade|dist-upgrade|autoremove|reinstall)\b|\bapt(-get)?\s+--fix-broken\b|\bdpkg\s+(-i|--install|-r|--remove|-P|--purge|--configure)\b|\bapt-mark\s+(hold|unhold|auto|manual)\b|\b(useradd|usermod|userdel|groupadd|groupmod|groupdel|chpasswd)\b|(?<=(?:^|[|;&])\s*)passwd\s+(?!-S\b)|\b(chown|chgrp)\b|\bchmod\b|\bchattr\s+[-+=]|\bsetfacl\s+(-[a-zA-Z]*[mxbkMX]|--set)|\bsed\b[^|;&]*\s-i[^|;&]*\s\/etc\/|\brsync\b(?![^|;&]*(\s--dry-run\b|\s-[a-zA-Z]*n[a-zA-Z]*\b))[^|;&]*\s--delete\b|\bumount\b|\bmm(shutdown|startup|chdisk|umount|unmount|mount|deldisk|delnode|delfs|rpldisk|restripefs|chconfig|chfs|chmgr)\b|\blfs\s+setstripe\b|\bceph\s+osd\s+(set|unset|out|in|down|rm|purge|destroy|reweight|crush)\b|\bceph\s+(crash\s+(archive|archive-all|rm|prune)|pg\s+repair|health\s+(mute|unmute))\b|\bceph\s+orch\s+(apply|rm|host\s+(add|rm|drain|maintenance)|daemon\s+(start|stop|restart|redeploy|rm))\b|\bweka\s+(cluster\s+(drive|container)\s+(deactivate|activate|remove|requested-action|apply|restore)|cluster\s+(stop-io|start-io)|fs\s+remove|local\s+(stop|rm|restart))\b|\bbeegfs\s+(node\s+delete|entry\s+migrate)\b|\bbeegfs-ctl\b[^|;&]*--(removenode|migrate)\b|\bscontrol\s+(reboot|cancel_reboot|reconfigure)\b|\bkubectl\b[^|;&]*\s(drain|cordon|uncordon|delete|apply|create|replace|patch|edit|scale|autoscale|set|label|annotate|taint|expose|run|cp|debug)\b|\bkubectl\b[^|;&]*\brollout\s+(restart|undo|pause|resume)\b|\bkubectl\s+config\s+(use-context|set-context|delete-context|set)\b|\bdocker\s+(rm|rmi|kill|stop|restart|pause|unpause|run|create|start|build|push|pull|load|import|commit|update|rename|tag|login)\b|\bdocker\s+(container|image|volume|network|system|builder|buildx|swarm|node|service|stack|plugin|context)\s+(rm|prune|create|remove|kill|stop|restart|run|start|build|push|pull|load|import|connect|disconnect|update|scale|install|enable|disable|use|bake)\b|\bdocker\s+compose\b[^|;&]*\s(up|down|restart|stop|start|rm|kill|pull|build|push|create|run|scale|pause|unpause|watch)\b|\bprune\b|\bfind\b[^|;&]*\s(-delete|-exec(dir)?\s+rm)\b|tee\s+(-a\s+)?\/(etc|sys|proc|boot)\/|\bvisudo\b(?![^|;&]*\s-c\b)|\bupdate-alternatives\s+--(set|install|config|remove)\b|\bnvidia-ctk\s+(runtime\s+configure|cdi\s+generate)\b|\b(curl|wget)\b[^;&]*\|\s*(sudo\s+)?(ba|z)?sh\b|\bgcx\s+resources\s+(push|delete|edit)\b|\bgrafana(-cli)?\b[^|;&]*\b(plugins\s+(install|uninstall|remove|update(-all)?)|reset-admin-password)\b|\bhelm\s+(install|upgrade|uninstall|delete|rollback)\b|\bilorest\b[^|;&]*\b(reboot|iloreset|commit|set|flashfwpkg|firmwareupdate|uploadcomp|deletecomp|createvolume|deletevolume|drivesanitize|clearcontrollerconfig|factoryresetcontroller|--clearlog|--network_ipv4|--nameservers)\b|\bilorest\s+virtualmedia\s+\d|\bsaa\b(?![^|;&]*\s-h\b)[^|;&]*-c\s+(Update\w*|ClearEventLog|ClearMaintenEventLog|BmcReset|Change\w*|Restore\w*|LoadDefaultBmcCfg|EditDmiInfo|RawCommand)\b|\bOneCli\b[^|;&]*\b(power\s+(on|forceoff|forcerestart|normaloff|normalrestart|accycle|dccycle|boottosetup|triggernmi|schedule\w+)|rebootbmc|config\s+(set|restore|batch|import)|update\s+flash|logmgr\s+clear\w*)\b|\bipmipower\b[^|;&]*\s(--on|--off|--cycle|--reset|--pulse|--soft|--on-if-off|-[nfcr])\b|\bipmi-sel\b[^|;&]*--(clear|post-clear|delete)|\bipmi-chassis\b[^|;&]*--chassis-control|\bipmi-dcmi\b[^|;&]*--set-power-limit|\b(terraform|tofu)\s+(apply|destroy|import|taint|untaint|force-unlock)\b|\b(terraform|tofu)\s+state\s+(mv|rm|push|replace-provider)\b|\bansible\b[^|;&]*\s(-b|--become)\b|\bansible-playbook\b(?![^|;&]*(--check|\s-C\b|--syntax-check|--list-))|\bargocd\s+app\s+(sync|rollback|delete|set|create|patch|terminate-op)\b|\bamtool\s+silence\s+(add|expire|import)\b|\bcrictl\s+(rm|rmi|rmp|stop|stopp|runp|create|start|pull)\b|\bctr\b[^|;&]*\s(rm|delete|import|pull|kill)\b|ip\s+link\s+set\b[^|;&]*\bdown\b|mlxfwmanager\b[^|;&]*(-u|--update)|flint\b[^|;&]*\bburn|fwupdmgr\s+(update|install)|sg_reset|echo\s+1\s*>\s*\S*\/remove|rmmod|modprobe\s+-r|sel\s+clear|systemctl\s+(stop|restart)\b|mlxlink\b[^|;&]*--(port_state|rx_prbs|tx_prbs|test_mode)|\bbfb-install\b|mlxconfig\b[^|;&]*\s(s|set|r|reset)(\s|$)|mlxfwreset|ethtool\s+(-[sKGAL]\s+[^\s|;&]+\s+[^\s|;&-]|--set-\S+\s|--change\s)|ip\s+link\s+set\b[^|;&]*\bmtu\b|ipmitool\b[^|;&]*\b(lan\s+set|user\s+set|mc\s+reset|chassis\s+bootdev)|dcgmi\s+diag\s+-r\s*[234]|\b(ib_write_bw|ib_read_bw|ib_send_bw|nvbandwidth|all_reduce_perf|fio)\b|(?<=-)X\s*(POST|PATCH|PUT|DELETE)\b(?![^|;&]*SessionService)|ComputerSystem\.Reset|Manager\.Reset|nv\s+(set|unset)\b|nv\s+config\s+apply|(?<![\w-])config\s+(interface|save|reload|load|apply|qos|vlan|portchannel|bgp)\b|\bclear\s+(counters|ib|interface|mac|arp|ip)\b|\bsonic-clear\b|\bperfquery\b[^|;&]*\s-R\b|\bnvidia-smi\b[^|;&]*\s(-p\s*[01]\b|--reset-ecc-errors|-re\b|--reseterrorcounters)|\bsetpci\b[^|;&]*=)/i;
 
   // Hook clipboard to automatically substitute variables if active
   // Placeholders are uppercase on purpose: lowercase $disk or $hca is a script's
@@ -3368,7 +3368,7 @@
       { icon: '▦', label: 'Switch front panel: find a port', sub: 'Where is Ethernet33 / swp14 / ib 1/14/2 on the real panel, and how this switch numbers its ports', kw: 'front panel port find locate count numbering odd even cage osfp qsfp where is port switch face diagram layout', run: () => openPanel('find') },
       { icon: '🔌', label: 'Cable check: LLDP vs wiring manifest', sub: 'Wrong server, swapped pair, wrong NIC, missing, unexpected: on the front panel, with a fix list', kw: 'cable check cabling wiring manifest lldp neighbors miscabled swapped verify trace patch audit', run: () => openPanel('check') },
       { icon: '⇄', label: 'Switch Rosetta: same task, every network OS', sub: 'Optics, errors, LLDP, MAC, logs, bounce and save in Arista EOS, Cumulus NVUE, NX-OS, SONiC and Quantum MLNX-OS, plus the server end', kw: 'rosetta switch switches nos network os arista eos cumulus nvue nx-os nexus cisco sonic quantum mlnx-os infiniband optics transceiver lldp mac counters bounce save matrix', run: () => openRosetta('', 'sw') },
-      { icon: '⇄', label: 'BMC Rosetta: same task, every BMC tool', sub: 'Power, SEL, sensors, serials, firmware and resets in ipmitool, FreeIPMI, Redfish, racadm, iLOrest, OneCLI and SAA (⇧R)', kw: 'rosetta bmc vendor matrix equivalent translate ipmitool freeipmi redfish racadm idrac ilorest ilo onecli xcc saa supermicro dell hpe lenovo power sel', run: () => openRosetta('', 'bmc') },
+      { icon: '⇄', label: 'BMC Rosetta: same task, every BMC tool', sub: 'Power, SEL, sensors, serials, firmware and resets in ipmitool, FreeIPMI, Redfish, iLOrest, OneCLI and SAA (⇧R)', kw: 'rosetta bmc vendor matrix equivalent translate ipmitool freeipmi redfish ilorest ilo onecli xcc saa supermicro hpe lenovo power sel', run: () => openRosetta('', 'bmc') },
       { icon: '◆', label: 'Go to Mission Control', sub: 'Home: decode an error, start a runbook', kw: 'home launchpad mission control start index', run: () => goToSheet('index.html') },
       { icon: '📝', label: 'Write field notes', sub: 'Markdown notes for the server you are on, saved to cases/ or your Obsidian vault', kw: 'notes note notebook journal document markdown obsidian write log second brain field', run: () => openFieldNotes() },
       { icon: '🎯', label: `Turn Rack Targets ${targetState.active ? 'off' : 'on'}`, sub: 'Substitution of targets into copied commands', kw: 'targets substitution variables rack toggle on off', run: () => { const t = document.getElementById('target-active-toggle'); if (t) { t.checked = !t.checked; t.dispatchEvent(new Event('change', { bubbles: true })); refreshSlots(); } } }
@@ -3716,7 +3716,7 @@
     [/^(docker-|k8s-|containers$)/, 'badge-ctr'],
     [/^grafana(-|$)/, 'badge-graf'],
     [/^(editors|nano|vscode|zed|cursor)$/, 'badge-ed'],
-    [/^(bmc-tools|racadm|ilorest|supermicro-saa|onecli|freeipmi|serial-console)$/, 'badge-bmc'],
+    [/^(bmc-tools|ilorest|supermicro-saa|onecli|freeipmi|serial-console)$/, 'badge-bmc'],
     [/^hw-/, 'badge-hwref'],
     [/^(sre|prometheus|ansible|terraform|helm|argocd|incident-response)$/, 'badge-sre'],
     [/^(nvim-|neovim$)/, 'badge-nvim'],
@@ -9910,7 +9910,7 @@ ${rmaTrailSection()}#### Action Requested:
   // and one plain line on what it is. Applied automatically to cards, page subtitles and the
   // tool dialogs, never inside commands, code, inputs, the notes editor, buttons or links, so
   // nothing changes what gets copied. Matching is case-sensitive and whole-word; ambiguous
-  // ones (SM: Subnet Manager or GPU multiprocessor; SCP: secure copy or Dell profile) are
+  // ones (SM: Subnet Manager or GPU multiprocessor; SCP: secure copy or SCP firmware) are
   // left out on purpose. Ctrl+K answers "BMC" or "what is BMC" too.
   // -------------------------------------------------------------
   const GLOSSARY = {
@@ -9924,14 +9924,11 @@ ${rmaTrailSection()}#### Action Requested:
     SOL: ['Serial over LAN', 'The server’s serial console carried over the network by the BMC.'],
     KVM: ['Keyboard, Video, Mouse', 'Remote screen and keyboard of a server, usually through the BMC web page.'],
     OOB: ['Out of band', 'Managing a server through its BMC network instead of through its own OS.'],
-    iDRAC: ['integrated Dell Remote Access Controller', 'Dell’s BMC.'],
     iLO: ['integrated Lights-Out', 'HPE’s BMC.'],
     XCC: ['XClarity Controller', 'Lenovo’s BMC.'],
-    FQDD: ['Fully Qualified Device Descriptor', 'Dell’s stable name for a component, such as RAID.Integrated.1-1 or NIC.Slot.3-1.'],
     IML: ['Integrated Management Log', 'HPE’s hardware event log (DIMMs, PSUs, fans).'],
     IEL: ['iLO Event Log', 'HPE’s log of events about the iLO itself: logins, resets, settings.'],
     AHS: ['Active Health System', 'HPE’s always-on telemetry log; the file HPE support asks for first.'],
-    TSR: ['Technical Support Report', 'Dell’s support bundle, now called SupportAssist collection.'],
     FFDC: ['First Failure Data Capture', 'Lenovo’s service-data bundle for a support case.'],
     PSU: ['Power Supply Unit', 'A server or switch power supply; most have two for redundancy.'],
     PDU: ['Power Distribution Unit', 'The power strip in the rack that feeds the PSUs.'],
@@ -10302,7 +10299,7 @@ ${rmaTrailSection()}#### Action Requested:
     let map;
     if (head.some(h => /^(host|hostname|name|device|rack|u|ru|position)$/.test(h))) {
       const f = (re) => head.findIndex(h => re.test(h));
-      map = { host: f(/^(host|hostname|name|device|node)$/), row: f(/^(row|aisle)$/), rack: f(/^(rack|cabinet)$/), u: f(/^(u|ru|position|unit|u_position|start_u)$/), h: f(/^(height|size|units|u_height|ru_height|h)$/), type: f(/^(type|role|kind)$/), model: f(/^(model|platform)$/), serial: f(/^(serial|sn|serial_number|service_tag)$/), bmc: f(/^(bmc|bmc_ip|ipmi|idrac|ilo|xcc|oob)$/) };
+      map = { host: f(/^(host|hostname|name|device|node)$/), row: f(/^(row|aisle)$/), rack: f(/^(rack|cabinet)$/), u: f(/^(u|ru|position|unit|u_position|start_u)$/), h: f(/^(height|size|units|u_height|ru_height|h)$/), type: f(/^(type|role|kind)$/), model: f(/^(model|platform)$/), serial: f(/^(serial|sn|serial_number|service_tag)$/), bmc: f(/^(bmc|bmc_ip|ipmi|ilo|xcc|oob)$/) };
       lines.shift();
     } else {
       map = { host: 0, rack: 1, u: 2, h: 3, row: -1, type: -1, model: -1, serial: -1, bmc: -1 };
@@ -11564,7 +11561,7 @@ ${rmaTrailSection()}#### Action Requested:
       out.pre.push([`mdadm --detail ${m[1]}`, 'Array state and members before']);
       out.verify.push(['cat /proc/mdstat', 'Array degraded as expected, not failed']);
       out.rollback.push([m[2] === 'fail' ? `mdadm --manage ${m[1]} --remove ${m[3]} && mdadm --manage ${m[1]} --add ${m[3]}` : `mdadm --manage ${m[1]} --add ${m[3]}`, 'Add it back (it resyncs)']);
-    } else if ((m = c.match(/\b(mlxfwmanager|flint|fwupdmgr|racadm\s+update|ilorest\s+flashfwpkg|onecli\s+update)\b/i))) {
+    } else if ((m = c.match(/\b(mlxfwmanager|flint|fwupdmgr|ilorest\s+flashfwpkg|onecli\s+update)\b/i))) {
       const q = /mlxfwmanager|flint/i.test(m[1]) ? 'mlxfwmanager --query' : /fwupdmgr/i.test(m[1]) ? 'fwupdmgr get-devices' : '';
       if (q) { out.pre.push([q, 'Firmware version before: write it in the ticket']); out.verify.push([q, 'New version reported (some need a reboot or reset first)']); }
       out.warn = 'Rollback means flashing the previous image: keep it. Some firmware can’t be downgraded.';
@@ -11925,7 +11922,7 @@ ${rmaTrailSection()}#### Action Requested:
       const counts = {};
       for (const m of text.matchAll(/\b[a-z][a-z0-9]{1,15}(?:-[a-z0-9]{1,12}){1,4}\b/gi)) {
         const w = m[0];
-        if (!/\d/.test(w) || TK_NOT_HOST.test(w) || /bmc|ipmi|idrac|ilo|xcc/i.test(w) || w === out.ticket || /^[A-Z][A-Z0-9]+-\d+$/.test(w)) continue;
+        if (!/\d/.test(w) || TK_NOT_HOST.test(w) || /bmc|ipmi|ilo|xcc/i.test(w) || w === out.ticket || /^[A-Z][A-Z0-9]+-\d+$/.test(w)) continue;
         counts[w] = (counts[w] || 0) + 1;
       }
       const best = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
@@ -11938,15 +11935,15 @@ ${rmaTrailSection()}#### Action Requested:
     const dev = out.node ? inv.devices.find(d => rkKey(d.host) === rkKey(out.node)) : null;
 
     // BMC: labelled, then a *-bmc host name, then the inventory.
-    const ADDR = String.raw`(\[?(?:[0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4}\]?|\d{1,3}(?:\.\d{1,3}){3}|[a-z0-9][\w-]*(?:\.[a-z0-9][\w-]*)+|[a-z0-9][\w-]*-(?:bmc|ipmi|idrac|ilo|xcc)[\w-]*)`;
-    const bmcLab = text.match(new RegExp(String.raw`\b(?:bmc|ipmi|idrac|ilo|xcc|oob)(?:[ _-]?(?:ip|addr(?:ess)?|host(?:name)?))?\s*(?:[:=]|is|at)?\s*` + ADDR, 'i'));
+    const ADDR = String.raw`(\[?(?:[0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4}\]?|\d{1,3}(?:\.\d{1,3}){3}|[a-z0-9][\w-]*(?:\.[a-z0-9][\w-]*)+|[a-z0-9][\w-]*-(?:bmc|ipmi|ilo|xcc)[\w-]*)`;
+    const bmcLab = text.match(new RegExp(String.raw`\b(?:bmc|ipmi|ilo|xcc|oob)(?:[ _-]?(?:ip|addr(?:ess)?|host(?:name)?))?\s*(?:[:=]|is|at)?\s*` + ADDR, 'i'));
     if (bmcLab && (bmcLab[1].includes(':') ? /\d/.test(bmcLab[1]) && (bmcLab[1].match(/:/g) || []).length >= 2 : true)) set('bmc', bmcLab[1].replace(/^\[|\]$/g, ''), 'ticket');
-    const bmcHost = text.match(/\b[a-z0-9][\w.-]*-(?:bmc|ipmi|idrac|ilo|xcc)\b[\w.-]*/i);
+    const bmcHost = text.match(/\b[a-z0-9][\w.-]*-(?:bmc|ipmi|ilo|xcc)\b[\w.-]*/i);
     if (bmcHost) set('bmc', bmcHost[0], 'ticket');
     if (dev && dev.bmc) set('bmc', dev.bmc, 'rack inventory');
 
     // BMC login name, only from a line about the BMC (a bare "user:" is usually the reporter).
-    const bmcLine = lines.find(l => /\b(bmc|ipmi|idrac|ilo|xcc|redfish)\b/i.test(l) && /\b(user(?:name)?|login)\b/i.test(l));
+    const bmcLine = lines.find(l => /\b(bmc|ipmi|ilo|xcc|redfish)\b/i.test(l) && /\b(user(?:name)?|login)\b/i.test(l));
     const user = bmcLine && bmcLine.match(/\b(?:user(?:name)?|login)\s*[:=]?\s*([A-Za-z_][\w.-]{1,31})/i);
     if (user && !/^(name|is|and)$/i.test(user[1])) set('user', user[1], 'ticket');
 
@@ -12819,7 +12816,7 @@ ${rmaTrailSection()}#### Action Requested:
   const WB_TOOLS = [
     { id: 'intake', stage: 'identify', icon: '🎫', name: 'Start from a ticket', what: 'Paste the ticket: node workspace, Rack Targets, case and first commands set up in one go.', takes: 'ticket text', cls: 'tk-backdrop', open: () => openIntake() },
     { id: 'rack', stage: 'identify', icon: '▤', name: 'Rack view', what: 'Every rack drawn from your inventory: where a server is, its BMC, the ID-LED blink.', takes: 'inventory CSV', cls: 'rk-backdrop', open: () => openRack(readNodes().active || ''), status: () => wbNum(rkLayout().devices.length, 'device') },
-    { id: 'rosetta', stage: 'identify', icon: '⇄', name: 'BMC Rosetta', what: 'The same task in ipmitool, Redfish, racadm, ilorest and the rest, side by side.', takes: 'a task', cls: 'ros-backdrop', open: () => openRosetta('', 'bmc') },
+    { id: 'rosetta', stage: 'identify', icon: '⇄', name: 'BMC Rosetta', what: 'The same task in ipmitool, Redfish, ilorest and the rest, side by side.', takes: 'a task', cls: 'ros-backdrop', open: () => openRosetta('', 'bmc') },
     { id: 'board', stage: 'identify', icon: '◫', name: 'Shift board & handoff', what: 'Every node workspace, worst first, and the handoff note for the next shift.', takes: 'your nodes', cls: 'board-backdrop', open: () => openBoard(), status: () => wbNum(boardNodes().length, 'node') },
     { id: 'checkup', stage: 'collect', icon: '♥', name: 'Node checkup', what: 'One read-only sweep: drain state, GPUs, kernel errors, ECC, IB ports, NVMe, services, scored.', takes: 'terminal or pasted output', cls: 'ck-backdrop', open: () => openCheckup(), status: () => { const v = vitalsRead().checkup; return v ? `last score ${v.score}` : ''; } },
     { id: 'capture', stage: 'collect', icon: '⬇', name: 'Capture script', what: 'One script that collects the evidence for a case into cases/<host>/logs.', takes: 'what to collect', cls: 'cs-backdrop', open: () => openCapture() },
@@ -13795,7 +13792,6 @@ ${rmaTrailSection()}#### Action Requested:
     [/^ipmitool\b(?![^|;&]*\s-H\b)/, 'root', 'in-band IPMI goes through /dev/ipmi0, root-only (over the network with -H it is not)'],
     [/^(ipmi-sensors|ipmi-sel|ipmi-fru|ipmi-chassis|ipmi-dcmi|ipmi-oem|ipmi-raw|bmc-info|bmc-config|ipmi-config|ipmipower|ipmiconsole)\b(?![^|;&]*\s(-h\s|--hostname))/, 'root', 'in-band FreeIPMI uses the local IPMI driver, root-only (with -h <bmc> it is not)'],
     [/^(saa|\.\/saa|ipmicfg|\.\/ipmicfg)\b(?![^|;&]*\s-i\s)/, 'root', 'Supermicro in-band tools talk to the BMC through the host driver: root'],
-    [/^(racadm)\b(?![^|;&]*\s-r\s)/, 'root', 'local racadm talks to the iDRAC through the host driver: root (remote with -r is not)'],
     [/^(ilorest)\b(?![^|;&]*--url)/, 'root', 'local ilorest uses the CHIF driver to reach iLO: root (with --url it is not)'],
     [/^(OneCli|onecli|\.\/OneCli)\b(?![^|;&]*--bmc)/, 'root', 'local OneCLI reaches the XCC in-band: root (with --bmc it is not)'],
     [/^(modprobe|rmmod|insmod|depmod)\b/, 'root', 'loads or unloads kernel modules'],
@@ -14030,7 +14026,7 @@ ${rmaTrailSection()}#### Action Requested:
       else if (/^(\/dev\/)?(nvme\d+n\d+|sd[a-z]{1,2}|md\d+|vd[a-z])$/.test(w)) target('disk', w.startsWith('/dev/') ? w : `/dev/${w}`, 'the disk');
       else if (/^(?:[0-9a-f]{4}:)?[0-9a-f]{2}:[0-9a-f]{2}\.[0-7]$/i.test(w)) target('gpu', w.length === 7 ? `0000:${w}` : w, 'the GPU (by BDF)');
       else if (/^GPU\s*#?\s*(\d{1,2})$/i.test(w)) target('gpu', w.match(/(\d{1,2})$/)[1], 'the GPU');
-      else if (/^\d{1,3}(\.\d{1,3}){3}$/.test(w) || (/^[0-9a-f:]+$/i.test(w) && (w.match(/:/g) || []).length >= 2 && /\d/.test(w)) || /^[a-z0-9][\w.-]*-(bmc|ipmi|idrac|ilo|xcc)\b[\w.-]*$/i.test(w)) target('bmc', w, 'the BMC address');
+      else if (/^\d{1,3}(\.\d{1,3}){3}$/.test(w) || (/^[0-9a-f:]+$/i.test(w) && (w.match(/:/g) || []).length >= 2 && /\d/.test(w)) || /^[a-z0-9][\w.-]*-(bmc|ipmi|ilo|xcc)\b[\w.-]*$/i.test(w)) target('bmc', w, 'the BMC address');
       // A host: one the rack inventory knows, or a node-like name.
       let dev = null;
       try { dev = rkLayout().devices.find(d => rkKey(d.host) === rkKey(w)); } catch (e) {}
@@ -14480,7 +14476,7 @@ ${rmaTrailSection()}#### Action Requested:
       const { i } = exToolIndex(words);
       if ((words[i] || '').replace(/^.*\//, '') === tool) counts[it.file] = (counts[it.file] || 0) + 1;
     });
-    // The tool's own suite (ipmitool → ipmi*.html, racadm → racadm.html) beats a sheet that just uses it a lot.
+    // The tool's own suite (ipmitool → ipmi*.html, ilorest → ilorest.html) beats a sheet that just uses it a lot.
     const stem = tool.replace(/tool$|ctl$|-smi$/, '').slice(0, 4);
     const own = f => (stem.length >= 3 && f.startsWith(stem)) ? 1 : 0;
     const best = Object.entries(counts).sort((a, b) => own(b[0]) - own(a[0]) || b[1] - a[1])[0];
@@ -14609,7 +14605,7 @@ ${rmaTrailSection()}#### Action Requested:
     let safe = text;
     const rules = [
       [/(\bipmitool\b[^|;&\n]*?\s)-P\s+(?!["']?\$)("[^"]*"|'[^']*'|\S+)/g, (m, pre) => `${pre}-E`, 'ipmitool -P: the password lands in your shell history (ipmitool only tries to hide it from ps). -E reads it from IPMI_PASSWORD instead.'],
-      [/(\b(?:racadm|ilorest|saa|smcipmitool|ipmicfg|redfishtool|mysql|mysqladmin)\b[^|;&\n]*?\s)(-p|--password|--passwd)(\s+|=)(?!["']?\$)("[^"]*"|'[^']*'|\S+)/gi, (m, pre, f, sep) => `${pre}${f}${sep}"$BMC_PASS"`, 'Password on the command line: keep it in $BMC_PASS (read -rs BMC_PASS; export BMC_PASS).'],
+      [/(\b(?:ilorest|saa|smcipmitool|ipmicfg|redfishtool|mysql|mysqladmin)\b[^|;&\n]*?\s)(-p|--password|--passwd)(\s+|=)(?!["']?\$)("[^"]*"|'[^']*'|\S+)/gi, (m, pre, f, sep) => `${pre}${f}${sep}"$BMC_PASS"`, 'Password on the command line: keep it in $BMC_PASS (read -rs BMC_PASS; export BMC_PASS).'],
       [/(\s--(?:password|passwd|pass)(?:\s+|=))(?!["']?\$)("[^"]*"|'[^']*'|\S+)/g, (m, pre) => `${pre}"$BMC_PASS"`, '--password in clear: use a variable or the tool’s config file.'],
       [/(\bcurl\b[^|;&\n]*?\s(?:-u|--user)\s+)(["']?)([^\s:"']+):(?!\$)[^\s"']+\2/g, (m, pre, q, user) => `${pre}${user}`, 'curl -u user:password: with just -u user curl prompts; better, use -K ~/.bmc-curlrc or a netrc file.'],
       [/(https?:\/\/)([^\s:@\/]+):(?!\$)[^\s@\/]+@/g, (m, pre, user) => `${pre}${user}@`, 'Credentials inside a URL end up in logs and history.'],
@@ -14650,10 +14646,9 @@ ${rmaTrailSection()}#### Action Requested:
     if (ph) findings.push({ sev: 'warn', title: 'Unfilled placeholders', text: `${[...new Set(ph)].join(', ')}: replace them before running.` });
     const writes = stages.flatMap(s => s.st.redirs.filter(r => /^(>|>>|1>|&>)$/.test(r.op) && r.target && r.target !== '/dev/null').map(r => r.target));
     if (writes.length) findings.push({ sev: 'info', title: 'Writes files', text: [...new Set(writes)].join(', ') });
-    // -h means "help" or "human" for most tools: only the IPMI tools and racadm take a host there.
+    // -h means "help" or "human" for most tools: only the IPMI tools take a host there.
     const sshHost = stages.find(s => s.ex.tool === 'ssh' && !s.remote);
     const remote = (src.match(/\b(?:ipmitool|ipmi-[\w-]+|ipmipower|ipmiconsole|bmc-info)\b[^|;&]*?\s-[Hh]\s+("[^"]*"|\S+)/)
-      || src.match(/\bracadm\b[^|;&]*?\s-r\s+("[^"]*"|\S+)/)
       || src.match(/\s(?:--host|--url|--bmc)[\s=]+("[^"]*"|\S+)/)
       || [])[1] || (sshHost ? sshHost.st.words.slice(1).find(w => !/^-/.test(w) && !/^['"]/.test(w)) : '');
     if (remote) findings.push({ sev: 'info', title: 'Acts on another machine', text: exUnquote(remote) });
@@ -14830,8 +14825,8 @@ ${rmaTrailSection()}#### Action Requested:
 
   // -------------------------------------------------------------
   // ROSETTA (BMC and switches)
-  // Seven BMC tools (ipmitool, FreeIPMI, Redfish, racadm, iLOrest, OneCLI, SAA) answer the
-  // same dozen questions with seven syntaxes, spread over seven sheets. The Rosetta is one
+  // Six BMC tools (ipmitool, FreeIPMI, Redfish, iLOrest, OneCLI, SAA) answer the
+  // same dozen questions with six syntaxes, spread over six sheets. The Rosetta is one
   // task × tool matrix: pick (or detect) the node's vendor once, and every row shows the
   // universal tools next to that vendor's own CLI, with Redfish paths using the vendor's
   // resource IDs. Cells copy through the clipboard hook, so Rack Targets fill in $BMC and
@@ -14839,7 +14834,6 @@ ${rmaTrailSection()}#### Action Requested:
   // -------------------------------------------------------------
   const ROS_KEY = 'cs_rosetta_v1';
   const ROS_VENDORS = {
-    dell: { name: 'Dell iDRAC', tool: 'dell', re: /\bdell\b/i, note: 'racadm documents only -p for the password: keep it in $BMC_PASS, or run racadm in-band on the host (no password).' },
     hpe: { name: 'HPE iLO', tool: 'hpe', re: /\bhpe\b|hewlett/i, note: 'Each iLOrest command carries --url … --logout, so it runs on its own and leaves no session behind.' },
     lenovo: { name: 'Lenovo XCC', tool: 'lenovo', re: /lenovo/i, note: 'Prefer --configfile with an encrypted credentials file (OneCli misc encrypt) over --bmc user:password.' },
     smc: { name: 'Supermicro', tool: 'smc', re: /super\s?micro/i, note: 'SAA commands here are in-band (on the host, as root), as documented in the SAA guide. For remote use, check ./saa -h.' }
@@ -14848,18 +14842,14 @@ ${rmaTrailSection()}#### Action Requested:
     ipmi: { name: 'ipmitool', sheet: 'ipmi.html', logoFrom: '[data-suite-hub="ipmi.html"] .ng-logo' },
     fipmi: { name: 'FreeIPMI', sheet: 'freeipmi.html', logoFrom: 'a.dropdown-item[href="bmc-tools.html#freeipmi"] svg' },
     rf: { name: 'Redfish', sheet: 'redfish.html', logoFrom: '[data-suite-hub="redfish.html"] .ng-logo' },
-    dell: { name: 'racadm', sheet: 'racadm.html', logoFrom: 'a.dropdown-item[href="bmc-tools.html#racadm"] svg' },
     hpe: { name: 'iLOrest', sheet: 'ilorest.html', logoFrom: 'a.dropdown-item[href="bmc-tools.html#ilorest"] svg' },
     lenovo: { name: 'OneCLI', sheet: 'onecli.html', logoFrom: 'a.dropdown-item[href="bmc-tools.html#onecli"] svg' },
     smc: { name: 'SAA', sheet: 'supermicro-saa.html', logoFrom: 'a.dropdown-item[href="bmc-tools.html#supermicro-saa"] svg' }
   };
-  // Redfish resource IDs: Dell names its members; HPE, Lenovo and Supermicro use 1.
-  const ROS_RF_IDS = { dell: { SYS: 'System.Embedded.1', MGR: 'iDRAC.Embedded.1', CH: 'System.Embedded.1' } };
   const IPMI = 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E';
   const FIPMI = '-h "$BMC" -u "$BMC_USER" -P';
   const RF = 'curl -g -6 -sk -K ~/.bmc-curlrc';
   const RFU = '"https://[$BMC]/redfish/v1';
-  const RAC = 'racadm -r "$BMC" -u "$BMC_USER" -p "$BMC_PASS"';
   const ILO = '--url "$BMC" --user "$BMC_USER" --password "$BMC_PASS" --logout';
   const ONE = '--bmc "$BMC_USER:$BMC_PASS@$BMC"';
   const RF_POST = (path, body) => `${RF} -X POST ${RFU}${path}" -H "Content-Type: application/json" -d '${body}'`;
@@ -14867,69 +14857,67 @@ ${rmaTrailSection()}#### Action Requested:
     { group: 'Look', id: 'power', task: 'Power state', hint: 'Is it on?', cells: {
       ipmi: `${IPMI} chassis power status`, fipmi: `ipmipower ${FIPMI} --stat`,
       rf: `${RF} ${RFU}/Systems/SYS" | jq -r .PowerState`,
-      dell: `${RAC} serveraction powerstatus`, hpe: `ilorest get PowerState --select ComputerSystem. ${ILO}`,
+      hpe: `ilorest get PowerState --select ComputerSystem. ${ILO}`,
       lenovo: `./OneCli misc power state ${ONE}`, smc: null },
       gaps: { smc: 'No power-state command in the SAA guide: use Redfish or ipmitool.' } },
     { group: 'Look', id: 'sel', task: 'Read the event log', hint: 'SEL / IML / Lifecycle log', cells: {
       ipmi: `${IPMI} sel elist`, fipmi: `ipmi-sel ${FIPMI} --output-event-state --interpret-oem-data`,
       rf: `${RF} ${RFU}/Managers/MGR/LogServices" | jq -r '.Members[]."@odata.id"'`,
-      dell: `${RAC} getsel -o`, hpe: `ilorest serverlogs --selectlog=IML ${ILO}`,
+      hpe: `ilorest serverlogs --selectlog=IML ${ILO}`,
       lenovo: `./OneCli misc logmgr showsel ${ONE}`, smc: 'sudo ./saa -c GetEventLog --info' },
-      notes: { rf: 'Lists the log services; append /Entries to the one you want.', dell: 'racadm lclog view has the richer Lifecycle log.' } },
+      notes: { rf: 'Lists the log services; append /Entries to the one you want.' } },
     { group: 'Look', id: 'sensors', task: 'Temperatures & fans', hint: 'Sensors with state', cells: {
       ipmi: `${IPMI} sdr elist full`, fipmi: `ipmi-sensors ${FIPMI} --output-sensor-state --ignore-not-available-sensors`,
       rf: `${RF} ${RFU}/Chassis/CH/Thermal" | jq '.Temperatures[] | {Name, ReadingCelsius}'`,
-      dell: `${RAC} getsensorinfo -c`, hpe: `ilorest serverinfo --thermals --fans ${ILO}`,
+      hpe: `ilorest serverinfo --thermals --fans ${ILO}`,
       lenovo: `./OneCli misc syshealth ${ONE}`, smc: 'sudo ./saa -c CheckSensorData --action Show' } },
     { group: 'Look', id: 'watts', task: 'Power draw', hint: 'Watts and PSUs', cells: {
       ipmi: `${IPMI} dcmi power reading`, fipmi: `ipmi-dcmi ${FIPMI} --get-system-power-statistics`,
       rf: `${RF} ${RFU}/Chassis/CH/Power" | jq '.PowerControl[].PowerConsumedWatts'`,
-      dell: `${RAC} getsensorinfo -c`, hpe: `ilorest serverinfo --power ${ILO}`,
-      lenovo: `./OneCli misc syshealth --device power ${ONE}`, smc: 'sudo ./saa -c GetPsuInfo' },
-      notes: { dell: 'Read the POWER section.' } },
+      hpe: `ilorest serverinfo --power ${ILO}`,
+      lenovo: `./OneCli misc syshealth --device power ${ONE}`, smc: 'sudo ./saa -c GetPsuInfo' }, },
     { group: 'Look', id: 'ident', task: 'Model & serial numbers', hint: 'For the RMA', cells: {
       ipmi: `${IPMI} fru print`, fipmi: `ipmi-fru ${FIPMI}`,
       rf: `${RF} ${RFU}/Systems/SYS" | jq '{Manufacturer, Model, SerialNumber, SKU}'`,
-      dell: `${RAC} getsysinfo`, hpe: `ilorest serverinfo --system ${ILO}`,
+      hpe: `ilorest serverinfo --system ${ILO}`,
       lenovo: 'sudo ./OneCli inventory getinfor --device system_overview --output ./inventory', smc: 'sudo ./saa -c GetFruInfo' },
       notes: { lenovo: 'In-band, on the host.' } },
     { group: 'Look', id: 'fw', task: 'Firmware versions', hint: 'BMC, BIOS and more', cells: {
       ipmi: `${IPMI} mc info`, fipmi: `bmc-info ${FIPMI} --get-device-id`,
       rf: `${RF} ${RFU}/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)" | jq -r '.Members[] | "\\(.Name)  \\(.Version)"'`,
-      dell: `${RAC} getversion`, hpe: `ilorest serverinfo --firmware ${ILO}`,
+      hpe: `ilorest serverinfo --firmware ${ILO}`,
       lenovo: `./OneCli update scan ${ONE} --output ./scan`, smc: 'sudo ./saa -c GetSystemInfo' } },
     { group: 'Collect', id: 'console', task: 'Serial console (SOL)', hint: 'Hung OS, BMC alive', cells: {
       ipmi: `${IPMI} sol activate`, fipmi: `ipmiconsole ${FIPMI} --dont-steal`,
-      rf: null, dell: null, hpe: null, lenovo: null, smc: null },
-      gaps: { rf: 'Redfish has no standard serial console: use SOL.', dell: 'Use SOL (ipmitool or FreeIPMI) or the iDRAC web console.', hpe: 'Use SOL or the iLO web console.', lenovo: 'Use SOL or the XCC web console.', smc: 'Use SOL or the BMC web console.' } },
+      rf: null, hpe: null, lenovo: null, smc: null },
+      gaps: { rf: 'Redfish has no standard serial console: use SOL.', hpe: 'Use SOL or the iLO web console.', lenovo: 'Use SOL or the XCC web console.', smc: 'Use SOL or the BMC web console.' } },
     { group: 'Collect', id: 'bundle', task: 'Vendor support bundle', hint: 'What the RMA desk asks for', cells: {
       ipmi: null, fipmi: null, rf: null,
-      dell: `${RAC} techsupreport collect -t SysInfo,TTYLog`, hpe: `ilorest serverlogs --selectlog=AHS --directorypath=./logs ${ILO}`,
+      hpe: `ilorest serverlogs --selectlog=AHS --directorypath=./logs ${ILO}`,
       lenovo: `./OneCli misc ffdc ${ONE}`, smc: null },
-      gaps: { ipmi: 'Vendor-specific: save sel elist and fru print instead.', fipmi: 'Vendor-specific: save ipmi-sel and ipmi-fru output instead.', rf: 'Vendor-specific (OEM actions).', smc: 'No collection command in the SAA guide: send the event log and GetSystemInfo output.' },
-      notes: { dell: 'Then jobqueue view, and techsupreport export -f tsr.zip.' } },
+      gaps: { ipmi: 'Vendor-specific: save sel elist and fru print instead.', fipmi: 'Vendor-specific: save ipmi-sel and ipmi-fru output instead.', rf: 'Vendor-specific (OEM actions).', smc: 'No collection command in the SAA guide: send the event log and GetSystemInfo output.' } },
     { group: 'Act', id: 'soft', task: 'Graceful shutdown', hint: 'Drain first', danger: true, cells: {
       ipmi: `${IPMI} chassis power soft`, fipmi: `ipmipower ${FIPMI} --soft`,
       rf: RF_POST('/Systems/SYS/Actions/ComputerSystem.Reset', '{"ResetType":"GracefulShutdown"}'),
-      dell: `${RAC} serveraction graceshutdown`, hpe: `ilorest reboot PushPowerButton ${ILO}`,
+      hpe: `ilorest reboot PushPowerButton ${ILO}`,
       lenovo: `./OneCli misc power normaloff ${ONE}`, smc: null },
       gaps: { smc: 'No power command in the SAA guide: use Redfish or ipmitool.' } },
     { group: 'Act', id: 'cycle', task: 'Power cycle', hint: 'Drain first', danger: true, cells: {
       ipmi: `${IPMI} chassis power cycle`, fipmi: `ipmipower ${FIPMI} --cycle`,
       rf: RF_POST('/Systems/SYS/Actions/ComputerSystem.Reset', '{"ResetType":"ForceRestart"}'),
-      dell: `${RAC} serveraction powercycle`, hpe: `ilorest reboot ForceRestart ${ILO}`,
+      hpe: `ilorest reboot ForceRestart ${ILO}`,
       lenovo: `./OneCli misc power forcerestart ${ONE}`, smc: null },
       gaps: { smc: 'No power command in the SAA guide: use Redfish or ipmitool.' } },
     { group: 'Act', id: 'clrsel', task: 'Clear the event log', hint: 'Save it first', danger: true, cells: {
       ipmi: `${IPMI} sel clear`, fipmi: `ipmi-sel ${FIPMI} --clear`,
       rf: RF_POST('/Managers/MGR/LogServices/Sel/Actions/LogService.ClearLog', '{}'),
-      dell: `${RAC} clrsel`, hpe: `ilorest serverlogs --selectlog=IML --clearlog ${ILO}`,
+      hpe: `ilorest serverlogs --selectlog=IML --clearlog ${ILO}`,
       lenovo: `./OneCli misc logmgr clearsel ${ONE}`, smc: 'sudo ./saa -c ClearEventLog' },
       notes: { rf: 'The log service name varies (Sel, IEL…): list them first.' } },
     { group: 'Act', id: 'bmcreset', task: 'Restart the BMC', hint: 'BMC hung or stale', danger: true, cells: {
       ipmi: `${IPMI} mc reset cold`, fipmi: null,
       rf: RF_POST('/Managers/MGR/Actions/Manager.Reset', '{"ResetType":"GracefulRestart"}'),
-      dell: `${RAC} racreset`, hpe: `ilorest iloreset ${ILO}`,
+      hpe: `ilorest iloreset ${ILO}`,
       lenovo: `./OneCli misc rebootbmc ${ONE}`, smc: 'sudo ./saa -c BmcReset --boot_check' },
       gaps: { fipmi: 'Use ipmitool mc reset cold or Redfish.' } }
   ];
@@ -15010,13 +14998,13 @@ ${rmaTrailSection()}#### Action Requested:
     bmc: {
       label: 'BMC', title: 'BMC Rosetta', vendors: ROS_VENDORS, tools: ROS_TOOLS, tasks: ROS_TASKS, perNode: true,
       intro: 'One task, every BMC tool. Pick the vendor once per node; click a command to copy it with your Rack Targets filled in.',
-      cols: (v, all) => all ? ['ipmi', 'fipmi', 'rf', 'dell', 'hpe', 'lenovo', 'smc'] : v ? [ROS_VENDORS[v].tool, 'rf', 'ipmi', 'fipmi'] : ['ipmi', 'fipmi', 'rf'],
-      allLabel: 'Compare all 7 tools', vendorWord: 'vendor', other: 'Other / unknown',
+      cols: (v, all) => all ? ['ipmi', 'fipmi', 'rf', 'hpe', 'lenovo', 'smc'] : v ? [ROS_VENDORS[v].tool, 'rf', 'ipmi', 'fipmi'] : ['ipmi', 'fipmi', 'rf'],
+      allLabel: 'Compare all 6 tools', vendorWord: 'vendor', other: 'Other / unknown',
       empty: 'No vendor yet: showing the tools that work on any BMC. Pick one above, or paste <code>dmidecode -s system-manufacturer</code> output below.',
       detectCmd: 'dmidecode -s system-manufacturer', detectHint: 'Paste dmidecode -s system-manufacturer, or a FRU dump',
       find: 'sel, power, serial, firmware…', act: 'changes state · drain the node and get approval first',
-      foot: '<i class="ros-conn">⋯</i> is the connection and credentials part (hover a command to see it all; the copy is always complete). Passwords stay in <code>$BMC_PASS</code> or a prompt (<code>-E</code>, <code>-P</code>, <code>~/.bmc-curlrc</code>): never type them inline. Redfish IDs follow the vendor; list <code>/redfish/v1/Systems</code> if yours differ.',
-      strip: /^(bmc-tools|racadm|ilorest|supermicro-saa|onecli|freeipmi|serial-console|ipmi[\w-]*|redfish|rf-[\w-]+|hw-power)\.html$/,
+      foot: '<i class="ros-conn">⋯</i> is the connection and credentials part (hover a command to see it all; the copy is always complete). Passwords stay in <code>$BMC_PASS</code> or a prompt (<code>-E</code>, <code>-P</code>, <code>~/.bmc-curlrc</code>): never type them inline. Redfish IDs are <code>1</code> here; list <code>/redfish/v1/Systems</code> if yours differ.',
+      strip: /^(bmc-tools|ilorest|supermicro-saa|onecli|freeipmi|serial-console|ipmi[\w-]*|redfish|rf-[\w-]+|hw-power)\.html$/,
       stripText: (t) => `The same task in ipmitool, FreeIPMI, Redfish${t ? ` and ${t}` : ' and your vendor’s CLI'}: power, SEL, sensors, serials, firmware, resets.`
     },
     sw: {
@@ -15046,11 +15034,11 @@ ${rmaTrailSection()}#### Action Requested:
     const st = rosRead();
     if (domain === 'sw') return { v: (st.sw && st.sw.last) || '', why: st.sw && st.sw.last ? 'last OS you picked' : '' };
     const node = rosNode();
-    if (node && st.byNode && st.byNode[node]) return { v: st.byNode[node], why: `remembered for ${node}` };
+    if (node && st.byNode && ROS_VENDORS[st.byNode[node]]) return { v: st.byNode[node], why: `remembered for ${node}` };
     let ck = '';
     try { const v = vitalsRead(); ck = v.checkup && v.checkup.text ? rosDetect(v.checkup.text.slice(0, 20000), ROS_DOMAINS.bmc) : ''; } catch (e) {}
     if (ck) return { v: ck, why: 'from the last Node checkup' };
-    if (st.last) return { v: st.last, why: 'last vendor you picked' };
+    if (ROS_VENDORS[st.last]) return { v: st.last, why: 'last vendor you picked' };
     return { v: '', why: '' };
   }
   function rosSetVendor(v) {
@@ -15068,14 +15056,12 @@ ${rmaTrailSection()}#### Action Requested:
     const chip = src.classList.contains('logo-chip') ? ' logo-chip' : '';
     return uniqueSvgIds(src.outerHTML.replace(/class="[^"]*"/, `class="ros-logo${chip}"`));
   }
-  const rosFill = (cmd, vendor) => {
-    const ids = ROS_RF_IDS[vendor] || { SYS: '1', MGR: '1', CH: '1' };
-    return cmd.replace(/\/(Systems|Managers|Chassis)\/(SYS|MGR|CH)\b/g, (m, coll, k) => `/${coll}/${ids[k]}`);
-  };
+  // Redfish resource IDs: HPE, Lenovo and Supermicro all use 1.
+  const rosFill = cmd => cmd.replace(/\/(Systems|Managers|Chassis)\/(SYS|MGR|CH)\b/g, (m, coll) => `/${coll}/1`);
 
   // Display only: the connection and credential part every BMC command of a tool shares
   // becomes a dim ⋯, so the part that differs per task (sel elist, getsysinfo) is what you read.
-  const ROS_CONN = [` -I lanplus -H "$BMC" -U "$BMC_USER" -E`, ` ${FIPMI}`, ` -g -6 -sk -K ~/.bmc-curlrc`, ` -r "$BMC" -u "$BMC_USER" -p "$BMC_PASS"`, ` ${ILO}`, ` ${ONE}`];
+  const ROS_CONN = [` -I lanplus -H "$BMC" -U "$BMC_USER" -E`, ` ${FIPMI}`, ` -g -6 -sk -K ~/.bmc-curlrc`, ` ${ILO}`, ` ${ONE}`];
   function rosDisplay(cmd) {
     if (rosDomain !== 'bmc') return escapeHtml(cmd);
     const conn = '<i class="ros-conn" aria-hidden="true">⋯</i>';
@@ -15108,7 +15094,7 @@ ${rmaTrailSection()}#### Action Requested:
         const raw = t.cells[c];
         const isVendorCol = c === vendorTool;
         if (!raw) return `<td class="ros-gap ${isVendorCol ? 'is-vendor' : ''}"><span>${escapeHtml((t.gaps && t.gaps[c]) || 'No equivalent')}</span></td>`;
-        const cmd = rosDomain === 'bmc' ? rosFill(raw, vendor || (['dell', 'hpe', 'lenovo', 'smc'].includes(c) ? c : '')) : raw;
+        const cmd = rosDomain === 'bmc' ? rosFill(raw) : raw;
         const danger = t.danger || DANGER_RE.test(cmd);
         const unv = t.unverified && t.unverified[c];
         const note = t.notes && t.notes[c];

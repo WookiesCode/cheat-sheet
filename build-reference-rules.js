@@ -24,7 +24,7 @@ const REFERENCE_PATTERNS = [
 
 // Commands that reboot or shut down the machine you type them on. They stay on the sheets as
 // documentation but cannot be copied or run from the page (decided 2026-11-09). Out-of-band
-// power control through a BMC (ipmitool -H, racadm -r, ilorest --url, Redfish) is not covered.
+// power control through a BMC (ipmitool -H, ilorest --url, Redfish) is not covered.
 const HOST_REBOOT = [
   /^(sudo\s+)?(reboot|poweroff|halt)\b/,
   /&&\s*(sudo\s+)?(reboot|poweroff|halt)\b/,

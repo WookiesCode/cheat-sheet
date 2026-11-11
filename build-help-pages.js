@@ -39,8 +39,7 @@ const SUB_HELP = {
   terraform: s => `terraform ${s} -help`,
   git: s => `git ${s} -h`,
   openssl: s => `openssl ${s} -help`,
-  ilorest: s => `ilorest ${s} -h`,
-  racadm: s => `racadm help ${s}`
+  ilorest: s => `ilorest ${s} -h`
 };
 const HELP_WORDS = new Set(['--help', '-h', '-?', 'help', '-help']);
 
@@ -102,7 +101,7 @@ function writeList() {
   console.log(`help-tools.txt: ${lines.length} help commands (${lines.filter(l => !l.includes(' ')).length} tools).`);
 }
 
-// "nvidia-smi nvlink -h" -> "nvidia-smi nvlink"; "racadm help getsysinfo" -> "racadm getsysinfo".
+// "nvidia-smi nvlink -h" -> "nvidia-smi nvlink"; "ilorest serverinfo -h" -> "ilorest serverinfo".
 const keyOf = cmd => cmd.split(/\s+/).filter(w => !HELP_WORDS.has(w)).join(' ');
 const optionLines = t => (t.match(/^\s*-{1,2}[A-Za-z?]/gm) || []).length;
 

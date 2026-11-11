@@ -262,7 +262,6 @@ psql
 pwsh.exe
 python3
 qlmanage
-racadm
 ras-mc-ctl
 readlink
 reget

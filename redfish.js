@@ -14,7 +14,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         cmd: 'SYS_URI=$(curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Systems" | jq -r \'.Members[0]."@odata.id"\') && echo "$SYS_URI"',
         flags: [
           ["-g -6", "-g turns off URL globbing (curl already accepts numeric [IPv6] addresses without it; -g matters when a URL has other [ ] or { }); -6 resolves names to IPv6 only"],
-          ['.Members[0]."@odata.id"', "Extracts exact vendor-specific URI (/redfish/v1/Systems/1 vs /redfish/v1/Systems/System.Embedded.1)"],
+          ['.Members[0]."@odata.id"', "Extracts exact vendor-specific URI (/redfish/v1/Systems/1 vs /redfish/v1/Systems/DGX)"],
           ["-sk", "-s silent mode, -k ignore self-signed BMC TLS certificate (use %25eth0 for link-local fe80:: addresses)"]
         ],
         tip: "Link-local BMC address? Write the zone as %25, e.g. [fe80::1%25eth0]",
@@ -602,7 +602,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         flags: [
           ["GracefulRestart / ForceRestart", "Reboots only the BMC management processor (host OS & workloads keep running)"]
         ],
-        tags: ["bmc", "manager", "reset", "idrac", "ilo", "reboot"],
+        tags: ["bmc", "manager", "reset", "ilo", "reboot"],
         src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/Manager.v1_25_0.json", "title": "Redfish schema: Manager"}]}
       }
     ]
@@ -956,11 +956,10 @@ const RF_BUILDER_ACTIONS = {
 // DGX (checked 2026-11-09, NVIDIA DGX H100/H200 and B200 Redfish pages): the host is Systems/DGX,
 // Chassis/DGX, Managers/BMC, and the SEL is LogServices/SEL. This replaced an "HGX" preset whose
 // ids (HGX_Baseboard_0 / HGX_Chassis_0 / HGX_BMC_0) pointed host commands at the GPU baseboard;
-// HGX_BMC_0 is not documented. GPU-tray queries live on the rf-hgx-dlc sheet. The Dell ids were
-// not confirmed against Dell's Redfish reference (it would not load); check /redfish/v1/Systems.
+// HGX_BMC_0 is not documented. GPU-tray queries live on the rf-hgx-dlc sheet. No Dell preset:
+// the fleet has no Dell hardware (removed 2026-11-11).
 const VENDOR_IDS = {
   standard: { sys: "1", chas: "1", mgr: "1", sel: "Sel" },
-  dell: { sys: "System.Embedded.1", chas: "System.Embedded.1", mgr: "iDRAC.Embedded.1", sel: "Sel" },
   dgx: { sys: "DGX", chas: "DGX", mgr: "BMC", sel: "SEL" }
 };
 

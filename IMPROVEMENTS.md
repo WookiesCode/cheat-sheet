@@ -768,6 +768,22 @@ Motherboards: no "Not verified" entries left.
 
 Also: the ser2net card's kickolduser (default false), max-connections (default 1) and `*{filename}` include are now checked in ser2net.yaml(5). BMC tools: no "Not verified" entries left.
 
+## #32 Dell removed from the site (2026-11-11, `rf-no-dell`)
+
+The fleet has no Dell hardware, so every Dell entry is gone:
+
+| Where | Removed |
+|---|---|
+| BMC tools | The racadm part (9 sections, 29 commands and recipes; 78 entries remain), its nav item (shared nav and omarchy.html's own copy), "Dell"/"iDRAC"/"racadm" in the hub title, pill and subtitle |
+| BMC Rosetta (`Shift+R`) | The Dell iDRAC vendor and racadm column (now 6 tools), `ROS_RF_IDS`: Redfish paths always use ID `1`. A `dell` vendor saved in the browser is ignored instead of breaking the matrix |
+| Redfish builder | The unconfirmed `System.Embedded.1` / `iDRAC.Embedded.1` preset and the two Dell rows in Vendor IDs; the discovery example now names `Systems/DGX` |
+| ipmitool | The two Dell `raw 0x30 0x30` fan-control rows |
+| Acronyms | iDRAC, FQDD, TSR |
+| Shared rules | racadm in the danger match, root rule, password masking, firmware-update detection and `-r` host detection; `idrac` in BMC-hostname detection; the racadm help mapping and help-tools.txt line |
+| Wording | Redfish and Motherboards portable subtitles, the `idrac` search tag, "PowerEdge" in the dmidecode example, docs/site.md |
+
+Kept: Dell text inside captured upstream man pages and `--help` output (ipmitool `delloem`, arp-scan vendor names), and the history in this file. Tests: `redfish-builder` (no Dell option or ids) and `sources` 2ze (Rosetta with a saved Dell vendor, 6 tools, ID 1).
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |
@@ -905,7 +921,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 ✅ The `j`/`k` edge case is fixed (`improve/jk-smooth-scroll`): `j`/`k` now stop an in-flight smooth scroll before measuring, so a key pressed mid-animation (after Home, an outline link or a script scroll) no longer leaves the focused command off screen; `tests/jk-smooth-scroll.test.js` reproduced it 5/5 before the fix. ✅ The Redfish builder's `hgx` preset is replaced (`improve/redfish-hgx-preset`, user's choice): it aimed host commands (power reset, SEL, memory, BMC reset) at the GPU baseboard (`HGX_Baseboard_0`), and `HGX_BMC_0` is undocumented. It is now an **NVIDIA DGX** preset with the ids NVIDIA documents for DGX H100/H200/B200 (`Systems/DGX`, `Chassis/DGX`, `Managers/BMC`) and a per-vendor SEL log id (`SEL` on DGX; Redfish paths are case-sensitive). `tests/redfish-builder.test.js`.
 
 **Still open, found while checking it:**
-- The Dell preset's ids (`System.Embedded.1`, `iDRAC.Embedded.1`) are not confirmed: Dell's Redfish reference would not load (JavaScript app, PDF 403).
+- The Dell preset's ids (`System.Embedded.1`, `iDRAC.Embedded.1`) are not confirmed: Dell's Redfish reference would not load (JavaScript app, PDF 403). Removed 2026-11-11 (#32): no Dell hardware.
 - DGX `Chassis/DGX/Thermal` and `/Power` are not in NVIDIA's DGX pages (only `Chassis/DGX/Sensors`).
 - The Standard option's label says "Supermicro/HPE/OpenBMC" for id `1`; OpenBMC is believed to use `system`/`bmc` instead (not verified).
 - The portable file carries the Redfish hub's builder markup but does not render the builder (existing behaviour).
