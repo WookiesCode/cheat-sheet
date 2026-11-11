@@ -26962,15 +26962,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "boot",
     "id": "ipmi-bootparam-no-timeout",
     "sec": "Boot Device Override (bootdev & bootparam)",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootparam set bootflag force_pxe options=no-timeout",
-    "desc": "Disable the IPMI 60-second boot flag watchdog timer so `bootdev` isn't cleared if reboot takes >60s",
-    "tip": "",
-    "tags": "bootparam timeout bootflag force_pxe",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E raw 0x00 0x08 0x03 0x08 && ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootparam get 3",
+    "desc": "Stop the BMC clearing a boot override after 60 seconds without a power command (run before bootdev; ipmitool 1.8.19's options=no-timeout is broken)",
+    "tip": "Simpler when you can: chain bootdev with chassis power cycle on one line, or use options=persistent",
+    "tags": "bootparam timeout bootflag raw 60 seconds no-timeout",
     "sheet": "ipmi.html#ipmi-boot-override",
     "src": {
-      "verified": "2026-11-09",
-      "refs": [],
-      "note": "ipmitool's source rejects options=no-timeout as written (it only matches a bare \"no-\"), and the man page lists PEF, timeout, watchdog, reset, power. Test on a lab node before relying on it."
+      "verified": "2026-11-11",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+          "title": "ipmitool source: ipmi_chassis.c (Set Boot Options, parameter 3 bits)"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/include/ipmitool/ipmi_constants.h",
+          "title": "ipmitool source: ipmi_constants.h (boot parameter numbers)"
+        },
+        {
+          "url": "https://codeberg.org/IPMITool/ipmitool/commit/b67f400825",
+          "title": "ipmitool commit b67f400825: restore the no- option prefix"
+        }
+      ],
+      "note": "Rewritten 2026-11-11: options=no-timeout matched only a bare \"no-\" from 2020-06-10 (6e037d6) until Codeberg commit b67f400825; IPMITOOL_1_8_19 (2022) has the bug. The raw bytes are the ones ipmitool's own code sends."
     }
   },
   {

@@ -91,7 +91,7 @@ Checked against the DMTF Redfish Specification DSP0266 1.25.0 (PDF text; the HTM
 | Card | Was | Now |
 |---|---|---|
 | ipmitool lan6 | `lan6 set 1 enabler ipv6_only`; `addr_src` | `lan6 set 1 enables ipv6` (`ipv4`/`ipv6`/`both`); there is no `addr_src` |
-| ipmitool bootparam | `options=no-timeout` "keeps the boot flag" | Marked **Not verified**: ipmitool's source rejects it as written |
+| ipmitool bootparam | `options=no-timeout` "keeps the boot flag" | Marked **Not verified**: ipmitool's source rejects it as written (rewritten in #28) |
 | ipmitool SEL clock | `sel time set now` | `sel time set "mm/dd/yyyy hh:mm:ss"` |
 | ipmitool chassis status | `power-overload`, `power-interlock`, `power-fault` | `overload`, `interlock`, `fault`, `command` (as printed) |
 | ipmitool user | sample password `'NewStrongPass!'` | `'<new-password>'` placeholder (never copied unfilled) |
@@ -722,6 +722,14 @@ InfiniBand page: no "Not verified" rows left.
 | 23 commands in the healthy-ranges panel and the runbooks were stored as `sudo nvme smart-log`, `sudo mlxlink`, `sudo lspci`… against the house rule. The no-sudo test only read the sheets | Stored without sudo, shown with the 🔒 ROOT badge (healthy ranges, runbook steps, locked steps), copied as `# needs root` (the site-wide root style); the runbook export says "needs root". The test reads the tools too |
 | ▶ Run on a sheet and the runbook autopilot only turned an existing `sudo` into `sudo -n`: sheet commands have none, so ▶ Run on `nvme smart-log` ran as your user and printed Permission denied | One helper, `privRunForm`, puts `sudo -n` on exactly the stages the root rules mark (`sudo -n lspci … \| grep …`, both stages of `ras-mc-ctl … && ras-mc-ctl …`), leaves the rest (`nvidia-smi -q`, `ethtool -S`) and multi-line scripts alone. ▶ Run, the runbook steps and the capture script all use it |
 | `ethtool --cable-test` was not marked root | Added to the ethtool rule: a cable test is an ethtool-netlink "action" request, which needs CAP_NET_ADMIN (kernel docs) |
+
+## #28 Boot flag timeout: the raw command that works (2026-11-11, `ipmi-bootparam`)
+
+| Found | Now |
+|---|---|
+| `chassis bootparam set bootflag force_pxe options=no-timeout` was flagged Not verified. In ipmitool's source the `no-` prefix only matches a bare `no-` (a 2020-06-10 refactor, 6e037d6), so it prints `Invalid option: no-timeout`, **still sets PXE, and exits 0**: a script never notices. IPMITOOL_1_8_19 (2022, the last release; the GitHub repo is archived) has the bug; Codeberg commit b67f400825 (2024-06-24) fixes it, unreleased | `raw 0x00 0x08 0x03 0x08 && chassis bootparam get 3`: Set System Boot Options, parameter 3 (boot flag valid bit clearing), bit 0x08 = don't clear on the 60-second timeout, the exact bytes ipmitool's own code sends. Flags explain each byte, the check line, the undo (`0x03 0x00`), and the tip points to the simpler `power cycle` chain or `options=persistent` |
+
+IPMI and Redfish pages: no "Not verified" rows left.
 
 ## Found while building (not fixed)
 

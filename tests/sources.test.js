@@ -127,7 +127,9 @@ const rows = (p) => p.evaluate(() => {
     const find = re => all.find(r => re.test(r.cmd) || re.test(r.full || ''));
     check(all.length >= 45 && all.every(r => r.text), `every Redfish and IPMI command and recipe shows a source line (${all.filter(r => r.text).length}/${all.length})`);
     const unverified = all.filter(r => /is-unverified/.test(r.cls)).map(r => r.cmd);
-    check(unverified.length === 1 && /options=no-timeout/.test(unverified[0]), `only the bootparam no-timeout command says "Not verified" (${unverified.join(' | ').slice(0, 120)})`);
+    check(unverified.length === 0, `no Redfish or IPMI command says "Not verified" (${unverified.join(' | ').slice(0, 120)})`);
+    const noTimeout = find(/raw 0x00 0x08 0x03 0x08/);
+    check(noTimeout && /bootparam get 3/.test(noTimeout.cmd) && !all.some(r => /options=no-timeout/.test(r.cmd)), 'boot flag timeout uses the raw Set Boot Options command, not the broken options=no-timeout');
     check(!!find(/lan6 set 1 enables ipv6/) && !all.some(r => /enabler/.test(r.cmd)), 'ipmitool lan6 uses "enables ipv6" (not "enabler ipv6_only")');
     check(!!find(/user set password 2 '<new-password>'/) && !all.some(r => /NewStrongPass/.test(r.cmd)), 'no literal sample password in the ipmitool user command');
     check(!!find(/Systems\/HGX_Baseboard_0\/Processors\/GPU_SXM_1/), 'HGX GPU path is the one NVIDIA documents');
