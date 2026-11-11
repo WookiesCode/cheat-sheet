@@ -50380,7 +50380,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Cisco NX-OS — LLDP/CDP, LACP Port-Channel & vPC",
     "cmd": "show lldp neighbors && show port-channel summary && show vpc",
     "desc": "Inspect LLDP and CDP neighbors, LACP Port-Channel member states, vPC dual-ToR health, and MAC/ARP tables",
-    "tip": "Run 'show vpc consistency-parameters global' if vPC is suspended",
+    "tip": "vPC suspended? show vpc consistency-parameters global, then … vpc <id> for that port-channel",
     "tags": "nxos cisco lldp cdp port-channel lacp vpc environment",
     "sheet": "switches.html#sw-nxos-vpc",
     "src": {
@@ -50528,11 +50528,11 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Cisco NX-OS: LLDP & vPC: Pro Tips & Best Practices",
     "cmd": "show vpc && show vpc consistency-parameters global",
     "desc": "Cisco Nexus Virtual Port-Channel (vPC) Consistency & Peer Keepalive",
-    "tip": "Verify \"vPC domain role: primary/secondary\" and ensure no Type 1 consistency parameter failures exist.",
+    "tip": "Peer-link down but keepalive up: the secondary's vPC ports go down on purpose. Fix the peer-link, not the server",
     "tags": "nxos-lldp-vpc tips pro switches fabric best-practice",
     "sheet": "switches.html#sw-nxos-vpc",
     "src": {
-      "verified": "2026-11-10",
+      "verified": "2026-11-11",
       "refs": [
         {
           "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html",
@@ -50541,9 +50541,13 @@ window.GLOBAL_SEARCH_INDEX = [
         {
           "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html",
           "title": "NX-OS 10.5 show commands: LLDP"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/configuration/interfaces/cisco-nexus-9000-series-nx-os-interfaces-configuration-guide-release-105x/m_configuring_vpcs_9x.html",
+          "title": "NX-OS 10.5(x) Interfaces Configuration Guide: Configuring vPCs"
         }
       ],
-      "note": "The vPC configuration guide (Type 1/2 consistency, peer-keepalive role) could not be read; only the show command reference was checked."
+      "note": "Checked 2026-11-11 against the NX-OS 10.5(x) vPC configuration guide (consistency parameters, peer-keepalive, roles, STP) and the 10.5 show reference (show vpc consistency-parameters { global | vni | interface | vpc }, show vpc role)."
     }
   },
   {

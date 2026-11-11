@@ -1043,7 +1043,7 @@ const SWITCH_DATA = [
         id: "nxos-neighbors-portchannel-vpc",
         desc: "Inspect LLDP and CDP neighbors, LACP Port-Channel member states, vPC dual-ToR health, and MAC/ARP tables",
         cmd: "show lldp neighbors && show port-channel summary && show vpc",
-        details: "In Cisco NX-OS 'show port-channel summary', '(P)' means the port is Up in the port-channel, '(I)' means Individual, '(D)' means Down, and '(s)' means suspended. 'show vpc' checks peer-keepalive, peer-link status, and Type-1/Type-2 configuration consistency across both ToR switches.",
+        details: "In Cisco NX-OS 'show port-channel summary', '(P)' means the port is Up in the port-channel, '(I)' means Individual, '(D)' means Down, and '(s)' means suspended. 'show vpc' shows the peer-link, peer-keepalive and consistency status of both peers; 'show vpc consistency-parameters vpc <id>' lists a mismatch on one vPC.",
         flags: [
           ["show lldp neighbors", "Display IEEE 802.1AB LLDP neighbor devices and port IDs (also check 'show cdp neighbors')"],
           ["port-channel summary", "Show Port-Channel groups (Po1..), protocol (LACP), and member status flags (P/D/I/s)"],
@@ -1054,7 +1054,7 @@ const SWITCH_DATA = [
           ["show mac address-table address <mac> && show ipv6 neighbor <ipv6>", "Trace a server MAC or IPv6 Neighbor Discovery (NDP) address to its exact Ethernet1/* or Po* interface", {"verified": "2026-11-09", "refs": [{"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html", "title": "NX-OS 10.5 show commands: MAC table"}], "note": "The bare show ipv6 neighbor is not in the 10.5 show reference."}],
           ["show environment", "Check Nexus power supplies, fan trays, and temperature sensor status"]
         ],
-        tip: "Run 'show vpc consistency-parameters global' if vPC is suspended",
+        tip: "vPC suspended? show vpc consistency-parameters global, then … vpc <id> for that port-channel",
         tags: ["nxos", "cisco", "lldp", "cdp", "port-channel", "lacp", "vpc", "environment"],
         src: {"verified": "2026-11-09", "refs": [{"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html", "title": "NX-OS 10.5 show commands: LLDP"}, {"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_c_showcmds.html", "title": "NX-OS 10.5 show commands: CDP"}, {"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_p_showcmds.html", "title": "NX-OS 10.5 show commands: port-channel"}, {"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html", "title": "NX-OS 10.5 show commands: vPC"}, {"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html", "title": "NX-OS 10.5 show commands: MAC table"}, {"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_e_showcmds.html", "title": "NX-OS 10.5 show commands: environment"}], "note": "show ipv6 neighbor <addr> is not in the 10.5 show reference; the port-channel flag legend is in a configuration guide, not read."}
       }
@@ -1071,7 +1071,7 @@ const SWITCH_DATA = [
         "id": "nxos-lldp-vpc-tips-card",
         "desc": "Cisco Nexus Virtual Port-Channel (vPC) Consistency & Peer Keepalive",
         "cmd": "show vpc && show vpc consistency-parameters global",
-        "details": "Cisco vPC provides active-active dual-homing without Spanning Tree loop blocking. The vPC peer-keepalive link exchanges heartbeats out-of-band to prevent split-brain scenarios if the high-speed vPC peer-link fails.",
+        "details": "vPC dual-homes a server or switch to two Nexus peers with no STP-blocked ports, but STP still runs on both peers as a fail-safe. The peer-keepalive (management VRF by default, never over the peer-link) is only used when every peer-link member is down: if the other peer is still alive, the secondary disables all its vPC ports. Must-match (Type 1) settings such as STP mode, MTU, port-channel mode, speed and the trunk's allowed VLANs suspend the vPC when they differ; with graceful consistency-check (on by default) only the secondary's links go down.",
         "flags": [
           [
             "show vpc",
@@ -1079,14 +1079,22 @@ const SWITCH_DATA = [
           ],
           [
             "show vpc consistency-parameters global",
-            "Verify STP, MTU, and VLAN consistency between the two vPC peer switches"
+            "Global must-match settings (STP mode, MTU and the like) on both peers"
+          ],
+          [
+            "show vpc consistency-parameters vpc <id>",
+            "One vPC's must-match settings: port-channel mode, speed, duplex, allowed VLANs"
+          ],
+          [
+            "show vpc role",
+            "Primary or secondary: the lower role priority wins (lowest MAC by default); after a failover the roles stay swapped until vpc role preempt"
           ],
           [
             "show lldp neighbors",
             "List discovered physical neighbors with device ID, port ID, and capabilities"
           ]
         ],
-        "tip": "Verify \"vPC domain role: primary/secondary\" and ensure no Type 1 consistency parameter failures exist.",
+        "tip": "Peer-link down but keepalive up: the secondary's vPC ports go down on purpose. Fix the peer-link, not the server",
         "tags": [
           "nxos-lldp-vpc",
           "tips",
@@ -1096,7 +1104,7 @@ const SWITCH_DATA = [
           "best-practice"
         ],
         "src": {
-          "verified": "2026-11-10",
+          "verified": "2026-11-11",
           "refs": [
             {
               "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html",
@@ -1105,9 +1113,13 @@ const SWITCH_DATA = [
             {
               "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html",
               "title": "NX-OS 10.5 show commands: LLDP"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/configuration/interfaces/cisco-nexus-9000-series-nx-os-interfaces-configuration-guide-release-105x/m_configuring_vpcs_9x.html",
+              "title": "NX-OS 10.5(x) Interfaces Configuration Guide: Configuring vPCs"
             }
           ],
-          "note": "The vPC configuration guide (Type 1/2 consistency, peer-keepalive role) could not be read; only the show command reference was checked."
+          "note": "Checked 2026-11-11 against the NX-OS 10.5(x) vPC configuration guide (consistency parameters, peer-keepalive, roles, STP) and the 10.5 show reference (show vpc consistency-parameters { global | vni | interface | vpc }, show vpc role)."
         }
       }
     ]

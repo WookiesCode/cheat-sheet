@@ -186,6 +186,10 @@ const rows = (p) => p.evaluate(() => {
     check(!/errors nz/.test(swText) && !/show logging last 50/.test(swText) && /show logging 50/.test(swText), 'Arista: no nz filter; show logging 50 for a count');
     check(!/sfputil show eeprom|nv config apply -y|nv config rollback|show ib smgoing/.test(swText), 'no corrected command survives anywhere on the switch page');
     check(!/sfputil show eeprom/.test(swCmds) && /show interfaces transceiver eeprom --dom/.test(swCmds), 'SONiC DOM uses show interfaces transceiver eeprom --dom');
+    // vPC (2026-11-11, NX-OS 10.5 vPC guide): STP still runs; the per-vPC consistency form and show vpc role.
+    const swAll = await p.evaluate(() => document.querySelector('#sections-container').textContent);
+    check(!/without Spanning Tree loop blocking/.test(swText) && /STP still runs/.test(swText) && /consistency-parameters vpc <id>/.test(swText) && /show vpc role/.test(swText)
+      && /Configuring vPCs/.test(swAll) && !/vPC configuration guide .{0,60}could not be read/.test(swAll), 'vPC cards follow the NX-OS 10.5 vPC guide (STP still runs, per-vPC consistency, roles) and cite it');
     const apply = swList.filter(r => /^nv config apply <revision_id>|^nv set .*&& nv config apply/.test(r.cmd));
     check(apply.length > 0 && apply.every(r => r.danger), 'nv config apply is still flagged as changing state');
     await p.goto(BASE + 'ethernet.html', { waitUntil: 'load' });

@@ -818,6 +818,19 @@ The fleet runs none of Lustre, WEKA, BeeGFS, IBM Storage Scale or Ceph, so the P
 
 Agent docs follow the fleet too: `agents/AGENTS.md` (= `CLAUDE.md`) and `AGENTS-portable.md` no longer list parallel filesystems or their health commands, and describe the servers as Linux on ASUS, GIGABYTE and Supermicro boards (was "multi-vendor"). `docs/playbooks/storage-jbod.md` loses its parallel-filesystem section (now NVMe, JBOD, RAID/ZFS).
 
+## #36 Cisco vPC cards checked against the NX-OS 10.5 vPC guide (2026-11-11, `nxos-vpc`)
+
+The vPC tips card said the configuration guide "could not be read". It is read now (via the web-fetch agent; cisco.com refuses curl with 403), with the 10.5 show reference:
+
+| Was | Now |
+|---|---|
+| "active-active dual-homing without Spanning Tree loop blocking" | No STP-blocked ports, but STP still runs on both peers as a fail-safe |
+| Keepalive "out-of-band… prevents split-brain" | Management VRF by default, never over the peer-link; only used when the whole peer-link is down, and then the secondary disables all its vPC ports |
+| `consistency-parameters global` = "STP, MTU and VLAN consistency" | `global` for STP mode, MTU and the like; new `… vpc <id>` row for a port-channel's mode, speed, duplex and allowed VLANs. Mismatch suspends the vPC; graceful consistency-check (default) suspends only the secondary's links |
+| — | `show vpc role`: lower role priority wins (lowest MAC by default); roles stay swapped after a failover until `vpc role preempt` |
+
+Test: `sources` (switch check) asserts the new wording and the guide reference.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |
