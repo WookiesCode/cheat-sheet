@@ -640,6 +640,26 @@ Four new steps, shown to returning users under **What's new** (v13's two steps a
 
 The returning-user invite and the Ctrl+K "What's new" entry name the new additions (the Ctrl+K line still described the Slurm and filesystem round).
 
+## #21 Field-guide cards re-checked against vendor pages (2026-11-10, `recheck-guide-cards`)
+
+26 of the 29 guide cards (the QM9790 port-numbering card was already checked) now carry a verified date, links that point at the page holding each fact (titled for what they are), and a note on what was and was not checked. The three First Connection procedure cards (five steps, the words, symptom triage) stay **Not verified**: they are team practice with no vendor page.
+
+| Card | Found | Now |
+|---|---|---|
+| MMA4Z00-NS-FLT | Guide: "NVIDIA identifies this as an adapter side part" | **Wrong.** NVIDIA: flat top for liquid-cooled and DGX H100 Cedar7 systems; ConnectX-7 MCX750500B/C mezzanine cards **only**; listed for ConnectX-8. Adapter-side single-port parts are MMA4Z00-NS400 (OSFP) and MMA1Z00-NS400 (QSFP112) |
+| QSFP112-400G-SR4 / VR4 | "The SN5400 QSFP-DD cage does not support QSFP112" | **Wrong as stated.** NVIDIA: a QSFP-DD cage supports QSFP112, 56 and 28 devices; the 50G-PAM4 SN5400 is listed for QSFP56/QSFP28, and "many, but not all" modules down-shift |
+| Optic families | "NVIDIA documents 400G DR4 QSFP-DD for SN5400" | Not found; now "the SN5400 data interfaces take QSFP-DD modules" (NVIDIA) |
+| MMA4Z00-NS | 50 m | 50 m OM4 / 30 m OM3 |
+| OSFP-400G-SR4 | 100 m OM4 | 70 m OM3 / 100 m OM4; NVIDIA: single-port OSFP never goes in a twin-port switch cage |
+| QSFP-100G-SR4, QSFP-DD-400G-SR8 | MPO-12/UPC, MPO-16/APC | The sources give MPO-12 / MPO-16 without the polish: now says so |
+| SN5400 / SN5600 | 1/10/25GbE SFP28 | NVIDIA: 25GbE, 1GbE supported on 65/66; 10GbE not stated. Breakout options added (2×200 / 4×100 / 8×50; 800 / 2×400 / 4×200 / 8×100) |
+| SN2410 | – | NVIDIA lists MSN2410-CB2RC as **End of Life** |
+| C9200L | 4 × 10G uplinks; data-sheet link 404 | 4 × 1/10G fixed uplinks (data sheet updated 2026-11-05, new link); 1G SFP or 10G SFP+ |
+| Adapters | Firmware 32.39.4082, 28.39.3004 | Both are real NVIDIA LTS releases, with newer LTS builds out; MCX75310AAS-NEA is the manual’s MCX75310AAS-NEAT (single-port OSFP, NDR 400Gb/s / 400GbE) |
+| Links | Five "module data sheets" were NADDOD **switch** data sheets; one "data sheet" was ConnectX-8 release notes | Kept where their compatible-module tables hold the spec, retitled; wrong ones replaced |
+
+Confirmed unchanged: FS SFP-10GLR-31, XS+85LC01D, QSFP56-200G-SR4, QSFP-DD-400G-DR4, OSFP-800G-2XDR4, QM9790 (MQM9790-NS2R unmanaged, C2P), 7260CX3-64-F, CCR2216, Hasivo, ACS8000 (copper left / SFP right, one per LAN, fiber priority; 8/16/32/48 serial), MX304 (LMIC0/1, RE1/LMIC2), N9K-FX3. Cage layouts and port order are from the vendor photos: no vendor text describes them.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

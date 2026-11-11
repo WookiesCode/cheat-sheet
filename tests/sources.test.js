@@ -660,10 +660,17 @@ const rows = (p) => p.evaluate(() => {
       text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
       all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test(it.dataset.cmdId || '')).map(it => ({ id: it.dataset.cmdId || it.dataset.id, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
     }
-    // First Connection came from the team's field guide, which cited no source for these four cards: they say so.
-    const GUIDE_UNSOURCED = ['first-link-five-steps', 'first-link-words', 'first-link-jacket', 'link-symptoms'];
-    check(all.length >= 30 && all.every(x => x.src || GUIDE_UNSOURCED.includes(x.id)), `every fiber card shows a source line, except the four guide cards marked Not verified (${all.filter(x => x.src).length}/${all.length})`);
-    check(all.filter(x => !x.src).map(x => x.id).sort().join(' ') === [...GUIDE_UNSOURCED].sort().join(' '), 'exactly those four fiber cards say "Not verified"');
+    // First Connection came from the team's field guide. Three cards are team procedure with no vendor page to
+    // check against, so they say "Not verified"; the jacket card's connector facts were checked (NVIDIA, Cisco).
+    const GUIDE_UNSOURCED = ['first-link-five-steps', 'first-link-words', 'link-symptoms'];
+    check(all.length >= 30 && all.every(x => x.src || GUIDE_UNSOURCED.includes(x.id)), `every fiber card shows a source line, except the three guide procedure cards marked Not verified (${all.filter(x => x.src).length}/${all.length})`);
+    check(all.filter(x => !x.src).map(x => x.id).sort().join(' ') === [...GUIDE_UNSOURCED].sort().join(' '), 'exactly those three fiber cards say "Not verified"');
+    // Re-checked 2026-11-10 against the vendor pages: no card still says its sources were not re-read, and the
+    // corrections stay in (MMA4Z00-NS-FLT is not an adapter-side part; a QSFP-DD cage does take QSFP112 devices).
+    const guideData = ['fiber.js', 'switches.js'].map(f => require('fs').readFileSync(require('path').join(__dirname, '..', f), 'utf8')).join('\n');
+    check(!/were not re-read/.test(guideData), 'no guide card still says its sources were not re-read (fiber.js, switches.js)');
+    check(/MCX750500B\/C-0D0K/.test(text) && !/NVIDIA identifies this as an adapter side part/.test(text), 'MMA4Z00-NS-FLT: flat top for DGX / liquid-cooled systems, ConnectX-7 mezzanine cards only (corrected)');
+    check(/physically takes QSFP112/.test(text) && !/does not support QSFP112/.test(text), 'QSFP112 in the SN5400 QSFP-DD cage: fits physically, not on NVIDIA\u2019s SN5400 list (corrected)');
     check(!/receptacles are always FEMALE/.test(text) && /transceiver receptacles are pinned/.test(text), 'MPO: transceivers are pinned (male)');
     check(!/Laser \(rx\|output\) power/.test(text) && /output power\|optical power/.test(text), 'ethtool DOM grep catches the RX line');
     check(!/--show_ber/.test(text) && !/link_downed_counter/.test(text) && /counters\/link_downed/.test(text), 'mlxlink -c (no --show_ber); sysfs link_downed');

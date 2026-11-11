@@ -1293,14 +1293,14 @@ const SWITCH_DATA = [
           "hasivo"
         ],
         "src": {
-          "verified": "",
+          "verified": "2026-11-10",
           "refs": [
             {
               "url": "https://www.hasivopoe.com/full-gigabit-24ge-2sfp-l2-managed-switch/",
-              "title": "Hasivo: vendor reference"
+              "title": "Hasivo S5800W-24G-2S product page"
             }
           ],
-          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The cage layout was checked against the vendor front view; the specs and notes were not re-read."
+          "note": "Hasivo page for S5800W-24G-2S: 24 × 10/100/1000Base-T RJ45 + 2 × 1000M SFP, layer 2 managed. The cage layout was checked against the vendor front view (photo); port order is not described in the vendor text."
         }
       },
       {
@@ -1308,7 +1308,7 @@ const SWITCH_DATA = [
         "mode": "NDR INFINIBAND",
         "modeClass": "mode-v",
         "desc": "NVIDIA MQM9790-NS2R (QM9790): Quantum-2 · 32 twin port OSFP cages · 64 × 400G NDR logical ports",
-        "cmd": "Model: NVIDIA MQM9790-NS2R (QM9790)   |   32 OSFP / 64 NDR   |   Unmanaged InfiniBand fabric switch · reverse airflow SKU",
+        "cmd": "Model: NVIDIA MQM9790-NS2R (QM9790)   |   32 OSFP / 64 NDR   |   Unmanaged InfiniBand fabric switch · C2P (connector-to-power, reverse) airflow",
         "details": "Two physical rows × 16 columns. Odd cages are on top, even cages below. Each cage has two 400G logical ports. The map follows NVIDIA’s non-splittable 64-port profile. Odd cages show ascending logical ports; even cages reverse them. A splittable profile changes the logical mapping, so confirm the active profile before recabling.",
         "flags": [
           [
@@ -1326,6 +1326,10 @@ const SWITCH_DATA = [
           [
             "Port 1",
             "Finned twin port OSFP · Cage 1 · ports 1 and 2"
+          ],
+          [
+            "Splittable",
+            "128 × NDR200 (200Gb/s)"
           ]
         ],
         "tip": "Open the switch front panel (▦ on this page) for the drawing, the vendor photo and the installed-optic record.",
@@ -1336,27 +1340,23 @@ const SWITCH_DATA = [
           "qm9790"
         ],
         "src": {
-          "verified": "",
+          "verified": "2026-11-10",
           "refs": [
             {
               "url": "https://docs.nvidia.com/networking/display/qm97xx-1u-ndr-400gbps-infiniband-switch-systems-user-manual.pdf",
-              "title": "QM9790: vendor reference"
-            },
-            {
-              "url": "https://docs.nvidia.com/networking/display/qm9700-and-qm9790-1u-ndr-400gbps-infiniband-switch-systems-user-manual.pdf",
-              "title": "QM9790: vendor front view"
+              "title": "NVIDIA QM97XX user manual: ordering table and port splitting"
             }
           ],
-          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The cage layout was checked against the vendor front view; the specs and notes were not re-read."
+          "note": "NVIDIA QM97XX manual ordering table: MQM9790-NS2R, 64-ports NDR, 32 OSFP ports, unmanaged, C2P airflow (NS2F is P2C); up to 128 ports of 200Gb/s with port split. The cage layout was checked against the vendor front view (photo); port order is not described in the vendor text."
         }
       },
       {
         "id": "hw-sn5400",
         "mode": "400G ETHERNET",
         "modeClass": "mode-v",
-        "desc": "NVIDIA SN5400: Spectrum-4 · 64 × 400GbE QSFP-DD + 2 × 1/10/25GbE SFP28",
+        "desc": "NVIDIA SN5400: Spectrum-4 · 64 × 400GbE QSFP-DD + 2 × 25GbE SFP28 (1GbE supported)",
         "cmd": "Model: NVIDIA SN5400   |   64 QSFP-DD / 2 SFP28   |   High speed Ethernet fabric switch",
-        "details": "Four physical rows × 16 columns. The first column is cages 1, 2, 3, 4 from top to bottom; the next is 5, 6, 7, 8. SFP28 ports 65 and 66 are at the left. Native mode is one swpN interface per QSFP-DD cage. The 2× and 4× views illustrate supported breakout naming (swpNs0…) and do not read the actual switch configuration. Confirm the configured mode before recabling.",
+        "details": "Four physical rows × 16 columns. The first column is cages 1, 2, 3, 4 from top to bottom; the next is 5, 6, 7, 8. SFP28 ports 65 and 66 are at the left. Native mode is one swpN interface per QSFP-DD cage. NVIDIA: each 400GbE port splits to 2 × 200GbE or 4 × 100GbE, or 8 × 50GbE with the port above or below unmapped. The 2× and 4× views illustrate supported breakout naming (swpNs0…) and do not read the actual switch configuration. Confirm the configured mode before recabling.",
         "flags": [
           [
             "Cage",
@@ -1383,27 +1383,31 @@ const SWITCH_DATA = [
           "sn5400"
         ],
         "src": {
-          "verified": "",
+          "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://networking-docs.nvidia.com/sn5000hw/cable-installation",
-              "title": "SN5400: vendor reference"
+              "url": "https://networking-docs.nvidia.com/sn5000hw/introduction",
+              "title": "NVIDIA SN5000 hardware manual: introduction (ports and speeds)"
             },
             {
-              "url": "https://networking-docs.nvidia.com/sn5000hw/introduction",
-              "title": "SN5400: vendor front view"
+              "url": "https://networking-docs.nvidia.com/sn5000hw/cable-installation",
+              "title": "NVIDIA SN5000 hardware manual: cable installation and splitting"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/sn5000hw/data-interfaces-and-high-power-transceivers-support",
+              "title": "NVIDIA SN5000 hardware manual: data interfaces and high-power support"
             }
           ],
-          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The cage layout was checked against the vendor front view; the specs and notes were not re-read."
+          "note": "NVIDIA: 64 QSFP-DD 400GbE and 2 × SFP28 25GbE; 1GbE only on SFP28 ports 65 and 66 (10GbE is not stated); split 2×200 / 4×100 / 8×50 GbE; 12 W per QSFP-DD port. The cage layout was checked against the vendor front view (photo); port order is not described in the vendor text."
         }
       },
       {
         "id": "hw-sn5600",
         "mode": "800G ETHERNET",
         "modeClass": "mode-v",
-        "desc": "NVIDIA SN5600: Spectrum-4 · 64 × 800GbE twin port OSFP + 1 × 1/10/25GbE SFP28",
+        "desc": "NVIDIA SN5600: Spectrum-4 · 64 × 800GbE OSFP (2 × 400G per module) + 1 × 25GbE SFP28 (1GbE supported)",
         "cmd": "Model: NVIDIA SN5600   |   64 OSFP / 1 SFP28   |   High speed Ethernet fabric switch",
-        "details": "Four physical rows × 16 columns. Each column runs top-to-bottom 1, 2, 3, 4; then 5, 6, 7, 8. SFP28 port 65 is at the left. In 2×400G view, lower inverted OSFP modules show s1 to the left of s0. The 2× view shows connector/subinterface order documented by NVIDIA: upper modules s0 | s1, lower inverted modules s1 | s0. The 4× view lists logical children; it does not claim a left-to-right fiber order. Confirm the switch’s active breakout configuration.",
+        "details": "Four physical rows × 16 columns. Each column runs top-to-bottom 1, 2, 3, 4; then 5, 6, 7, 8. SFP28 port 65 is at the left. In 2×400G view, lower inverted OSFP modules show s1 to the left of s0. The 2× view shows connector/subinterface order documented by NVIDIA: upper modules s0 | s1, lower inverted modules s1 | s0. NVIDIA: each OSFP cage runs 800G, 2×400G or 4×200G, or 8×100G with a split fiber (an odd port split to 8 blocks its even neighbour). The 4× view lists logical children; it does not claim a left-to-right fiber order. Confirm the switch’s active breakout configuration.",
         "flags": [
           [
             "Cage",
@@ -1430,25 +1434,29 @@ const SWITCH_DATA = [
           "sn5600"
         ],
         "src": {
-          "verified": "",
+          "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://networking-docs.nvidia.com/sn5000hw/cable-installation",
-              "title": "SN5600: vendor reference"
+              "url": "https://networking-docs.nvidia.com/sn5000hw/introduction",
+              "title": "NVIDIA SN5000 hardware manual: introduction (ports and speeds)"
             },
             {
-              "url": "https://networking-docs.nvidia.com/sn5000hw/introduction",
-              "title": "SN5600: vendor front view"
+              "url": "https://networking-docs.nvidia.com/sn5000hw/cable-installation",
+              "title": "NVIDIA SN5000 hardware manual: cable installation and splitting"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/sn5000hw/data-interfaces-and-high-power-transceivers-support",
+              "title": "NVIDIA SN5000 hardware manual: data interfaces and high-power support"
             }
           ],
-          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The cage layout was checked against the vendor front view; the specs and notes were not re-read."
+          "note": "NVIDIA: 64 OSFP 800GbE and 1 × SFP28 25GbE (1GbE only on port 65); breakout naming C1 = s0, C2 = s1 for 2×400G; 18 W per OSFP port. The left/right order of s0 and s1 on inverted lower modules is shown only in NVIDIA’s illustration and was not re-checked. The cage layout was checked against the vendor front view (photo); port order is not described in the vendor text."
         }
       },
       {
         "id": "hw-c9200l",
         "mode": "CAMPUS ETHERNET",
         "modeClass": "mode-v",
-        "desc": "Cisco C9200L-48T-4X-E: 48 × 1GbE RJ45 + 4 × 1/10GbE SFP+ uplinks",
+        "desc": "Cisco C9200L-48T-4X-E: 48 × 1GbE RJ45 + 4 × 1/10G SFP+ fixed uplinks",
         "cmd": "Model: Cisco C9200L-48T-4X-E   |   48 RJ45 / 4 SFP+   |   Campus Ethernet switch · Essentials license",
         "details": "Two rows of 24 copper jacks (odd ports on top, even below), with four fixed 10G SFP+ uplinks at right. Compare printed labels on the exact unit. Access ports are fixed copper. The four SFP+ uplinks are 1/10G; verify the exact optic and Cisco qualification. The -E suffix is the Essentials software license.",
         "flags": [
@@ -1477,18 +1485,18 @@ const SWITCH_DATA = [
           "c9200l"
         ],
         "src": {
-          "verified": "",
+          "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9200/hardware/install/b-c9200-hig/product_overview.html",
-              "title": "C9200L: vendor reference"
+              "url": "https://www.cisco.com/c/en/us/products/collateral/switches/catalyst-9200-series-switches/nb-06-cat9200-ser-data-sheet-cte-en.html",
+              "title": "Cisco Catalyst 9200 Series data sheet (updated 2026-11-05)"
             },
             {
-              "url": "https://www.cisco.com/c/en/us/products/collateral/switches/catalyst-9200-series-switches/datasheet-c78-741469.html",
-              "title": "C9200L: vendor front view"
+              "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9200/hardware/install/b-c9200-hig/product_overview.html",
+              "title": "Cisco Catalyst 9200 hardware installation guide: product overview"
             }
           ],
-          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The cage layout was checked against the vendor front view; the specs and notes were not re-read."
+          "note": "Cisco data sheet: C9200L-48T-4X, 48 ports data, 4 × 1/10G fixed uplinks; -E is the Network Essentials ordering option. Install guide: the uplinks take 1G SFP or 10G SFP+ modules; 10/100/1000 ports are RJ-45. The interface names are IOS XE convention, not quoted. The cage layout was checked against the vendor front view (photo); port order is not described in the vendor text. (The guide’s old data-sheet link now returns 404.)"
         }
       },
       {
@@ -1524,14 +1532,18 @@ const SWITCH_DATA = [
           "acs8000"
         ],
         "src": {
-          "verified": "",
+          "verified": "2026-11-10",
           "refs": [
             {
               "url": "https://www.vertiv.com/49f5bb/globalassets/products/monitoring-control-and-management/serial-consoles-and-gateways/avocent-acs-8000-quick-installation-guide-english.pdf",
-              "title": "ACS8000: vendor reference"
+              "title": "Vertiv Avocent ACS8000 quick installation guide"
+            },
+            {
+              "url": "https://www.vertiv.com/en-emea/products-catalog/monitoring-control-and-management/serial-console-and-gateways/avocent-acs-8000-serial-consoles/",
+              "title": "Vertiv Avocent ACS 8000 product page: models"
             }
           ],
-          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The cage layout was checked against the vendor front view; the specs and notes were not re-read."
+          "note": "Vertiv quick install guide: LAN ports on the left are copper, on the right fiber (SFP); only one LAN1 and one LAN2 port may be used at a time, and fiber has priority when both are connected. Product page: 8, 16, 32 or 48 RS-232 serial ports; 1Gb SFP modules. The cage layout was checked against the vendor front view (photo); port order is not described in the vendor text."
         }
       },
       {
@@ -1567,18 +1579,14 @@ const SWITCH_DATA = [
           "mx304"
         ],
         "src": {
-          "verified": "",
+          "verified": "2026-11-10",
           "refs": [
             {
-              "url": "https://www.juniper.net/documentation/us/en/hardware/mx304/topics/topic-map/mx304-chassis.html",
-              "title": "MX304: vendor reference"
-            },
-            {
-              "url": "https://www.juniper.net/documentation/us/en/hardware/mx304/mx304.pdf",
-              "title": "MX304: vendor front view"
+              "url": "https://networkingdocs.hpe.com/documentation/us/en/hardware/mx304/topics/topic-map/mx304-chassis.html",
+              "title": "Juniper MX304 hardware guide: chassis (LMIC slots)"
             }
           ],
-          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The cage layout was checked against the vendor front view; the specs and notes were not re-read."
+          "note": "Juniper (docs now served from networkingdocs.hpe.com): two Routing Engines with LMIC 0 and LMIC 1; with one RE, a third LMIC goes in the RE 1/LMIC2 slot; 2 or 3 LMICs. The cage layout was checked against the vendor front view (photo); port order is not described in the vendor text."
         }
       },
       {
@@ -1587,7 +1595,7 @@ const SWITCH_DATA = [
         "modeClass": "mode-v",
         "desc": "Arista DCS-7260CX3-64-F: 64 × 40/100GbE QSFP28 + 2 × 1/10GbE SFP+",
         "cmd": "Model: Arista DCS-7260CX3-64-F   |   64 QSFP28 / 2 SFP+   |   Data-center Ethernet switch · front-to-rear airflow",
-        "details": "Four rows × 16 columns: ports 1–32 occupy the upper two rows (odd over even) and 33–64 the lower two rows; SFP+ ports 65 and 66 are stacked at top right. Confirm printed labels before recabling. 40/100G QSFP28 ports support breakout modes, but the map shows native physical cages. The -F SKU specifies front-to-rear airflow; verify exact optic qualification in Arista documentation.",
+        "details": "Four rows × 16 columns: ports 1–32 occupy the upper two rows (odd over even) and 33–64 the lower two rows; SFP+ ports 65 and 66 are stacked at top right. Confirm printed labels before recabling. 40/100G QSFP100 ports break out to 4 × 10G, 4 × 25G or 2 × 50G, but the map shows native physical cages. The -F SKU specifies front-to-rear airflow; verify exact optic qualification in Arista documentation.",
         "flags": [
           [
             "Cage",
@@ -1614,14 +1622,14 @@ const SWITCH_DATA = [
           "arista7260"
         ],
         "src": {
-          "verified": "",
+          "verified": "2026-11-10",
           "refs": [
             {
               "url": "https://www.arista.com/assets/data/pdf/Datasheets/7260X3_Datasheet.pdf",
-              "title": "7260CX3: vendor reference"
+              "title": "Arista 7260X3 data sheet: ports, breakouts, ordering codes"
             }
           ],
-          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The cage layout was checked against the vendor front view; the specs and notes were not re-read."
+          "note": "Arista data sheet: 7260CX3-64, 64 × 40/100GbE QSFP100 + 2 SFP+, 2RU; breakouts 4×10 / 4×25 / 2×50 GbE; DCS-7260CX3-64-F = front-to-rear air (-R rear-to-front). The cage layout was checked against the vendor front view (photo); port order is not described in the vendor text."
         }
       },
       {
@@ -1657,18 +1665,18 @@ const SWITCH_DATA = [
           "ccr2216"
         ],
         "src": {
-          "verified": "",
+          "verified": "2026-11-10",
           "refs": [
             {
               "url": "https://mikrotik.com/product/ccr2216_1g_12xs_2xq",
-              "title": "CCR2216: vendor reference"
+              "title": "MikroTik CCR2216-1G-12XS-2XQ product page"
             },
             {
               "url": "https://cdn.mikrotik.com/web-assets/product_files/CCR2216-1G-12XS-2XQ_231005.pdf",
-              "title": "CCR2216: vendor front view"
+              "title": "MikroTik CCR2216-1G-12XS-2XQ brochure"
             }
           ],
-          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The cage layout was checked against the vendor front view; the specs and notes were not re-read."
+          "note": "MikroTik: 12 × 25G SFP28, 2 × 100G QSFP28, 1 × 10/100/1000 Ethernet, plus an RJ45 serial console. Whether ether1 is a management-only port is not stated. The cage layout was checked against the vendor front view (photo); port order is not described in the vendor text."
         }
       },
       {
@@ -1676,8 +1684,8 @@ const SWITCH_DATA = [
         "mode": "25/100G ETHERNET",
         "modeClass": "mode-v",
         "desc": "Mellanox MSN2410-CB2RC: 48 × 25GbE SFP28 + 8 × 100GbE QSFP28",
-        "cmd": "Model: Mellanox MSN2410-CB2RC   |   48 SFP28 / 8 QSFP28   |   Spectrum Ethernet switch · Cumulus Linux SKU",
-        "details": "Two rows of 24 SFP28 cages (odd ports on top, even below) with eight QSFP28 cages (49–56, odd over even) at the right. Confirm printed labels on your chassis. MSN2410-CB2RC is the Cumulus Linux, connector-to-power airflow SKU. Breakout naming depends on active configuration; confirm actual port state before recabling.",
+        "cmd": "Model: Mellanox MSN2410-CB2RC   |   48 SFP28 / 8 QSFP28   |   Spectrum Ethernet switch · Cumulus Linux SKU · End of Life",
+        "details": "Two rows of 24 SFP28 cages (odd ports on top, even below) with eight QSFP28 cages (49–56, odd over even) at the right. Confirm printed labels on your chassis. MSN2410-CB2RC is the Cumulus Linux, connector-to-power airflow SKU. Breakout naming depends on active configuration; confirm actual port state before recabling. NVIDIA lists MSN2410-CB2RC as End of Life.",
         "flags": [
           [
             "Cage",
@@ -1704,14 +1712,14 @@ const SWITCH_DATA = [
           "msn2410"
         ],
         "src": {
-          "verified": "",
+          "verified": "2026-11-10",
           "refs": [
             {
               "url": "https://docs.nvidia.com/networking/display/nvidia-spectrum-sn2000-1u-switch-systems-hardware-user-manual.pdf",
-              "title": "SN2410: vendor reference"
+              "title": "NVIDIA SN2000 hardware user manual: ordering table"
             }
           ],
-          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The cage layout was checked against the vendor front view; the specs and notes were not re-read."
+          "note": "NVIDIA SN2000 manual ordering table: MSN2410-CB2RC, Spectrum 25GbE/100GbE switch with Cumulus Linux, 48 SFP28 + 8 QSFP28, short depth, C2P airflow, EOL (End of Life). The cage layout was checked against the vendor front view (photo); port order is not described in the vendor text."
         }
       },
       {
@@ -1720,7 +1728,7 @@ const SWITCH_DATA = [
         "modeClass": "mode-v",
         "desc": "Cisco N9K-C93180YC-FX3: 48 × 1/10/25GbE SFP28 + 6 × 40/100GbE QSFP28",
         "cmd": "Model: Cisco N9K-C93180YC-FX3   |   48 SFP28 / 6 QSFP28   |   Nexus data-center Ethernet switch",
-        "details": "Two rows of 24 SFP28 cages (odd ports on top, even below) in the main bank; QSFP28 ports 49–54 (odd over even) are at right. Confirm the chassis labels. NX-OS interface names use Ethernet1/N for a standalone unit. QSFP28 ports can have breakout children; inspect configured mode and Cisco transceiver support list.",
+        "details": "Two rows of 24 SFP28 cages (odd ports on top, even below) in the main bank; QSFP28 ports 49–54 (odd over even) are at right. Confirm the chassis labels. NX-OS interface names use Ethernet1/N for a standalone unit. The QSFP28 uplinks run 40 or 100G (10G through a QSA on ports 49–52); check the configured mode and Cisco’s transceiver support list before assuming a breakout.",
         "flags": [
           [
             "Cage",
@@ -1747,18 +1755,18 @@ const SWITCH_DATA = [
           "n9k"
         ],
         "src": {
-          "verified": "",
+          "verified": "2026-11-10",
           "refs": [
             {
               "url": "https://www.cisco.com/c/en/us/td/docs/dcn/hw/nx-os/nexus9000/93180yc-fx3/cisco-nexus-93180yc-fx3-nx-os-mode-switch-hardware-installation-guide/m_overview1.html",
-              "title": "N9K-FX3: vendor reference"
+              "title": "Cisco Nexus 93180YC-FX3 hardware installation guide: overview"
             },
             {
               "url": "https://www.cisco.com/c/en/us/products/collateral/switches/nexus-9000-series-switches/datasheet-c78-744052.html",
-              "title": "N9K-FX3: vendor front view"
+              "title": "Cisco N9300-FX3 Series data sheet"
             }
           ],
-          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The cage layout was checked against the vendor front view; the specs and notes were not re-read."
+          "note": "Cisco: 48 × 1/10/25G SFP28 (ports 1–48, 100M also listed in the install guide) and 6 × 40/100G QSFP28 (ports 49–54); the data sheet covers the N9300-FX3 family and its figure is labelled N93180YC-FX3. Breakout is not described in either. The cage layout was checked against the vendor front view (photo); port order is not described in the vendor text."
         }
       }
     ]
