@@ -13,6 +13,8 @@ const REFERENCE_PATTERNS = [
   // Fiber: form factors, polarity, cleaning steps, distance and test tables
   /^Switch Port:/, /^800G Twin-Port/, /^0\.5–2\.5m:/, /^\[Transceiver:/, /^Direct Optic-to-Optic/,
   /^MPO-12 \(4-lane\)/, /^LC Duplex/, /^1\. Inspect/, /^10km LR4/, /^Check DOM RX/, /^Tier 1 /,
+  // Team optics, first connection and switch hardware cards (from the Switch & Fiber Field Guide)
+  /^Part: /, /^Families: /, /^Adapter: /, /^Model: /, /^1\. Identify both ends/, /^Cage: the physical/, /^Jacket: /, /^Cage 1: ports/, /^Module absent/,
   // Ethernet wire colors
   /^T568B /,
   // macOS and Windows keyboard shortcuts, gestures, and Settings paths

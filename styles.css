@@ -7788,6 +7788,25 @@ body.is-home .sheet-shell { display: block; }
 .pn-extra rect { fill: #0b0d10; stroke: #505a68; stroke-dasharray: 3 2; }
 .pn-extra text { fill: #8b94a3; font: 600 8.5px var(--font-sans); }
 .pn-mgmt rect { stroke: #6b7380; stroke-dasharray: none; }
+.pn-QSFP rect { stroke: #6b7380; stroke-dasharray: none; }
+/* Extra ports that can be searched (SFP uplinks, QSFP, management RJ45 with a port number). */
+.pn-extra[data-pn-cage] { cursor: pointer; outline: none; }
+.pn-extra[data-pn-cage]:hover rect, .pn-extra[data-pn-cage]:focus rect { stroke: var(--accent-primary); stroke-width: 2; }
+.pn-extra.is-focus rect { stroke: #fff; stroke-width: 3; fill: rgba(56, 189, 248, 0.45); stroke-dasharray: none; }
+/* A cage with an optic recorded in it. */
+.pn-optic-dot { fill: #4ade80; stroke: #0b0d10; stroke-width: 1; pointer-events: none; }
+/* The vendor's own front photo above the drawing. */
+.pn-photo { margin: 0.2rem 0 0.6rem; }
+.pn-photo img { display: block; max-width: 100%; max-height: 180px; margin: 0 auto; border-radius: 6px; background: #0b0d10; }
+.pn-photo figcaption { margin-top: 0.3rem; text-align: center; font: 0.7rem var(--font-sans); color: var(--text-secondary); }
+.pn-photo figcaption a { color: var(--accent-primary); }
+.pn-optic h4 { margin: 0.9rem 0 0.4rem; font-size: 0.82rem; }
+.pn-optic h4 small { font-weight: 500; color: var(--text-secondary); }
+.pn-optic-form { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; padding: 0.55rem 0.7rem; background: var(--bg-code); border: 1px solid var(--border-strong); border-radius: 10px; }
+.pn-optic-form select, .pn-optic-form input { font: 0.8rem var(--font-sans); color: var(--text-primary); background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: 6px; padding: 0.3rem 0.45rem; }
+.pn-optic-form input { flex: 1 1 14rem; min-width: 10rem; }
+.pn-optic-form button { font: 600 0.78rem var(--font-sans); padding: 0.3rem 0.7rem; border-radius: 6px; border: 1px solid var(--border-strong); background: var(--bg-surface); color: var(--text-primary); cursor: pointer; }
+.pn-optic-form button:hover, .pn-optic-form button:focus-visible { border-color: var(--accent-primary); }
 
 .pn-legend { display: flex; gap: 0.5rem; padding: 0 1.2rem 0.5rem; flex-wrap: wrap; }
 .pn-legend span, .pn-t { font: 600 0.68rem var(--font-sans); padding: 0.15rem 0.55rem; border-radius: 999px; border: 1px solid; }

@@ -10030,7 +10030,38 @@ ${rmaTrailSection()}#### Action Requested:
     JQL: ['Jira Query Language', 'Jira’s search language.'],
     PromQL: ['Prometheus Query Language', 'The query language for Prometheus metrics.'],
     VM: ['Virtual Machine', 'A computer emulated in software.'],
-    ISO: ['ISO image', 'A disk image file, such as an OS installer.']
+    ISO: ['ISO image', 'A disk image file, such as an OS installer.'],
+    // Optics, fiber and switch hardware (from the team's Switch & Fiber Field Guide)
+    GbE: ['Gigabit Ethernet', 'Ethernet at gigabit speeds: 10GbE is 10 Gb/s, 400GbE is 400 Gb/s.'],
+    'SFP+': ['Enhanced SFP', 'The SFP format commonly used for 10G links.'],
+    SFP28: ['SFP, 28 Gb/s lane', 'The SFP format commonly used for 25G links.'],
+    QSFP28: ['Quad SFP, 28 Gb/s lanes', 'The four-lane QSFP format commonly used for 100G links.'],
+    QSFP56: ['Quad SFP, 56 Gb/s lanes', 'The four-lane QSFP format commonly used for 200G links.'],
+    QSFP112: ['Quad SFP, 112 Gb/s lanes', 'The four-lane QSFP format commonly used for 400G links.'],
+    'QSFP-DD': ['Quad Small Form-factor Pluggable Double Density', 'An eight-lane transceiver format.'],
+    LC: ['Lucent Connector', 'A small fiber connector, usually used as a duplex pair: one transmit, one receive.'],
+    MTP: ['MTP (a brand of MPO)', 'A branded type of MPO multi-fiber connector.'],
+    OM3: ['Optical Multimode 3', 'A laser-optimized multimode fiber grade.'],
+    OM4: ['Optical Multimode 4', 'A higher-bandwidth multimode fiber grade.'],
+    OM5: ['Optical Multimode 5', 'A wideband multimode fiber grade.'],
+    OS2: ['Optical Single-mode 2', 'A single-mode fiber grade.'],
+    SR4: ['Short Reach, 4 lanes', 'Four parallel optical lanes, usually over multimode fiber.'],
+    SR8: ['Short Reach, 8 lanes', 'Eight parallel optical lanes, usually over multimode fiber.'],
+    VR4: ['Very Short Reach, 4 lanes', 'Four parallel optical lanes for very short multimode links.'],
+    DR4: ['Data-center Reach, 4 lanes', 'Four parallel single-mode lanes.'],
+    FR4: ['Four-wavelength reach', 'Four wavelengths multiplexed onto one single-mode fiber pair.'],
+    SX: ['Short-wavelength (1G)', 'A 1G optic family, typically 850 nm over multimode fiber.'],
+    LX: ['Long-wavelength (1G)', 'A 1G optic family, typically 1310 nm over single-mode fiber.'],
+    LMIC: ['Line Module Interface Card', 'A removable Juniper MX304 line module: its ports depend on the module installed.'],
+    EOS: ['Extensible Operating System', 'Arista\u2019s switch operating system.'],
+    'NX-OS': ['Nexus Operating System', 'Cisco\u2019s operating system for Nexus data-center switches.'],
+    QSA: ['QSFP-to-SFP Adapter', 'Lets a supported QSFP cage take an SFP-format module.'],
+    C2P: ['Connector-to-Power airflow', 'Air enters at the port side and leaves at the power-supply side.'],
+    P2C: ['Power-to-Connector airflow', 'Air enters at the power-supply side and leaves at the port side.'],
+    MFT: ['NVIDIA Firmware Tools', 'mst, mlxlink, flint, mlxconfig: tools for inspecting and managing NVIDIA network devices.'],
+    SKU: ['Stock Keeping Unit', 'One exact orderable variant of a product.'],
+    Tx: ['Transmit', 'Light (or a signal) sent out by an optic or lane.'],
+    Rx: ['Receive', 'Light (or a signal) arriving at an optic or lane.'],
   };
   // Same letters, different meaning on some pages.
   const GL_OVERRIDES = [
@@ -10474,9 +10505,33 @@ ${rmaTrailSection()}#### Action Requested:
   // Layouts checked 2026-11-07 against Arista's 7060X5 Quick Start Guide (Appendix C,
   // Figures C-1 to C-4) and NVIDIA's QM97XX hardware manual front views. LLDP parsing follows
   // the documented output of lldpctl/lldpcli, Arista EOS, SONiC and NX-OS-style tables.
+  // Ten more devices came from the team's Switch & Fiber Field Guide (2026-11-10): their cage
+  // layouts were checked against the vendor front photos (assets/panels/), the port naming
+  // and notes are the guide's. A model can bring its own port-name parser (parse), extra
+  // ports placed by side/row/col that can be searched (port), a vendor photo, and the optic
+  // families its cages take (optics); photoOnly devices have no port drawing.
   // -------------------------------------------------------------
   const PANEL_KEY = 'cs_panel_v1';
   const oddEven = (from, to) => ({ top: Array.from({ length: (to - from + 1) / 2 }, (_, i) => from + i * 2), bottom: Array.from({ length: (to - from + 1) / 2 }, (_, i) => from + 1 + i * 2) });
+  // Four cages per column, counted down each column (1, 2, 3, 4 then 5…): NVIDIA SN5400/SN5600.
+  const colMajor4 = (cols) => [0, 1].map(h => ({ top: Array.from({ length: cols }, (_, c) => c * 4 + h * 2 + 1), bottom: Array.from({ length: cols }, (_, c) => c * 4 + h * 2 + 2) }));
+  const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
+  // The optic families a cage takes, for the "installed optic" record (the guide's lists,
+  // including the team's part labels).
+  const PN_OPTIC_SETS = {
+    'osfp-twin': ['MMA4Z00-NS · 2×400G SR4', 'OSFP-800G-2XDR4 · finned', '2×400G SR4 OSFP', '2×400G DR4 OSFP', '2×400G FR4 OSFP', 'OSFP DAC', 'OSFP AOC', 'Other OSFP'],
+    'osfp': ['800G OSFP SR8 / DR8', '2×400G OSFP', 'OSFP DAC', 'OSFP AOC', 'Other OSFP'],
+    'qsfp-dd': ['QSFP-100G-SR4 · 100G', 'QSFP56-200G-SR4', 'QSFP-DD-400G-SR8', 'QSFP-DD-400G-DR4', '400G SR QSFP-DD', '400G DR4 QSFP-DD', '400G FR4 QSFP-DD', 'QSFP-DD DAC', 'QSFP-DD AOC', 'Other QSFP-DD'],
+    'qsfp28': ['QSFP-100G-SR4', 'Other 100G SR4 QSFP28', 'QSFP28 DAC', 'QSFP28 AOC', 'Other QSFP28'],
+    'sfp28': ['XS+85LC01D · 1/10/25G', 'SFP-10GLR-31 · 10G LR', '1/10/25G SR SFP', '1/10/25G LR SFP', 'SFP28 DAC', 'Other SFP28'],
+    'sfpplus': ['SFP-10GLR-31 · 10G LR', 'XS+85LC01D · check 1/10G mode', '1G SX SFP', '1G LX SFP', 'Other SFP/SFP+'],
+    'sfp1g': ['XS+85LC01D · use at 1G', '1G SX SFP', '1G LX SFP', '1G copper SFP', 'Other SFP']
+  };
+  const PANEL_OPTICS_KEY = 'cs_panel_optics_v1';
+  const pnOptics = () => { try { const v = JSON.parse(localStorage.getItem(PANEL_OPTICS_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (e) { return {}; } };
+  const pnOpticsWrite = (all) => { try { localStorage.setItem(PANEL_OPTICS_KEY, JSON.stringify(all)); } catch (e) {} };
+  // Vendor photos ship in assets/panels/; the one-file copy carries them inline (PANEL_PHOTOS).
+  const pnPhotoUrl = f => (window.PANEL_PHOTOS && window.PANEL_PHOTOS[f]) || `${CON_BASE}assets/panels/${f}`;
   const PANEL_MODELS = {
     'arista-7060dx5-64e': {
       name: 'Arista 7060DX5-64E', vendor: 'arista', ru: 1, groups: [16], rows: [oddEven(1, 32)], cage: 'QSFP-DD 800G',
@@ -10505,8 +10560,119 @@ ${rmaTrailSection()}#### Action Requested:
     'nvidia-qm9700': {
       name: 'NVIDIA QM9700 / QM9790 (Quantum-2)', vendor: 'nvidia', ru: 1, groups: [4, 4, 4, 4], rows: [oddEven(1, 32)], cage: 'OSFP, 2 × NDR per cage', twin: true,
       extras: [{ label: 'MGT', kind: 'mgmt', row: 0 }, { label: 'CON', kind: 'mgmt', row: 1 }],
-      src: 'NVIDIA QM97XX hardware user manual, front view',
-      count: ['The label between the rows reads "1 ▲▼ 2": the number before ▲ is the top cage, after ▼ the bottom one.', 'Odd cages on top, even below, left to right, in four blocks of four.', 'Each OSFP cage holds two NDR ports: cage 14 is ports 1/14/1 and 1/14/2 (ASIC/cage/port). A split port adds one more level: 1/14/1/2.', 'QM9700: MGT RJ45 above the console RJ45 at the right. QM9790 is externally managed and has neither.']
+      src: 'NVIDIA QM97XX hardware user manual, front view and logical port numbering (p. 32)',
+      photo: 'qm9790-front.webp', photoSrc: 'https://docs.nvidia.com/networking/display/qm97xx-1u-ndr-400gbps-infiniband-switch-systems-user-manual.pdf', photoNote: 'QM9790 front view',
+      optics: () => 'osfp-twin',
+      // "port 3" is the IB port number ibnetdiscover/iblinkinfo show (non-splittable profile):
+      // odd cage n holds 2n-1 (left) and 2n (right); even cage n holds 2n (left) and 2n-1 (right).
+      parse(raw) {
+        const m = raw.match(/^(?:ib\s*)?(?:port|p)\s*(\d{1,2})$/i);
+        if (!m) return null;
+        const p = +m[1];
+        if (p < 1 || p > 64) return { cage: 0, sub: '' };
+        const cage = Math.ceil(p / 2);
+        const left = cage % 2 ? p % 2 === 1 : p % 2 === 0;
+        return { cage, sub: '', note: `IB port ${p} is the ${left ? 'left' : 'right'} half of cage ${cage} (non-splittable profile)` };
+      },
+      count: ['The label between the rows reads "1 ▲▼ 2": the number before ▲ is the top cage, after ▼ the bottom one.', 'Odd cages on top, even below, left to right, in four blocks of four.', 'Each OSFP cage holds two NDR ports: cage 14 is ports 1/14/1 and 1/14/2 (ASIC/cage/port). A split port adds one more level: 1/14/1/2.', 'IB tools (ibnetdiscover, iblinkinfo) number the ports 1–64 instead: odd cages read left to right (cage 1 = 1 | 2), even cages reverse (cage 2 = 4 | 3). Type "port 3" to find one.', 'QM9700: MGT RJ45 above the console RJ45 at the right. QM9790 is externally managed and has neither.']
+    },
+    'nvidia-sn5400': {
+      name: 'NVIDIA SN5400 (Spectrum-4)', vendor: 'nvidia', ru: 2, groups: [16], rows: colMajor4(16), cage: 'QSFP-DD 400G',
+      extras: [{ label: '65', kind: 'SFP', row: 1, side: 'left', port: 65, where: 'small SFP28 cage at the far left, the upper one' }, { label: '66', kind: 'SFP', row: 2, side: 'left', port: 66, where: 'small SFP28 cage at the far left, the lower one' }],
+      src: 'NVIDIA SN5000 hardware manual · layout checked against the vendor front view',
+      photo: 'sn5400-front.webp', photoSrc: 'https://networking-docs.nvidia.com/sn5000hw/introduction', photoNote: 'SN5400 front view',
+      optics: n => n > 64 ? 'sfp28' : 'qsfp-dd',
+      count: ['16 columns of four cages. Count down each column: 1, 2, 3, 4 from the top, then 5–8 in the next column.', 'The label between the halves reads "1/2 ▲▼ 3/4": 1 and 2 are the upper pair, 3 and 4 the lower pair.', 'SFP28 65 (upper) and 66 (lower) are at the far left.', 'Cumulus names them swp1–swp66; a breakout child adds s0, s1… (swp14s1). Native mode is one swpN per QSFP-DD cage.']
+    },
+    'nvidia-sn5600': {
+      name: 'NVIDIA SN5600 (Spectrum-4)', vendor: 'nvidia', ru: 2, groups: [4, 4, 4, 4], rows: colMajor4(16), cage: 'OSFP 800G (twin port)',
+      extras: [{ label: '65', kind: 'SFP', row: 2, side: 'left', port: 65, where: 'the small SFP28 cage at the far left, level with the lower half' }],
+      src: 'NVIDIA SN5000 hardware manual and cable installation guide · layout checked against the vendor front view',
+      photo: 'sn5600-front.webp', photoSrc: 'https://networking-docs.nvidia.com/sn5000hw/introduction', photoNote: 'SN5600 front view',
+      optics: n => n > 64 ? 'sfp28' : 'osfp-twin',
+      count: ['Four blocks of four columns, four cages per column. Count down each column: 1, 2, 3, 4, then 5–8 in the next.', 'SFP28 65 is at the far left, level with the lower half.', 'One native 800G interface per OSFP cage (swpN). In 2×400G breakout the upper modules read s0 | s1 left to right and the lower, upside-down modules s1 | s0 (per the guide, from NVIDIA’s cable installation guide).']
+    },
+    'nvidia-sn2410': {
+      name: 'Mellanox / NVIDIA SN2410 (MSN2410-CB2RC)', vendor: 'nvidia', ru: 1, groups: [6, 6, 6, 6, 4], rows: [{ top: range(0, 27).map(i => i < 24 ? i * 2 + 1 : 49 + (i - 24) * 2), bottom: range(0, 27).map(i => i < 24 ? i * 2 + 2 : 50 + (i - 24) * 2) }], cage: 'SFP28 25G (1–48) · QSFP28 100G (49–56)',
+      extras: [], src: 'NVIDIA Spectrum SN2000 hardware manual · layout checked against the vendor front view',
+      photo: 'sn2410-front.webp', photoSrc: 'https://docs.nvidia.com/networking/display/nvidia-spectrum-sn2000-1u-switch-systems-hardware-user-manual.pdf', photoNote: 'SN2410 front view',
+      optics: n => n > 48 ? 'qsfp28' : 'sfp28',
+      count: ['SFP28 1–48 in four blocks of six columns: odd on top, even below.', 'QSFP28 49–56 in the block at the right: 49 over 50 … 55 over 56.', 'Cumulus: swp1–swp56; a QSFP28 breakout child is swp49s0–swp49s3. MSN2410-CB2RC is the Cumulus SKU with connector-to-power airflow.']
+    },
+    'arista-7260cx3-64': {
+      name: 'Arista DCS-7260CX3-64-F', vendor: 'arista', ru: 2, groups: [2, 2, 2, 2, 2, 2, 2, 2], rows: [oddEven(1, 32), oddEven(33, 64)], cage: 'QSFP28 40/100G',
+      extras: [{ label: '65', kind: 'SFP', row: 0, port: 65, where: 'the upper SFP+ port at the top right' }, { label: '66', kind: 'SFP', row: 1, port: 66, where: 'the lower SFP+ port at the top right' }, { label: 'MGT · CON', kind: 'mgmt', row: 2 }],
+      src: 'Arista 7260X3 data sheet · layout checked against the vendor front view',
+      photo: 'arista7260-front.webp', photoSrc: 'https://www.arista.com/assets/data/pdf/Datasheets/7260X3_Datasheet.pdf', photoNote: '7260CX3-64 front view',
+      optics: n => n > 64 ? 'sfpplus' : 'qsfp28',
+      count: ['Four rows in two pairs, eight blocks of two columns. The top pair holds 1–32 (odd over even).', 'The bottom pair starts over at 33, odd over even again, up to 64.', 'SFP+ 65 and 66 are stacked at the top right.', 'EOS names: Ethernet14; a breakout lane is Ethernet14/2. The -F SKU is front-to-rear airflow.']
+    },
+    'cisco-n9k-c93180yc-fx3': {
+      name: 'Cisco Nexus N9K-C93180YC-FX3', vendor: 'cisco', ru: 1, groups: [8, 8, 8, 3], rows: [{ top: range(0, 26).map(i => i < 24 ? i * 2 + 1 : 49 + (i - 24) * 2), bottom: range(0, 26).map(i => i < 24 ? i * 2 + 2 : 50 + (i - 24) * 2) }], cage: 'SFP28 1/10/25G (1–48) · QSFP28 40/100G (49–54)',
+      extras: [], src: 'Cisco Nexus 93180YC-FX3 hardware installation guide · layout checked against the vendor front view',
+      photo: 'n9k-front.webp', photoSrc: 'https://www.cisco.com/c/en/us/products/collateral/switches/nexus-9000-series-switches/datasheet-c78-744052.html', photoNote: 'Cisco’s image is labelled N9K-C93180YC-FX; the guide uses it for the FX3',
+      optics: n => n > 48 ? 'qsfp28' : 'sfp28',
+      count: ['SFP28 1–48 in three blocks of eight columns: odd on top, even below ("1▲2" is printed above each column).', 'QSFP28 49–54 at the right: 49 over 50, 51 over 52, 53 over 54.', 'NX-OS names a standalone switch’s ports Ethernet1/14; a breakout child is Ethernet1/49/1.']
+    },
+    'cisco-c9200l-48t-4x': {
+      name: 'Cisco Catalyst C9200L-48T-4X-E', vendor: 'cisco', ru: 1, groups: [6, 6, 6, 6], rows: [oddEven(1, 48)], cage: 'RJ45 1G (1–48) · SFP+ 1/10G uplinks',
+      extras: [1, 2, 3, 4].map(i => ({ label: String(i), text: `SFP+ ${i}`, kind: 'SFP', row: 1, col: i - 1, port: 48 + i, where: `uplink ${i} of the four SFP+ ports side by side at the bottom right (Te1/1/${i})` })),
+      src: 'Cisco Catalyst 9200 hardware installation guide · layout checked against the vendor front view',
+      photo: 'c9200l-front.webp', photoSrc: 'https://www.cisco.com/c/en/us/products/collateral/switches/catalyst-9200-series-switches/datasheet-c78-741469.html', photoNote: 'Catalyst 9200L-48T-4X front view',
+      optics: n => n > 48 ? 'sfpplus' : '',
+      // Gi<member>/0/<port> → 1–48; Te/Gi<member>/1/<n> or "uplink n" → the SFP+ uplinks.
+      parse(raw) {
+        let m = raw.match(/^(?:gi|gigabitethernet)\s*\d\/0\/(\d+)$/i);
+        if (m) return { cage: +m[1] <= 48 ? +m[1] : 0, sub: '' };
+        m = raw.match(/^(?:te|tengigabitethernet|gi|gigabitethernet)\s*\d\/1\/(\d)$/i) || raw.match(/^(?:u|uplink)\s*(\d)$/i);
+        if (m) return { cage: +m[1] >= 1 && +m[1] <= 4 ? 48 + +m[1] : 0, sub: '' };
+        return null;
+      },
+      count: ['Copper 1–48 in four blocks of six columns: odd on top, even below.', 'IOS names: GigabitEthernet<stack member>/0/<port>, e.g. Gi1/0/14 on member 1.', 'The four SFP+ uplinks sit side by side at the bottom right: Te1/1/1–Te1/1/4 (search "uplink 2" or "Te1/1/2").', 'The -E suffix is the Network Essentials license.']
+    },
+    'mikrotik-ccr2216': {
+      name: 'MikroTik CCR2216-1G-12XS-2XQ', vendor: 'mikrotik', ru: 1, groups: [6], rows: [{ top: [2, 4, 6, 8, 10, 12], bottom: [1, 3, 5, 7, 9, 11] }], cage: 'SFP28 25G · QSFP28 100G',
+      extras: [{ label: 'Q1', kind: 'QSFP', row: 1, col: 0, side: 'left', port: 13, where: 'QSFP28 1, the first wide cage at the far left' }, { label: 'Q2', kind: 'QSFP', row: 1, col: 1, side: 'left', port: 14, where: 'QSFP28 2, the second wide cage at the left' },
+        { label: 'CON', kind: 'mgmt', row: 0 }, { label: 'ether1', kind: 'mgmt', row: 1, port: 15, where: 'the RJ45 under CONSOLE (ETH/BOOT, management)' }],
+      src: 'MikroTik CCR2216 product page and brochure · layout checked against the vendor front view',
+      photo: 'ccr2216-front.webp', photoSrc: 'https://mikrotik.com/product/ccr2216_1g_12xs_2xq', photoNote: 'CCR2216-1G-12XS-2XQ front view',
+      optics: n => n === 13 || n === 14 ? 'qsfp28' : n <= 12 ? 'sfp28' : '',
+      parse(raw) {
+        let m = raw.match(/^(?:sfp28-|s\s*)(\d+)$/i);
+        if (m) return { cage: +m[1] <= 12 ? +m[1] : 0, sub: '' };
+        m = raw.match(/^(?:qsfp28-|q\s*)(\d)(?:-(\d))?$/i);
+        if (m) return { cage: +m[1] <= 2 ? 12 + +m[1] : 0, sub: m[2] ? `-${m[2]}` : '' };
+        if (/^(?:ether1|e1|mgmt)$/i.test(raw)) return { cage: 15, sub: '' };
+        return null;
+      },
+      count: ['Twelve SFP28 cages in six columns, even numbers on top and odd below (printed "1▼ ▲2"): the reverse of most switches.', 'QSFP28 1 and 2 are the two wide cages at the far left.', 'RouterOS names: sfp28-1 … sfp28-12, qsfp28-1-1 … (a QSFP28 lane), ether1 for the RJ45 under CONSOLE. Breakout naming and speeds depend on the configuration.']
+    },
+    'hasivo-s5800w-24g-2s': {
+      name: 'Hasivo S5800W-24G-2S', vendor: 'hasivo', ru: 1, groups: [4, 4, 4], rows: [oddEven(1, 24)], cage: 'RJ45 1G (1–24) · SFP 1G uplinks',
+      extras: [{ label: 'RJ45', kind: 'mgmt', row: 1, col: 0 }, { label: '25', kind: 'SFP', row: 1, col: 1, port: 25, where: 'the first SFP cage right of the copper ports, level with the bottom row' }, { label: '26', kind: 'SFP', row: 1, col: 2, port: 26, where: 'the second SFP cage, right of 25' }],
+      src: 'Hasivo product page · layout checked against the vendor front view',
+      photo: 'hasivo-front.webp', photoSrc: 'https://www.hasivopoe.com/full-gigabit-24ge-2sfp-l2-managed-switch/', photoNote: 'S5800W-24G-2S front view',
+      optics: n => n > 24 ? 'sfp1g' : '',
+      parse(raw) {
+        let m = raw.match(/^rj45[\s-]*(\d+)$/i);
+        if (m) return { cage: +m[1] <= 24 ? +m[1] : 0, sub: '' };
+        m = raw.match(/^(?:sfp[\s-]*(\d)|(25|26)\s*sfp)$/i);
+        if (m) { const n = m[2] ? +m[2] : 24 + +m[1]; return { cage: n === 25 || n === 26 ? n : 0, sub: '' }; }
+        return null;
+      },
+      count: ['Copper 1–24 in three blocks of four columns: odd on top, even below.', 'The two 1G SFP uplinks, 25 and 26, sit side by side at the right, level with the bottom row; the separate RJ45 left of them is not one of 1–24.', 'The SFP uplinks are 1G only: a 10G SFP+ optic does not belong there.']
+    },
+    'vertiv-acs8000': {
+      name: 'Vertiv Avocent ACS8000 (console server)', vendor: 'vertiv', photoOnly: true, ru: 1, groups: [], rows: [], cage: 'LAN1/LAN2: RJ45 or 1G SFP · 8–48 serial ports', extras: [],
+      src: 'Vertiv ACS8000 quick installation guide (photo shows a 48-port model)',
+      photo: 'acs8000-front.webp', photoSrc: 'https://www.vertiv.com/49f5bb/globalassets/products/monitoring-control-and-management/serial-consoles-and-gateways/avocent-acs-8000-quick-installation-guide-english.pdf', photoNote: 'ACS8000 front view, 48 serial ports',
+      count: ['A console server, not a packet switch: no port drawing here.', 'LAN1 (top) and LAN2 (bottom) each have a copper RJ45 and a 1G SFP choice; only one medium per LAN is active, and Vertiv says fiber wins when both are connected.', 'The serial-port count is 8, 16, 32 or 48 depending on the submodel: read it from the unit before tracing serial cables.']
+    },
+    'juniper-mx304': {
+      name: 'Juniper MX304 (modular router)', vendor: 'juniper', photoOnly: true, ru: 2, groups: [], rows: [], cage: 'LMIC bays: ports depend on the installed line module', extras: [],
+      src: 'Juniper MX304 hardware guide',
+      photo: 'mx304-front.webp', photoSrc: 'https://www.juniper.net/documentation/us/en/hardware/mx304/topics/topic-map/mx304-chassis.html', photoNote: 'MX304 with two routing engines and two LMICs',
+      count: ['A modular router: the chassis has line-module (LMIC) bays, not fixed cages, so there is no port drawing here.', 'With two routing engines there are two LMIC bays (LMIC0, LMIC1); with one routing engine the RE1 position can hold a third LMIC (LMIC2).', 'Read the installed LMIC model, the Junos release and the breakout profile before mapping its ports.']
     },
     'generic-oddeven': {
       name: 'Other switch: odd top / even bottom', vendor: 'generic', ru: 1, groups: [8, 8], rows: [oddEven(1, 32)], cage: 'pattern, not a vendor drawing', generic: true,
@@ -10535,6 +10701,7 @@ ${rmaTrailSection()}#### Action Requested:
   // NX-OS "Ethernet1/14" is module 1 port 14; QM9700 "1/14/2" is ASIC 1, cage 14, port 2.
   function pnCageOf(text, model) {
     const raw = String(text || '').trim();
+    if (model.parse) { const own = model.parse(raw); if (own) return own; }
     const nums = (raw.match(/\d+/g) || []).map(Number);
     if (!nums.length) return null;
     let cage = nums[0], sub = '';
@@ -10558,11 +10725,18 @@ ${rmaTrailSection()}#### Action Requested:
         if (col >= 0) return { r, half, col };
       }
     }
-    return null;
+    const extra = (model.extras || []).find(e => e.port === cage);
+    return extra ? { extra } : null;
+  }
+  // How a port is printed: an extra port by its own label (Q1, SFP+ 2, SFP 25), a cage by its number.
+  function pnName(cage, model) {
+    const ex = (model.extras || []).find(e => e.port === cage);
+    return ex ? (ex.text || (ex.kind === 'SFP' ? `SFP ${ex.label}` : ex.label)) : String(cage);
   }
   function pnDescribe(cage, model) {
     const w = pnWhere(cage, model);
     if (!w) return '';
+    if (w.extra) return w.extra.where || 'one of the small ports beside the main cages';
     const rowNo = w.r * 2 + (w.half === 'top' ? 1 : 2);
     const totalRows = model.rows.length * 2;
     const rowWord = totalRows === 2 ? (w.half === 'top' ? 'top row' : 'bottom row') : `row ${rowNo} of ${totalRows} from the top`;
@@ -10575,14 +10749,20 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   // ---- The front panel itself (SVG) -------------------------------------------
-  function pnSvg(model, marks, focus) {
+  function pnSvg(model, marks, focus, optics) {
+    if (model.photoOnly || !model.rows.length) return '';
     const cw = 50, ch = 30, gx = 6, gy = 10, gg = 18, pad = 16, pairGap = 22;
     const cols = model.rows[0].top.length;
+    const exW = e => (e.kind === 'mgmt' && e.label.length > 4) || (e.text && e.text.length > 5) ? 104 : 46;
+    const left = model.extras.filter(e => e.side === 'left'), right = model.extras.filter(e => e.side !== 'left');
+    // Extras sit in columns beside the cages: col 0, 1, … on their side.
+    const sideWidth = list => list.length ? Math.max(...list.map(e => ((e.col || 0) + 1) * (exW(e) + 6))) + 14 : 0;
+    const leftW = sideWidth(left);
     const colX = [];
-    let x = pad + 34, c = 0;
+    let x = pad + 34 + leftW, c = 0;
     model.groups.forEach((n, gi) => { for (let i = 0; i < n && c < cols; i++, c++) { colX.push(x); x += cw + gx; } if (gi < model.groups.length - 1) x += gg; });
     const extrasX = x + 14;
-    const width = extrasX + (model.extras.some(e => e.kind === 'mgmt' && e.label.length > 4) ? 120 : 70) + pad;
+    const width = extrasX + Math.max(right.length ? sideWidth(right) - 14 : 0, 56) + pad;
     const rowY = [];
     let y = pad + 6;
     model.rows.forEach((pair, pi) => { rowY.push(y, y + ch + gy); y += 2 * ch + gy + (pi < model.rows.length - 1 ? pairGap : 0); });
@@ -10590,23 +10770,31 @@ ${rmaTrailSection()}#### Action Requested:
     const out = [`<svg class="pn-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(model.name)} front panel">`,
       `<rect class="pn-chassis" x="2" y="2" width="${width - 4}" height="${height - 4}" rx="6"/>`,
       `<text class="pn-brand" x="${pad}" y="${height / 2}" transform="rotate(-90 ${pad + 4} ${height / 2})">${escapeHtml(model.vendor === 'generic' ? 'SWITCH' : model.vendor.toUpperCase())}</text>`];
+    const opt = n => optics && optics[n];
     model.rows.forEach((pair, pi) => ['top', 'bottom'].forEach((half, hi) => {
       const yy = rowY[pi * 2 + hi];
       pair[half].forEach((n, ci) => {
         const m = marks && marks[n];
         const on = focus && focus.cage === n;
-        const cls = ['pn-cage', m ? `is-${m.sev}` : '', on ? 'is-focus' : ''].join(' ');
-        out.push(`<g class="${cls}" data-pn-cage="${n}" tabindex="0" role="button" aria-label="Port ${n}${m ? `: ${escapeHtml(m.label)}` : ''}"><title>Port ${n}${m ? ` · ${m.label}` : ''}</title>`
+        const o = opt(n);
+        const cls = ['pn-cage', m ? `is-${m.sev}` : '', on ? 'is-focus' : '', o ? 'has-optic' : ''].join(' ');
+        out.push(`<g class="${cls}" data-pn-cage="${n}" tabindex="0" role="button" aria-label="Port ${n}${m ? `: ${escapeHtml(m.label)}` : ''}${o ? `: ${escapeHtml(o.type)}` : ''}"><title>Port ${n}${m ? ` · ${m.label}` : ''}${o ? ` · ${o.type}${o.part ? ` (${o.part})` : ''}` : ''}</title>`
           + `<rect x="${colX[ci]}" y="${yy}" width="${cw}" height="${ch}" rx="4"/>`
           + (model.twin ? `<line x1="${colX[ci] + cw / 2}" y1="${yy + 5}" x2="${colX[ci] + cw / 2}" y2="${yy + ch - 5}" class="pn-twin"/>` : '')
-          + `<text x="${colX[ci] + cw / 2}" y="${yy + ch / 2 + 4}" text-anchor="middle">${n}</text></g>`);
+          + `<text x="${colX[ci] + cw / 2}" y="${yy + ch / 2 + 4}" text-anchor="middle">${n}</text>`
+          + (o ? `<circle class="pn-optic-dot" cx="${colX[ci] + cw - 6}" cy="${yy + 6}" r="3"/>` : '') + `</g>`);
         if (on) out.push(`<path class="pn-pointer" d="M ${colX[ci] + cw / 2} ${hi === 0 && pi === 0 ? yy - 2 : yy + ch + 2} l -6 ${hi === 0 && pi === 0 ? -9 : 9} h 12 z"/>`);
       });
     }));
     model.extras.forEach(e => {
       const yy = rowY[Math.min(e.row, rowY.length - 1)];
-      const w = e.kind === 'mgmt' && e.label.length > 4 ? 104 : 46;
-      out.push(`<g class="pn-extra pn-${e.kind}"><rect x="${extrasX}" y="${yy + 4}" width="${w}" height="${ch - 8}" rx="3"/><text x="${extrasX + w / 2}" y="${yy + ch / 2 + 3}" text-anchor="middle">${escapeHtml(e.kind === 'SFP' ? `SFP ${e.label}` : e.label)}</text></g>`);
+      const w = exW(e);
+      const ex = e.side === 'left' ? pad + 34 + (e.col || 0) * (w + 6) : extrasX + (e.col || 0) * (w + 6);
+      const on = e.port && focus && focus.cage === e.port;
+      const o = e.port && opt(e.port);
+      const label = e.text || (e.kind === 'SFP' ? `SFP ${e.label}` : e.label);
+      const attrs = e.port ? ` data-pn-cage="${e.port}" tabindex="0" role="button" aria-label="${escapeHtml(label)}"` : '';
+      out.push(`<g class="pn-extra pn-${e.kind}${on ? ' is-focus' : ''}${o ? ' has-optic' : ''}"${attrs}><rect x="${ex}" y="${yy + 4}" width="${w}" height="${ch - 8}" rx="3"/><text x="${ex + w / 2}" y="${yy + ch / 2 + 3}" text-anchor="middle">${escapeHtml(label)}</text>${o ? `<circle class="pn-optic-dot" cx="${ex + w - 5}" cy="${yy + 8}" r="2.5"/>` : ''}</g>`);
     });
     out.push('</svg>');
     return out.join('');
@@ -10772,10 +10960,14 @@ ${rmaTrailSection()}#### Action Requested:
       const hit = pnFindText.trim() ? pnCageOf(pnFindText, model) : null;
       const where = hit ? pnDescribe(hit.cage, model) : '';
       focus = hit && where ? hit : null;
-      pnEl.querySelector('.pn-answer').innerHTML = !pnFindText.trim() ? 'Type a port name the way the switch prints it.'
+      pnEl.querySelector('.pn-answer').innerHTML = model.photoOnly ? `${escapeHtml(model.name)} has no fixed port drawing: see the vendor photo and the notes below.`
+        : !pnFindText.trim() ? 'Type a port name the way the switch prints it.'
         : !where ? `<b>${escapeHtml(pnFindText)}</b>: port ${hit ? hit.cage : '?'} is not on this panel. Pick the right model above.`
+        : hit.note ? `<b>${escapeHtml(pnFindText.trim())}</b> → cage <b>${hit.cage}</b>: ${escapeHtml(hit.note)}. ${escapeHtml(where)}.`
+        : (model.extras || []).some(e => e.port === hit.cage) ? `<b>${escapeHtml(pnFindText.trim())}</b> → <b>${escapeHtml(pnName(hit.cage, model))}</b>: ${escapeHtml(where)}.`
         : `<b>${escapeHtml(pnFindText.trim())}</b> → ${model.twin ? 'cage' : 'port'} <b>${hit.cage}</b>${hit.sub ? ` (<b>${escapeHtml(hit.sub)}</b>${model.twin ? hit.sub === '/1' ? ': first port in the cage' : hit.sub === '/2' ? ': second port in the cage' : '' : ': a lane or breakout of that port'})` : ''}: ${escapeHtml(where)}.`;
       pnEl.querySelector('.pn-count').innerHTML = `<h4>How to count on this switch</h4><ul>${model.count.map(t => `<li>${escapeHtml(t)}</li>`).join('')}</ul><h4>Every switch</h4><ul><li>Trust the numbers printed beside the cages over any pattern, including this one.</li><li>Confirm before you pull: check the port's link LED goes dark or blinks the way you expect, and read the label on the cable.</li><li>Port 1 is at the left on every panel here. A switch mounted backwards in the rack (ports facing the rear) reads mirrored from the hot aisle.</li></ul>`;
+      pnEl.querySelector('.pn-optic').innerHTML = pnOpticHtml(model, focus);
     } else {
       const res = pnResult;
       marks = res ? pnMarks(res, model) : null;
@@ -10792,9 +10984,52 @@ ${rmaTrailSection()}#### Action Requested:
           <div class="pn-actions"><button type="button" data-pn-act="copy">Copy fix list</button><button type="button" data-pn-act="pin">📌 Pin to case</button></div>`;
       if (pnFocusCage != null) focus = { cage: pnFocusCage };
     }
-    pnEl.querySelector('.pn-panel').innerHTML = pnSvg(model, marks, focus);
+    const photo = model.photo ? `<figure class="pn-photo"><img src="${escapeHtml(pnPhotoUrl(model.photo))}" alt="${escapeHtml(`${model.name}: vendor front view`)}" loading="lazy"><figcaption>Vendor photo · ${escapeHtml(model.photoNote || model.name)}${model.photoSrc ? ` · <a href="${escapeHtml(model.photoSrc)}" target="_blank" rel="noopener noreferrer">source ↗</a>` : ''}</figcaption></figure>` : '';
+    pnEl.querySelector('.pn-panel').innerHTML = photo + pnSvg(model, marks, focus, (pnOptics()[pnModelKey()] || {}));
     pnEl.querySelector('.pn-legend').hidden = pnTab !== 'check' || !pnResult;
     if (st.manifest != null && !pnEl.querySelector('.pn-manifest').value) pnEl.querySelector('.pn-manifest').value = st.manifest;
+  }
+
+  // ---- Installed optics: what is in each cage (typed by the tech; never read from a switch) ----
+  function pnOpticHtml(model, focus) {
+    const key = pnModelKey();
+    const rec = pnOptics()[key] || {};
+    const cages = Object.keys(rec).map(Number).sort((a, b) => a - b);
+    const total = !model.optics ? 0 : model.rows.reduce((n, p) => n + [...p.top, ...p.bottom].filter(c => model.optics(c)).length, 0) + (model.extras || []).filter(e => e.port && model.optics(e.port)).length;
+    const set = focus && model.optics ? model.optics(focus.cage) : '';
+    const cur = focus ? rec[focus.cage] : null;
+    const form = !model.optics ? ''
+      : !focus ? '<p class="pn-hint">Find or click a cage to record the optic installed in it.</p>'
+      : !set ? `<p class="pn-hint">${escapeHtml(pnName(focus.cage, model))} is a copper or management port: no optic to record.</p>`
+      : `<div class="pn-optic-form" data-pn-optic-cage="${focus.cage}"><b>Installed in ${escapeHtml(pnName(focus.cage, model))}</b>
+          <select class="pn-optic-type" aria-label="Optic type">${['', ...PN_OPTIC_SETS[set]].map(o => `<option value="${escapeHtml(o)}" ${cur && cur.type === o ? 'selected' : ''}>${escapeHtml(o || 'Choose the optic…')}</option>`).join('')}</select>
+          <input type="text" class="pn-optic-part" placeholder="exact part number or cable label" value="${escapeHtml(cur ? cur.part || '' : '')}" spellcheck="false" autocomplete="off">
+          <button type="button" data-pn-optic="save">Save</button>${cur ? '<button type="button" data-pn-optic="clear">Clear</button>' : ''}</div>`;
+    const list = cages.length ? `<table class="pn-table pn-optic-table"><thead><tr><th>Cage</th><th>Optic</th><th>Part / label</th><th>Recorded</th></tr></thead><tbody>${cages.map(c => `<tr data-pn-row="${c}"><td><code>${escapeHtml(pnName(c, model))}</code></td><td>${escapeHtml(rec[c].type)}</td><td>${escapeHtml(rec[c].part || '')}</td><td>${escapeHtml(new Date(rec[c].t).toLocaleDateString())}</td></tr>`).join('')}</tbody></table><div class="pn-actions"><button type="button" data-pn-optic="csv">Copy as CSV</button></div>` : '';
+    return model.optics ? `<h4>Installed optics <small>${cages.length} of ${total} cages recorded · kept in this browser (and in Backup)</small></h4>${form}${list}` : '';
+  }
+  function pnOpticAct(act) {
+    const key = pnModelKey();
+    const all = pnOptics();
+    const rec = all[key] || {};
+    if (act === 'csv') {
+      const rows = Object.keys(rec).map(Number).sort((a, b) => a - b).map(c => [pnModel().name, pnName(c, pnModel()), rec[c].type, rec[c].part || '', new Date(rec[c].t).toISOString().slice(0, 10)]);
+      copyVerbatim(['switch,cage,optic,part,recorded', ...rows.map(r => r.map(v => /[",]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : v).join(','))].join('\n'));
+      return showGlobalToast(`Copied ${rows.length} recorded optic${rows.length === 1 ? '' : 's'} as CSV.`);
+    }
+    const form = pnEl.querySelector('.pn-optic-form');
+    if (!form) return;
+    const cage = Number(form.dataset.pnOpticCage);
+    if (act === 'clear') delete rec[cage];
+    else {
+      const type = form.querySelector('.pn-optic-type').value;
+      if (!type) return showGlobalToast('Choose the optic type first.');
+      rec[cage] = { type, part: form.querySelector('.pn-optic-part').value.trim().slice(0, 80), t: Date.now() };
+    }
+    all[key] = rec;
+    if (!Object.keys(rec).length) delete all[key];
+    pnOpticsWrite(all);
+    pnRender();
   }
 
   function pnClick(e) {
@@ -10803,10 +11038,12 @@ ${rmaTrailSection()}#### Action Requested:
     if (t === pnEl || t.closest('[data-pn-close]')) return closePanel();
     const tab = t.closest('[data-pn-tab]');
     if (tab) { pnTab = tab.dataset.pnTab; pnFocusCage = null; return pnRender(); }
+    const oa = t.closest('[data-pn-optic]');
+    if (oa) return pnOpticAct(oa.dataset.pnOptic);
     const cage = t.closest('[data-pn-cage]');
     if (cage) {
       const n = Number(cage.dataset.pnCage);
-      if (pnTab === 'find') { pnFindText = String(n); pnEl.querySelector('.pn-find').value = pnFindText; }
+      if (pnTab === 'find') { const m = pnModel(); const ex = (m.extras || []).find(x => x.port === n); pnFindText = ex && m.parse ? (ex.text || ex.label) : String(n); if (m.parse && !m.parse(pnFindText) && ex) pnFindText = String(n); pnEl.querySelector('.pn-find').value = pnFindText; }
       else { pnFocusCage = n; const row = [...pnEl.querySelectorAll('[data-pn-row]')].find(r => { const c = pnCageOf(r.dataset.pnRow, pnModel()); return c && c.cage === n; }); if (row) { row.scrollIntoView({ block: 'nearest' }); row.classList.add('is-flash'); setTimeout(() => row.classList.remove('is-flash'), 900); } }
       return pnRender();
     }
@@ -10859,6 +11096,7 @@ ${rmaTrailSection()}#### Action Requested:
             <section class="pn-pane" data-pane="find">
               <label class="pn-findbox"><span>Port</span><input type="text" class="pn-find" placeholder="Ethernet14, Et33, swp7, ib 1/14/2, 1/14/2…" spellcheck="false" autocomplete="off" /></label>
               <p class="pn-answer"></p>
+              <div class="pn-optic"></div>
               <div class="pn-count"></div>
             </section>
             <section class="pn-pane" data-pane="check" hidden>
@@ -12733,7 +12971,7 @@ ${rmaTrailSection()}#### Action Requested:
     dc_nodes: 'Node workspaces', dc_target_vars: 'Rack Targets', dc_change_plan: 'Change plan', dc_cmd_outputs: 'Pasted command outputs',
     dc_node_vitals: 'Checkup readings', dc_runbook_runs: 'Runbook runs', dc_fabric_last: 'Last fabric map', dc_fleet: 'Fleet mode',
     dc_slot_values: 'Placeholder values', cs_racks_v1: 'Rack inventory', cs_practice_v1: 'Practice progress', cs_rosetta_v1: 'Rosetta choices',
-    cs_panel_v1: 'Front panel & cable check', dc_terminal_prefs: 'Terminal settings (token left out)', linux_cs_theme: 'Theme',
+    cs_panel_v1: 'Front panel & cable check', cs_panel_optics_v1: 'Installed optics per switch cage', dc_terminal_prefs: 'Terminal settings (token left out)', linux_cs_theme: 'Theme',
     linux_cs_compact: 'Compact view', dc_root_style: 'Root copy style', dc_side_dock: 'Side dock', dc_visited_sheets: 'Visited sheets',
     dc_recent_sheets: 'Recent sheets', dc_wb_recent: 'Recent tools', dc_usage: 'Usage meter (tools and sheets opened)', dc_tour_seen: 'Tour seen', jira_cs_targets: 'Jira form'
   };

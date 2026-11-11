@@ -108,6 +108,10 @@ const commonJs = fs.readFileSync(path.join(__dirname, 'common.js'), 'utf8');
 const xtermJs = ['xterm.js', 'addon-fit.js'].map(f => fs.readFileSync(path.join(__dirname, 'vendor', 'xterm', f), 'utf8')).join('\n');
 const xtermCss = fs.readFileSync(path.join(__dirname, 'vendor', 'xterm', 'xterm.css'), 'utf8');
 // Inlined: a file:// page never asks for favicon.ico beside it, and the 1-file copy travels alone.
+// Switch front-panel photos (assets/panels/) travel inline, so the one file needs nothing beside it.
+const panelPhotos = {};
+const panelDir = path.join(__dirname, 'assets', 'panels');
+if (fs.existsSync(panelDir)) for (const f of fs.readdirSync(panelDir).filter(f => /\.webp$/.test(f))) panelPhotos[f] = 'data:image/webp;base64,' + fs.readFileSync(path.join(panelDir, f)).toString('base64');
 const faviconUri = 'data:image/svg+xml;base64,' + fs.readFileSync(path.join(__dirname, 'favicon.svg')).toString('base64');
 
 // 4b. Pages with interactive tools run their own unmodified code in a srcdoc frame,
@@ -267,6 +271,7 @@ ${escapeScriptClose(globalSearchIndexJs)}
   <script>
 window.PORTABLE_SHEETS = ${JSON.stringify(SHEETS_CONFIG, null, 2)};
 window.PORTABLE_MAN_INDEX = ${JSON.stringify(manIndex)};
+window.PANEL_PHOTOS = ${JSON.stringify(panelPhotos)};
 window.PORTABLE_DATASETS = ${escapeScriptClose(JSON.stringify(allDatasets, null, 2))};
   </script>
 

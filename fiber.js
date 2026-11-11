@@ -477,6 +477,809 @@ const FIBER_CHEAT_SHEET_DATA = [
         ]
       }
     ]
+  },
+  {
+    "id": "team-optics-parts",
+    "part": "fo-team-optics",
+    "badge": "team",
+    "title": "Team Optics: What Fits Where",
+    "subtitle": "The team’s transceiver part labels against the eleven devices: a possible cage and speed match, not vendor qualification",
+    "commands": [
+      {
+        "id": "team-sfp-10glr-31",
+        "mode": "Single mode",
+        "modeClass": "mode-v",
+        "desc": "SFP-10GLR-31: Single mode · 1310 nm · Duplex LC · 10 km",
+        "cmd": "Part: SFP-10GLR-31   |   Fits: SN5400: 10G SFP28 bonus, SN5600: 10G SFP28 bonus, C9200L: 10G SFP+ uplink, 7260CX3: 10G SFP+ port, CCR2216: 10G SFP28 cage, SN2410: 10G SFP28 cage, N9K-FX3: 10G SFP28 cage   |   MX304: depends on the installed LMIC",
+        "details": "FS 10GBASE-LR SFP+ optic. Candidate for a 10G SFP28 bonus port when qualified by the switch; the Hasivo uplinks are 1G. 10G SFP+; not for a 1G Hasivo uplink.",
+        "flags": [
+          [
+            "Medium",
+            "Single mode · 1310 nm"
+          ],
+          [
+            "Connector",
+            "Duplex LC"
+          ],
+          [
+            "Reach",
+            "10 km"
+          ],
+          [
+            "Also used on",
+            "10G SFP+ LR port; FS data sheet"
+          ]
+        ],
+        "tip": "A possible cage and speed-class match, not vendor qualification: check the exact part against the switch’s supported list.",
+        "tags": [
+          "team",
+          "optics",
+          "transceiver",
+          "fit",
+          "sfp-10glr-31"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [
+            {
+              "url": "https://resource.fs.com/mall/resource/sfp-10glr-31-data-sheet-20251128104131.pdf",
+              "title": "SFP-10GLR-31 data sheet"
+            }
+          ],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The linked pages are the guide’s sources; they were not re-read for this copy."
+        }
+      },
+      {
+        "id": "team-xs-85lc01d",
+        "mode": "Multimode",
+        "modeClass": "mode-v",
+        "desc": "XS+85LC01D: Multimode · 850 nm · Duplex LC/UPC · Up to 100 m at 25G",
+        "cmd": "Part: XS+85LC01D   |   Fits: Hasivo: 1G SFP uplink, SN5400: SFP28 bonus, SN5600: SFP28 bonus, C9200L: 1/10G SFP+ uplink, ACS8000: 1G SFP LAN, 7260CX3: 1/10G SFP+ port, CCR2216: SFP28 cage, SN2410: SFP28 cage, N9K-FX3: SFP28 cage   |   MX304: depends on the installed LMIC",
+        "details": "MikroTik 1/10/25G SFP/SFP+/SFP28 module. Candidate at 1G for a Hasivo SFP uplink or at 1/10/25G for an NVIDIA SFP28 bonus port; verify switch qualification and configured speed.",
+        "flags": [
+          [
+            "Medium",
+            "Multimode · 850 nm"
+          ],
+          [
+            "Connector",
+            "Duplex LC/UPC"
+          ],
+          [
+            "Reach",
+            "Up to 100 m at 25G"
+          ],
+          [
+            "Also used on",
+            "1/10/25G SFP ports; MikroTik CRS/CSS examples"
+          ]
+        ],
+        "tip": "A possible cage and speed-class match, not vendor qualification: check the exact part against the switch’s supported list.",
+        "tags": [
+          "team",
+          "optics",
+          "transceiver",
+          "fit",
+          "xs+85lc01d"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [
+            {
+              "url": "https://mikrotik.com/product/xs_85lc01d",
+              "title": "XS+85LC01D data sheet"
+            }
+          ],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The linked pages are the guide’s sources; they were not re-read for this copy."
+        }
+      },
+      {
+        "id": "team-qsfp-100g-sr4",
+        "mode": "Multimode",
+        "modeClass": "mode-v",
+        "desc": "QSFP-100G-SR4: Multimode · 850 nm · MPO-12/UPC · 70 m OM3 / 100 m OM4",
+        "cmd": "Part: QSFP-100G-SR4   |   Fits: SN5400: QSFP-DD main, 7260CX3: 100G QSFP28, CCR2216: 100G QSFP28, SN2410: 100G QSFP28, N9K-FX3: 100G QSFP28   |   MX304: depends on the installed LMIC",
+        "details": "100G QSFP28 SR4. SN5400 QSFP-DD cages accept QSFP28 form factor, subject to speed and module qualification.",
+        "flags": [
+          [
+            "Medium",
+            "Multimode · 850 nm"
+          ],
+          [
+            "Connector",
+            "MPO-12/UPC"
+          ],
+          [
+            "Reach",
+            "70 m OM3 / 100 m OM4"
+          ],
+          [
+            "Also used on",
+            "100G QSFP28 ports; NADDOD N9500-128QC example"
+          ]
+        ],
+        "tip": "A possible cage and speed-class match, not vendor qualification: check the exact part against the switch’s supported list.",
+        "tags": [
+          "team",
+          "optics",
+          "transceiver",
+          "fit",
+          "qsfp-100g-sr4"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [
+            {
+              "url": "https://resource.naddod.com/files/2025-11-21/n9500-128qc-datasheet-013354.pdf",
+              "title": "QSFP-100G-SR4 data sheet"
+            }
+          ],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The linked pages are the guide’s sources; they were not re-read for this copy."
+        }
+      },
+      {
+        "id": "team-qsfp56-200g-sr4",
+        "mode": "Multimode",
+        "modeClass": "mode-v",
+        "desc": "QSFP56-200G-SR4: Multimode · 850 nm · MPO-12/UPC · 100 m",
+        "cmd": "Part: QSFP56-200G-SR4   |   Fits: SN5400: QSFP-DD main   |   MX304: depends on the installed LMIC",
+        "details": "200G QSFP56 SR4 family. SN5400 QSFP-DD cages accept QSFP56 form factor; confirm the exact vendor coded module and port speed.",
+        "flags": [
+          [
+            "Medium",
+            "Multimode · 850 nm"
+          ],
+          [
+            "Connector",
+            "MPO-12/UPC"
+          ],
+          [
+            "Reach",
+            "100 m"
+          ],
+          [
+            "Also used on",
+            "200G QSFP56 ports; NADDOD N9500-128QC example"
+          ]
+        ],
+        "tip": "A possible cage and speed-class match, not vendor qualification: check the exact part against the switch’s supported list.",
+        "tags": [
+          "team",
+          "optics",
+          "transceiver",
+          "fit",
+          "qsfp56-200g-sr4"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [
+            {
+              "url": "https://resource.naddod.com/files/2025-04-21/n9570-128qc-datasheet-011194.pdf",
+              "title": "QSFP56-200G-SR4 data sheet"
+            },
+            {
+              "url": "https://resource.naddod.com/files/2025-11-21/n9500-128qc-datasheet-013354.pdf",
+              "title": "200G QSFP56 ports; NADDOD N9500-128QC example"
+            }
+          ],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The linked pages are the guide’s sources; they were not re-read for this copy."
+        }
+      },
+      {
+        "id": "team-qsfp112-400g-sr4",
+        "mode": "Multimode",
+        "modeClass": "mode-v",
+        "desc": "QSFP112-400G-SR4: Multimode · 850 nm · MPO-12/APC · 100 m",
+        "cmd": "Part: QSFP112-400G-SR4   |   Fits: no direct cage match on these fixed-port devices   |   MX304: depends on the installed LMIC",
+        "details": "400G QSFP112 SR4 family. The SN5400 QSFP-DD cage does not support QSFP112; use at a qualified QSFP112 peer endpoint. QSFP112 peer side for these four switches.",
+        "flags": [
+          [
+            "Medium",
+            "Multimode · 850 nm"
+          ],
+          [
+            "Connector",
+            "MPO-12/APC"
+          ],
+          [
+            "Reach",
+            "100 m"
+          ],
+          [
+            "Also used on",
+            "NADDOD N9500-128QC 400G QSFP112 switch"
+          ]
+        ],
+        "tip": "A possible cage and speed-class match, not vendor qualification: check the exact part against the switch’s supported list.",
+        "tags": [
+          "team",
+          "optics",
+          "transceiver",
+          "fit",
+          "qsfp112-400g-sr4"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [
+            {
+              "url": "https://resource.naddod.com/files/2025-04-21/n9570-128qc-datasheet-011194.pdf",
+              "title": "QSFP112-400G-SR4 data sheet"
+            },
+            {
+              "url": "https://resource.naddod.com/files/2025-11-21/n9500-128qc-datasheet-013354.pdf",
+              "title": "NADDOD N9500-128QC 400G QSFP112 switch"
+            }
+          ],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The linked pages are the guide’s sources; they were not re-read for this copy."
+        }
+      },
+      {
+        "id": "team-qsfp112-400g-vr4",
+        "mode": "Multimode",
+        "modeClass": "mode-v",
+        "desc": "QSFP112-400G-VR4: Multimode · 850 nm · MPO-12/APC · 50 m",
+        "cmd": "Part: QSFP112-400G-VR4   |   Fits: no direct cage match on these fixed-port devices   |   MX304: depends on the installed LMIC",
+        "details": "400G QSFP112 VR4 family. The SN5400 QSFP-DD cage does not support QSFP112; use at a qualified QSFP112 peer endpoint. QSFP112 peer side for these four switches.",
+        "flags": [
+          [
+            "Medium",
+            "Multimode · 850 nm"
+          ],
+          [
+            "Connector",
+            "MPO-12/APC"
+          ],
+          [
+            "Reach",
+            "50 m"
+          ],
+          [
+            "Also used on",
+            "NADDOD N9500-128QC 400G QSFP112 switch"
+          ]
+        ],
+        "tip": "A possible cage and speed-class match, not vendor qualification: check the exact part against the switch’s supported list.",
+        "tags": [
+          "team",
+          "optics",
+          "transceiver",
+          "fit",
+          "qsfp112-400g-vr4"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [
+            {
+              "url": "https://resource.naddod.com/files/2025-04-21/n9570-128qc-datasheet-011194.pdf",
+              "title": "QSFP112-400G-VR4 data sheet"
+            },
+            {
+              "url": "https://resource.naddod.com/files/2025-11-21/n9500-128qc-datasheet-013354.pdf",
+              "title": "NADDOD N9500-128QC 400G QSFP112 switch"
+            }
+          ],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The linked pages are the guide’s sources; they were not re-read for this copy."
+        }
+      },
+      {
+        "id": "team-qsfp-dd-400g-sr8",
+        "mode": "Multimode",
+        "modeClass": "mode-v",
+        "desc": "QSFP-DD-400G-SR8: Multimode · 850 nm · MPO-16/APC · 100 m OM4",
+        "cmd": "Part: QSFP-DD-400G-SR8   |   Fits: SN5400: QSFP-DD main   |   MX304: depends on the installed LMIC",
+        "details": "400G QSFP-DD SR8. Check MPO-16 cabling and polarity; it is not interchangeable with MPO-12 SR4.",
+        "flags": [
+          [
+            "Medium",
+            "Multimode · 850 nm"
+          ],
+          [
+            "Connector",
+            "MPO-16/APC"
+          ],
+          [
+            "Reach",
+            "100 m OM4"
+          ],
+          [
+            "Also used on",
+            "NADDOD N9200-64DC 400G QSFP-DD switch"
+          ]
+        ],
+        "tip": "A possible cage and speed-class match, not vendor qualification: check the exact part against the switch’s supported list.",
+        "tags": [
+          "team",
+          "optics",
+          "transceiver",
+          "fit",
+          "qsfp-dd-400g-sr8"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [
+            {
+              "url": "https://resource.naddod.com/files/%20products-Optical%20Transceivers%20%26%20Cables/2024-01-30/qdd-400g-sr8-datasheet-009264.pdf",
+              "title": "QSFP-DD-400G-SR8 data sheet"
+            },
+            {
+              "url": "https://resource.naddod.com/files/2025-11-21/n9200-64dc-datasheet-013355.pdf",
+              "title": "NADDOD N9200-64DC 400G QSFP-DD switch"
+            }
+          ],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The linked pages are the guide’s sources; they were not re-read for this copy."
+        }
+      },
+      {
+        "id": "team-qsfp-dd-400g-dr4",
+        "mode": "Single mode",
+        "modeClass": "mode-v",
+        "desc": "QSFP-DD-400G-DR4: Single mode · 1310 nm · MPO-12/APC · 500 m",
+        "cmd": "Part: QSFP-DD-400G-DR4   |   Fits: SN5400: QSFP-DD main   |   MX304: depends on the installed LMIC",
+        "details": "400G QSFP-DD DR4. Match a compatible DR4 peer and single mode parallel fiber path.",
+        "flags": [
+          [
+            "Medium",
+            "Single mode · 1310 nm"
+          ],
+          [
+            "Connector",
+            "MPO-12/APC"
+          ],
+          [
+            "Reach",
+            "500 m"
+          ],
+          [
+            "Also used on",
+            "NADDOD N9200-64DC 400G QSFP-DD switch"
+          ]
+        ],
+        "tip": "A possible cage and speed-class match, not vendor qualification: check the exact part against the switch’s supported list.",
+        "tags": [
+          "team",
+          "optics",
+          "transceiver",
+          "fit",
+          "qsfp-dd-400g-dr4"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [
+            {
+              "url": "https://resource.naddod.com/files/2025-11-21/n9200-64dc-datasheet-013355.pdf",
+              "title": "QSFP-DD-400G-DR4 data sheet"
+            }
+          ],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The linked pages are the guide’s sources; they were not re-read for this copy."
+        }
+      },
+      {
+        "id": "team-osfp-400g-sr4",
+        "mode": "Multimode",
+        "modeClass": "mode-v",
+        "desc": "OSFP-400G-SR4: Multimode · 850 nm · MPO-12/APC · 100 m OM4",
+        "cmd": "Part: OSFP-400G-SR4   |   Fits: no direct cage match on these fixed-port devices   |   MX304: depends on the installed LMIC",
+        "details": "Single port 400G OSFP SR4. Check the shell and heatsink; a single port flat top optic is not the finned twin port switch module used by QM9790 or SN5600. Single port OSFP peer side for these four switches.",
+        "flags": [
+          [
+            "Medium",
+            "Multimode · 850 nm"
+          ],
+          [
+            "Connector",
+            "MPO-12/APC"
+          ],
+          [
+            "Reach",
+            "100 m OM4"
+          ],
+          [
+            "Also used on",
+            "Single-port OSFP adapter, such as ConnectX-7/OSFP"
+          ]
+        ],
+        "tip": "A possible cage and speed-class match, not vendor qualification: check the exact part against the switch’s supported list.",
+        "tags": [
+          "team",
+          "optics",
+          "transceiver",
+          "fit",
+          "osfp-400g-sr4"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [
+            {
+              "url": "https://resource.naddod.com/files/2025-12-05/osfp-400g-sr4-datasheet-013565.pdf",
+              "title": "OSFP-400G-SR4 data sheet"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking/display/400g100gpam4ovdev/Transceivers-and-Fiber-Details-100G-PAM4",
+              "title": "Single-port OSFP adapter, such as ConnectX-7/OSFP"
+            }
+          ],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The linked pages are the guide’s sources; they were not re-read for this copy."
+        }
+      },
+      {
+        "id": "team-mma4z00-ns",
+        "mode": "Multimode",
+        "modeClass": "mode-v",
+        "desc": "MMA4Z00-NS: Multimode · 850 nm · 2 × MPO-12/APC · 50 m",
+        "cmd": "Part: MMA4Z00-NS   |   Fits: QM9790: Twin OSFP main, SN5600: Twin OSFP main   |   MX304: depends on the installed LMIC",
+        "details": "NVIDIA MMA4Z00-NS: finned twin port OSFP, two independent 400G SR4 paths. Confirm the exact link mode and peer optics.",
+        "flags": [
+          [
+            "Medium",
+            "Multimode · 850 nm"
+          ],
+          [
+            "Connector",
+            "2 × MPO-12/APC"
+          ],
+          [
+            "Reach",
+            "50 m"
+          ],
+          [
+            "Also used on",
+            "NVIDIA Quantum-2 / SN5600 finned twin-port OSFP"
+          ]
+        ],
+        "tip": "A possible cage and speed-class match, not vendor qualification: check the exact part against the switch’s supported list.",
+        "tags": [
+          "team",
+          "optics",
+          "transceiver",
+          "fit",
+          "mma4z00-ns"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking/display/mma4z00-ns-800gb-s-twin-port-osfp-2x400gb-s-multimode-2xsr4-50m.pdf",
+              "title": "MMA4Z00-NS data sheet"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking/display/400g100gpam4ovdev/LinkX-100G-PAM4-Product-Line-Overview",
+              "title": "NVIDIA Quantum-2 / SN5600 finned twin-port OSFP"
+            }
+          ],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The linked pages are the guide’s sources; they were not re-read for this copy."
+        }
+      },
+      {
+        "id": "team-mma4z00-ns-flt",
+        "mode": "Multimode",
+        "modeClass": "mode-v",
+        "desc": "MMA4Z00-NS-FLT: Multimode · 850 nm · 2 × MPO-12/APC · 50 m",
+        "cmd": "Part: MMA4Z00-NS-FLT   |   Fits: no direct cage match on these fixed-port devices   |   MX304: depends on the installed LMIC",
+        "details": "NVIDIA MMA4Z00-NS-FLT: flat top twin port OSFP. NVIDIA identifies this as an adapter side part; do not treat it as the finned switch side module. Flat top adapter side for these four switches.",
+        "flags": [
+          [
+            "Medium",
+            "Multimode · 850 nm"
+          ],
+          [
+            "Connector",
+            "2 × MPO-12/APC"
+          ],
+          [
+            "Reach",
+            "50 m"
+          ],
+          [
+            "Also used on",
+            "Specified ConnectX-7 cards; check ConnectX-8 firmware"
+          ]
+        ],
+        "tip": "A possible cage and speed-class match, not vendor qualification: check the exact part against the switch’s supported list.",
+        "tags": [
+          "team",
+          "optics",
+          "transceiver",
+          "fit",
+          "mma4z00-ns-flt"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking/display/nvidia-connectx-8-supernic-firmware-release-notes-v40-46-1006.1006.pdf",
+              "title": "MMA4Z00-NS-FLT data sheet"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking/display/nvidia-connectx-7-adapter-cards-firmware-release-notes-v28-45-1016.1016.pdf",
+              "title": "Specified ConnectX-7 cards; check ConnectX-8 firmware"
+            }
+          ],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The linked pages are the guide’s sources; they were not re-read for this copy."
+        }
+      },
+      {
+        "id": "team-osfp-800g-2xdr4",
+        "mode": "Single mode",
+        "modeClass": "mode-v",
+        "desc": "OSFP-800G-2XDR4: Single mode · 1310 nm · 2 × MPO-12/APC · 500 m",
+        "cmd": "Part: OSFP-800G-2XDR4   |   Fits: QM9790: Twin OSFP main, SN5600: Twin OSFP main   |   MX304: depends on the installed LMIC",
+        "details": "Twin port 800G OSFP 2×DR4 family. Your units have a finned switch-side shell, making them physical candidates for QM9790 and SN5600. Verify the exact module coding, supported link mode, and switch qualification. Finned shell confirmed by operator; verify link mode and qualification.",
+        "flags": [
+          [
+            "Medium",
+            "Single mode · 1310 nm"
+          ],
+          [
+            "Connector",
+            "2 × MPO-12/APC"
+          ],
+          [
+            "Reach",
+            "500 m"
+          ],
+          [
+            "Also used on",
+            "NADDOD N9500-64OC 800G OSFP switch"
+          ]
+        ],
+        "tip": "A possible cage and speed-class match, not vendor qualification: check the exact part against the switch’s supported list.",
+        "tags": [
+          "team",
+          "optics",
+          "transceiver",
+          "fit",
+          "osfp-800g-2xdr4"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [
+            {
+              "url": "https://resource.naddod.com/files/products-Switches/2024-10-29/n9500-64oc-datasheet-v2-2-1-010338.pdf",
+              "title": "OSFP-800G-2XDR4 data sheet"
+            },
+            {
+              "url": "https://resource.naddod.com/files/2025-11-21/n9500-64oc-datasheet-013352.pdf",
+              "title": "NADDOD N9500-64OC 800G OSFP switch"
+            }
+          ],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The linked pages are the guide’s sources; they were not re-read for this copy."
+        }
+      }
+    ]
+  },
+  {
+    "id": "team-optics-families",
+    "part": "fo-team-optics",
+    "badge": "fam",
+    "title": "Optic Families & Adapters",
+    "subtitle": "General families per switch, and the team’s BlueField-3 / ConnectX-7 adapter ports",
+    "commands": [
+      {
+        "id": "team-optic-families",
+        "mode": "Families",
+        "modeClass": "mode-v",
+        "desc": "Common optic families per switch: medium, connector and reach",
+        "cmd": "Families: 1G SX SFP: Multimode fiber, LC duplex, short reach   |   1G LX SFP: Single mode fiber, LC duplex, longer reach   |   2 × 400G SR4 twin port OSFP: Multimode fiber, 2 × MPO-12/APC, short reach   |   2 × 400G DR4 twin port OSFP: Single mode fiber, 2 × MPO-12/APC, data center reach   |   2 × 400G FR4 twin port OSFP: Single mode fiber, 2 × LC duplex, longer reach   |   400G DR4 QSFP-DD: Single mode fiber, MPO-12/APC, data center reach   |   400G QSFP-DD family: Optic, DAC, or AOC, Varies by module, part specific   |   Passive DAC / AOC: Copper / active optical, Integrated ends, part specific",
+        "details": "1G SX SFP (Hasivo, ACS8000, C9200L): An example 1G SFP class, typically 850 nm. Verify Hasivo qualification and match the peer’s SX optic and supported reach. 1G LX SFP (Hasivo, ACS8000, C9200L): An example 1G SFP class, typically 1310 nm. Verify Hasivo qualification, exact optic, and permitted distance. 2 × 400G SR4 twin port OSFP (QM9790, SN5600): Finned switch-side twin port module. Two independent 400G paths; inspect both MPO endfaces. 2 × 400G DR4 twin port OSFP (QM9790, SN5600): Parallel single mode paths. Confirm peer, fiber polarity, and exact optical part number. 2 × 400G FR4 twin port OSFP (QM9790, SN5600): Wavelength multiplexed optics. Verify the exact module and mating peer before ordering. 400G DR4 QSFP-DD (SN5400): NVIDIA documents this single mode QSFP-DD family for SN5400 class systems. 400G QSFP-DD family (SN5400): QSFP-DD is the cage format. Match the module’s exact optical standard, connector, reach, and qualification. Passive DAC / AOC (QM9790, SN5400, SN5600, 7260CX3, CCR2216, SN2410, N9K-FX3): Factory terminated cable assemblies. Select the correct switch-side shell and peer-side connector; do not treat AOC as field-cleanable fiber.",
+        "flags": [],
+        "tip": "A cage shape (QSFP, OSFP) does not tell you the protocol or the active speed.",
+        "tags": [
+          "optics",
+          "families",
+          "sr4",
+          "dr4",
+          "fr4",
+          "dac",
+          "aoc"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [
+            {
+              "url": "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/gigabit-ethernet-gbic-sfp-modules/datasheet-c78-366584.html",
+              "title": "Vendor reference"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking/display/400g100gpam4ovdev/LinkX-100G-PAM4-Product-Line-Overview",
+              "title": "NVIDIA LinkX / SN5000 reference"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/sn5000hw/introduction",
+              "title": "NVIDIA LinkX / SN5000 reference"
+            }
+          ],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The linked pages are the guide’s sources; they were not re-read for this copy."
+        }
+      },
+      {
+        "id": "team-adapter-fit",
+        "mode": "Adapters",
+        "modeClass": "mode-v",
+        "desc": "Which team optics fit the BlueField-3 B3220, ConnectX-7 and ConnectX-8 ports",
+        "cmd": "Adapter: BlueField-3 B3220 900-9D3B6-00CV-A_Ax, 200G QSFP112, firmware 32.39.4082   |   ConnectX-7 MCX75310AAS-NEA_Ax, 400G single-port OSFP, firmware 28.39.3004   |   ConnectX-8: model not yet known (entries are per variant)",
+        "details": "QSFP-100G-SR4: BF3 QSFP112 port, CX8 QSFP112 variant. QSFP56-200G-SR4: BF3 200G QSFP112, CX8 QSFP112 variant. QSFP112-400G-SR4: BF3 200G split mode? (verify), CX8 QSFP112 variant. QSFP112-400G-VR4: BF3 200G split mode? (verify), CX8 QSFP112 variant. OSFP-400G-SR4: CX7 OSFP variant, CX8 OSFP variant. MMA4Z00-NS-FLT: CX8 Firmware check (verify).",
+        "flags": [
+          [
+            "BF3 B3220",
+            "200G QSFP112 port"
+          ],
+          [
+            "CX7 MCX75310AAS-NEA",
+            "400G single-port OSFP (flat top)"
+          ],
+          [
+            "400G QSFP112 optics on BF3",
+            "Need a documented 200G two-channel mode and matching module coding"
+          ]
+        ],
+        "tip": "Confirm optical coding and firmware support before treating a physical match as usable.",
+        "tags": [
+          "team",
+          "bluefield",
+          "connectx",
+          "adapter",
+          "qsfp112",
+          "osfp"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking/display/nvidia-connectx-7-adapter-cards-firmware-release-notes-v28-45-1016.1016.pdf",
+              "title": "NVIDIA ConnectX-7 firmware release notes"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking/display/nvidia-connectx-8-supernic-firmware-release-notes-v40-46-1006.1006.pdf",
+              "title": "NVIDIA ConnectX-8 firmware release notes"
+            }
+          ],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10). The linked pages are the guide’s sources; they were not re-read for this copy."
+        }
+      }
+    ]
+  },
+  {
+    "id": "first-link",
+    "part": "fo-first-link",
+    "badge": "start",
+    "title": "First Connection: From a Label to a Live Link",
+    "subtitle": "The whole path before touching a cable, the words that matter, and what to do when it stays down",
+    "commands": [
+      {
+        "id": "first-link-five-steps",
+        "mode": "Steps",
+        "modeClass": "mode-v",
+        "desc": "From a cable label to a working link, before touching anything",
+        "cmd": "1. Identify both ends: switch and host names, expected ports, cable label   |   2. Find the physical cage: switch model + port name in the front panel   |   3. Match the media: speed, fiber type, connector, polish, reach, peer   |   4. Inspect, clean if needed, re-inspect, then connect   |   5. Verify: link state, speed, every lane’s optical reading",
+        "details": "Do this in an approved connection or maintenance window. Check the chassis label against the model you picked. On QM9790 one cage holds two numbered ports. A module that fits is not proof it works. Follow the key and latch without forcing the connector, and keep unused ends capped. Record every lane of a parallel optic.",
+        "flags": [],
+        "tip": "Open the switch front panel (▦ on the Switches page) to find the cage and record the optic in it.",
+        "tags": [
+          "first",
+          "connection",
+          "checklist",
+          "cabling"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10)."
+        }
+      },
+      {
+        "id": "first-link-words",
+        "mode": "Words",
+        "modeClass": "mode-v",
+        "desc": "Cage, port, lane, breakout; InfiniBand vs Ethernet; Tx must reach Rx",
+        "cmd": "Cage: the physical opening   |   Port: the named link end the system reports   |   Lane: one electrical or optical signal path inside a link   |   Breakout: one cage exposed as several logical links (no extra cages)",
+        "details": "A transceiver is the removable module in the cage. QM9790 is an InfiniBand switch; the other packet switches here run Ethernet; ACS8000 is a serial console server. A QSFP or OSFP shape alone does not identify the protocol or speed. Each end transmits and receives: on an LC duplex the two fibers run in opposite directions; on parallel MPO optics the lanes and the cable polarity must line up with both optics. Connector colour is only a clue.",
+        "flags": [],
+        "tip": "A breakout changes how many interfaces the switch reports, not how many cages you can see.",
+        "tags": [
+          "cage",
+          "port",
+          "lane",
+          "breakout",
+          "infiniband",
+          "ethernet",
+          "tx",
+          "rx"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10)."
+        }
+      },
+      {
+        "id": "first-link-jacket",
+        "mode": "Fiber",
+        "modeClass": "mode-v",
+        "desc": "Read the cable: jacket legend, connector, polish",
+        "cmd": "Jacket: OM3 / OM4 / OM5 = multimode, OS2 = single mode; fiber count and length   |   Connector: LC duplex = two fibers; MPO/MTP = one multi-fiber ferrule (key, pins, count, polarity)   |   Polish: APC angled (often green), UPC flat (often blue): never mate APC to UPC",
+        "details": "Read the printed jacket legend and the connector geometry; colour is a clue, not the check. Record both ends before unplugging. Match the optic’s specified polish and never force a connector.",
+        "flags": [],
+        "tip": "Never look into a live fiber or transceiver; use an inspection probe made for fiber.",
+        "tags": [
+          "fiber",
+          "jacket",
+          "om3",
+          "om4",
+          "om5",
+          "os2",
+          "apc",
+          "upc",
+          "lc",
+          "mpo"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10)."
+        }
+      },
+      {
+        "id": "qm9790-ib-port-numbers",
+        "mode": "IB ports",
+        "modeClass": "mode-v",
+        "desc": "QM9700 / QM9790: which IB port number is in which cage",
+        "cmd": "Cage 1: ports 1 | 2   |   Cage 2: ports 4 | 3   |   Cage 3: ports 5 | 6   |   Cage 4: ports 8 | 7",
+        "details": "In the non-splittable profile, the IB tools (ibnetdiscover, iblinkinfo) number the 64 NDR ports so that odd cage n holds 2n−1 (left) and 2n (right), and even cage n holds 2n (left) and 2n−1 (right). Port 65 is an internal port for SHARP. The splittable profile numbers 128 ports differently. MLNX-OS names the same ports 1/<cage>/1 and 1/<cage>/2.",
+        "flags": [
+          [
+            "Non-splittable",
+            "64 NDR ports + port 65 (SHARP)"
+          ],
+          [
+            "Splittable",
+            "128 NDR200 ports + port 129 (SHARP)"
+          ]
+        ],
+        "tip": "In the front panel, type \"port 3\" on the QM9700 / QM9790 to light up its cage.",
+        "tags": [
+          "qm9790",
+          "qm9700",
+          "infiniband",
+          "port",
+          "numbering",
+          "iblinkinfo"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking/display/qm97xx-1u-ndr-400gbps-infiniband-switch-systems-user-manual.pdf",
+              "title": "NVIDIA QM97XX user manual: logical port numbering schematic (p. 32)"
+            }
+          ]
+        }
+      },
+      {
+        "id": "link-symptoms",
+        "mode": "Triage",
+        "modeClass": "mode-v",
+        "desc": "Pick the symptom you see: absent module, link down, one weak lane, errors",
+        "cmd": "Module absent or unreadable: cage, seating, shell type, part coding; cleaning cannot fix it   |   Module present, link down: admin state, breakout, speed, peer, protocol; IB LinkUp but not Active = check the Subnet Manager   |   One lane has low Rx: which lane and which end; peer Tx; MPO polarity; inspect and clean both ends   |   Link up with errors or flaps: counters twice, speed, width, FEC, warnings, temperature, strained fiber",
+        "details": "Work from identity and light toward the port and peer: confirm identity, read the link (state, speed, module, alarms, per-lane Tx/Rx against that module’s own thresholds), inspect the path (bend, strain, latch, polish, MPO polarity and pin gender), then swap one known-good part at a time under your change process. If the fault follows the part, record its serial and replace it. A blank or zero optical reading is not always a dead laser: the module may not report it or the port may be disabled.",
+        "flags": [],
+        "tip": "Change one cable or optic at a time, or you will not know which one fixed it.",
+        "tags": [
+          "triage",
+          "link",
+          "down",
+          "lane",
+          "rx",
+          "errors",
+          "flap",
+          "module"
+        ],
+        "src": {
+          "verified": "",
+          "refs": [],
+          "note": "From the team’s Switch & Fiber Field Guide (2026-11-10)."
+        }
+      }
+    ]
   }
 ];
 
@@ -535,6 +1338,8 @@ const state = {
 state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(FIBER_CHEAT_SHEET_DATA) : "";
 if (typeof window !== "undefined") // Each part's own header, as its page had it (title, subtitle, version label).
   window.SHEET_FILTER = { sections: FIBER_CHEAT_SHEET_DATA, label: "Fiber sheets", parts: {
+   "fo-team-optics": {"title": "Team Optics & Fit", "subtitle": "The team’s transceiver part labels against the eleven devices, optic families, and the BlueField-3 / ConnectX-7 ports", "pill": "Team parts · 2026-11-10"},
+   "fo-first-link": {"title": "First Connection", "subtitle": "From a label to a live link: the steps, the words, reading the cable, QM9790 port numbers, and symptom paths", "pill": "Rack-side · before you cable"},
    "fo-cleaning-testing": {
     "title": "Cleaning & Testing Triage",
     "subtitle": "Inspect-before-you-connect, attenuator protection, FEC bin analysis & fault isolation",
@@ -789,6 +1594,7 @@ function renderSections() {
               <code class="cmd-code">${highlightFiberText(item.cmd)}</code>
               <span class="copy-hint">Copy</span>
             </div>
+            ${item.details ? `<p class="cmd-details">${escapeHtml(item.details)}</p>` : ""}
 
             ${flagsHtml}
           </div>

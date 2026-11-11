@@ -590,6 +590,20 @@ Still unconfirmed (marked): EOS `show version`, `show inventory`, `show mac addr
 | Close the terminal after starting it | Default is background: double fork + `setsid`, log `~/.cache/dc-cheatsheet/term-bridge.log`, pid `~/.config/dc-cheatsheet/term-bridge.pid`. `--foreground` keeps the old behaviour. A second start reports "already running" and reopens the site. |
 | Stop bridge button | In the dock (asks first): sends `{"type":"stop"}` on the live connection (or a short one with the saved token); the bridge hangs up every shell, removes its pid file and exits. Also `--stop` (SIGTERM). |
 
+## #16 The Switch & Fiber Field Guide folded in (2026-11-10, `fold-switch-guide`)
+
+From `/home/jason/Work/agy/network-switch-guide` (read-only), the parts the cheat-sheet lacked:
+
+| Where | What |
+|---|---|
+| Front panel (▦) | 8 new drawn layouts (SN5400, SN5600, SN2410, Arista 7260CX3-64, N9K-C93180YC-FX3, C9200L-48T-4X, CCR2216, Hasivo S5800W-24G-2S), each checked against its vendor photo; ACS8000 and MX304 photo-only. Vendor photos (`assets/panels/`, 11 WebP, 0.56 MB; PNGs converted, Hasivo trimmed) above the drawing and inline in the portable file. Per-model port parsers; extra ports by side/column, searchable and clickable. QM9700/QM9790: IB `port N` → cage, from NVIDIA's QM97XX manual p. 32. **Installed optics** record per cage (`cs_panel_optics_v1`, in Backup, CSV copy). |
+| Fiber → Team Optics & Fit | The team's 12 part labels with per-device fit, optic families, and the BF3 B3220 / CX7 adapter table (part numbers and firmware as the guide gives them) |
+| Fiber → First Connection | Five steps, cage/port/lane/breakout, reading the jacket and polish, QM9790 IB port numbers (checked), symptom paths |
+| Switches → Hardware & Front Panels | One card per device (11), findable with Ctrl+K |
+| Glossary | 30 terms (GbE, SFP+, SFP28, QSFP28/56/112, QSFP-DD, LC, MTP, OM3–OM5, OS2, SR4/SR8/VR4/DR4/FR4, SX/LX, LMIC, EOS, NX-OS, QSA, C2P/P2C, MFT, SKU, Tx/Rx) |
+
+Sources: the guide's vendor links are carried as the cards' sources without a "verified" date, and each card says they were not re-read; the four First Connection cards the guide gave no source for say **Not verified**. Only the QM9790 IB port numbering was checked against the vendor document here. Found: the guide's N9K photo is Cisco's N9K-C93180YC-**FX** image (labelled as such on the panel).
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |
