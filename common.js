@@ -1389,6 +1389,17 @@
       build: () => ({ sev: 'warn', layer: 'Hard silicon (DIMM)', title: 'Correctable DRAM error (CE)', meaning: 'ECC fixed a memory error, so nothing broke. One CE is noise. A steadily climbing count on one DIMM means that DIMM is failing.', next: 'Trend the count. If one DIMM keeps climbing or the BMC throttled logging, schedule a DIMM swap.', steps: [['CE count per DIMM', 'edac-util -v'], ['Raw sysfs counters with labels', 'grep -H . /sys/devices/system/edac/mc/mc*/dimm*/{dimm_label,dimm_ce_count}'], ['RAS summary', 'ras-mc-ctl --summary']], sheet: 'ecc-edac.html', q: 'edac', boost: ['ecc-edac.html', 'dmi-hw.html', 'mb-memory-post.html'] })
     },
     {
+      // The kernel's own wording: pciehp "Slot(N): Cannot train link", and "retraining failed".
+      id: 'pcie-train',
+      test: q => /cannot train link|retraining failed|link training (error|fail)/i.test(q),
+      build: ent => ({ sev: 'crit', layer: 'PCIe / Layer-1', title: 'PCIe link failed to train',
+        meaning: 'The PCIe link to a slot or device never came up: the kernel tried to train it and gave up. Almost always physical: seating, the riser or its cable, slot power, or a dead device.',
+        next: 'Check the SEL for power or riser events at the same time. Then reseat the card or riser (physical work: drain first). If it stays with the slot, suspect the riser or board; if it follows the card, the card.',
+        src: { url: 'https://github.com/torvalds/linux/blob/master/drivers/pci/hotplug/pciehp_hpc.c', title: 'Linux pciehp_hpc.c ("Cannot train link")' },
+        steps: [['Link capability vs. state', `lspci -vvv -s ${ent.bdf || '<bdf>'} | grep -E "LnkCap:|LnkSta:"`], ['Every PCIe link message', 'dmesg -T | grep -i -E "train|pciehp|link down|surprise"'], ['Power and riser events at the same time', 'ipmitool sel elist | tail -n 40']],
+        sheet: 'pcie-numa.html', q: 'lspci lnksta', boost: ['pcie-numa.html', 'linux.html'] })
+    },
+    {
       id: 'aer',
       test: q => /\bAER\b|BadTLP|BadDLLP|Receiver Error|RxErr|Surprise Down|Completion Timeout/i.test(q),
       build: ent => {
@@ -1412,8 +1423,23 @@
       build: ent => ({ sev: 'crit', layer: 'Storage device', title: 'Block device I/O error', meaning: 'Reads or writes to a disk are failing at the device. Usually media failure; sometimes a cable, HBA or enclosure path.', next: 'Check SMART and multipath. Pull the drive only after confirming the array/filesystem can lose it.', steps: [['SMART health & error counters', `smartctl -a /dev/${ent.disk || '$DISK'}`], ['Map device to enclosure slot', 'lsscsi -g'], ['Multipath state', 'multipath -ll']], sheet: 'storage.html', q: 'smartctl', boost: ['storage.html', 'nvme-smart.html'] })
     },
     {
+      // ConnectX firmware fatal error: the fw_fatal health reporter dumps CR-space and recovers
+      // (kernel docs networking/devlink/mlx5; messages from mlx5/core/health.c and diag/crdump.c).
+      id: 'mlx5-fw',
+      test: q => /mlx5[^\n]*(crdump|fw fatal|fw_fatal|fatal error \d+ detected|HW fatal error|health compromised)/i.test(q),
+      build: ent => {
+        const bdf = ent.bdf || '<bdf>';
+        return { sev: 'crit', layer: 'NIC firmware (ConnectX)', title: 'ConnectX firmware fatal error (mlx5 health / crdump)',
+          meaning: 'The adapter firmware hit a fatal error. The mlx5 driver\'s fw_fatal health reporter takes a CR-space dump (crdump) and runs its recover flow; a crdump line that says it failed means the dump itself could not be taken. Traffic on the port drops until recovery finishes.',
+          next: 'If it recovered once, note it and watch. Repeats → compare firmware with healthy nodes, then RMA the adapter. devlink health dump show pci/<bdf> reporter fw_fatal displays the saved dump (PF only) for the vendor case.',
+          src: { url: 'https://docs.kernel.org/networking/devlink/mlx5.html', title: 'Linux kernel docs: mlx5 devlink health reporters (fw_fatal)' },
+          steps: [['mlx5 health messages, in order', 'dmesg -T | grep -i -E "mlx5.*(fatal|crdump|health|recover)"'], ['fw_fatal reporter state and error count', `devlink health show pci/${bdf} reporter fw_fatal`], ['Adapter firmware version', 'mlxfwmanager --query']],
+          sheet: 'ib-mlxfwmanager.html', q: 'mlxfwmanager firmware', boost: ['ib-mlxfwmanager.html', 'infiniband.html'] };
+      }
+    },
+    {
       id: 'ib',
-      test: q => /Physical state:\s*(Polling|Disabled)|LinkDowned|SymbolError|port_rcv_errors|link_downed|Physical BER|\bmlx5_\d+\b[^\n]*(down|error)|ib\d+[^\n]*link down/i.test(q),
+      test: q => /Physical state:\s*(Polling|Disabled)|LinkDowned|SymbolError|symbol errors?\b|port_rcv_errors|link_downed|Physical BER|\bmlx5_\d+\b[^\n]*(down|error)|ib\d+[^\n]*link down/i.test(q),
       build: ent => ({ sev: 'warn', layer: 'InfiniBand / Layer-1 optics', title: 'InfiniBand link down, flapping or erroring', meaning: '"Polling" means the port sees no partner. Symbol errors, link-downed counts or a high BER mean the link is up but the physical path is bad: dirty fiber, a weak transceiver, or a damaged cable.', next: 'Check DOM light levels per lane. Clean both MPO/APC ends, reseat the transceiver, then A/B swap the optic to see if the problem follows it.', steps: [['Port state & rate', `ibstat ${ent.hca || '$HCA'}`], ['DOM, BER & eye per lane', `mlxlink -d ${ent.hca || '$HCA'} -m -c -e`], ['Error counters', `perfquery -x`]], sheet: 'ib-mlxlink.html', q: 'mlxlink', boost: ['ib-mlxlink.html', 'ib-ibstat.html', 'ib-perfquery.html', 'ib-mlxcables.html', 'fo-cleaning-testing.html', 'fo-dom-cli.html'] })
     },
     {
@@ -1440,6 +1466,66 @@
       id: 'oom',
       test: q => /Out of memory: Kill|oom-kill|oom_reaper|Killed process \d+/i.test(q),
       build: () => ({ sev: 'info', layer: 'Software / workload', title: 'Kernel OOM killer fired', meaning: 'The node ran out of RAM and the kernel killed a process. A workload problem, not a hardware fault.', next: 'Tell the job owner which process was killed and its RSS. Check for a memory leak or an over-packed node.', steps: [['Which process, how big', 'dmesg -T | grep -i -E "out of memory|killed process" | tail -n 10'], ['Current memory pressure', 'free -h && ps -eo pid,user,rss,comm --sort=-rss | head']], sheet: 'processes.html', q: 'memory', boost: ['processes.html', 'ps.html'] })
+    },
+    {
+      // kernel/watchdog.c: "BUG: soft lockup - CPU#%d stuck for %us!" and "Watchdog detected hard LOCKUP".
+      id: 'lockup',
+      test: q => /soft lockup - CPU#?\d*|hard LOCKUP|watchdog: BUG: soft lockup/i.test(q),
+      build: () => ({ sev: 'crit', layer: 'Kernel / CPU', title: 'CPU lockup (soft or hard lockup watchdog)',
+        meaning: 'A soft lockup is kernel code looping for more than 20 seconds without letting other tasks run; a hard lockup is a CPU not taking interrupts. The kernel prints a stack trace and, by default, carries on.',
+        next: 'Read the stack trace: its top frames name the driver or subsystem that spun. Repeats after one driver → that driver or its device; with an MCE or SEL event at the same time → hardware. kernel.softlockup_panic makes the next one panic for a kdump (a sysctl change: ask first).',
+        src: { url: 'https://docs.kernel.org/admin-guide/lockup-watchdogs.html', title: 'Linux kernel docs: soft and hard lockup detectors' },
+        steps: [['The trace that came with it', 'dmesg -T | grep -E -A 25 "soft lockup|hard LOCKUP"'], ['How often, on which CPUs', 'dmesg -T | grep -o -E "soft lockup - CPU#[0-9]+" | sort | uniq -c'], ['Hardware errors at the same time', 'dmesg -T | grep -i -E "mce|machine check|EDAC|AER"']],
+        sheet: 'kernel-boot.html', q: 'dmesg kernel', boost: ['kernel-boot.html', 'linux.html'] })
+    },
+    {
+      // fs/xfs/xfs_error.c: "Corruption detected. Unmount and run xfs_repair".
+      id: 'xfs',
+      test: q => /\bXFS \([^)]+\)[^\n]*(corrupt|xfs_repair|metadata I\/O error|shutting down)|Unmount and run xfs_repair/i.test(q),
+      build: ent => {
+        const dev = (String(ent.raw).match(/XFS \(([^)]+)\)/) || [])[1] || '<dev>';
+        const whole = dev.replace(/p\d+$/, '').replace(/^(sd[a-z]+)\d+$/, '$1');
+        const health = /^nvme/.test(whole) ? `nvme smart-log /dev/${whole}` : `smartctl -a /dev/${whole}`;
+        return { sev: 'crit', layer: 'Filesystem (XFS)', title: 'XFS metadata corruption',
+          meaning: 'XFS found metadata it cannot trust and asked for xfs_repair. Writes to that filesystem may already have stopped. The cause is often below the filesystem: media errors, a failing drive or controller.',
+          next: 'Check the drive first. Then stop the workload, unmount (ask first) and run xfs_repair -n /dev/' + dev + ': no-modify mode only reports what it would fix. xfs_repair needs the filesystem unmounted. A real repair only after a backup and your OK.',
+          src: { url: 'https://man7.org/linux/man-pages/man8/xfs_repair.8.html', title: 'xfs_repair(8): -n no-modify mode; the filesystem must be unmounted' },
+          steps: [['XFS messages, in order', `dmesg -T | grep -i "xfs (${dev})"`], ['Which mount it is', `findmnt -S /dev/${dev}`], ['Is the drive itself failing?', health]],
+          sheet: 'storage.html', q: 'filesystem mount', boost: ['storage.html', 'linux.html'] };
+      }
+    },
+    {
+      // slurmd.c: "Node configuration differs from hardware: CPUs=%u:%u(hw) ..." (slurm.conf value first).
+      id: 'slurmd-hw',
+      test: q => /configuration differs from hardware/i.test(q),
+      build: () => ({ sev: 'warn', layer: 'Scheduler (Slurm)', title: 'Slurm node config differs from the hardware',
+        meaning: 'slurmd found different hardware from the node\'s slurm.conf line. In CPUs=128:256(hw) the first number is slurm.conf, the second what the hardware reports. Slurm may refuse to use the node until they agree.',
+        next: 'If the hardware number is lower than configured, look for something lost first: a DIMM (EDAC, SEL, dmidecode) or cores (BIOS, SMT). If slurm.conf is wrong, fix the NodeName line from slurmd -C; editing slurm.conf and reconfiguring needs your OK.',
+        src: { url: 'https://slurm.schedmd.com/slurmd.html', title: 'slurmd(8): -C prints the actual hardware configuration' },
+        steps: [['What this node really has', 'slurmd -C'], ['What Slurm has for it', 'scontrol show node $(hostname -s)'], ['CPUs and memory the OS sees', 'lscpu | grep -E "^(CPU\\(s\\)|Thread|Core|Socket)" && free -g']],
+        sheet: 'slurm-gpus.html', q: 'slurmd', boost: ['slurm-gpus.html', 'slurm.html'] })
+    },
+    {
+      // kubelet devicemanager: "requested number of devices unavailable for %s"; pod status UnexpectedAdmissionError.
+      id: 'k8s-gpu-admit',
+      test: q => /requested number of devices unavailable|UnexpectedAdmissionError/i.test(q),
+      build: () => ({ sev: 'warn', layer: 'Kubernetes / device plugin', title: 'Kubelet could not hand out the GPUs (UnexpectedAdmissionError)',
+        meaning: 'The kubelet\'s device manager had fewer free devices than the pod requested, so it rejected the pod at admission. The node can still advertise GPUs it cannot actually give out.',
+        next: 'Compare Allocatable nvidia.com/gpu with nvidia-smi -L and the GPUs already in use. A GPU that fell off the bus (Xid 79) or a crashed device plugin leaves fewer devices than advertised. Restarting the device plugin or the kubelet changes state: ask first.',
+        src: { url: 'https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/', title: 'Kubernetes: device plugins' },
+        steps: [['GPUs the node advertises', 'kubectl describe node <node> | grep -E -A7 "^(Capacity|Allocatable):"'], ['Device plugin pods', 'kubectl get pods -A -o wide | grep -i -E "device-plugin|gpu-operator"'], ['GPUs the driver sees', 'nvidia-smi -L']],
+        sheet: 'k8s-gpu.html', q: 'gpu operator device plugin', boost: ['k8s-gpu.html', 'containers.html'] })
+    },
+    {
+      // perftest_communication.c: "Couldn't connect to %s:%d"; the default port is 18515 (DEF_PORT).
+      id: 'perftest-connect',
+      test: q => /couldn't connect to [^\s:]+:\d+/i.test(q),
+      build: () => ({ sev: 'info', layer: 'Test setup (perftest)', title: 'perftest client could not reach the server',
+        meaning: 'The perftest client could not open its TCP connection for the setup exchange (port 18515 by default). Nothing was measured; this is the setup channel, not the RDMA link.',
+        next: 'Start the server side first (the same tool with no host argument) and use the same port (-p) and options on both ends; check a firewall on the server. Bandwidth tests load the link: run them only on a drained node, with your OK.',
+        src: { url: 'https://github.com/linux-rdma/perftest', title: 'perftest README: -p, --port (default 18515)' },
+        steps: [['Is a server listening on this node?', 'ss -tln | grep 18515'], ['Can this node reach the server at all?', 'ping -c 3 <server>']],
+        sheet: 'ib-perftest.html', q: 'perftest', boost: ['ib-perftest.html', 'infiniband.html'] })
     }
   ];
 

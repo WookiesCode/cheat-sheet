@@ -1174,7 +1174,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). Ranked by user impact relative
 - Impact **H** · Effort **M** · Risk **L** (each entry copied from the catalog's own resolution text, not written from memory).
 - **Files:** `common.js` (`XID_TABLE`), `docs/playbooks/gpu-nvlink.md`, the decoder test (R4).
 
-**R9. Decode the common non-GPU lines that dead-end today**
+**R9. ✅ Decode the common non-GPU lines that dead-end today** (built: `improve/decoder-gaps`. Each message was found in its source before writing the card: `kernel/watchdog.c`, `fs/xfs/xfs_error.c`, mlx5 `health.c` / `diag/crdump.c`, Slurm `slurmd.c`, kubelet `devicemanager/manager.go`, perftest `perftest_communication.c`, `pciehp_hpc.c`. Two corpus lines first written by hand were not real text and now use the real wording. Symbol errors widen the IB rule instead of a new card)
 - **What:** decoder entries for kernel soft lockup / hung task, XFS and ext4 corruption, mlx5 firmware health and crdump, `slurmd` "configuration differs from hardware", kubelet "failed to allocate device plugin resource", perftest "Couldn't connect", and PCIe link-training failures, each with sourced next commands.
 - **Why:** J2. These are the lines a technician pastes when the problem isn't a GPU.
 - **Evidence:** 7 of the 22 test lines went to "0 commands found"; Ctrl+K has no card for `xfs_repair`, `soft lockup` or `crdump`.

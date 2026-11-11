@@ -1,6 +1,7 @@
 // The symptom decoder on real log lines, pasted into the home page's "What's broken?" box.
 // Each case names the card it must produce (title pattern, severity), or is a known gap that must
 // still show Closest matches. When a gap gets a decoder entry, give its line a title here.
+// The two lines first written by hand (mlx5, kubelet) now carry the real kernel / kubelet wording.
 const fs = require('fs');
 const path = require('path');
 const { ROOT, BASE, launch, newContext } = require('./lib');
@@ -55,15 +56,21 @@ const CASES = [
   // Workload
   ['Out of memory: Killed process 4321 (python) total-vm:123456kB', /OOM killer/, 'info'],
 
-  // Known gaps (R9, R10): no decoder card yet, but search must not dead-end (Closest matches).
-  ['mlx5_core 0000:41:00.0: mlx5_crdump_collect:0:(pid 0): crdump: failed to lock vsc access', null, null, { closest: true }],
-  ['kernel: watchdog: BUG: soft lockup - CPU#12 stuck for 22s!', null, null, { closest: true }],
-  ["ib_write_bw: Couldn't connect to 10.0.0.2:18515", null, null, { closest: true }],
-  ['XFS (nvme0n1p1): Corruption detected. Unmount and run xfs_repair', null, null, { closest: true }],
-  ['slurmd: error: Node configuration differs from hardware: CPUs=128:256(hw)', null, null, { closest: true }],
-  ['kubelet: Failed to allocate device plugin resource for pod: nvidia.com/gpu', null, null, { closest: true }],
-  ['Retimer (PCIe) link training failure', null, null, { closest: true }],
-  ['Port 1/1/3 Symbol Errors: 1534', null, null, { closest: true }],
+  // Former gaps, decoded since R9 (each card cites the source of its message).
+  ['mlx5_core 0000:41:00.0: mlx5_crdump_collect:50:(pid 812): crdump: failed to lock vsc gw err -16', /^ConnectX firmware fatal error/, 'crit', { src: /mlx5 devlink/, steps: /devlink health show pci\/0000:41:00\.0 reporter fw_fatal/ }],
+  ['mlx5_core 0000:41:00.0: mlx5_health_try_recover:330:(pid 812): Fatal error 3 detected', /^ConnectX firmware fatal error/, 'crit'],
+  ['kernel: watchdog: BUG: soft lockup - CPU#12 stuck for 22s! [kworker/12:1:4321]', /^CPU lockup/, 'crit', { src: /lockup detectors/ }],
+  ['NMI watchdog: Watchdog detected hard LOCKUP on cpu 7', /^CPU lockup/, 'crit'],
+  ['XFS (nvme0n1p1): Corruption detected. Unmount and run xfs_repair', /^XFS metadata corruption/, 'crit', { steps: /nvme smart-log \/dev\/nvme0n1/, src: /xfs_repair/ }],
+  ['slurmd: error: Node configuration differs from hardware: CPUs=128:256(hw) Boards=1:1(hw) SocketsPerBoard=2:2(hw) CoresPerSocket=32:64(hw) ThreadsPerCore=2:2(hw)', /^Slurm node config differs/, 'warn', { steps: /slurmd -C/ }],
+  ['Warning  UnexpectedAdmissionError  pod/train-0  Allocate failed due to requested number of devices unavailable for nvidia.com/gpu. Requested: 1, Available: 0, which is unexpected', /^Kubelet could not hand out the GPUs/, 'warn'],
+  ["Couldn't connect to 10.0.0.2:18515", /^perftest client could not reach the server/, 'info'],
+  ['pcieport 0000:00:03.1: pciehp: Slot(4): Cannot train link: status 0x2001', /^PCIe link failed to train/, 'crit', { src: /pciehp/ }],
+  ['Retimer (PCIe) link training failure', /^PCIe link failed to train/, 'crit'],
+  ['Port 1/1/3 Symbol Errors: 1534', /^InfiniBand link down, flapping or erroring/, 'warn'],
+  // Still not decoded on purpose: a line naming no known failure must not grab a card, and search
+  // still offers Closest matches.
+  ['slurmstepd: task/cgroup: _memcg_initialize: job: alloc=8192MB mem.limit=8192MB', null, null, { closest: true }],
 ];
 
 // The dmesg greps that collect SXids must match a real line (the switch number sits before the
