@@ -2298,6 +2298,19 @@ code, kbd, pre {
   color: var(--accent-primary);
 }
 
+/* Shown above loose results when no command has every word (closest matches). */
+.palette-closest {
+  margin: 0.4rem 0.6rem 0.5rem;
+  padding: 0.45rem 0.7rem;
+  border-left: 3px solid var(--accent-amber);
+  background: var(--bg-elevated);
+  border-radius: 6px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+.palette-closest b { color: var(--text-primary); }
+.palette-closest s { color: var(--text-muted); }
+
 /* AI Node Triage & RMA Modal */
 .triage-modal-backdrop {
   position: fixed;

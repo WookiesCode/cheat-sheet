@@ -28,7 +28,7 @@ Run the tests after `node build-all.js`. The tests read the built pages and the 
 | `all-pages.test.js` | Every page loads with no page errors and no 4xx/5xx requests |
 | `links.test.js` | Every `<page>.html` / `<page>.html#<part>` written in the sources (sheets, pages, nav source, README, docs) names a page and part that still exist; old sheet names redirect to live parts; Recent on the home page leaves out sheets and parts removed since they were visited (site and portable file) |
 | `load.test.js` | The key pages and the portable file over `file://`: errors, console errors, failed requests (screenshots go to `output/`) |
-| `search.test.js` | Ctrl+K finds commands once the stamped search index loads |
+| `search.test.js` | Ctrl+K finds commands once the stamped search index loads; a query no command fully matches shows Closest matches (a question, a near-miss word, an unknown pasted line with its numbers ignored) and a word on no card still shows the empty state; "gpu fell off bus" decodes as Xid 79 |
 | `xss.test.js` | Every paste or input tool renders HTML payloads as text, never runs them (it includes a control payload that must fire) |
 | `search-danger.test.js` | Ctrl+K flags state-changing results; the first Enter asks, the second copies; a click opens without copying |
 | `dialog-focus.test.js` | Tab and Shift+Tab stay inside open tools, Esc returns focus to the opener, side-docked tools don't trap |

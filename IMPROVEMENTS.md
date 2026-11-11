@@ -1116,7 +1116,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). Ranked by user impact relative
 
 ### Quick wins
 
-**R1. When every word doesn't match, show the closest matches instead of nothing**
+**R1. ✅ When every word doesn't match, show the closest matches instead of nothing** (built: `improve/search-closest`)
 - **What:** if the all-words search finds nothing, rerun it without filler words ("which", "is", "the", "my"), rank by how many words each command matches, add a small synonym list (fell/fallen, flap/flapping, slot/bdf), and label the results "Closest matches".
 - **Why:** J1 and J2. It's the difference between an answer and a dead end, mid-incident.
 - **Evidence:** `which gpu is which slot` → 0; `port flapping` → 0; `gpu fell off bus` → Grafana PromQL; 7 of 22 pasted lines → "0 commands". `rankIndex` requires every token (`wordRes.every(...)`).

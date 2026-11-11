@@ -1298,7 +1298,7 @@
   const DECODER_RULES = [
     {
       id: 'xid',
-      test: q => /\bxid\b/i.test(q) && xidNumber(q) !== null,
+      test: q => (/\bxid\b/i.test(q) || OFF_THE_BUS.test(q)) && xidNumber(q) !== null,
       build: (q, ent) => {
         const n = xidNumber(q);
         const x = XID_TABLE[n] || { sev: 'warn', layer: 'GPU', title: 'Not in the local decoder table', meaning: `Xid ${n} is not one of the common codes this decoder knows. Look it up in NVIDIA's Xid catalog for your driver branch.`, next: 'Capture nvidia-bug-report.sh and the full dmesg context around the event.' };
@@ -1394,9 +1394,14 @@
     ['CUDA 802', 'cudaGetDeviceCount returned 802 -> system not yet initialized']
   ];
 
+  // "GPU has fallen off the bus" is Xid 79's own text; the driver also prints it on a line of
+  // its own, and people type it as "gpu fell off bus".
+  const OFF_THE_BUS = /\b(fallen|fell|falls?|dropped)\s+off\s+(the\s+)?(pcie?\s+)?bus\b/i;
+
   function xidNumber(q) {
     const m = String(q).replace(/\(PCI:[^)]*\)/gi, '').match(/\bxid\b[^0-9]{0,6}(\d{1,3})\b/i);
-    return m ? parseInt(m[1], 10) : null;
+    if (m) return parseInt(m[1], 10);
+    return OFF_THE_BUS.test(q) ? 79 : null;
   }
 
   function extractEntities(raw) {
@@ -1535,6 +1540,54 @@
       .filter(r => r.s > 0)
       .sort((a, b) => b.s - a.s || a.i - b.i)
       .map(r => r.item);
+  }
+
+  // Closest matches: used only when no command has every word. A question ("which gpu is which
+  // slot") or a pasted log line the decoder doesn't know would otherwise end in "0 commands".
+  // Filler words go, a few words people type are widened to the way the cards spell them, and
+  // each command is ranked by the words it does match, rare words counting more than common ones.
+  const SEARCH_STOP = new Set(('a an the is are was were be been to of in on for and or my me i it its this that these ' +
+    'what which who how why where when do does did can could should would will with from by at as not no into out ' +
+    'get got show find see check there here any all some one error errors failed failure').split(' '));
+  const SEARCH_SYNONYMS = {
+    fell: ['fallen'], fall: ['fallen'], falls: ['fallen'], falling: ['fallen'],
+    flapping: ['flap', 'bounce'], flapped: ['flap', 'bounce'],
+    slot: ['bdf', 'pci.bus_id'], slots: ['slot', 'bdf'],
+    lockup: ['hung', 'lockup'], hang: ['hung'], hangs: ['hung'], frozen: ['hung'],
+    overheating: ['thermal', 'temperature'], overheat: ['thermal', 'temperature'], hot: ['thermal', 'temperature'],
+    psu: ['power supply'], corruption: ['corrupt'], corrupted: ['corrupt']
+  };
+
+  // The words worth searching for: punctuation, addresses, PIDs and other numbers are dropped.
+  function closestWords(query) {
+    const words = String(query).toLowerCase().split(/[^a-z0-9_.\/-]+/)
+      .map(w => w.replace(/^[.\/-]+|[.\/-]+$/g, ''))
+      .filter(w => w.length > 1 && !SEARCH_STOP.has(w) && !/^[0-9a-fx.:\/-]+$/.test(w));
+    return [...new Set(words)].slice(0, 12);
+  }
+
+  function rankClosest(query, boost) {
+    const words = closestWords(query);
+    if (!words.length) return null;
+    const list = searchIndexUnique();
+    const groups = words.map(w => [w, ...(SEARCH_SYNONYMS[w] || [])]);
+    const rows = list.map((item, i) => ({
+      item, i,
+      hits: groups.map(g => Math.max(...g.map(v => scoreEntry(item, [v], v, boost))))
+    }));
+    // A word on nearly every card says little; one on three cards says a lot (inverse document frequency).
+    const weight = groups.map((g, k) => {
+      const df = rows.filter(r => r.hits[k] > 0).length;
+      return df ? Math.log((list.length + 1) / df) : 0;
+    });
+    const found = words.filter((w, k) => weight[k] > 0);
+    if (!found.length) return null;
+    const ranked = rows
+      .map(r => ({ ...r, w: r.hits.reduce((sum, h, k) => sum + (h > 0 ? weight[k] : 0), 0), s: r.hits.reduce((a, b) => a + b, 0) }))
+      .filter(r => r.w > 0)
+      .sort((a, b) => b.w - a.w || b.s - a.s || a.i - b.i)
+      .map(r => r.item);
+    return { items: ranked, found, missing: words.filter((w, k) => !weight[k]) };
   }
 
   // -------------------------------------------------------------
@@ -3487,6 +3540,7 @@
     let matches = [];
     let totalMatches = 0;
     let sheetsMatched = 0;
+    let closest = null;
     if (!tokens.length) {
       // Show default top picks across sheets
       matches = searchIndexUnique().slice(0, 25);
@@ -3504,6 +3558,10 @@
         tokens = decoded.q.split(/\s+/);
         ranked = rankIndex(tokens, decoded.q, decoded.boost);
       }
+      if (!ranked.length && !cleanQuery.startsWith('>')) {
+        closest = rankClosest(cleanQuery, decoded && decoded.boost);
+        if (closest) { ranked = closest.items; tokens = closest.found; }
+      }
       matches = ranked;
       totalMatches = matches.length;
       sheetsMatched = new Set(matches.map(item => item.file)).size;
@@ -3515,9 +3573,10 @@
     // Enter copies the top command as before, unless the query is a quick-set or an explicit "> action".
     if (searchActiveIndex === 0 && entities.length && matches.length && !entities.some(e => e.strong)) searchActiveIndex = entities.length;
     currentSearchResults = [...entities, ...matches];
-    searchCount.textContent = `${decoded ? 'Decoded · ' : ''}${entities.length ? `${entities.length} shortcut${entities.length === 1 ? '' : 's'} · ` : ''}${totalMatches} command${totalMatches === 1 ? '' : 's'} found across ${sheetsMatched} sheet${sheetsMatched === 1 ? '' : 's'}`;
+    searchCount.textContent = `${decoded ? 'Decoded · ' : ''}${closest ? 'Closest matches · ' : ''}${entities.length ? `${entities.length} shortcut${entities.length === 1 ? '' : 's'} · ` : ''}${totalMatches} command${totalMatches === 1 ? '' : 's'} found across ${sheetsMatched} sheet${sheetsMatched === 1 ? '' : 's'}`;
+    const closestNote = closest ? `<div class="palette-closest" role="status">No command has every word. Closest matches for ${closest.found.map(w => `<b>${escapeHtml(w)}</b>`).join(', ')}${closest.missing.length ? `; on no card: ${closest.missing.map(w => `<s>${escapeHtml(w)}</s>`).join(', ')}` : ''}.</div>` : '';
     const lead = (decoded ? renderDecoderCard(decoded) : (!tokens.length ? renderDecoderSamples() : '')) + renderPaletteEntities(entities)
-      + (entities.length && matches.length ? '<div class="pe-heading">Commands</div>' : '');
+      + (entities.length && matches.length ? '<div class="pe-heading">Commands</div>' : '') + closestNote;
 
     if (!matches.length && entities.length) {
       searchResults.innerHTML = lead;
