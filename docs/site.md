@@ -53,7 +53,7 @@ To add sources, give a command in its group page's data (`nvidia.js`, `app.js`, 
 src: { verified: '2026-11-09', refs: [{ url: 'https://docs.vendor.com/…', title: 'Vendor CLI guide' }], note: 'What the docs did not confirm' }
 ```
 
-A recipe in a command's `subcommands` list can carry its own source as a third element (`[cmd, desc, src]`); otherwise it shares its command's (the InfiniBand, Redfish, ipmitool, switch, Ethernet and suite-kit generators copy both; suite-kit and the containers generator also pass a `proTip.src`). The Linux sheets in `app.js` keep recipes inside their command's card, so there a command's `src` covers its recipes. `build-index.js` carries it into the search index and `common.js` draws the line under the command (`initSources`), on the sheets, the hub and the portable copy. Only `https://` links are shown.
+A recipe in a command's `subcommands` list can carry its own source as a third element (`[cmd, desc, src]`); otherwise it shares its command's. On the group pages a recipe is a row inside its card; where its source differs from the card's (or it is not confirmed), the row gets its own source line. `build-index.js` carries it into the search index and `common.js` draws the line under the command (`initSources`), on the sheets, the hub and the portable copy. Only `https://` links are shown.
 
 ## Use it on a rack
 

@@ -56,7 +56,7 @@ cheat-sheet/
 ├── CLAUDE.md -> agents/AGENTS.md  # Symlink so Claude Code loads the agent rules
 ├── README.md                     # This file
 ├── index.html, *.html, *.js      # The cheat-sheet site (sheets, common.js, styles.css)
-├── build-*.js, generate-*.js     # Site build scripts (run build-all.js)
+├── build-*.js                   # Site build scripts (run build-all.js)
 ├── nav/nav-source.html           # The one copy of the top nav (build-nav-js.js writes nav.js from it)
 ├── backups/                      # Site backups (git-ignored)
 ├── agents/

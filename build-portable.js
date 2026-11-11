@@ -40,12 +40,8 @@ const pageText = (html, regex) => {
   return match ? decodeEntities(match[1].replace(/<[^>]+>/g, '').trim()) : '';
 };
 
-// Old pages merged into a group page are redirects now: their data lives in the group page.
-const { isStubFile } = require('./build-redirect-stub');
-for (let i = SHEETS_CONFIG.length - 1; i >= 0; i--) { const f = path.join(__dirname, SHEETS_CONFIG[i].file); if (!fs.existsSync(f) || isStubFile(f)) SHEETS_CONFIG.splice(i, 1); }
-
 fs.readdirSync(__dirname)
-  .filter(f => f.endsWith('.js') && !isTooling(f) && !SHEETS_CONFIG.some(cfg => cfg.js === f) && !isStubFile(path.join(__dirname, f.replace(/\.js$/, '.html'))))
+  .filter(f => f.endsWith('.js') && !isTooling(f) && !SHEETS_CONFIG.some(cfg => cfg.js === f))
   .sort()
   .forEach(js => {
     const key = js.replace(/\.js$/, '');

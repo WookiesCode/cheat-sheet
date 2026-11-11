@@ -10,7 +10,6 @@ const refWhyOf = (text, file) => { const r = referenceReason(text, file); return
 const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js' || f === 'man-pages-data.js' || f === 'flag-index.js' || f === 'nav.js';
 const htmlFor = f => (f === 'app.js' ? 'linux.html' : f.replace(/\.js$/, '.html'));
 
-const { isStub, isStubFile } = require('./build-redirect-stub');
 const jsFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.js') && !isTooling(f));
 
 const index = [];
@@ -70,8 +69,6 @@ for (const jsFile of jsFiles) {
   }
 
   const sName = jsFile === 'app.js' ? 'linux' : jsFile.replace(/\.js$/, '');
-  // A redirected old page's data is now part of its group page.
-  if (isStubFile(path.join(__dirname, htmlFile))) continue;
   // Group pages that hold one part per former page (they register SHEET_FILTER): each entry names its part.
   const merged = content.includes('window.SHEET_FILTER');
 
@@ -155,7 +152,7 @@ function uniqueCommands(items) {
 }
 
 const unique = uniqueCommands(index);
-const pageCount = fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html' && !isStub(fs.readFileSync(path.join(__dirname, f), 'utf8'))).length;
+const pageCount = fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html').length;
 const sheetCount = new Set(unique.map(i => i.file)).size;
 const countsText = `${pageCount} pages, ${sheetCount} of them command sheets with ${unique.length.toLocaleString('en-US')} commands`;
 const COUNTS_RE = /<!-- counts -->[\s\S]*?<!-- \/counts -->/g;

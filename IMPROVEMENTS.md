@@ -563,6 +563,10 @@ The CLI pilot's pattern, applied to the other 21 groups: 172 more pages became p
 | Checked | every old page's commands are in its part (index comparison, 172/172); each old address opens filtered with the rail and pager following (browser, 172/172); 25/25 tests |
 | Old pages deleted | After the checks passed, the 219 redirect pages and the 172 old data files were backed up to `backups/merged-old-pages-20261110-181904.tar.gz` (+ `.sha256`, file list in `.list.txt`) and deleted. Links that named old pages now resolve through `sheetHref()` (decoder, analyzer, Explain, Rosetta) or were rewritten (Omarchy's own nav, the storage playbook). All 219 `group#part` addresses re-checked in the browser. |
 
+## #13 Generators retired (2026-11-10, `remove-generators`)
+
+With every group on one page, nothing ran the 25 page generators (`generate-*-suite.js`, `generate-card-utils.js`, `generate-suite-kit.js`, `create-scripting-data.js`) or the redirect helper `build-redirect-stub.js`, and running one by hand would have re-created the deleted pages. All 26 were backed up to `backups/generators-20261110-183822.tar.gz` (+ `.sha256`, list in `.list.txt`) and deleted, with the code that still called them (the redirect checks in `build-index.js`, `build-portable.js` and the doc-counts test, and the unused generator-menu reader in `build-nav-groups.js`). Each group page's `.js` is its own source now; menus are edited in `nav/nav-source.html`.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |
